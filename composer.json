@@ -12,9 +12,11 @@
         "laravel/jetstream": "^2.12",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
-        "livewire/livewire": "^2.5"
+        "livewire/livewire": "^2.5",
+        "socialiteproviders/telegram": "^4.1"
     },
     "require-dev": {
+        "dragon-code/pretty-routes": "^3.2",
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.16",

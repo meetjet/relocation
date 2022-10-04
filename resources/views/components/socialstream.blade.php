@@ -5,6 +5,11 @@
 </div>
 
 <div class="flex items-center justify-center">
+    <a href="/oauth/telegram">
+        <x-socialstream-icons.telegram class="h-16 w-16 mx-2" />
+        <span class="sr-only">Telegram</span>
+    </a>
+
     @if (JoelButcher\Socialstream\Socialstream::hasFacebookSupport())
         <a href="{{ route('oauth.redirect', ['provider' => JoelButcher\Socialstream\Providers::facebook()]) }}">
             <x-socialstream-icons.facebook class="h-6 w-6 mx-2" />
