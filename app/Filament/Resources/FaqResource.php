@@ -26,6 +26,8 @@ class FaqResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
+    protected static ?int $navigationSort = 2;
+
     /**
      * @param Form $form
      * @return Form
@@ -43,7 +45,7 @@ class FaqResource extends Resource
 //            ])
 //            ->columns(4);
         return $form // TODO: for edition in modal
-            ->schema(static::getMainSchema())
+        ->schema(static::getMainSchema())
             ->columns(1);
     }
 
@@ -106,7 +108,7 @@ class FaqResource extends Resource
     {
         return [
             'index' => Pages\ListFaqs::route('/'),
-            'create' => Pages\CreateFaq::route('/create'),
+//            'create' => Pages\CreateFaq::route('/create'),
 //            'edit' => Pages\EditFaq::route('/{record}/edit'), // TODO: deprecated
         ];
     }
@@ -134,28 +136,43 @@ class FaqResource extends Resource
         ]);
 
         return [
-            Components\Placeholder::make('original')
-                ->label(__('Original text'))
-                ->content(fn(Faq $record): string => $record['original']),
-
-            Components\MarkdownEditor::make('question')
-                ->label(__('Question'))
-                ->rules(['nullable', "required_if:status,{$publishedStatus}"]),
-
-            Components\MarkdownEditor::make('answer')
-                ->label(__('Answer'))
-                ->requiredWith('question'),
-
+            // Question editing form.
             Components\Group::make()
                 ->schema([
-                    Components\Select::make('status')
-                        ->label(__('Status'))
-                        ->options($statusOptions)
-                        ->required(),
-                    Components\Toggle::make('visibility')
-                        ->label(__('Visibility')),
+                    Components\Placeholder::make('original')
+                        ->label(__('Original text'))
+                        ->content(fn(Faq $record): string => $record['original']),
+
+                    Components\MarkdownEditor::make('question')
+                        ->label(__('Question'))
+                        ->rules(['nullable', "required_if:status,{$publishedStatus}"]),
+
+                    Components\MarkdownEditor::make('answer')
+                        ->label(__('Answer'))
+                        ->requiredWith('question'),
+
+                    Components\Group::make()
+                        ->schema([
+                            Components\Select::make('status')
+                                ->label(__('Status'))
+                                ->options($statusOptions)
+                                ->required(),
+                            Components\Toggle::make('visibility')
+                                ->label(__('Visibility'))
+                                ->default(true),
+                        ])
+                        ->columns(),
                 ])
-                ->columns(),
+                ->hidden(fn($record): bool => is_null($record)),
+
+            // Form for creating a new question.
+            Components\Group::make()
+                ->schema([
+                    Components\MarkdownEditor::make('original')
+                        ->label(__('Original text'))
+                        ->required(),
+                ])
+                ->hidden(fn($record): bool => !is_null($record))
         ];
     }
 
@@ -184,20 +201,20 @@ class FaqResource extends Resource
                 ->form([
                     Components\DatePicker::make('published_from')
                         ->label(__('Created from'))
-                        ->placeholder(fn ($state): string => now()->format('M d, Y')),
+                        ->placeholder(fn($state): string => now()->format('M d, Y')),
                     Components\DatePicker::make('published_until')
                         ->label(__('Created until'))
-                        ->placeholder(fn ($state): string => now()->format('M d, Y')),
+                        ->placeholder(fn($state): string => now()->format('M d, Y')),
                 ])
                 ->query(function (Builder $query, array $data): Builder {
                     return $query
                         ->when(
                             $data['published_from'],
-                            fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                            fn(Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
                         )
                         ->when(
                             $data['published_until'],
-                            fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
+                            fn(Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
                         );
                 })
                 ->indicateUsing(function (array $data): array {
