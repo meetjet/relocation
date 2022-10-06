@@ -197,6 +197,51 @@ class FaqResource extends Resource
         return [
             Filters\TrashedFilter::make(),
 
+            Filters\Filter::make('status')
+                ->form([
+                    Components\Select::make('status')
+                        ->label(__('Status'))
+                        ->placeholder("-")
+                        ->options(FaqStatus::asSelectArray()),
+                ])
+                ->query(function (Builder $query, array $data): Builder {
+                    return $query->when(
+                        $data['status'],
+                        fn(Builder $query, $status): Builder => $query->where('status', $status),
+                    );
+                })
+                ->indicateUsing(function (array $data): ?string {
+                    if ($data['status']) {
+                        return __('Status') . ' "' . FaqStatus::getDescription($data['status']) . '"';
+                    }
+
+                    return null;
+                }),
+
+            Filters\Filter::make('visibility')
+                ->form([
+                    Components\Select::make('visibility')
+                        ->label(__('Visibility'))
+                        ->placeholder("-")
+                        ->options([
+                            'true' => __("Yes"),
+                            'false' => __("No"),
+                        ]),
+                ])
+                ->query(function (Builder $query, array $data): Builder {
+                    return $query->when(
+                        $data['visibility'],
+                        fn(Builder $query, $visibility): Builder => $query->where('visibility', json_decode($visibility)),
+                    );
+                })
+                ->indicateUsing(function (array $data): ?string {
+                    if ($data['visibility']) {
+                        return __('Visibility') . ' "' . (json_decode($data['visibility']) ? __("Yes") : __("No")) . '"';
+                    }
+
+                    return null;
+                }),
+
             Filters\Filter::make('created_at')
                 ->form([
                     Components\DatePicker::make('published_from')
