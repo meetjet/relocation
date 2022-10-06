@@ -68,6 +68,7 @@ class FaqResource extends Resource
                             ->orWhere('title', 'ilike', "%{$search}%")
                             ->orWhere('question', 'ilike', "%{$search}%");
                     })
+                    ->color(fn($record): ?string => is_null($record->deleted_at) ? null : "danger")
                     ->sortable(),
 
                 Columns\TextColumn::make('created_at')
