@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "67496c9761f119613f0dc9dc5916b69c",
+=======
+    "content-hash": "a5da69dff6e28fea92bf7a1890274824",
+>>>>>>> main
     "packages": [
         {
             "name": "akaunting/laravel-money",
@@ -127,6 +131,93 @@
                 "source": "https://github.com/Bacon/BaconQrCode/tree/2.0.7"
             },
             "time": "2022-03-14T02:02:36+00:00"
+        },
+        {
+            "name": "bensampo/laravel-enum",
+            "version": "v6.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/BenSampo/laravel-enum.git",
+                "reference": "5a6d643a20a123b899893af779d0431f8f9e8dd9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/BenSampo/laravel-enum/zipball/5a6d643a20a123b899893af779d0431f8f9e8dd9",
+                "reference": "5a6d643a20a123b899893af779d0431f8f9e8dd9",
+                "shasum": ""
+            },
+            "require": {
+                "composer/class-map-generator": "^1",
+                "illuminate/contracts": "^9",
+                "illuminate/support": "^9",
+                "laminas/laminas-code": "^3.4 || ^4",
+                "nikic/php-parser": "^4.13",
+                "php": "^8"
+            },
+            "require-dev": {
+                "doctrine/dbal": "^3.4",
+                "ergebnis/composer-normalize": "^2.28.3",
+                "mockery/mockery": "^1.5",
+                "nunomaduro/larastan": "^2.1.12",
+                "orchestra/testbench": "^7.6.1",
+                "phpstan/phpstan": "^1.8.2",
+                "phpstan/phpstan-mockery": "^1.1",
+                "phpstan/phpstan-phpunit": "^1.1.1",
+                "phpunit/phpunit": "^9.5.21",
+                "squizlabs/php_codesniffer": "^3.7.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "BenSampo\\Enum\\EnumServiceProvider"
+                    ]
+                },
+                "phpstan": {
+                    "includes": [
+                        "extension.neon"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "BenSampo\\Enum\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ben Sampson",
+                    "homepage": "https://sampo.co.uk",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Simple, extensible and powerful enumeration implementation for Laravel.",
+            "homepage": "https://github.com/bensampo/laravel-enum",
+            "keywords": [
+                "bensampo",
+                "enum",
+                "laravel",
+                "package",
+                "validation"
+            ],
+            "support": {
+                "issues": "https://github.com/BenSampo/laravel-enum/issues",
+                "source": "https://github.com/BenSampo/laravel-enum/tree/v6.0.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/bensampo",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-08-12T13:55:55+00:00"
         },
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -333,6 +424,150 @@
                 }
             ],
             "time": "2022-08-10T22:54:19+00:00"
+        },
+        {
+            "name": "composer/class-map-generator",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/composer/class-map-generator.git",
+                "reference": "1e1cb2b791facb2dfe32932a7718cf2571187513"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/composer/class-map-generator/zipball/1e1cb2b791facb2dfe32932a7718cf2571187513",
+                "reference": "1e1cb2b791facb2dfe32932a7718cf2571187513",
+                "shasum": ""
+            },
+            "require": {
+                "composer/pcre": "^2 || ^3",
+                "php": "^7.2 || ^8.0",
+                "symfony/finder": "^4.4 || ^5.3 || ^6"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^1.6",
+                "phpstan/phpstan-deprecation-rules": "^1",
+                "phpstan/phpstan-phpunit": "^1",
+                "phpstan/phpstan-strict-rules": "^1.1",
+                "symfony/filesystem": "^5.4 || ^6",
+                "symfony/phpunit-bridge": "^5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Composer\\ClassMapGenerator\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jordi Boggiano",
+                    "email": "j.boggiano@seld.be",
+                    "homepage": "https://seld.be"
+                }
+            ],
+            "description": "Utilities to scan PHP code and generate class maps.",
+            "keywords": [
+                "classmap"
+            ],
+            "support": {
+                "issues": "https://github.com/composer/class-map-generator/issues",
+                "source": "https://github.com/composer/class-map-generator/tree/1.0.0"
+            },
+            "funding": [
+                {
+                    "url": "https://packagist.com",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/composer",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/composer/composer",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-06-19T11:31:27+00:00"
+        },
+        {
+            "name": "composer/pcre",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/composer/pcre.git",
+                "reference": "e300eb6c535192decd27a85bc72a9290f0d6b3bd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/composer/pcre/zipball/e300eb6c535192decd27a85bc72a9290f0d6b3bd",
+                "reference": "e300eb6c535192decd27a85bc72a9290f0d6b3bd",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^1.3",
+                "phpstan/phpstan-strict-rules": "^1.1",
+                "symfony/phpunit-bridge": "^5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Composer\\Pcre\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jordi Boggiano",
+                    "email": "j.boggiano@seld.be",
+                    "homepage": "http://seld.be"
+                }
+            ],
+            "description": "PCRE wrapping library that offers type-safe preg_* replacements.",
+            "keywords": [
+                "PCRE",
+                "preg",
+                "regex",
+                "regular expression"
+            ],
+            "support": {
+                "issues": "https://github.com/composer/pcre/issues",
+                "source": "https://github.com/composer/pcre/tree/3.0.0"
+            },
+            "funding": [
+                {
+                    "url": "https://packagist.com",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/composer",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/composer/composer",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2022-02-25T20:21:48+00:00"
         },
         {
             "name": "danharrin/date-format-converter",
@@ -1197,16 +1432,16 @@
         },
         {
             "name": "filament/filament",
-            "version": "v2.16.19",
+            "version": "v2.16.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/admin.git",
-                "reference": "4339ddb2ebdfcde84ce84fc7bf25a9fe9ac58da8"
+                "reference": "0e7c307a14da1d1425c43f8eb0616290cb049b5b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/admin/zipball/4339ddb2ebdfcde84ce84fc7bf25a9fe9ac58da8",
-                "reference": "4339ddb2ebdfcde84ce84fc7bf25a9fe9ac58da8",
+                "url": "https://api.github.com/repos/filamentphp/admin/zipball/0e7c307a14da1d1425c43f8eb0616290cb049b5b",
+                "reference": "0e7c307a14da1d1425c43f8eb0616290cb049b5b",
                 "shasum": ""
             },
             "require": {
@@ -1256,20 +1491,20 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2022-09-30T09:40:33+00:00"
+            "time": "2022-10-04T23:22:42+00:00"
         },
         {
             "name": "filament/forms",
-            "version": "v2.16.19",
+            "version": "v2.16.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/forms.git",
-                "reference": "b31eee45cf9b7117244784f618e87ac53f091b3d"
+                "reference": "dcbe7cee6469126e55ed04b2cda455aa359fc27c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/forms/zipball/b31eee45cf9b7117244784f618e87ac53f091b3d",
-                "reference": "b31eee45cf9b7117244784f618e87ac53f091b3d",
+                "url": "https://api.github.com/repos/filamentphp/forms/zipball/dcbe7cee6469126e55ed04b2cda455aa359fc27c",
+                "reference": "dcbe7cee6469126e55ed04b2cda455aa359fc27c",
                 "shasum": ""
             },
             "require": {
@@ -1314,11 +1549,11 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2022-09-30T09:40:29+00:00"
+            "time": "2022-10-04T23:22:38+00:00"
         },
         {
             "name": "filament/notifications",
-            "version": "v2.16.19",
+            "version": "v2.16.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/notifications.git",
@@ -1368,16 +1603,16 @@
         },
         {
             "name": "filament/support",
-            "version": "v2.16.19",
+            "version": "v2.16.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/support.git",
-                "reference": "26447bd562b7676131a7c7c3776e64ce626474a3"
+                "reference": "a6f4b2a0d63c9d01f05882d660abfdfc3df0703a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/support/zipball/26447bd562b7676131a7c7c3776e64ce626474a3",
-                "reference": "26447bd562b7676131a7c7c3776e64ce626474a3",
+                "url": "https://api.github.com/repos/filamentphp/support/zipball/a6f4b2a0d63c9d01f05882d660abfdfc3df0703a",
+                "reference": "a6f4b2a0d63c9d01f05882d660abfdfc3df0703a",
                 "shasum": ""
             },
             "require": {
@@ -1414,20 +1649,20 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2022-09-30T09:40:25+00:00"
+            "time": "2022-10-04T16:16:45+00:00"
         },
         {
             "name": "filament/tables",
-            "version": "v2.16.19",
+            "version": "v2.16.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/tables.git",
-                "reference": "00a28873fd17bc2a25418e7c07ef4f795aed1f31"
+                "reference": "dbde0aef6854737eb0d2c74100a93b4355b2aa3f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/tables/zipball/00a28873fd17bc2a25418e7c07ef4f795aed1f31",
-                "reference": "00a28873fd17bc2a25418e7c07ef4f795aed1f31",
+                "url": "https://api.github.com/repos/filamentphp/tables/zipball/dbde0aef6854737eb0d2c74100a93b4355b2aa3f",
+                "reference": "dbde0aef6854737eb0d2c74100a93b4355b2aa3f",
                 "shasum": ""
             },
             "require": {
@@ -1470,7 +1705,7 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2022-09-30T09:40:21+00:00"
+            "time": "2022-10-04T23:22:36+00:00"
         },
         {
             "name": "fruitcake/php-cors",
@@ -2072,6 +2307,7 @@
             "time": "2020-06-13T08:05:20+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "joelbutcher/socialstream",
             "version": "v3.8.0",
             "source": {
@@ -2083,6 +2319,85 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/joelbutcher/socialstream/zipball/17ba73a009d43cb2adf50e90d1151aa11e3354c9",
                 "reference": "17ba73a009d43cb2adf50e90d1151aa11e3354c9",
+=======
+            "name": "laminas/laminas-code",
+            "version": "4.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laminas/laminas-code.git",
+                "reference": "0337d9265bc2e6376babad8c511500821620cb30"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laminas/laminas-code/zipball/0337d9265bc2e6376babad8c511500821620cb30",
+                "reference": "0337d9265bc2e6376babad8c511500821620cb30",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4, <8.2"
+            },
+            "require-dev": {
+                "doctrine/annotations": "^1.13.2",
+                "ext-phar": "*",
+                "laminas/laminas-coding-standard": "^2.3.0",
+                "laminas/laminas-stdlib": "^3.6.1",
+                "phpunit/phpunit": "^9.5.10",
+                "psalm/plugin-phpunit": "^0.17.0",
+                "vimeo/psalm": "^4.13.1"
+            },
+            "suggest": {
+                "doctrine/annotations": "Doctrine\\Common\\Annotations >=1.0 for annotation features",
+                "laminas/laminas-stdlib": "Laminas\\Stdlib component"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "polyfill/ReflectionEnumPolyfill.php"
+                ],
+                "psr-4": {
+                    "Laminas\\Code\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Extensions to the PHP Reflection API, static code scanning, and code generation",
+            "homepage": "https://laminas.dev",
+            "keywords": [
+                "code",
+                "laminas",
+                "laminasframework"
+            ],
+            "support": {
+                "chat": "https://laminas.dev/chat",
+                "docs": "https://docs.laminas.dev/laminas-code/",
+                "forum": "https://discourse.laminas.dev",
+                "issues": "https://github.com/laminas/laminas-code/issues",
+                "rss": "https://github.com/laminas/laminas-code/releases.atom",
+                "source": "https://github.com/laminas/laminas-code"
+            },
+            "funding": [
+                {
+                    "url": "https://funding.communitybridge.org/projects/laminas-project",
+                    "type": "community_bridge"
+                }
+            ],
+            "time": "2022-09-13T10:33:30+00:00"
+        },
+        {
+            "name": "laravel/fortify",
+            "version": "v1.13.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/fortify.git",
+                "reference": "9a68cf2deb37d1796b6e2fd97d3c61f086868914"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/fortify/zipball/9a68cf2deb37d1796b6e2fd97d3c61f086868914",
+                "reference": "9a68cf2deb37d1796b6e2fd97d3c61f086868914",
+>>>>>>> main
                 "shasum": ""
             },
             "require": {
@@ -2145,6 +2460,7 @@
                 "issues": "https://github.com/joelbutcher/socialstream/issues",
                 "source": "https://github.com/joelbutcher/socialstream"
             },
+<<<<<<< HEAD
             "funding": [
                 {
                     "url": "https://paypal.me/joelbutcher",
@@ -2218,6 +2534,8 @@
                 "issues": "https://github.com/laravel/fortify/issues",
                 "source": "https://github.com/laravel/fortify"
             },
+=======
+>>>>>>> main
             "time": "2022-09-30T13:20:14+00:00"
         },
         {
@@ -5132,6 +5450,50 @@
                 }
             ],
             "time": "2022-09-07T14:31:31+00:00"
+        },
+        {
+            "name": "stancl/virtualcolumn",
+            "version": "v1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/archtechx/virtualcolumn.git",
+                "reference": "dd3a77f17c9adc2078b0b7d36e5a798981049164"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/archtechx/virtualcolumn/zipball/dd3a77f17c9adc2078b0b7d36e5a798981049164",
+                "reference": "dd3a77f17c9adc2078b0b7d36e5a798981049164",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^6.0|^8.0|^9.0",
+                "illuminate/support": "^6.0|^8.0|^9.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^4.0|^6.0|^7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Stancl\\VirtualColumn\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Samuel Štancl",
+                    "email": "samuel.stancl@gmail.com"
+                }
+            ],
+            "description": "Eloquent virtual column.",
+            "support": {
+                "issues": "https://github.com/archtechx/virtualcolumn/issues",
+                "source": "https://github.com/archtechx/virtualcolumn/tree/v1.2.1"
+            },
+            "time": "2022-01-27T11:08:03+00:00"
         },
         {
             "name": "symfony/console",
