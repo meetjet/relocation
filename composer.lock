@@ -4,11 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
-    "content-hash": "67496c9761f119613f0dc9dc5916b69c",
-=======
-    "content-hash": "a5da69dff6e28fea92bf7a1890274824",
->>>>>>> main
+    "content-hash": "06afc6c6ca938fc41bc6c581b7cc6ca7",
     "packages": [
         {
             "name": "akaunting/laravel-money",
@@ -1432,16 +1428,16 @@
         },
         {
             "name": "filament/filament",
-            "version": "v2.16.21",
+            "version": "v2.16.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/admin.git",
-                "reference": "0e7c307a14da1d1425c43f8eb0616290cb049b5b"
+                "reference": "bc88fffc39de8d29fa81775eab9407c03a060ae3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/admin/zipball/0e7c307a14da1d1425c43f8eb0616290cb049b5b",
-                "reference": "0e7c307a14da1d1425c43f8eb0616290cb049b5b",
+                "url": "https://api.github.com/repos/filamentphp/admin/zipball/bc88fffc39de8d29fa81775eab9407c03a060ae3",
+                "reference": "bc88fffc39de8d29fa81775eab9407c03a060ae3",
                 "shasum": ""
             },
             "require": {
@@ -1491,20 +1487,20 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2022-10-04T23:22:42+00:00"
+            "time": "2022-10-06T12:44:37+00:00"
         },
         {
             "name": "filament/forms",
-            "version": "v2.16.21",
+            "version": "v2.16.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/forms.git",
-                "reference": "dcbe7cee6469126e55ed04b2cda455aa359fc27c"
+                "reference": "96db13999cf05fe12e8b113ed0454ed03bf1c1d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/forms/zipball/dcbe7cee6469126e55ed04b2cda455aa359fc27c",
-                "reference": "dcbe7cee6469126e55ed04b2cda455aa359fc27c",
+                "url": "https://api.github.com/repos/filamentphp/forms/zipball/96db13999cf05fe12e8b113ed0454ed03bf1c1d1",
+                "reference": "96db13999cf05fe12e8b113ed0454ed03bf1c1d1",
                 "shasum": ""
             },
             "require": {
@@ -1549,20 +1545,20 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2022-10-04T23:22:38+00:00"
+            "time": "2022-10-06T12:44:41+00:00"
         },
         {
             "name": "filament/notifications",
-            "version": "v2.16.21",
+            "version": "v2.16.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/notifications.git",
-                "reference": "466ea57d8744f834e4c2bcf30bf66e7b82c41e89"
+                "reference": "52a596d9c1843aad31f19f7774caf15e70c6cc31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/notifications/zipball/466ea57d8744f834e4c2bcf30bf66e7b82c41e89",
-                "reference": "466ea57d8744f834e4c2bcf30bf66e7b82c41e89",
+                "url": "https://api.github.com/repos/filamentphp/notifications/zipball/52a596d9c1843aad31f19f7774caf15e70c6cc31",
+                "reference": "52a596d9c1843aad31f19f7774caf15e70c6cc31",
                 "shasum": ""
             },
             "require": {
@@ -1599,20 +1595,20 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2022-09-30T09:40:22+00:00"
+            "time": "2022-10-06T12:44:43+00:00"
         },
         {
             "name": "filament/support",
-            "version": "v2.16.21",
+            "version": "v2.16.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/support.git",
-                "reference": "a6f4b2a0d63c9d01f05882d660abfdfc3df0703a"
+                "reference": "dfce82138d9e7895a31931f4017ef1257cb2eb38"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/support/zipball/a6f4b2a0d63c9d01f05882d660abfdfc3df0703a",
-                "reference": "a6f4b2a0d63c9d01f05882d660abfdfc3df0703a",
+                "url": "https://api.github.com/repos/filamentphp/support/zipball/dfce82138d9e7895a31931f4017ef1257cb2eb38",
+                "reference": "dfce82138d9e7895a31931f4017ef1257cb2eb38",
                 "shasum": ""
             },
             "require": {
@@ -1649,20 +1645,20 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2022-10-04T16:16:45+00:00"
+            "time": "2022-10-06T12:44:43+00:00"
         },
         {
             "name": "filament/tables",
-            "version": "v2.16.21",
+            "version": "v2.16.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filamentphp/tables.git",
-                "reference": "dbde0aef6854737eb0d2c74100a93b4355b2aa3f"
+                "reference": "dd07e789f766f61ed44775e262fbdb4e685b6a94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filamentphp/tables/zipball/dbde0aef6854737eb0d2c74100a93b4355b2aa3f",
-                "reference": "dbde0aef6854737eb0d2c74100a93b4355b2aa3f",
+                "url": "https://api.github.com/repos/filamentphp/tables/zipball/dd07e789f766f61ed44775e262fbdb4e685b6a94",
+                "reference": "dd07e789f766f61ed44775e262fbdb4e685b6a94",
                 "shasum": ""
             },
             "require": {
@@ -1705,7 +1701,7 @@
                 "issues": "https://github.com/filamentphp/filament/issues",
                 "source": "https://github.com/filamentphp/filament"
             },
-            "time": "2022-10-04T23:22:36+00:00"
+            "time": "2022-10-06T12:44:39+00:00"
         },
         {
             "name": "fruitcake/php-cors",
@@ -2307,7 +2303,6 @@
             "time": "2020-06-13T08:05:20+00:00"
         },
         {
-<<<<<<< HEAD
             "name": "joelbutcher/socialstream",
             "version": "v3.8.0",
             "source": {
@@ -2319,7 +2314,81 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/joelbutcher/socialstream/zipball/17ba73a009d43cb2adf50e90d1151aa11e3354c9",
                 "reference": "17ba73a009d43cb2adf50e90d1151aa11e3354c9",
-=======
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/dbal": "^3.0",
+                "illuminate/support": "^9.21",
+                "laravel/jetstream": "^2.10.1",
+                "laravel/socialite": "^5.5.1",
+                "php": "^8.0.2"
+            },
+            "require-dev": {
+                "inertiajs/inertia-laravel": "^0.5.2",
+                "laravel/sanctum": "^2.7",
+                "mockery/mockery": "^1.0",
+                "orchestra/testbench": "^7.0",
+                "phpunit/phpunit": "^9.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "JoelButcher\\Socialstream\\SocialstreamServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "JoelButcher\\Socialstream\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Joel Butcher",
+                    "email": "joel@joelbutcher.co.uk"
+                }
+            ],
+            "description": "A simple Socialite implementation for Laravel Jetstream.",
+            "keywords": [
+                "SocialStream",
+                "inertia",
+                "jetstream",
+                "jetstream socialite",
+                "laravel",
+                "laravel jetstream",
+                "laravel livewire",
+                "laravel oauth",
+                "laravel socialite",
+                "oauth",
+                "socialite",
+                "tailwind",
+                "vue"
+            ],
+            "support": {
+                "issues": "https://github.com/joelbutcher/socialstream/issues",
+                "source": "https://github.com/joelbutcher/socialstream"
+            },
+            "funding": [
+                {
+                    "url": "https://paypal.me/joelbutcher",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/joelbutcher",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-09-19T19:21:18+00:00"
+        },
+        {
             "name": "laminas/laminas-code",
             "version": "4.7.0",
             "source": {
@@ -2397,94 +2466,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/laravel/fortify/zipball/9a68cf2deb37d1796b6e2fd97d3c61f086868914",
                 "reference": "9a68cf2deb37d1796b6e2fd97d3c61f086868914",
->>>>>>> main
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/dbal": "^3.0",
-                "illuminate/support": "^9.21",
-                "laravel/jetstream": "^2.10.1",
-                "laravel/socialite": "^5.5.1",
-                "php": "^8.0.2"
-            },
-            "require-dev": {
-                "inertiajs/inertia-laravel": "^0.5.2",
-                "laravel/sanctum": "^2.7",
-                "mockery/mockery": "^1.0",
-                "orchestra/testbench": "^7.0",
-                "phpunit/phpunit": "^9.3"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.x-dev"
-                },
-                "laravel": {
-                    "providers": [
-                        "JoelButcher\\Socialstream\\SocialstreamServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "JoelButcher\\Socialstream\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Joel Butcher",
-                    "email": "joel@joelbutcher.co.uk"
-                }
-            ],
-            "description": "A simple Socialite implementation for Laravel Jetstream.",
-            "keywords": [
-                "SocialStream",
-                "inertia",
-                "jetstream",
-                "jetstream socialite",
-                "laravel",
-                "laravel jetstream",
-                "laravel livewire",
-                "laravel oauth",
-                "laravel socialite",
-                "oauth",
-                "socialite",
-                "tailwind",
-                "vue"
-            ],
-            "support": {
-                "issues": "https://github.com/joelbutcher/socialstream/issues",
-                "source": "https://github.com/joelbutcher/socialstream"
-            },
-<<<<<<< HEAD
-            "funding": [
-                {
-                    "url": "https://paypal.me/joelbutcher",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/joelbutcher",
-                    "type": "github"
-                }
-            ],
-            "time": "2022-09-19T19:21:18+00:00"
-        },
-        {
-            "name": "laravel/fortify",
-            "version": "v1.13.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel/fortify.git",
-                "reference": "9a68cf2deb37d1796b6e2fd97d3c61f086868914"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravel/fortify/zipball/9a68cf2deb37d1796b6e2fd97d3c61f086868914",
-                "reference": "9a68cf2deb37d1796b6e2fd97d3c61f086868914",
                 "shasum": ""
             },
             "require": {
@@ -2534,8 +2515,6 @@
                 "issues": "https://github.com/laravel/fortify/issues",
                 "source": "https://github.com/laravel/fortify"
             },
-=======
->>>>>>> main
             "time": "2022-09-30T13:20:14+00:00"
         },
         {
@@ -8480,16 +8459,16 @@
         },
         {
             "name": "dragon-code/support",
-            "version": "v6.4.1",
+            "version": "v6.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TheDragonCode/support.git",
-                "reference": "bc594f9f18d583056645173298dfcaea4677b024"
+                "reference": "c8c38d911b0b0b475f0d99a2f4ee46da5427cddf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TheDragonCode/support/zipball/bc594f9f18d583056645173298dfcaea4677b024",
-                "reference": "bc594f9f18d583056645173298dfcaea4677b024",
+                "url": "https://api.github.com/repos/TheDragonCode/support/zipball/c8c38d911b0b0b475f0d99a2f4ee46da5427cddf",
+                "reference": "c8c38d911b0b0b475f0d99a2f4ee46da5427cddf",
                 "shasum": ""
             },
             "require": {
@@ -8563,6 +8542,10 @@
             },
             "funding": [
                 {
+                    "url": "https://boosty.to/dragon-code",
+                    "type": "custom"
+                },
+                {
                     "url": "https://yoomoney.ru/to/410012608840929",
                     "type": "custom"
                 },
@@ -8575,7 +8558,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2022-09-25T15:01:20+00:00"
+            "time": "2022-10-06T20:02:36+00:00"
         },
         {
             "name": "fakerphp/faker",
