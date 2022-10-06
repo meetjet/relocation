@@ -62,7 +62,12 @@ class FaqResource extends Resource
                     ->getStateUsing(fn($record): string => $record->title ?: $record->original)
                     ->label(__('Question'))
                     ->wrap()
-                    ->searchable()
+                    ->searchable(query: function (Builder $query, string $search): Builder {
+                        return $query
+                            ->where('original', 'ilike', "%{$search}%")
+                            ->orWhere('title', 'ilike', "%{$search}%")
+                            ->orWhere('question', 'ilike', "%{$search}%");
+                    })
                     ->sortable(),
 
                 Columns\TextColumn::make('created_at')
