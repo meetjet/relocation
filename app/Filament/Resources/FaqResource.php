@@ -246,10 +246,16 @@ class FaqResource extends Resource
                 ->form([
                     Components\DatePicker::make('published_from')
                         ->label(__('Created from'))
-                        ->placeholder(fn($state): string => now()->format('M d, Y')),
+                        ->maxDate(Carbon::today())
+                        ->placeholder(fn($state): string => Carbon::parse(now())
+                            ->setTimezone(config('app.timezone'))
+                            ->translatedFormat(config('tables.date_format'))),
                     Components\DatePicker::make('published_until')
                         ->label(__('Created until'))
-                        ->placeholder(fn($state): string => now()->format('M d, Y')),
+                        ->maxDate(Carbon::today())
+                        ->placeholder(fn($state): string => Carbon::parse(now())
+                            ->setTimezone(config('app.timezone'))
+                            ->translatedFormat(config('tables.date_format'))),
                 ])
                 ->query(function (Builder $query, array $data): Builder {
                     return $query
@@ -265,10 +271,14 @@ class FaqResource extends Resource
                 ->indicateUsing(function (array $data): array {
                     $indicators = [];
                     if ($data['published_from'] ?? null) {
-                        $indicators['published_from'] = __('Created from') . ' ' . Carbon::parse($data['published_from'])->toFormattedDateString();
+                        $indicators['published_from'] = __('Created from') . ' ' . Carbon::parse($data['published_from'])
+                                ->setTimezone(config('app.timezone'))
+                                ->translatedFormat(config('tables.date_format'));
                     }
                     if ($data['published_until'] ?? null) {
-                        $indicators['published_until'] = __('Created until') . ' ' . Carbon::parse($data['published_until'])->toFormattedDateString();
+                        $indicators['published_until'] = __('Created until') . ' ' . Carbon::parse($data['published_until'])
+                                ->setTimezone(config('app.timezone'))
+                                ->translatedFormat(config('tables.date_format'));
                     }
 
                     return $indicators;
