@@ -17,13 +17,14 @@ class FaqFactory extends Factory
      */
     public function definition(): array
     {
-        $content = $this->faker->text();
+        $content = $this->faker->text(400);
         $status = $this->faker->randomElement(FaqStatus::getValues());
         $visibility = $this->faker->boolean();
 
         if ($status === FaqStatus::PUBLISHED) {
             return [
                 'original' => $content,
+                'title' => $this->faker->text(100),
                 'question' => $content,
                 'answer' => $this->faker->text(),
                 'status' => $status,

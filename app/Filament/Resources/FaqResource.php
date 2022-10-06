@@ -59,10 +59,9 @@ class FaqResource extends Resource
         return $table
             ->columns([
                 Columns\TextColumn::make('original')
-                    ->getStateUsing(fn($record): string => $record->question ?: $record->original)
+                    ->getStateUsing(fn($record): string => $record->title ?: $record->original)
                     ->label(__('Question'))
                     ->wrap()
-                    ->limit(150)
                     ->searchable()
                     ->sortable(),
 
@@ -142,6 +141,10 @@ class FaqResource extends Resource
                     Components\Placeholder::make('original')
                         ->label(__('Original text'))
                         ->content(fn(Faq $record): string => $record['original']),
+
+                    Components\Textarea::make('title')
+                        ->label(__('Title'))
+                        ->rows(2),
 
                     Components\MarkdownEditor::make('question')
                         ->label(__('Question'))

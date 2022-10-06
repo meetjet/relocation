@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->uuid()->nullable()->unique();
 
             $table->text('original');
+            $table->string('title')->nullable();
             $table->text('question')->nullable();
             $table->text('answer')->nullable();
             $table->string('status')->default(FaqStatus::CREATED);

@@ -15,7 +15,7 @@ class Faq extends Model
     use VirtualColumn;
     use HasUUID;
 
-    protected $fillable = ['original', 'question', 'answer', 'status', 'visibility'];
+    protected $fillable = ['original', 'title', 'question', 'answer', 'status', 'visibility'];
 
     /**
      * @return string[]
@@ -26,6 +26,7 @@ class Faq extends Model
             'id',
             'uuid',
             'original',
+            'title',
             'question',
             'answer',
             'status',
