@@ -10,14 +10,16 @@
         "filament/filament": "^2.16",
         "filament/tables": "^2.16",
         "guzzlehttp/guzzle": "^7.2",
+        "joelbutcher/socialstream": "^3.8",
         "laravel/framework": "^9.19",
         "laravel/jetstream": "^2.12",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
-        "livewire/livewire": "^2.5",
         "stancl/virtualcolumn": "^1.2"
+        "socialiteproviders/telegram": "^4.1"
     },
     "require-dev": {
+        "dragon-code/pretty-routes": "^3.2",
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.16",
