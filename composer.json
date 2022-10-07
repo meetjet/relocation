@@ -15,8 +15,9 @@
         "laravel/jetstream": "^2.12",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
-        "stancl/virtualcolumn": "^1.2",
-        "socialiteproviders/telegram": "^4.1"
+        "nutgram/nutgram": "^3.7",
+        "socialiteproviders/telegram": "^4.1",
+        "stancl/virtualcolumn": "^1.2"
     },
     "require-dev": {
         "dragon-code/pretty-routes": "^3.2",
