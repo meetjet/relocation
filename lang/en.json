@@ -1,4 +1,12 @@
 {
+    "ID": "ID",
+    "Users": "Users",
+    "User": "User",
+    "Name": "Name",
+    "Email": "Email",
+    "Password": "Password",
+    "New password": "New password",
+    "The :attribute must be at least :length characters.": "The :attribute must be at least :length characters.",
     "FAQ": "FAQ",
     "Title": "Title",
     "Original text": "Original text",

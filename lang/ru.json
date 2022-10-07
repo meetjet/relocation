@@ -1,4 +1,12 @@
 {
+    "ID": "ID",
+    "Users": "Пользователи",
+    "User": "Пользователь",
+    "Name": "Имя",
+    "Email": "E-Mail адрес",
+    "Password": "Пароль",
+    "New password": "Новый пароль",
+    "The :attribute must be at least :length characters.": "Количество символов в поле :attribute должно быть не меньше :length.",
     "FAQ": "FAQ",
     "Title": "Заголовок",
     "Original text": "Оригинальный текст",
