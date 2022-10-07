@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use JoelButcher\Socialstream\HasConnectedAccounts;
@@ -19,6 +20,7 @@ class User extends Authenticatable
     use HasProfilePhoto {
         getProfilePhotoUrlAttribute as getPhotoUrl;
     }
+    use SoftDeletes;
     use HasTeams;
     use HasConnectedAccounts;
     use Notifiable;
@@ -28,7 +30,7 @@ class User extends Authenticatable
     /**
      * The attributes that are mass assignable.
      *
-     * @var array
+     * @var string[]
      */
     protected $fillable = [
         'name', 'email', 'password',

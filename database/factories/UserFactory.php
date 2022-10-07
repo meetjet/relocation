@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Laravel\Jetstream\Features;
 
@@ -22,13 +23,24 @@ class UserFactory extends Factory
      *
      * @return array
      */
-    public function definition()
+    public function definition(): array
     {
+        $faker = \Faker\Factory::create("ru_RU");
+
+        $gender = $this->faker->randomElement(["male", "female"]);
+
+        $firstName = $faker->firstName($gender);
+        $lastName = $this->faker->randomElement(["", $faker->lastName($gender)]);
+        $name = trim("{$firstName} {$lastName}");
+
+        $email = $this->faker->unique()->safeEmail();
+        $password = Hash::make($email);
+
         return [
-            'name' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(),
+            'name' => $name,
+            'email' => $email,
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => $password,
             'remember_token' => Str::random(10),
         ];
     }
@@ -36,7 +48,7 @@ class UserFactory extends Factory
     /**
      * Indicate that the model's email address should be unverified.
      *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     * @return Factory
      */
     public function unverified()
     {

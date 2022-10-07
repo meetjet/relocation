@@ -6,13 +6,12 @@ use App\Enums\FaqStatus;
 use App\Filament\Resources\FaqResource\Pages;
 use App\Filament\Resources\FaqResource\RelationManagers;
 use App\Models\Faq;
-use Closure;
 use Exception;
 use Filament\Forms\Components;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
-use Filament\Tables\Actions;
+use App\Filament\Actions;
 use Filament\Tables\Columns;
 use Filament\Tables\Filters;
 use Illuminate\Database\Eloquent\Builder;
@@ -119,13 +118,13 @@ class FaqResource extends Resource
             ])
             ->filters(static::getFilters())
             ->actions([
-                Actions\EditAction::make(),
+                Actions\Tables\EditAction::make(),
 //                Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Actions\DeleteBulkAction::make(),
-                Actions\RestoreBulkAction::make(),
-                Actions\ForceDeleteBulkAction::make(),
+                Actions\Tables\DeleteBulkAction::make(),
+                Actions\Tables\RestoreBulkAction::make(),
+                Actions\Tables\ForceDeleteBulkAction::make(),
             ])
             ->defaultSort('id', 'desc');
     }
