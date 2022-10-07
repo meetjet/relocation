@@ -57,18 +57,8 @@ class FaqResource extends Resource
      */
     public static function form(Form $form): Form
     {
-//        return $form // TODO: for editing on page
-//            ->schema([
-//                Components\Card::make()
-//                    ->schema(static::getMainSchema())
-//                    ->columnSpan(['lg' => 3]),
-//                Components\Card::make()
-//                    ->schema(static::getInfoSchema())
-//                    ->columnSpan(['lg' => 1]),
-//            ])
-//            ->columns(4);
-        return $form // TODO: for edition in modal
-        ->schema(static::getMainSchema())
+        return $form
+            ->schema(static::getMainSchema())
             ->columns(1);
     }
 
@@ -136,8 +126,6 @@ class FaqResource extends Resource
     {
         return [
             'index' => Pages\ListFaqs::route('/'),
-//            'create' => Pages\CreateFaq::route('/create'),
-//            'edit' => Pages\EditFaq::route('/{record}/edit'), // TODO: deprecated
         ];
     }
 
@@ -205,22 +193,6 @@ class FaqResource extends Resource
                         ->required(),
                 ])
                 ->hidden(fn($record): bool => !is_null($record))
-        ];
-    }
-
-    /**
-     * @return array
-     */
-    public static function getInfoSchema(): array
-    {
-        return [
-            Components\Placeholder::make('created_at')
-                ->label(__('Created at'))
-                ->content(fn(Faq $record): string => $record->created_at->diffForHumans()),
-
-            Components\Placeholder::make('updated_at')
-                ->label(__('Last modified at'))
-                ->content(fn(Faq $record): string => $record->updated_at->diffForHumans()),
         ];
     }
 
