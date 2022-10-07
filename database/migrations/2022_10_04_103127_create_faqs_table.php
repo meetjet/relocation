@@ -17,12 +17,12 @@ return new class extends Migration {
             $table->id();
             $table->uuid()->nullable()->unique();
 
-            $table->text('original');
+            $table->text('original')->nullable();
             $table->string('title')->nullable();
             $table->text('question')->nullable();
             $table->text('answer')->nullable();
             $table->string('status')->default(FaqStatus::CREATED);
-            $table->boolean('visibility')->default(true);
+            $table->boolean('visibility')->default(false);
             $table->jsonb('data')->nullable();
 
             $table->timestamps();
