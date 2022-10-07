@@ -24,6 +24,10 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make("test@test.test"),
         ]);
 
+        User::factory()
+            ->count(29)
+            ->create();
+
         Faq::factory()
             ->count(30)
             ->create();
