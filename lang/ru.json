@@ -364,7 +364,7 @@
     "Name": "Имя",
     "Password": "Пароль",
     "New password": "Новый пароль",
-    "FAQ": "FAQ",
+    "FAQ": "Вопрос-Ответ",
     "Title": "Заголовок",
     "Original text": "Оригинальный текст",
     "Question": "Вопрос",
@@ -542,5 +542,7 @@
     "All files": "Все файлы",
     "Allow user registration": "Разрешить регистрацию пользователей",
     "User deleted": "Пользователь удален",
-    "Purchase closed": "Покупка закрыта"
+    "Purchase closed": "Покупка закрыта",
+    "Created from": "Создано с",
+    "Created until": "Создано по"
 }

@@ -524,5 +524,7 @@
     "All files": "All files",
     "Allow user registration": "Allow user registration",
     "User deleted": "User deleted",
-    "Purchase closed": "Purchase closed"
+    "Purchase closed": "Purchase closed",
+    "Created from": "Created from",
+    "Created until": "Created until"
 }
