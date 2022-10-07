@@ -88,6 +88,6 @@ class User extends Authenticatable implements FilamentUser
     public function canAccessFilament(): bool
     {
         // TODO: temporary way to identify administrator users.
-        return str_ends_with(Str::lower($this->email), '@relocation.digital') && $this->hasVerifiedEmail();
+        return str_ends_with(Str::lower($this->email), '@relocation.digital');
     }
 }
