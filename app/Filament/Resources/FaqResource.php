@@ -16,7 +16,6 @@ use Filament\Tables\Columns;
 use Filament\Tables\Filters;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 
 class FaqResource extends Resource
@@ -74,6 +73,7 @@ class FaqResource extends Resource
                 Columns\TextColumn::make('original')
                     ->getStateUsing(fn($record): string => $record->title ?: $record->original)
                     ->label(__('Question'))
+                    ->limit(200)
                     ->wrap()
                     ->searchable(query: function (Builder $query, string $search): Builder {
                         return $query
@@ -86,7 +86,7 @@ class FaqResource extends Resource
 
                 Columns\TextColumn::make('created_at')
                     ->label(__('Created'))
-                    ->date()
+                    ->date("j M Y")
                     ->sortable()
                     ->toggleable(),
 
@@ -109,7 +109,7 @@ class FaqResource extends Resource
             ->filters(static::getFilters())
             ->actions([
                 Actions\Tables\EditAction::make(),
-//                Actions\DeleteAction::make(),
+                Actions\Tables\DeleteAction::make(),
             ])
             ->bulkActions([
                 Actions\Tables\DeleteBulkAction::make(),
@@ -145,54 +145,43 @@ class FaqResource extends Resource
      */
     public static function getMainSchema(): array
     {
-        $publishedStatus = FaqStatus::PUBLISHED;
-        $statusOptions = Arr::only(FaqStatus::asSelectArray(), [
-            FaqStatus::PUBLISHED,
-            FaqStatus::REJECTED,
-        ]);
-
         return [
-            // Question editing form.
             Components\Group::make()
                 ->schema([
                     Components\Placeholder::make('original')
                         ->label(__('Original text'))
-                        ->content(fn(Faq $record): string => $record['original']),
+                        ->hidden(fn($record): bool => is_null($record) || is_null($record->original))
+                        ->content(fn($record): ?string => $record->original),
 
                     Components\Textarea::make('title')
                         ->label(__('Title'))
-                        ->rows(2),
+                        ->rows(2)
+                        ->required(fn($record): bool => is_null($record)),
 
                     Components\MarkdownEditor::make('question')
                         ->label(__('Question'))
-                        ->rules(['nullable', "required_if:status,{$publishedStatus}"]),
+//                        ->rules(['nullable', 'required_if:status,' . FaqStatus::PUBLISHED]), // TODO: does not work
+                        ->required(fn($record): bool => is_null($record))
+                        ->requiredWith(fn($record): ?string => is_null($record) ? null : "title"),
 
                     Components\MarkdownEditor::make('answer')
                         ->label(__('Answer'))
-                        ->requiredWith('question'),
+                        ->required(fn($record): bool => is_null($record))
+                        ->requiredWith(fn($record): ?string => is_null($record) ? null : "question"),
 
                     Components\Group::make()
                         ->schema([
                             Components\Select::make('status')
                                 ->label(__('Status'))
-                                ->options($statusOptions)
+                                ->options(FaqStatus::asSelectArray())
+                                ->placeholder("-")
                                 ->required(),
                             Components\Toggle::make('visibility')
                                 ->label(__('Visibility'))
-                                ->default(true),
+                                ->default(false),
                         ])
                         ->columns(),
-                ])
-                ->hidden(fn($record): bool => is_null($record)),
-
-            // Form for creating a new question.
-            Components\Group::make()
-                ->schema([
-                    Components\MarkdownEditor::make('original')
-                        ->label(__('Original text'))
-                        ->required(),
-                ])
-                ->hidden(fn($record): bool => !is_null($record))
+                ]),
         ];
     }
 
@@ -250,16 +239,18 @@ class FaqResource extends Resource
                 ->form([
                     Components\DatePicker::make('published_from')
                         ->label(__('Created from'))
+                        ->displayFormat("j M Y")
                         ->maxDate(Carbon::today())
                         ->placeholder(fn($state): string => Carbon::parse(now())
                             ->setTimezone(config('app.timezone'))
-                            ->translatedFormat(config('tables.date_format'))),
+                            ->translatedFormat("j M Y")),
                     Components\DatePicker::make('published_until')
                         ->label(__('Created until'))
+                        ->displayFormat("j M Y")
                         ->maxDate(Carbon::today())
                         ->placeholder(fn($state): string => Carbon::parse(now())
                             ->setTimezone(config('app.timezone'))
-                            ->translatedFormat(config('tables.date_format'))),
+                            ->translatedFormat("j M Y")),
                 ])
                 ->query(function (Builder $query, array $data): Builder {
                     return $query
@@ -277,12 +268,12 @@ class FaqResource extends Resource
                     if ($data['published_from'] ?? null) {
                         $indicators['published_from'] = __('Created from') . ' ' . Carbon::parse($data['published_from'])
                                 ->setTimezone(config('app.timezone'))
-                                ->translatedFormat(config('tables.date_format'));
+                                ->translatedFormat("j M Y");
                     }
                     if ($data['published_until'] ?? null) {
                         $indicators['published_until'] = __('Created until') . ' ' . Carbon::parse($data['published_until'])
                                 ->setTimezone(config('app.timezone'))
-                                ->translatedFormat(config('tables.date_format'));
+                                ->translatedFormat("j M Y");
                     }
 
                     return $indicators;
