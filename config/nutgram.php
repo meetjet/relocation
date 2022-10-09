@@ -2,7 +2,10 @@
 
 return [
     // The Telegram BOT api token
-    'token' => env('TELEGRAM_TOKEN'),
+    'token' => env('TELEGRAM_BOT_TOKEN'),
+
+    // The Telegram BOT api secret
+    'secret' => env('TELEGRAM_BOT_SECRET'),
 
     // if the webhook mode must validate the incoming IP range is from a telegram server
     'safe_mode' => env('APP_ENV', 'local') === 'production',
@@ -12,7 +15,7 @@ return [
 
     // Set if the service provider should automatically load
     // handlers from /routes/telegram.php
-    'routes' => true,
+    'routes' => false,
 
     // Enable or disable Nutgram mixins
     'mixins' => false,
@@ -21,5 +24,5 @@ return [
     'namespace' => app_path('Telegram'),
 
     // Set log channel
-    'log_channel' => env('TELEGRAM_LOG_CHANNEL', 'null'),
+    'log_channel' => env('TELEGRAM_BOT_LOG_CHANNEL', 'null'),
 ];
