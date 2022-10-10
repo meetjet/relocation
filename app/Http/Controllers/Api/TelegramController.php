@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Telegram\Commands\StartCommand;
 use App\Telegram\Conversations\AskQuestionConversation;
-use App\Telegram\Handlers\ApiErrorHandler;
 use App\Telegram\Handlers\ExceptionHandler;
 use App\Telegram\Handlers\FallbackHandler;
 use App\Telegram\Middleware\AuthMiddleware;
@@ -23,7 +22,6 @@ class TelegramController extends Controller
     public function __invoke(Nutgram $bot): void
     {
         try {
-            logger("Begin telegram webhook");
             $bot->middleware(AuthMiddleware::class);
             $bot->middleware(LocaleMiddleware::class);
 
@@ -33,13 +31,10 @@ class TelegramController extends Controller
             $bot->onCommand(AskQuestionConversation::getName(), AskQuestionConversation::class)
                 ->description(AskQuestionConversation::getDescription());
 
-            logger("Register my commands");
             $bot->registerMyCommands();
             $bot->fallback(FallbackHandler::class);
             $bot->onException(ExceptionHandler::class);
-            $bot->onApiError(ApiErrorHandler::class);
             $bot->run();
-            logger("End telegram webhook");
         } catch (NotFoundExceptionInterface | ContainerExceptionInterface $e) {
             Log::error($e);
         }
