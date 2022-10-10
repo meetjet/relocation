@@ -12,6 +12,7 @@ class StartCommand
      */
     public function __invoke(Nutgram $bot): void
     {
+        logger('Invoke "start" command');
         $bot->sendMessage($this->getWelcomeMessage(), [
             'parse_mode' => ParseMode::HTML,
             'disable_web_page_preview' => true,
