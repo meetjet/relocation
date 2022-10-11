@@ -6,6 +6,7 @@ use App\Traits\HasUUID;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Tags\HasTags;
 use Stancl\VirtualColumn\VirtualColumn;
 
 class Faq extends Model
@@ -14,6 +15,7 @@ class Faq extends Model
     use SoftDeletes;
     use VirtualColumn;
     use HasUUID;
+    use HasTags;
 
     protected $fillable = ['original', 'title', 'question', 'answer', 'status', 'visibility'];
 
