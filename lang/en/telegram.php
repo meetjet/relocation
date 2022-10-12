@@ -3,15 +3,17 @@
 return [
     'bot' => [
         'start' => [
-            'description' => "Welcome.",
-            'welcome' => "Hi, welcome to <b>Relocation Bot</b>",
+            'description' => "Restart bot.",
+            'welcome' => "Relocation Digital Bot welcomes you.",
+            'manual' => "To ask a question, type the \:command command or click on the corresponding menu button."
         ],
         'question' => [
-            'description' => "Send us your question.",
-            'start' => "Please enter the text of your question:",
-            'end' => "Thank you, your question has been successfully accepted.",
+            'description' => "Ask a question.",
+            'start' => "Please write your question.",
+            'unsupported' => "This message format is not yet supported.",
+            'end' => "Thanks for your question! You will be notified as soon as a response is received. To submit another question, type the /:command command. To see other people's questions, follow the link - :link",
         ],
-        'fallback' => "Sorry, I don't understand.",
+        'fallback' => "Sorry, I don't understand the command.",
         'exception' => "<b>Whoops!\nSomething went wrong!</b>",
     ],
 ];

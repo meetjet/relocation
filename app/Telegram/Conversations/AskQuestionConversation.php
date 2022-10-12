@@ -31,11 +31,15 @@ class AskQuestionConversation extends Conversation
             Faq::create([
                 'original' => $questionText,
             ]);
-            $bot->sendMessage(__('telegram.bot.question.end'));
+            $bot->sendMessage(__('telegram.bot.question.end', [
+                'command' => self::getName(),
+                'link' => route("faq"),
+            ]));
             $this->end();
             return;
         }
 
+        $bot->sendMessage(__('telegram.bot.question.unsupported'));
         $this->start($bot);
     }
 
