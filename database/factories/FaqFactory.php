@@ -3,7 +3,10 @@
 namespace Database\Factories;
 
 use App\Enums\FaqStatus;
+use App\Models\Faq;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Faq>
@@ -42,6 +45,24 @@ class FaqFactory extends Factory
         return [
             'original' => $content,
         ];
+    }
 
+    /**
+     * @param array $attributes
+     * @param Model|null $parent
+     * @return Collection
+     */
+    public function create($attributes = [], ?Model $parent = null): Collection
+    {
+        $faqs = parent::create($attributes, $parent);
+
+        $faqs->each(function (Faq $_faq) {
+            if ($_faq->status === FaqStatus::PUBLISHED) {
+                $tags = $this->faker->words($this->faker->randomDigit());
+                $_faq->attachTags($tags, "faqs");
+            }
+        });
+
+        return $faqs;
     }
 }

@@ -84,6 +84,11 @@ class FaqResource extends Resource
                     ->color(fn($record): ?string => is_null($record->deleted_at) ? null : "danger")
                     ->sortable(),
 
+                Columns\SpatieTagsColumn::make('tags')
+                    ->label(__('Tags'))
+                    ->type("faqs")
+                    ->toggleable(),
+
                 Columns\TextColumn::make('created_at')
                     ->label(__('Created'))
                     ->date("j M Y")
@@ -108,8 +113,12 @@ class FaqResource extends Resource
             ])
             ->filters(static::getFilters())
             ->actions([
-                Actions\Tables\EditAction::make(),
-                Actions\Tables\DeleteAction::make(),
+                Actions\Tables\EditAction::make()
+                    ->label("")
+                    ->tooltip(__('Edit')),
+                Actions\Tables\DeleteAction::make()
+                    ->label("")
+                    ->tooltip(__('Delete')),
             ])
             ->bulkActions([
                 Actions\Tables\DeleteBulkAction::make(),
@@ -168,6 +177,10 @@ class FaqResource extends Resource
                         ->label(__('Answer'))
                         ->required(fn($record): bool => is_null($record))
                         ->requiredWith(fn($record): ?string => is_null($record) ? null : "question"),
+
+                    Components\SpatieTagsInput::make('tags')
+                        ->label(__('Tags'))
+                        ->type("faqs"),
 
                     Components\Group::make()
                         ->schema([
