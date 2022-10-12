@@ -71,8 +71,9 @@ class FaqResource extends Resource
         return $table
             ->columns([
                 Columns\TextColumn::make('original')
-                    ->getStateUsing(fn($record): string => $record->title ?: $record->original)
+                    ->getStateUsing(fn($record): ?string => $record->title ?: $record->original)
                     ->label(__('Question'))
+                    ->description(fn($record): ?string => $record->slug)
                     ->limit(200)
                     ->wrap()
                     ->searchable(query: function (Builder $query, string $search): Builder {
@@ -165,16 +166,28 @@ class FaqResource extends Resource
                     Components\Textarea::make('title')
                         ->label(__('Title'))
                         ->rows(2)
+//                        ->rules(['nullable', 'required_if:status,' . FaqStatus::PUBLISHED]), // TODO: does not work
                         ->required(fn($record): bool => is_null($record)),
 
-                    Components\MarkdownEditor::make('question')
+                    Components\TextInput::make('slug')
+                        ->label(__('Slug'))
+                        ->unique(ignoreRecord: true),
+
+                    Components\RichEditor::make('question')
                         ->label(__('Question'))
-//                        ->rules(['nullable', 'required_if:status,' . FaqStatus::PUBLISHED]), // TODO: does not work
+                        ->disableToolbarButtons([
+                            'attachFiles',
+                            'codeBlock',
+                        ])
                         ->required(fn($record): bool => is_null($record))
                         ->requiredWith(fn($record): ?string => is_null($record) ? null : "title"),
 
-                    Components\MarkdownEditor::make('answer')
+                    Components\RichEditor::make('answer')
                         ->label(__('Answer'))
+                        ->disableToolbarButtons([
+                            'attachFiles',
+                            'codeBlock',
+                        ])
                         ->required(fn($record): bool => is_null($record))
                         ->requiredWith(fn($record): ?string => is_null($record) ? null : "question"),
 

@@ -16,6 +16,7 @@ return new class extends Migration {
         Schema::create('faqs', static function (Blueprint $table) {
             $table->id();
             $table->uuid()->nullable()->unique();
+            $table->string('slug')->nullable()->unique();
 
             $table->text('original')->nullable();
             $table->string('title')->nullable();
