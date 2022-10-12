@@ -20,9 +20,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('bots')->middleware(JsonRequest::class)->group(function () {
+Route::prefix('bots')->group(function () {
     // Telegram webhook
-    Route::post('/telegram', TelegramController::class);
+    Route::post('/telegram', TelegramController::class)->middleware(JsonRequest::class);
+    Route::get('/telegram', static function () {
+        abort(404);
+    });
 
     // Viber webhook
 //    Route::post('/viber', [ViberController::class, 'viber']);
