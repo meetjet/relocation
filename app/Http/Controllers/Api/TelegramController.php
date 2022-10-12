@@ -12,6 +12,7 @@ use App\Telegram\Middleware\LocaleMiddleware;
 use Illuminate\Support\Facades\Log;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
+use SergiX44\Hydrator\Exception\HydrationException;
 use SergiX44\Nutgram\Nutgram;
 
 class TelegramController extends Controller
@@ -35,6 +36,9 @@ class TelegramController extends Controller
             $bot->fallback(FallbackHandler::class);
             $bot->onException(ExceptionHandler::class);
             $bot->run();
+        } catch (HydrationException $e) {
+            // If the request contains the wrong JSON object.
+//            Log::error($e->getMessage());
         } catch (NotFoundExceptionInterface | ContainerExceptionInterface $e) {
             Log::error($e);
         }
