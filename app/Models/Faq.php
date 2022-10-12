@@ -6,6 +6,8 @@ use App\Traits\HasUUID;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 use Spatie\Tags\HasTags;
 use Stancl\VirtualColumn\VirtualColumn;
 
@@ -16,8 +18,9 @@ class Faq extends Model
     use VirtualColumn;
     use HasUUID;
     use HasTags;
+    use HasSlug;
 
-    protected $fillable = ['original', 'title', 'question', 'answer', 'status', 'visibility'];
+    protected $fillable = ['slug', 'original', 'title', 'question', 'answer', 'status', 'visibility'];
 
     /**
      * @return string[]
@@ -27,6 +30,7 @@ class Faq extends Model
         return [
             'id',
             'uuid',
+            'slug',
             'original',
             'title',
             'question',
@@ -37,5 +41,30 @@ class Faq extends Model
             'updated_at',
             'deleted_at',
         ];
+    }
+
+    /**
+     * @return SlugOptions
+     */
+    public function getSlugOptions(): SlugOptions
+    {
+        $slugOptions = SlugOptions::create()
+            ->generateSlugsFrom('title')
+            ->saveSlugsTo('slug')
+            ->skipGenerateWhen(fn() => is_null($this->title));
+
+        if (!is_null($this->slug)) {
+            $slugOptions->doNotGenerateSlugsOnUpdate();
+        }
+
+        return $slugOptions;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
     }
 }
