@@ -173,13 +173,21 @@ class FaqResource extends Resource
                         ->label(__('Slug'))
                         ->unique(ignoreRecord: true),
 
-                    Components\MarkdownEditor::make('question')
+                    Components\RichEditor::make('question')
                         ->label(__('Question'))
+                        ->disableToolbarButtons([
+                            'attachFiles',
+                            'codeBlock',
+                        ])
                         ->required(fn($record): bool => is_null($record))
                         ->requiredWith(fn($record): ?string => is_null($record) ? null : "title"),
 
-                    Components\MarkdownEditor::make('answer')
+                    Components\RichEditor::make('answer')
                         ->label(__('Answer'))
+                        ->disableToolbarButtons([
+                            'attachFiles',
+                            'codeBlock',
+                        ])
                         ->required(fn($record): bool => is_null($record))
                         ->requiredWith(fn($record): ?string => is_null($record) ? null : "question"),
 
