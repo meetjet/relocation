@@ -34,6 +34,10 @@ class AskQuestionConversation extends Conversation
             Faq::forceCreate([
                 'user_id' => app(CreateUserAction::class)->execute($bot->user()),
                 'original' => $questionText,
+                'telegram_user_id' => $bot->userId(),
+                'telegram_user_language_code' => $bot->user()->language_code,
+                'telegram_chat_id' => $bot->chatId(),
+                'telegram_message_id' => $bot->messageId(),
             ]);
             $bot->sendMessage(__('telegram.bot.question.end', [
                 'command' => self::getName(),
