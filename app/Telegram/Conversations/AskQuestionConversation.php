@@ -3,9 +3,11 @@
 namespace App\Telegram\Conversations;
 
 use App\Models\Faq;
+use App\Telegram\Actions\CreateUserAction;
 use Psr\SimpleCache\InvalidArgumentException;
 use SergiX44\Nutgram\Conversations\Conversation;
 use SergiX44\Nutgram\Nutgram;
+use Throwable;
 
 class AskQuestionConversation extends Conversation
 {
@@ -22,13 +24,15 @@ class AskQuestionConversation extends Conversation
     /**
      * @param Nutgram $bot
      * @throws InvalidArgumentException
+     * @throws Throwable
      */
     public function askQuestion(Nutgram $bot): void
     {
         $questionText = $bot->message()->text;
 
         if ($questionText) {
-            Faq::create([
+            Faq::forceCreate([
+                'user_id' => app(CreateUserAction::class)->execute($bot->user()),
                 'original' => $questionText,
             ]);
             $bot->sendMessage(__('telegram.bot.question.end', [

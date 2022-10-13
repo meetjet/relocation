@@ -31,6 +31,7 @@ class Faq extends Model
             'id',
             'uuid',
             'slug',
+            'user_id',
             'original',
             'title',
             'question',
