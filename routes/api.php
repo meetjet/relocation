@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\TelegramController;
+use App\Http\Middleware\JsonRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +22,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix('bots')->group(function () {
     // Telegram webhook
-    Route::post('/telegram', TelegramController::class);
+    Route::post('/telegram', TelegramController::class)->middleware(JsonRequest::class);
+    Route::get('/telegram', static function () {
+        abort(404);
+    });
 
     // Viber webhook
 //    Route::post('/viber', [ViberController::class, 'viber']);
