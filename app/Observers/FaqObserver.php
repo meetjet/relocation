@@ -2,8 +2,8 @@
 
 namespace App\Observers;
 
+use App\Jobs\SendNotifyQuestionAnsweredJob;
 use App\Models\Faq;
-use App\Telegram\Actions\NotifyQuestionAnsweredAction;
 
 class FaqObserver
 {
@@ -28,7 +28,7 @@ class FaqObserver
      */
     public function updated(Faq $faq): void
     {
-        app(NotifyQuestionAnsweredAction::class)->execute($faq);
+        SendNotifyQuestionAnsweredJob::dispatch($faq);
     }
 
     /**
