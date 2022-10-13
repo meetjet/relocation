@@ -26,6 +26,7 @@ class FaqFactory extends Factory
 
         if ($status === FaqStatus::PUBLISHED) {
             return [
+                'user_id' => 1,
                 'original' => $content,
                 'title' => $this->faker->text(100),
                 'question' => $content,
@@ -37,12 +38,14 @@ class FaqFactory extends Factory
 
         if ($status === FaqStatus::REJECTED) {
             return [
+                'user_id' => 1,
                 'original' => $content,
                 'status' => $status,
             ];
         }
 
         return [
+            'user_id' => 1,
             'original' => $content,
         ];
     }
