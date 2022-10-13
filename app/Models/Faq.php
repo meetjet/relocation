@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\FaqObserver;
 use App\Traits\HasUUID;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -21,6 +22,13 @@ class Faq extends Model
     use HasSlug;
 
     protected $fillable = ['slug', 'user_id', 'original', 'title', 'question', 'answer', 'status', 'visibility'];
+
+    public static function boot(): void
+    {
+        parent::boot();
+
+        self::observe(FaqObserver::class);
+    }
 
     /**
      * @return string[]
