@@ -17,6 +17,7 @@ use Filament\Tables\Filters;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Request;
 
 class FaqResource extends Resource
 {
@@ -107,8 +108,9 @@ class FaqResource extends Resource
                     ])
                     ->toggleable(),
 
-                Columns\BooleanColumn::make('visibility')
+                Columns\IconColumn::make('visibility')
                     ->label(__('Visibility'))
+                    ->boolean()
                     ->sortable()
                     ->toggleable(),
             ])
@@ -207,6 +209,9 @@ class FaqResource extends Resource
                                 ->default(false),
                         ])
                         ->columns(),
+
+                    Components\Hidden::make('user_id')
+                        ->default(fn(): int => Request::user()->id),
                 ]),
         ];
     }

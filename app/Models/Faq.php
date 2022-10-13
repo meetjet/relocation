@@ -20,7 +20,7 @@ class Faq extends Model
     use HasTags;
     use HasSlug;
 
-    protected $fillable = ['slug', 'original', 'title', 'question', 'answer', 'status', 'visibility'];
+    protected $fillable = ['slug', 'user_id', 'original', 'title', 'question', 'answer', 'status', 'visibility'];
 
     /**
      * @return string[]
