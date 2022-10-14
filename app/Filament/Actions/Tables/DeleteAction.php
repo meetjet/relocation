@@ -10,6 +10,6 @@ class DeleteAction extends DefaultDeleteAction
     {
         parent::setUp();
 
-        $this->modalHeading(fn(): string => __('filament-support::actions/delete.multiple.label'));
+        $this->modalHeading(fn(): string => __('filament-support::actions/delete.single.label'));
     }
 }
