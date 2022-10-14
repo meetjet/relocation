@@ -2,7 +2,8 @@
 
 namespace App\Observers;
 
-use App\Jobs\SendNotifyQuestionAnsweredJob;
+use App\Enums\FaqStatus;
+use App\Jobs\TelegramNotifyQuestionAnsweredJob;
 use App\Models\Faq;
 
 class FaqObserver
@@ -28,7 +29,13 @@ class FaqObserver
      */
     public function updated(Faq $faq): void
     {
-        SendNotifyQuestionAnsweredJob::dispatch($faq);
+        if (
+            $faq->status === FaqStatus::PUBLISHED
+            && $faq->telegram_chat_id
+            && is_null($faq->telegram_published_notify_sent)
+        ) {
+            TelegramNotifyQuestionAnsweredJob::dispatch($faq);
+        }
     }
 
     /**
