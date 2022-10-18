@@ -66,6 +66,10 @@ class ListUsers extends ListRecords
                 ->date("j M Y, H:i")
                 ->sortable()
                 ->toggleable(),
+
+            Columns\TextColumn::make('balance')
+                ->label(__('Balance'))
+                ->toggleable(),
         ];
     }
 
