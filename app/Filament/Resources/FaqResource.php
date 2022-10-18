@@ -122,6 +122,9 @@ class FaqResource extends Resource
                 Actions\Tables\DeleteAction::make()
                     ->label("")
                     ->tooltip(__('Delete')),
+                Actions\Tables\RestoreAction::make()
+                    ->label("")
+                    ->tooltip(__('Restore')),
             ])
             ->bulkActions([
                 Actions\Tables\DeleteBulkAction::make(),

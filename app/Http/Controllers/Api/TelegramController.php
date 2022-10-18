@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Telegram\Commands\StartCommand;
 use App\Telegram\Conversations\AskQuestionConversation;
+use App\Telegram\Handlers\ApiErrorHandler;
 use App\Telegram\Handlers\ExceptionHandler;
 use App\Telegram\Handlers\FallbackHandler;
 use App\Telegram\Middleware\AuthMiddleware;
@@ -35,6 +36,7 @@ class TelegramController extends Controller
             $bot->registerMyCommands();
             $bot->fallback(FallbackHandler::class);
             $bot->onException(ExceptionHandler::class);
+            $bot->onApiError(ApiErrorHandler::class);
             $bot->run();
         } catch (HydrationException $e) {
             // If the request contains the wrong JSON object.
