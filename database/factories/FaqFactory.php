@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\Countries;
 use App\Enums\FaqStatus;
 use App\Models\Faq;
 use Illuminate\Database\Eloquent\Collection;
@@ -21,6 +22,7 @@ class FaqFactory extends Factory
     public function definition(): array
     {
         $content = $this->faker->text(400);
+        $country = $this->faker->randomElement(array_merge(Countries::getValues(), [null]));
         $status = $this->faker->randomElement(FaqStatus::getValues());
         $visibility = $this->faker->boolean();
 
@@ -28,6 +30,7 @@ class FaqFactory extends Factory
             return [
                 'user_id' => 1,
                 'original' => $content,
+                'country' => $country,
                 'title' => $this->faker->text(100),
                 'question' => $content,
                 'answer' => $this->faker->text(),
@@ -40,6 +43,7 @@ class FaqFactory extends Factory
             return [
                 'user_id' => 1,
                 'original' => $content,
+                'country' => $country,
                 'status' => $status,
             ];
         }
@@ -47,6 +51,7 @@ class FaqFactory extends Factory
         return [
             'user_id' => 1,
             'original' => $content,
+            'country' => $country,
         ];
     }
 

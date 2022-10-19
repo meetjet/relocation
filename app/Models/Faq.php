@@ -21,7 +21,7 @@ class Faq extends Model
     use HasTags;
     use HasSlug;
 
-    protected $fillable = ['slug', 'user_id', 'original', 'title', 'question', 'answer', 'status', 'visibility'];
+    protected $fillable = ['slug', 'user_id', 'original', 'country', 'title', 'question', 'answer', 'status', 'visibility'];
 
     public static function boot(): void
     {
@@ -41,6 +41,7 @@ class Faq extends Model
             'slug',
             'user_id',
             'original',
+            'country',
             'title',
             'question',
             'answer',

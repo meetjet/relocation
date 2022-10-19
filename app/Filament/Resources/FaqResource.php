@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\Countries;
 use App\Enums\FaqStatus;
 use App\Filament\Resources\FaqResource\Pages;
 use App\Filament\Resources\FaqResource\RelationManagers;
@@ -85,6 +86,16 @@ class FaqResource extends Resource
                     })
                     ->color(fn($record): ?string => is_null($record->deleted_at) ? null : "danger")
                     ->sortable(),
+
+                Columns\BadgeColumn::make('country')
+                    ->label(__('Country'))
+                    ->enum(array_merge(Countries::asSelectArray(), [null => __("No")]))
+                    ->sortable()
+                    ->colors([
+                        'secondary',
+                        'primary' => static fn($state): bool => Countries::hasKey((string)$state),
+                    ])
+                    ->toggleable(),
 
                 Columns\SpatieTagsColumn::make('tags')
                     ->label(__('Tags'))
@@ -223,6 +234,32 @@ class FaqResource extends Resource
     {
         return [
             Filters\TrashedFilter::make(),
+
+            Filters\Filter::make('country')
+                ->form([
+                    Components\Select::make('country')
+                        ->label(__('Country'))
+                        ->placeholder("-")
+                        ->options(array_merge(Countries::asSelectArray(), ["no_country" => __("No")])),
+                ])
+                ->query(function (Builder $query, array $data): Builder {
+                    return $query->when(
+                        $data['country'],
+                        fn(Builder $query, $country): Builder => $country === "no_country"
+                            ? $query->whereNull('country')
+                            : $query->where('country', $country),
+                    );
+                })
+                ->indicateUsing(function (array $data): ?string {
+                    if ($data['country']) {
+                        $country = $data['country'] === "no_country"
+                            ? __("No")
+                            : Countries::getDescription($data['country']);
+                        return __('Country') . ' "' . $country . '"';
+                    }
+
+                    return null;
+                }),
 
             Filters\Filter::make('status')
                 ->form([

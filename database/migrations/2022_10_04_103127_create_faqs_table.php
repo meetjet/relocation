@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->foreignId('user_id');
 
             $table->text('original')->nullable();
+            $table->string('country')->nullable();
             $table->string('title')->nullable();
             $table->text('question')->nullable();
             $table->text('answer')->nullable();
