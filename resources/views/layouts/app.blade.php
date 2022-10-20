@@ -25,7 +25,7 @@
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex">
                 <div class="w-60">test</div>
                 <!-- Content -->
-                <div>
+                <div class="flex-1">
                     <div class="pt-4"></div>
                     <!-- Page Heading -->
                     @if (isset($header))
@@ -43,5 +43,7 @@
         @stack('modals')
 
         @livewireScripts
+
+        @stack('page-scripts')
     </body>
 </html>
