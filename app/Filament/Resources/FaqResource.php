@@ -217,13 +217,13 @@ class FaqResource extends Resource
                                 ->label(__('Country'))
                                 ->options(Countries::asSelectArray())
                                 ->placeholder("-")
-                                ->required(fn($record): bool => is_null($record))
-                                ->requiredWith(fn($record): ?string => is_null($record) ? null : "answer"),
+                                ->nullable(),
 
                             Components\Select::make('status')
                                 ->label(__('Status'))
                                 ->options(FaqStatus::asSelectArray())
                                 ->placeholder("-")
+                                ->default(FaqStatus::CREATED)
                                 ->required(),
 
                             Components\Toggle::make('visibility')
