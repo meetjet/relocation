@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
             ->create();
 
         Faq::factory()
-            ->count(30)
+            ->count(100)
             ->create();
     }
 }
