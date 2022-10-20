@@ -7,7 +7,9 @@ use App\Models\Faq;
 
 class LoadMoreFaq extends Component
 {
-    public $perPage = 15;
+    public int $total = -1;
+    public int $perPage = 5;
+
     protected $listeners = [
         'faqs-load-more' => 'faqsLoadMore'
     ];
@@ -19,12 +21,19 @@ class LoadMoreFaq extends Component
 
     public function render()
     {
+        if ($this->total === -1) {
+            $this->total = Faq::query()
+                ->where('status', 'published')
+                ->where('visibility', true)
+                ->count();
+        }
+
         $faqs = Faq::query()
             ->where('status', 'published')
             ->where('visibility', true)
             ->latest()->paginate($this->perPage);
         $this->emit('faqStore');
 
-        return view('livewire.load-more-faq', ['faqs' => $faqs]);
+        return view('livewire.load-more-faq', ['faqs' => $faqs, 'total' => $this->total]);
     }
 }

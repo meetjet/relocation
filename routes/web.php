@@ -28,4 +28,7 @@ Route::middleware([
     Route::get('faq', function () {
         return view('faq');
     })->name('faq');
+    Route::get('faq/{slug}', function () {
+        return view('single-faq');
+    })->name('single-faq');
 });
