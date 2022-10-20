@@ -4,7 +4,10 @@ namespace Database\Factories;
 
 use App\Models\Team;
 use App\Models\User;
+use Bavix\Wallet\Internal\Exceptions\ExceptionInterface;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Laravel\Jetstream\Features;
@@ -77,5 +80,23 @@ class UserFactory extends Factory
                 }),
             'ownedTeams'
         );
+    }
+
+    /**
+     * @param array $attributes
+     * @param Model|null $parent
+     * @return User|Collection
+     * @throws ExceptionInterface
+     */
+    public function create($attributes = [], ?Model $parent = null): User|Collection
+    {
+        $users = parent::create($attributes, $parent);
+
+        $users->each(function (User $_user) {
+            $balance = $this->faker->randomNumber(3);
+            $_user->deposit($balance);
+        });
+
+        return $users;
     }
 }
