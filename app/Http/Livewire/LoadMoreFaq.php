@@ -9,24 +9,21 @@ class LoadMoreFaq extends Component
 {
     public $perPage = 15;
     protected $listeners = [
-        'load-more' => 'loadMore'
+        'faqs-load-more' => 'faqsLoadMore'
     ];
 
-    /**
-     * Write code on Method
-     */
-    public function loadMore()
+    public function faqsLoadMore(): void
     {
-        $this->perPage = $this->perPage + 5;
+        $this->perPage += 5;
     }
 
-    /**
-     * Write code on Method
-     */
     public function render()
     {
-        $faqs = Faq::latest()->paginate($this->perPage);
-        $this->emit('userStore');
+        $faqs = Faq::query()
+            ->where('status', 'published')
+            ->where('visibility', true)
+            ->latest()->paginate($this->perPage);
+        $this->emit('faqStore');
 
         return view('livewire.load-more-faq', ['faqs' => $faqs]);
     }

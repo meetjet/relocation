@@ -33,3 +33,13 @@
         </div>
     @endforeach
 </div>
+
+@push('page-scripts')
+    <script type="text/javascript">
+        window.onscroll = function(ev) {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                window.livewire.emit('faqs-load-more');
+            }
+        };
+    </script>
+@endpush
