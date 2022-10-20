@@ -13,7 +13,7 @@
                 >{{ $faq->id }} - {{ $faq->title }}</a>
             </header>
 
-            <p class="text-sm text-gray-500 mb-4">{{ $faq->question }}</p>
+            <div class="text-sm text-gray-500 mb-4">{!! $faq->question !!}</div>
 
             <footer class="flex flex-wrap items-center justify-between -m-1">
                 <div class="flex items-center p-1">
