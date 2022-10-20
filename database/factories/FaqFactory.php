@@ -44,6 +44,7 @@ class FaqFactory extends Factory
                 'user_id' => 1,
                 'original' => $content,
                 'country' => $country,
+                'title' => $this->faker->text(100),
                 'status' => $status,
             ];
         }
@@ -51,6 +52,7 @@ class FaqFactory extends Factory
         return [
             'user_id' => 1,
             'original' => $content,
+            'title' => $this->faker->text(100),
             'country' => $country,
         ];
     }
