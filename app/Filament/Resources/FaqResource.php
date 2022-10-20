@@ -213,16 +213,24 @@ class FaqResource extends Resource
 
                     Components\Group::make()
                         ->schema([
+                            Components\Select::make('country')
+                                ->label(__('Country'))
+                                ->options(Countries::asSelectArray())
+                                ->placeholder("-")
+                                ->required(fn($record): bool => is_null($record))
+                                ->requiredWith(fn($record): ?string => is_null($record) ? null : "answer"),
+
                             Components\Select::make('status')
                                 ->label(__('Status'))
                                 ->options(FaqStatus::asSelectArray())
                                 ->placeholder("-")
                                 ->required(),
+
                             Components\Toggle::make('visibility')
                                 ->label(__('Visibility'))
                                 ->default(false),
                         ])
-                        ->columns(),
+                        ->columns(3),
 
                     Components\Hidden::make('user_id')
                         ->default(fn(): int => Request::user()->id),
