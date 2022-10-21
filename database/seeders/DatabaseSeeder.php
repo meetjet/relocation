@@ -3,7 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Faq;
-//use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\ListingCategory;
+use App\Models\ListingItem;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -29,6 +30,14 @@ class DatabaseSeeder extends Seeder
             ->create();
 
         Faq::factory()
+            ->count(30)
+            ->create();
+
+        ListingCategory::factory()
+            ->count(10)
+            ->create();
+
+        ListingItem::factory()
             ->count(30)
             ->create();
     }
