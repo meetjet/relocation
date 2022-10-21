@@ -41,7 +41,7 @@ class AskQuestionConversation extends Conversation
             ]);
             $bot->sendMessage(__('telegram.bot.question.end', [
                 'command' => self::getName(),
-                'link' => route("faq"),
+                'link' => route("faqs.index"),
             ]));
             $this->end();
             return;

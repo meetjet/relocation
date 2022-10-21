@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FaqController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,18 +15,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return redirect('/faqs');
+})->name('welcome');
+
+Route::get('/faqs/{slug}', [FaqController::class, 'show'])->name('faqs.show');
+Route::resource('faqs', FaqController::class, ['except' => ['show']]);
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/', function () {
-        return view('dashboard');
+    Route::get('/dashboard', function () {
+        return redirect('/faqs');
     })->name('dashboard');
-    Route::get('faq', function () {
-        return view('faq');
-    })->name('faq');
 });

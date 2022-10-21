@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Administrator',
             'email' => 'test@relocation.digital',
-            'password' => Hash::make("test@relocation.digital"),
+            'password' => Hash::make("password"),
         ]);
 
         User::factory()
@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
             ->create();
 
         Faq::factory()
-            ->count(30)
+            ->count(100)
             ->create();
 
         ListingCategory::factory()

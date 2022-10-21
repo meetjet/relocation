@@ -10,6 +10,9 @@
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Inter:wght@400;600;700&display=swap">
 
+        <!-- Analytics -->
+        <script defer data-domain="relocation.digital" src="//plausible.io/js/script.js"></script>
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -23,9 +26,9 @@
             @livewire('navigation-menu')
 
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex">
-                <div class="w-60">test</div>
+                {{--<div class="hidden md:block w-60">test</div>--}}
                 <!-- Content -->
-                <div>
+                <div class="flex-1">
                     <div class="pt-4"></div>
                     <!-- Page Heading -->
                     @if (isset($header))
@@ -43,5 +46,7 @@
         @stack('modals')
 
         @livewireScripts
+
+        @stack('page-scripts')
     </body>
 </html>
