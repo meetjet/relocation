@@ -7,14 +7,10 @@ use App\Models\Faq;
 
 class SingleFaq extends Component
 {
+    public $entity;
 
     public function render()
     {
-        [$faq] = Faq::query()
-            ->where('status', 'published')
-            ->where('visibility', true)
-            ->latest()->paginate(1);;
-
-        return view('livewire.single-faq', ['faq' => $faq]);
+        return view('livewire.single-faq', ['entity' => $this->entity]);
     }
 }

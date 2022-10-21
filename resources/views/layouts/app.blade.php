@@ -23,7 +23,7 @@
             @livewire('navigation-menu')
 
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex">
-                <div class="w-60">test</div>
+                {{--<div class="hidden md:block w-60">test</div>--}}
                 <!-- Content -->
                 <div class="flex-1">
                     <div class="pt-4"></div>

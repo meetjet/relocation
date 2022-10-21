@@ -37,7 +37,7 @@ class UserFactory extends Factory
         $name = trim("{$firstName} {$lastName}");
 
         $email = $this->faker->unique()->safeEmail();
-        $password = Hash::make($email);
+        $password = Hash::make('password');
 
         return [
             'name' => $name,
