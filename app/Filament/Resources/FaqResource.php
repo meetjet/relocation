@@ -78,7 +78,7 @@ class FaqResource extends Resource
                     ->getStateUsing(fn($record): ?string => $record->title ?: $record->original)
                     ->label(__('Question'))
                     ->description(fn($record) => (!$record->deleted_at && $record->slug)
-                        ? static::externalLink(route("faq"), $record->slug) // TODO: replace with correct route
+                        ? static::externalLink(route("faqs.show", ['slug' => $record->slug]), $record->slug)
                         : null)
                     ->limit(200)
                     ->wrap()

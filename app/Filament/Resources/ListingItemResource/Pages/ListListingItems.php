@@ -53,7 +53,7 @@ class ListListingItems extends ListRecords
             Columns\TextColumn::make('title')
                 ->label(__('Title'))
                 ->description(fn($record) => (!$record->deleted_at && $record->category && $record->category->slug && $record->slug)
-                    ? static::externalLink(route("faq"), $record->slug) // TODO: replace with correct route
+                    ? static::externalLink(route("dashboard"), $record->slug) // TODO: replace with correct route
                     : null)
                 ->limit(200)
                 ->wrap()
