@@ -527,5 +527,12 @@
     "Purchase closed": "Purchase closed",
     "Created from": "Created from",
     "Created until": "Created until",
-    "Country": "Country"
+    "Country": "Country",
+    "Flea market": "Flea market",
+    "Announcement": "Announcement",
+    "Announcements": "Announcements",
+    "Category": "Category",
+    "Categories": "Categories",
+    "If this field is left blank, the link will be generated automatically": "If this field is left blank, the link will be generated automatically",
+    "Telegram": "Telegram"
 }
