@@ -529,5 +529,12 @@
     "Created from": "Created from",
     "Created until": "Created until",
     "Country": "Country",
-    "Loading...": "Loading..."
+    "Loading...": "Loading...",
+    "Flea market": "Flea market",
+    "Announcement": "Announcement",
+    "Announcements": "Announcements",
+    "Category": "Category",
+    "Categories": "Categories",
+    "If this field is left blank, the link will be generated automatically": "If this field is left blank, the link will be generated automatically",
+    "Telegram": "Telegram"
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cabd42c94f0ef77c1c1292bb2f6809de",
+    "content-hash": "882359d87dc686d753615875070c95a8",
     "packages": [
         {
             "name": "akaunting/laravel-money",
@@ -1217,23 +1217,23 @@
         },
         {
             "name": "doctrine/inflector",
-            "version": "2.0.5",
+            "version": "2.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/inflector.git",
-                "reference": "ade2b3bbfb776f27f0558e26eed43b5d9fe1b392"
+                "reference": "d9d313a36c872fd6ee06d9a6cbcf713eaa40f024"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/inflector/zipball/ade2b3bbfb776f27f0558e26eed43b5d9fe1b392",
-                "reference": "ade2b3bbfb776f27f0558e26eed43b5d9fe1b392",
+                "url": "https://api.github.com/repos/doctrine/inflector/zipball/d9d313a36c872fd6ee06d9a6cbcf713eaa40f024",
+                "reference": "d9d313a36c872fd6ee06d9a6cbcf713eaa40f024",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.2 || ^8.0"
             },
             "require-dev": {
-                "doctrine/coding-standard": "^9",
+                "doctrine/coding-standard": "^10",
                 "phpstan/phpstan": "^1.8",
                 "phpstan/phpstan-phpunit": "^1.1",
                 "phpstan/phpstan-strict-rules": "^1.3",
@@ -1288,7 +1288,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/inflector/issues",
-                "source": "https://github.com/doctrine/inflector/tree/2.0.5"
+                "source": "https://github.com/doctrine/inflector/tree/2.0.6"
             },
             "funding": [
                 {
@@ -1304,7 +1304,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-09-07T09:01:28+00:00"
+            "time": "2022-10-20T09:10:12+00:00"
         },
         {
             "name": "doctrine/lexer",
@@ -2511,6 +2511,69 @@
             "time": "2022-09-19T19:21:18+00:00"
         },
         {
+            "name": "kalnoy/nestedset",
+            "version": "v6.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lazychaser/laravel-nestedset.git",
+                "reference": "bcfbccea5e3ddf31cb22e1bc3c6124da584505fc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lazychaser/laravel-nestedset/zipball/bcfbccea5e3ddf31cb22e1bc3c6124da584505fc",
+                "reference": "bcfbccea5e3ddf31cb22e1bc3c6124da584505fc",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^7.0|^8.0|^9.0",
+                "illuminate/events": "^7.0|^8.0|^9.0",
+                "illuminate/support": "^7.0|^8.0|^9.0",
+                "php": "^7.2.5|^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "7.*|8.*|9.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "v5.0.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Kalnoy\\Nestedset\\NestedSetServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Kalnoy\\Nestedset\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexander Kalnoy",
+                    "email": "lazychaser@gmail.com"
+                }
+            ],
+            "description": "Nested Set Model for Laravel 5.7 and up",
+            "keywords": [
+                "database",
+                "hierarchy",
+                "laravel",
+                "nested sets",
+                "nsm"
+            ],
+            "support": {
+                "issues": "https://github.com/lazychaser/laravel-nestedset/issues",
+                "source": "https://github.com/lazychaser/laravel-nestedset/tree/v6.0.1"
+            },
+            "time": "2022-02-11T06:17:57+00:00"
+        },
+        {
             "name": "laminas/laminas-code",
             "version": "4.7.0",
             "source": {
@@ -2641,16 +2704,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v9.36.3",
+            "version": "v9.36.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "80ba0561b3682b96743e1c152fde0698bbdb2412"
+                "reference": "15ce569fd93124e8e2257c24e3ed85b9ef9951d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/80ba0561b3682b96743e1c152fde0698bbdb2412",
-                "reference": "80ba0561b3682b96743e1c152fde0698bbdb2412",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/15ce569fd93124e8e2257c24e3ed85b9ef9951d6",
+                "reference": "15ce569fd93124e8e2257c24e3ed85b9ef9951d6",
                 "shasum": ""
             },
             "require": {
@@ -2662,7 +2725,7 @@
                 "fruitcake/php-cors": "^1.2",
                 "laravel/serializable-closure": "^1.2.2",
                 "league/commonmark": "^2.2",
-                "league/flysystem": "^3.0.16",
+                "league/flysystem": "^3.8.0",
                 "monolog/monolog": "^2.0",
                 "nesbot/carbon": "^2.62.1",
                 "nunomaduro/termwind": "^1.13",
@@ -2823,7 +2886,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-10-19T13:23:53+00:00"
+            "time": "2022-10-20T16:11:03+00:00"
         },
         {
             "name": "laravel/jetstream",
@@ -5918,16 +5981,16 @@
         },
         {
             "name": "spatie/laravel-tags",
-            "version": "4.3.2",
+            "version": "4.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-tags.git",
-                "reference": "e0838c261b7ee0a6b234f5d61b7cf767936d7b45"
+                "reference": "8a155c5b8840089f9af30c0350adfe1f19b3ad92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-tags/zipball/e0838c261b7ee0a6b234f5d61b7cf767936d7b45",
-                "reference": "e0838c261b7ee0a6b234f5d61b7cf767936d7b45",
+                "url": "https://api.github.com/repos/spatie/laravel-tags/zipball/8a155c5b8840089f9af30c0350adfe1f19b3ad92",
+                "reference": "8a155c5b8840089f9af30c0350adfe1f19b3ad92",
                 "shasum": ""
             },
             "require": {
@@ -5974,7 +6037,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-tags/issues",
-                "source": "https://github.com/spatie/laravel-tags/tree/4.3.2"
+                "source": "https://github.com/spatie/laravel-tags/tree/4.3.3"
             },
             "funding": [
                 {
@@ -5982,20 +6045,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-06-04T02:58:35+00:00"
+            "time": "2022-10-21T07:08:38+00:00"
         },
         {
             "name": "spatie/laravel-translatable",
-            "version": "6.0.0",
+            "version": "6.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-translatable.git",
-                "reference": "c4c2bef702738f26562b6dc37b66bdac545610e1"
+                "reference": "b0ee6e06c666dcfb97fb1b4ff141b34e59806f13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-translatable/zipball/c4c2bef702738f26562b6dc37b66bdac545610e1",
-                "reference": "c4c2bef702738f26562b6dc37b66bdac545610e1",
+                "url": "https://api.github.com/repos/spatie/laravel-translatable/zipball/b0ee6e06c666dcfb97fb1b4ff141b34e59806f13",
+                "reference": "b0ee6e06c666dcfb97fb1b4ff141b34e59806f13",
                 "shasum": ""
             },
             "require": {
@@ -6006,7 +6069,8 @@
             },
             "require-dev": {
                 "mockery/mockery": "^1.4",
-                "orchestra/testbench": "^7.0"
+                "orchestra/testbench": "^7.0",
+                "pestphp/pest": "^1.20"
             },
             "type": "library",
             "extra": {
@@ -6054,8 +6118,7 @@
                 "translate"
             ],
             "support": {
-                "issues": "https://github.com/spatie/laravel-translatable/issues",
-                "source": "https://github.com/spatie/laravel-translatable/tree/6.0.0"
+                "source": "https://github.com/spatie/laravel-translatable/tree/6.1.0"
             },
             "funding": [
                 {
@@ -6063,20 +6126,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-03-07T13:50:51+00:00"
+            "time": "2022-10-21T08:44:08+00:00"
         },
         {
             "name": "stancl/virtualcolumn",
-            "version": "v1.2.1",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/archtechx/virtualcolumn.git",
-                "reference": "dd3a77f17c9adc2078b0b7d36e5a798981049164"
+                "reference": "ab3f943990e8b3e0a6ba5e90be6bf216bdaf1719"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/archtechx/virtualcolumn/zipball/dd3a77f17c9adc2078b0b7d36e5a798981049164",
-                "reference": "dd3a77f17c9adc2078b0b7d36e5a798981049164",
+                "url": "https://api.github.com/repos/archtechx/virtualcolumn/zipball/ab3f943990e8b3e0a6ba5e90be6bf216bdaf1719",
+                "reference": "ab3f943990e8b3e0a6ba5e90be6bf216bdaf1719",
                 "shasum": ""
             },
             "require": {
@@ -6105,9 +6168,9 @@
             "description": "Eloquent virtual column.",
             "support": {
                 "issues": "https://github.com/archtechx/virtualcolumn/issues",
-                "source": "https://github.com/archtechx/virtualcolumn/tree/v1.2.1"
+                "source": "https://github.com/archtechx/virtualcolumn/tree/v1.3.0"
             },
-            "time": "2022-01-27T11:08:03+00:00"
+            "time": "2022-10-21T12:09:30+00:00"
         },
         {
             "name": "symfony/console",

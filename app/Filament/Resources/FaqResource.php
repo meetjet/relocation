@@ -5,8 +5,8 @@ namespace App\Filament\Resources;
 use App\Enums\Countries;
 use App\Enums\FaqStatus;
 use App\Filament\Resources\FaqResource\Pages;
-use App\Filament\Resources\FaqResource\RelationManagers;
 use App\Models\Faq;
+use App\Traits\PageListHelpers;
 use Exception;
 use Filament\Forms\Components;
 use Filament\Resources\Form;
@@ -22,6 +22,8 @@ use Illuminate\Support\Facades\Request;
 
 class FaqResource extends Resource
 {
+    use PageListHelpers;
+
     protected static ?string $model = Faq::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
@@ -75,7 +77,9 @@ class FaqResource extends Resource
                 Columns\TextColumn::make('original')
                     ->getStateUsing(fn($record): ?string => $record->title ?: $record->original)
                     ->label(__('Question'))
-                    ->description(fn($record): ?string => $record->slug)
+                    ->description(fn($record) => (!$record->deleted_at && $record->slug)
+                        ? static::externalLink(route("faqs.show", ['slug' => $record->slug]), $record->slug)
+                        : null)
                     ->limit(200)
                     ->wrap()
                     ->searchable(query: function (Builder $query, string $search): Builder {
@@ -87,14 +91,10 @@ class FaqResource extends Resource
                     ->color(fn($record): ?string => is_null($record->deleted_at) ? null : "danger")
                     ->sortable(),
 
-                Columns\BadgeColumn::make('country')
+                Columns\TextColumn::make('country')
                     ->label(__('Country'))
-                    ->enum(array_merge(Countries::asSelectArray(), [null => __("No")]))
+                    ->enum(Countries::asSelectArray())
                     ->sortable()
-                    ->colors([
-                        'secondary',
-                        'primary' => static fn($state): bool => Countries::hasKey((string)$state),
-                    ])
                     ->toggleable(),
 
                 Columns\SpatieTagsColumn::make('tags')
@@ -142,7 +142,7 @@ class FaqResource extends Resource
                 Actions\Tables\RestoreBulkAction::make(),
                 Actions\Tables\ForceDeleteBulkAction::make(),
             ])
-            ->defaultSort('id', 'desc');
+            ->defaultSort('created_at', 'desc');
     }
 
     /**
@@ -187,6 +187,7 @@ class FaqResource extends Resource
 
                     Components\TextInput::make('slug')
                         ->label(__('Slug'))
+                        ->hint(__('If this field is left blank, the link will be generated automatically'))
                         ->unique(ignoreRecord: true),
 
                     Components\RichEditor::make('question')
