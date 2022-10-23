@@ -152,7 +152,7 @@
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="flex items-center px-4">
+            <div class="flex flex-col px-4">
 
                 @if (Route::has('login'))
                     @auth
