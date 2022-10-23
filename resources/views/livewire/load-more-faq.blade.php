@@ -26,7 +26,7 @@
     @endforeach
 
     @if($total !== count($faqs))
-        <div wire:loading class="h-10 w-full flex justify-center items-center bg-gray-200 font-bold">
+        <div wire:loading class="h-10 w-full mb-4 flex justify-center items-center bg-gray-200 font-bold">
             {{ __('Loading...') }}
         </div>
     @endif
