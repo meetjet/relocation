@@ -31,6 +31,7 @@ class FaqObserver
     {
         if (
             $faq->status === FaqStatus::PUBLISHED
+            && $faq->slug
             && $faq->telegram_chat_id
             && is_null($faq->telegram_published_notify_sent)
         ) {
