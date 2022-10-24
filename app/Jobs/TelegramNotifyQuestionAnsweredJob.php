@@ -46,8 +46,7 @@ class TelegramNotifyQuestionAnsweredJob implements ShouldQueue
     {
         try {
             $bot->sendMessage(__('telegram.bot.question.reply', [
-//                'link' => route("faq"), // TODO: replace to route
-                'link' => "https://relocation.digital/faqs/{$this->faq->slug}",
+                'link' => route("faqs.show", ['slug' => $this->faq->slug]),
             ], $this->faq->telegram_user_language_code), [
                 // @see https://core.telegram.org/bots/api#sendmessage
                 'chat_id' => $this->faq->telegram_chat_id,
