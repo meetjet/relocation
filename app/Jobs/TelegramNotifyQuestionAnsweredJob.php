@@ -2,16 +2,16 @@
 
 namespace App\Jobs;
 
+use App\Enums\TelegramBotType;
 use App\Models\Faq;
+use App\Telegram\Telegram;
 use Exception;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
-use SergiX44\Nutgram\Nutgram;
 use SergiX44\Nutgram\Telegram\Attributes\ParseMode;
 use Throwable;
 
@@ -39,22 +39,22 @@ class TelegramNotifyQuestionAnsweredJob implements ShouldQueue
     /**
      * Execute the job.
      *
-     * @param Nutgram $bot
+     * @param Telegram $telegram
      * @return void
      */
-    public function handle(Nutgram $bot): void
+    public function handle(Telegram $telegram): void
     {
         try {
-            $bot->sendMessage(__('telegram.bot.question.reply', [
-                'link' => route("faqs.show", ['slug' => $this->faq->slug]),
-            ], $this->faq->telegram_user_language_code), [
-                // @see https://core.telegram.org/bots/api#sendmessage
-                'chat_id' => $this->faq->telegram_chat_id,
-                'reply_to_message_id' => $this->faq->telegram_message_id,
-                'parse_mode' => ParseMode::HTML,
-                'disable_web_page_preview' => true,
-                'allow_sending_without_reply' => true,
-            ]);
+            $telegram
+                ->getBotByType((string)$this->faq->telegram_bot_type)
+                ->sendMessage($this->getMessageText(), [
+                    // @see https://core.telegram.org/bots/api#sendmessage
+                    'chat_id' => $this->faq->telegram_chat_id,
+                    'reply_to_message_id' => $this->faq->telegram_message_id,
+                    'parse_mode' => ParseMode::HTML,
+                    'disable_web_page_preview' => true,
+                    'allow_sending_without_reply' => true,
+                ]);
 
             $this->faq->forceFill([
                 'telegram_published_notify_sent' => true,
@@ -64,5 +64,20 @@ class TelegramNotifyQuestionAnsweredJob implements ShouldQueue
         } catch (Throwable $e) {
             Log::error($e);
         }
+    }
+
+    /**
+     * @return string
+     */
+    private function getMessageText(): string
+    {
+        $langKey = match ((string)$this->faq->telegram_bot_type) {
+            TelegramBotType::ARMENIAN => "telegram.armenian.question.reply",
+            default => "telegram.default.question.reply",
+        };
+
+        return __($langKey, [
+            'link' => route("faqs.show", ['slug' => $this->faq->slug]),
+        ], $this->faq->telegram_user_language_code);
     }
 }
