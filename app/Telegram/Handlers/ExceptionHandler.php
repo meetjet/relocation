@@ -11,7 +11,7 @@ class ExceptionHandler
 {
     public function __invoke(Nutgram $bot, Throwable $e): void
     {
-        $bot->sendMessage(__('telegram.bot.exception'), [
+        $bot->sendMessage(__('telegram.exception'), [
             'parse_mode' => ParseMode::HTML,
             'disable_web_page_preview' => true,
         ]);

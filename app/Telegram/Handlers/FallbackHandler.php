@@ -11,6 +11,6 @@ class FallbackHandler
      */
     public function __invoke(Nutgram $bot): void
     {
-        $bot->sendMessage(__('telegram.bot.fallback'));
+        $bot->sendMessage(__('telegram.fallback'));
     }
 }

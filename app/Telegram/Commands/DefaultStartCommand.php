@@ -2,11 +2,11 @@
 
 namespace App\Telegram\Commands;
 
-use App\Telegram\Conversations\AskQuestionConversation;
+use App\Telegram\Conversations\DefaultAskQuestionConversation;
 use SergiX44\Nutgram\Nutgram;
 use SergiX44\Nutgram\Telegram\Attributes\ParseMode;
 
-class StartCommand
+class DefaultStartCommand
 {
     /**
      * @param Nutgram $bot
@@ -24,10 +24,10 @@ class StartCommand
      */
     private function getWelcomeMessage(): string
     {
-        return __('telegram.bot.start.welcome')
+        return __('telegram.default.start.welcome')
             . PHP_EOL
-            . __('telegram.bot.start.manual', [
-                'command' => AskQuestionConversation::getName(),
+            . __('telegram.default.start.manual', [
+                'command' => DefaultAskQuestionConversation::getName(),
             ]);
     }
 
@@ -44,6 +44,6 @@ class StartCommand
      */
     public static function getDescription(): string
     {
-        return __('telegram.bot.start.description');
+        return __('telegram.default.start.description');
     }
 }
