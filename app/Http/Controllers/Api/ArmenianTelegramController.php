@@ -3,35 +3,33 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Telegram\Commands\StartCommand;
-use App\Telegram\Conversations\AskQuestionConversation;
+use App\Telegram\Commands\ArmenianStartCommand;
+use App\Telegram\Conversations\ArmenianAskQuestionConversation;
 use App\Telegram\Handlers\ApiErrorHandler;
 use App\Telegram\Handlers\ExceptionHandler;
 use App\Telegram\Handlers\FallbackHandler;
 use App\Telegram\Middleware\AuthMiddleware;
 use App\Telegram\Middleware\LocaleMiddleware;
+use App\Telegram\Telegram;
 use Illuminate\Support\Facades\Log;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use SergiX44\Hydrator\Exception\HydrationException;
-use SergiX44\Nutgram\Nutgram;
 
-class TelegramController extends Controller
+class ArmenianTelegramController extends Controller
 {
-    /**
-     * @param Nutgram $bot
-     */
-    public function __invoke(Nutgram $bot): void
+    public function __invoke(Telegram $telegram): void
     {
         try {
+            $bot = $telegram->getArmenianBot();
             $bot->middleware(AuthMiddleware::class);
             $bot->middleware(LocaleMiddleware::class);
 
-            $bot->onCommand(StartCommand::getName(), StartCommand::class)
-                ->description(StartCommand::getDescription());
+            $bot->onCommand(ArmenianStartCommand::getName(), ArmenianStartCommand::class)
+                ->description(ArmenianStartCommand::getDescription());
 
-            $bot->onCommand(AskQuestionConversation::getName(), AskQuestionConversation::class)
-                ->description(AskQuestionConversation::getDescription());
+            $bot->onCommand(ArmenianAskQuestionConversation::getName(), ArmenianAskQuestionConversation::class)
+                ->description(ArmenianAskQuestionConversation::getDescription());
 
             $bot->registerMyCommands();
             $bot->fallback(FallbackHandler::class);
