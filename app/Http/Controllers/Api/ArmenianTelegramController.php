@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Telegram\Commands\ArmenianStartCommand;
+use App\Telegram\Conversations\ArmenianAddListingConversation;
 use App\Telegram\Conversations\ArmenianAskQuestionConversation;
 use App\Telegram\Handlers\ApiErrorHandler;
 use App\Telegram\Handlers\ExceptionHandler;
@@ -28,8 +29,12 @@ class ArmenianTelegramController extends Controller
             $bot->onCommand(ArmenianStartCommand::getName(), ArmenianStartCommand::class)
                 ->description(ArmenianStartCommand::getDescription());
 
-            $bot->onCommand(ArmenianAskQuestionConversation::getName(), ArmenianAskQuestionConversation::class)
-                ->description(ArmenianAskQuestionConversation::getDescription());
+            // TODO: works but temporarily hidden
+//            $bot->onCommand(ArmenianAskQuestionConversation::getName(), ArmenianAskQuestionConversation::class)
+//                ->description(ArmenianAskQuestionConversation::getDescription());
+
+            $bot->onCommand(ArmenianAddListingConversation::getName(), ArmenianAddListingConversation::class)
+                ->description(ArmenianAddListingConversation::getDescription());
 
             $bot->registerMyCommands();
             $bot->fallback(FallbackHandler::class);
