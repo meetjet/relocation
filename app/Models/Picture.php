@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\PictureObserver;
 use App\Traits\HasUUID;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,6 +14,15 @@ class Picture extends Model
     use HasFactory;
     use VirtualColumn;
     use HasUUID;
+
+    protected $fillable = ['caption'];
+
+    public static function boot(): void
+    {
+        parent::boot();
+
+        self::observe(PictureObserver::class);
+    }
 
     /**
      * @return string[]

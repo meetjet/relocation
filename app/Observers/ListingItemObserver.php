@@ -20,4 +20,17 @@ class ListingItemObserver
             TelegramAttachImagesJob::dispatch($listingItem);
         }
     }
+
+    /**
+     * Handle the ListingItem "forceDeleted" event.
+     *
+     * @param ListingItem $listingItem
+     * @return void
+     */
+    public function forceDeleted(ListingItem $listingItem): void
+    {
+        $listingItem->pictures->each(function ($_picture) {
+            $_picture->delete();
+        });
+    }
 }
