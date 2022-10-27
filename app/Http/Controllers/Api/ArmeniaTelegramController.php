@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Telegram\Commands\ArmenianStartCommand;
-use App\Telegram\Conversations\ArmenianAddListingConversation;
-use App\Telegram\Conversations\ArmenianAskQuestionConversation;
+use App\Telegram\Commands\ArmeniaStartCommand;
+use App\Telegram\Conversations\ArmeniaAddListingConversation;
+use App\Telegram\Conversations\ArmeniaAskQuestionConversation;
 use App\Telegram\Handlers\ApiErrorHandler;
 use App\Telegram\Handlers\ExceptionHandler;
 use App\Telegram\Handlers\FallbackHandler;
@@ -17,24 +17,24 @@ use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use SergiX44\Hydrator\Exception\HydrationException;
 
-class ArmenianTelegramController extends Controller
+class ArmeniaTelegramController extends Controller
 {
     public function __invoke(Telegram $telegram): void
     {
         try {
-            $bot = $telegram->getArmenianBot();
+            $bot = $telegram->getArmeniaBot();
             $bot->middleware(AuthMiddleware::class);
             $bot->middleware(LocaleMiddleware::class);
 
-            $bot->onCommand(ArmenianStartCommand::getName(), ArmenianStartCommand::class)
-                ->description(ArmenianStartCommand::getDescription());
+            $bot->onCommand(ArmeniaStartCommand::getName(), ArmeniaStartCommand::class)
+                ->description(ArmeniaStartCommand::getDescription());
 
             // TODO: works but temporarily hidden
-//            $bot->onCommand(ArmenianAskQuestionConversation::getName(), ArmenianAskQuestionConversation::class)
-//                ->description(ArmenianAskQuestionConversation::getDescription());
+//            $bot->onCommand(ArmeniaAskQuestionConversation::getName(), ArmeniaAskQuestionConversation::class)
+//                ->description(ArmeniaAskQuestionConversation::getDescription());
 
-            $bot->onCommand(ArmenianAddListingConversation::getName(), ArmenianAddListingConversation::class)
-                ->description(ArmenianAddListingConversation::getDescription());
+            $bot->onCommand(ArmeniaAddListingConversation::getName(), ArmeniaAddListingConversation::class)
+                ->description(ArmeniaAddListingConversation::getDescription());
 
             $bot->registerMyCommands();
             $bot->fallback(FallbackHandler::class);

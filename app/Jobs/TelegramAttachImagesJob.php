@@ -44,6 +44,7 @@ class TelegramAttachImagesJob implements ShouldQueue
     public function handle(UploadIO $uploadIO, Telegram $telegram): void
     {
         try {
+            logger("Add listing: TelegramAttachImagesJob handle.");
             foreach ($this->model->telegram_attached_images as $_image) {
                 $storagePath = storage_path(config('nutgram.tmp_folder'));
                 File::ensureDirectoryExists($storagePath);
@@ -53,12 +54,14 @@ class TelegramAttachImagesJob implements ShouldQueue
                 if ($file) {
                     $file->save($storagePath);
                     $tmpFilepath = $storagePath . '/' . pathinfo($file->file_path, PATHINFO_BASENAME);
+                    logger("Add listing: saved temp file to '{$tmpFilepath}'.");
                     $uploadedFileData = $uploadIO->upload($tmpFilepath);
-                    File::delete($tmpFilepath);
+//                    File::delete($tmpFilepath); // TODO: temporarily hidden
                     $this->model->pictures()->forceCreate(array_merge($_image, [
                         'url' => $uploadedFileData['fileUrl'],
                         'uploadio_file_path' => $uploadedFileData['filePath'],
                     ]));
+                    logger("Add listing: created Picture model.");
                 } else {
                     Log::error("Telegram get file, file not found: {$_image['file_id']}");
                 }
@@ -67,6 +70,7 @@ class TelegramAttachImagesJob implements ShouldQueue
             $this->model->forceFill([
                 'telegram_attached_images' => null,
             ])->save();
+            logger("Add listing: end.");
         } catch (GuzzleException | NotFoundExceptionInterface | ContainerExceptionInterface $e) {
             Log::error($e);
         } catch (FileNotFoundException | RequestException $e) {

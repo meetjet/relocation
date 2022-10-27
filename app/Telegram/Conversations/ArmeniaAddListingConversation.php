@@ -21,7 +21,7 @@ use Throwable;
  *
  * @package App\Telegram\Conversations
  */
-class ArmenianAddListingConversation extends Conversation
+class ArmeniaAddListingConversation extends Conversation
 {
     protected ?string $step = "askTitle";
     public string $title;
@@ -33,7 +33,7 @@ class ArmenianAddListingConversation extends Conversation
      */
     public function askTitle(Nutgram $bot): void
     {
-        $bot->sendMessage(__('telegram.armenian.listing-add.ask-title'));
+        $bot->sendMessage(__('telegram.armenia.listing-add.ask-title'));
         $this->next("checkTitle");
     }
 
@@ -60,7 +60,7 @@ class ArmenianAddListingConversation extends Conversation
      */
     public function askImage(Nutgram $bot): void
     {
-        $bot->sendMessage(__('telegram.armenian.listing-add.ask-image'), [
+        $bot->sendMessage(__('telegram.armenia.listing-add.ask-image'), [
             'reply_markup' => InlineKeyboardMarkup::make()
                 ->addRow(
                     InlineKeyboardButton::make(__('Yes'), callback_data: "true"),
@@ -76,7 +76,7 @@ class ArmenianAddListingConversation extends Conversation
      */
     public function askMoreImage(Nutgram $bot): void
     {
-        $bot->sendMessage(__('telegram.armenian.listing-add.ask-more-image'), [
+        $bot->sendMessage(__('telegram.armenia.listing-add.ask-more-image'), [
             'reply_markup' => InlineKeyboardMarkup::make()
                 ->addRow(
                     InlineKeyboardButton::make(__('Yes'), callback_data: "true"),
@@ -119,7 +119,7 @@ class ArmenianAddListingConversation extends Conversation
      */
     public function attachImage(Nutgram $bot): void
     {
-        $bot->sendMessage(__('telegram.armenian.listing-add.attach-image', [
+        $bot->sendMessage(__('telegram.armenia.listing-add.attach-image', [
             'command' => Str::lower(__('Cancel')),
         ]));
         $this->next("checkImage");
@@ -139,7 +139,7 @@ class ArmenianAddListingConversation extends Conversation
             $text = Str::lower($message->text);
 
             if ($text === Str::lower(__('Cancel'))) {
-                $bot->sendMessage(__('telegram.armenian.listing-add.attach-image-canceled'));
+                $bot->sendMessage(__('telegram.armenia.listing-add.attach-image-canceled'));
                 $this->done($bot);
                 return;
             }
@@ -165,7 +165,7 @@ class ArmenianAddListingConversation extends Conversation
             'caption' => $message->caption,
         ];
 
-        $bot->sendMessage(__('telegram.armenian.listing-add.attach-image-successfully', [
+        $bot->sendMessage(__('telegram.armenia.listing-add.attach-image-successfully', [
             'image' => $message->document->file_name,
         ]), [
             'parse_mode' => ParseMode::HTML,
@@ -180,18 +180,20 @@ class ArmenianAddListingConversation extends Conversation
      */
     public function done(Nutgram $bot): void
     {
+        logger("Add listing: begin.");
         ListingItem::forceCreate([
             'user_id' => app(CreateUserAction::class)->execute($bot->user()),
             'country' => Countries::ARM,
             'title' => $this->title,
-            'telegram_bot_type' => TelegramBotType::ARMENIAN,
+            'telegram_bot_type' => TelegramBotType::ARMENIA,
             'telegram_user_id' => $bot->userId(),
             'telegram_user_language_code' => $bot->user()->language_code,
             'telegram_chat_id' => $bot->chatId(),
             'telegram_attached_images' => $this->images,
         ]);
+        logger("Add listing: create listing item.");
 
-        $bot->sendMessage(__('telegram.armenian.listing-add.end'));
+        $bot->sendMessage(__('telegram.armenia.listing-add.end'));
         $this->end();
     }
 
@@ -208,6 +210,6 @@ class ArmenianAddListingConversation extends Conversation
      */
     public static function getDescription(): string
     {
-        return __('telegram.armenian.listing-add.description');
+        return __('telegram.armenia.listing-add.description');
     }
 }

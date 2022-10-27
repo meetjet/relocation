@@ -28,8 +28,8 @@ return [
     ],
     TelegramBotType::class => [
         TelegramBotType::DEFAULT => 'Default',
-        TelegramBotType::ARMENIAN => 'Armenian',
-        TelegramBotType::GEORGIAN => 'Georgian',
-        TelegramBotType::TURKISH => 'Turkish',
+        TelegramBotType::ARMENIA => 'Armenia',
+        TelegramBotType::GEORGIA => 'Georgia',
+        TelegramBotType::TURKEY => 'Turkey',
     ],
 ];

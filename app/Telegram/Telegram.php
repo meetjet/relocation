@@ -24,7 +24,7 @@ class Telegram
     public function getBotByType(string $type): Nutgram
     {
         return match ($type) {
-            TelegramBotType::ARMENIAN => $this->getArmenianBot(),
+            TelegramBotType::ARMENIA => $this->getArmeniaBot(),
             default => $this->getDefaultBot(),
         };
     }
@@ -40,13 +40,13 @@ class Telegram
     }
 
     /**
-     * Get the Armenian Telegram bot instance.
+     * Get the Armenia Telegram bot instance.
      *
      * @return Nutgram
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
-    public function getArmenianBot(): Nutgram
+    public function getArmeniaBot(): Nutgram
     {
         return $this->getBotInstance(config('nutgram.token_armenia'), config('nutgram.log_channel_armenia'));
     }
