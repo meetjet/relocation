@@ -2,6 +2,7 @@
 
 namespace App\Telegram\Conversations;
 
+use App\Enums\TelegramBotType;
 use App\Models\Faq;
 use App\Telegram\Actions\CreateUserAction;
 use Psr\SimpleCache\InvalidArgumentException;
@@ -9,7 +10,7 @@ use SergiX44\Nutgram\Conversations\Conversation;
 use SergiX44\Nutgram\Nutgram;
 use Throwable;
 
-class AskQuestionConversation extends Conversation
+class DefaultAskQuestionConversation extends Conversation
 {
     /**
      * @param Nutgram $bot
@@ -17,7 +18,7 @@ class AskQuestionConversation extends Conversation
      */
     public function start(Nutgram $bot): void
     {
-        $bot->sendMessage(__('telegram.bot.question.start'));
+        $bot->sendMessage(__('telegram.default.question.start'));
         $this->next('askQuestion');
     }
 
@@ -34,12 +35,13 @@ class AskQuestionConversation extends Conversation
             Faq::forceCreate([
                 'user_id' => app(CreateUserAction::class)->execute($bot->user()),
                 'original' => $questionText,
+                'telegram_bot_type' => TelegramBotType::DEFAULT,
                 'telegram_user_id' => $bot->userId(),
                 'telegram_user_language_code' => $bot->user()->language_code,
                 'telegram_chat_id' => $bot->chatId(),
                 'telegram_message_id' => $bot->messageId(),
             ]);
-            $bot->sendMessage(__('telegram.bot.question.end', [
+            $bot->sendMessage(__('telegram.default.question.end', [
                 'command' => self::getName(),
                 'link' => route("faqs.index"),
             ]));
@@ -47,7 +49,7 @@ class AskQuestionConversation extends Conversation
             return;
         }
 
-        $bot->sendMessage(__('telegram.bot.question.unsupported'));
+        $bot->sendMessage(__('telegram.default.question.unsupported'));
         $this->start($bot);
     }
 
@@ -64,6 +66,6 @@ class AskQuestionConversation extends Conversation
      */
     public static function getDescription(): string
     {
-        return __('telegram.bot.question.description');
+        return __('telegram.default.question.description');
     }
 }

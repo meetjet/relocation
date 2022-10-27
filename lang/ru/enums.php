@@ -4,6 +4,7 @@ use App\Enums\Countries;
 use App\Enums\FaqStatus;
 use App\Enums\ListingCategoryStatus;
 use App\Enums\ListingItemStatus;
+use App\Enums\TelegramBotType;
 
 return [
     FaqStatus::class => [
@@ -24,5 +25,11 @@ return [
         Countries::ARM => 'Армения',
         Countries::GEO => 'Грузия',
         Countries::TUR => 'Турция',
+    ],
+    TelegramBotType::class => [
+        TelegramBotType::DEFAULT => 'По умолчанию',
+        TelegramBotType::ARMENIAN => 'Армянский',
+        TelegramBotType::GEORGIAN => 'Грузинский',
+        TelegramBotType::TURKISH => 'Турецкий',
     ],
 ];

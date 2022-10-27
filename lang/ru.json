@@ -554,5 +554,8 @@
     "Category": "Категория",
     "Categories": "Категории",
     "If this field is left blank, the link will be generated automatically": "Если оставить это поле пустым, то ссылка будет сгенерирована автоматически",
-    "Telegram": "Telegram"
+    "Telegram": "Telegram",
+    "Pictures": "Изображения",
+    "Picture": "Изображение",
+    "Caption": "Подпись"
 }

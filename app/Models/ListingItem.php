@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Observers\ListingItemObserver;
 use App\Traits\HasUUID;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
@@ -22,6 +24,13 @@ class ListingItem extends Model
     use HasSlug;
 
     protected $fillable = ['slug', 'user_id', 'category_id', 'country', 'title', 'description', 'status', 'visibility'];
+
+    public static function boot(): void
+    {
+        parent::boot();
+
+        self::observe(ListingItemObserver::class);
+    }
 
     /**
      * @return string[]
@@ -76,5 +85,13 @@ class ListingItem extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(ListingCategory::class, 'category_id');
+    }
+
+    /**
+     * @return MorphMany
+     */
+    public function pictures(): MorphMany
+    {
+        return $this->morphMany(Picture::class, 'model');
     }
 }
