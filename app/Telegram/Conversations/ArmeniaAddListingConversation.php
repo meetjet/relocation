@@ -180,7 +180,6 @@ class ArmeniaAddListingConversation extends Conversation
      */
     public function done(Nutgram $bot): void
     {
-        logger("Add listing: begin.");
         ListingItem::forceCreate([
             'user_id' => app(CreateUserAction::class)->execute($bot->user()),
             'country' => Countries::ARM,
@@ -191,7 +190,6 @@ class ArmeniaAddListingConversation extends Conversation
             'telegram_chat_id' => $bot->chatId(),
             'telegram_attached_images' => $this->images,
         ]);
-        logger("Add listing: create listing item.");
 
         $bot->sendMessage(__('telegram.armenia.listing-add.end'));
         $this->end();
