@@ -21,7 +21,7 @@ return [
         'start' => [
             'description' => "Restart bot",
             'welcome' => "Relocation Digital Bot welcomes you.",
-            'manual' => "To ask a question, type the \:command command or click on the corresponding menu button."
+            'manual' => "To add an announcement, type the \:command command or click on the corresponding menu button."
         ],
         'question' => [
             'description' => "Ask a question",
