@@ -59,7 +59,7 @@ class ListingItemResource extends Resource
     {
         return [
             'index' => Pages\ListListingItems::route('/'),
-            'create' => Pages\CreateListingItem::route('/create'),
+//            'create' => Pages\CreateListingItem::route('/create'),
             'edit' => Pages\EditListingItem::route('/{record}/edit'),
         ];
     }

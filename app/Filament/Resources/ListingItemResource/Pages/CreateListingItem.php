@@ -9,6 +9,10 @@ use Filament\Forms\Components;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Support\Facades\Request;
 
+/**
+ * @package App\Filament\Resources\ListingItemResource\Pages
+ * @deprecated
+ */
 class CreateListingItem extends CreateRecord
 {
     protected static string $resource = ListingItemResource::class;
