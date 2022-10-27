@@ -536,5 +536,8 @@
     "Category": "Category",
     "Categories": "Categories",
     "If this field is left blank, the link will be generated automatically": "If this field is left blank, the link will be generated automatically",
-    "Telegram": "Telegram"
+    "Telegram": "Telegram",
+    "Pictures": "Pictures",
+    "Picture": "Picture",
+    "Caption": "Caption"
 }
