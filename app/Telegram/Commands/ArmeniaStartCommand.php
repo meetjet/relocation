@@ -2,7 +2,7 @@
 
 namespace App\Telegram\Commands;
 
-use App\Telegram\Conversations\ArmeniaAskQuestionConversation;
+use App\Telegram\Conversations\ArmeniaAddListingConversation;
 use SergiX44\Nutgram\Nutgram;
 use SergiX44\Nutgram\Telegram\Attributes\ParseMode;
 
@@ -27,7 +27,7 @@ class ArmeniaStartCommand
         return __('telegram.armenia.start.welcome')
             . PHP_EOL
             . __('telegram.armenia.start.manual', [
-                'command' => ArmeniaAskQuestionConversation::getName(),
+                'command' => ArmeniaAddListingConversation::getName(),
             ]);
     }
 

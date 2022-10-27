@@ -16,6 +16,7 @@ class ListingItemObserver
      */
     public function created(ListingItem $listingItem): void
     {
+        logger("Add listing: observer 'created'. Bot type: {$listingItem->telegram_bot_type}");
         if ($listingItem->telegram_bot_type && $listingItem->telegram_attached_images) {
             logger("Add listing: TelegramAttachImagesJob dispatch.");
             TelegramAttachImagesJob::dispatch($listingItem);
