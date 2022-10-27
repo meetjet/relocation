@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Enums\ListingItemStatus;
 use App\Filament\Resources\ListingItemResource\Pages;
+use App\Filament\Resources\ListingItemResource\RelationManagers;
 use App\Models\ListingItem;
 use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Builder;
@@ -82,5 +83,15 @@ class ListingItemResource extends Resource
         return self::$model::where('status', ListingItemStatus::PUBLISHED)
             ->where('visibility', true)
             ->count();
+    }
+
+    /**
+     * @return string[]
+     */
+    public static function getRelations(): array
+    {
+        return [
+            RelationManagers\PicturesRelationManager::class,
+        ];
     }
 }
