@@ -8,7 +8,7 @@ use BenSampo\Enum\Enum;
 class TelegramBotType extends Enum implements LocalizedEnum
 {
     public const DEFAULT = "default";
-    public const ARMENIAN = "armenian";
-    public const GEORGIAN = "georgian";
-    public const TURKISH = "turkish";
+    public const ARMENIA = "armenia";
+    public const GEORGIA = "georgia";
+    public const TURKEY = "turkey";
 }

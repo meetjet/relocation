@@ -72,7 +72,7 @@ class TelegramNotifyQuestionAnsweredJob implements ShouldQueue
     private function getMessageText(): string
     {
         $langKey = match ((string)$this->faq->telegram_bot_type) {
-            TelegramBotType::ARMENIAN => "telegram.armenian.question.reply",
+            TelegramBotType::ARMENIA => "telegram.armenia.question.reply",
             default => "telegram.default.question.reply",
         };
 

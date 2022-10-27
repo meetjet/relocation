@@ -11,7 +11,7 @@ use SergiX44\Nutgram\Conversations\Conversation;
 use SergiX44\Nutgram\Nutgram;
 use Throwable;
 
-class ArmenianAskQuestionConversation extends Conversation
+class ArmeniaAskQuestionConversation extends Conversation
 {
     /**
      * @param Nutgram $bot
@@ -19,7 +19,7 @@ class ArmenianAskQuestionConversation extends Conversation
      */
     public function start(Nutgram $bot): void
     {
-        $bot->sendMessage(__('telegram.armenian.question.start'));
+        $bot->sendMessage(__('telegram.armenia.question.start'));
         $this->next('askQuestion');
     }
 
@@ -37,13 +37,13 @@ class ArmenianAskQuestionConversation extends Conversation
                 'user_id' => app(CreateUserAction::class)->execute($bot->user()),
                 'original' => $questionText,
                 'country' => Countries::ARM,
-                'telegram_bot_type' => TelegramBotType::ARMENIAN,
+                'telegram_bot_type' => TelegramBotType::ARMENIA,
                 'telegram_user_id' => $bot->userId(),
                 'telegram_user_language_code' => $bot->user()->language_code,
                 'telegram_chat_id' => $bot->chatId(),
                 'telegram_message_id' => $bot->messageId(),
             ]);
-            $bot->sendMessage(__('telegram.armenian.question.end', [
+            $bot->sendMessage(__('telegram.armenia.question.end', [
                 'command' => self::getName(),
                 'link' => route("faqs.index"),
             ]));
@@ -51,7 +51,7 @@ class ArmenianAskQuestionConversation extends Conversation
             return;
         }
 
-        $bot->sendMessage(__('telegram.armenian.question.unsupported'));
+        $bot->sendMessage(__('telegram.armenia.question.unsupported'));
         $this->start($bot);
     }
 
@@ -68,6 +68,6 @@ class ArmenianAskQuestionConversation extends Conversation
      */
     public static function getDescription(): string
     {
-        return __('telegram.armenian.question.description');
+        return __('telegram.armenia.question.description');
     }
 }

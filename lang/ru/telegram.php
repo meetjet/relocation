@@ -17,7 +17,7 @@ return [
             'reply' => "Вы получили ответ на заданный ранее вопрос! Чтобы его просмотреть, перейдите по ссылке: :link",
         ],
     ],
-    'armenian' => [
+    'armenia' => [
         'start' => [
             'description' => "Перезапустить бота",
             'welcome' => "Вас приветствует Relocation Digital Bot Armenia.",

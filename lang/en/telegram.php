@@ -17,7 +17,7 @@ return [
             'reply' => "You got the answer to the question asked earlier! To view it, follow the link: :link",
         ],
     ],
-    'armenian' => [
+    'armenia' => [
         'start' => [
             'description' => "Restart bot",
             'welcome' => "Relocation Digital Bot welcomes you.",

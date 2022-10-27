@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\ArmenianTelegramController;
+use App\Http\Controllers\Api\ArmeniaTelegramController;
 use App\Http\Controllers\Api\DefaultTelegramController;
 use App\Http\Middleware\JsonRequest;
 use Illuminate\Http\Request;
@@ -28,7 +28,7 @@ Route::prefix('bots')->group(function () {
         'middleware' => [JsonRequest::class],
     ], static function () {
         Route::post('default', DefaultTelegramController::class);
-        Route::post('armenian', ArmenianTelegramController::class);
+        Route::post('armenia', ArmeniaTelegramController::class);
     });
 
     // Viber webhook

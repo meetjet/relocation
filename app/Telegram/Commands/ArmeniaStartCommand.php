@@ -2,11 +2,11 @@
 
 namespace App\Telegram\Commands;
 
-use App\Telegram\Conversations\ArmenianAskQuestionConversation;
+use App\Telegram\Conversations\ArmeniaAskQuestionConversation;
 use SergiX44\Nutgram\Nutgram;
 use SergiX44\Nutgram\Telegram\Attributes\ParseMode;
 
-class ArmenianStartCommand
+class ArmeniaStartCommand
 {
     /**
      * @param Nutgram $bot
@@ -24,10 +24,10 @@ class ArmenianStartCommand
      */
     private function getWelcomeMessage(): string
     {
-        return __('telegram.armenian.start.welcome')
+        return __('telegram.armenia.start.welcome')
             . PHP_EOL
-            . __('telegram.armenian.start.manual', [
-                'command' => ArmenianAskQuestionConversation::getName(),
+            . __('telegram.armenia.start.manual', [
+                'command' => ArmeniaAskQuestionConversation::getName(),
             ]);
     }
 
@@ -44,6 +44,6 @@ class ArmenianStartCommand
      */
     public static function getDescription(): string
     {
-        return __('telegram.armenian.start.description');
+        return __('telegram.armenia.start.description');
     }
 }
