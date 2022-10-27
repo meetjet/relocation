@@ -53,10 +53,11 @@ class TelegramAttachImagesJob implements ShouldQueue
                 if ($file) {
                     $file->save($storagePath);
                     $tmpFilepath = $storagePath . '/' . pathinfo($file->file_path, PATHINFO_BASENAME);
-                    $uploadedFileUrl = $uploadIO->upload($tmpFilepath);
+                    $uploadedFileData = $uploadIO->upload($tmpFilepath);
                     File::delete($tmpFilepath);
                     $this->model->pictures()->forceCreate(array_merge($_image, [
-                        'url' => $uploadedFileUrl,
+                        'url' => $uploadedFileData['fileUrl'],
+                        'uploadio_file_path' => $uploadedFileData['filePath'],
                     ]));
                 } else {
                     Log::error("Telegram get file, file not found: {$_image['file_id']}");
