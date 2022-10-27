@@ -2,6 +2,7 @@
 
 namespace App\Telegram\Conversations;
 
+use App\Enums\Countries;
 use App\Enums\TelegramBotType;
 use App\Models\Faq;
 use App\Telegram\Actions\CreateUserAction;
@@ -35,6 +36,7 @@ class ArmenianAskQuestionConversation extends Conversation
             Faq::forceCreate([
                 'user_id' => app(CreateUserAction::class)->execute($bot->user()),
                 'original' => $questionText,
+                'country' => Countries::ARM,
                 'telegram_bot_type' => TelegramBotType::ARMENIAN,
                 'telegram_user_id' => $bot->userId(),
                 'telegram_user_language_code' => $bot->user()->language_code,
