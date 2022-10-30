@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\ListingItemsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +21,8 @@ Route::get('/', function () {
 
 Route::get('/faqs/{slug}', [FaqController::class, 'show'])->name('faqs.show');
 Route::resource('faqs', FaqController::class, ['except' => ['show']]);
+
+Route::get('/listing-items', [ListingItemsController::class, 'index'])->name('listing-items.index');
 
 Route::middleware([
     'auth:sanctum',
