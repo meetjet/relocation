@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Faq;
 use App\Models\ListingItem;
 use Livewire\Component;
 
@@ -24,11 +23,13 @@ class LoadMoreListingItems extends Component
     {
         if ($this->total === -1) {
             $this->total = ListingItem::query()
+                ->where('status', 'published')
                 ->where('visibility', true)
                 ->count();
         }
 
         $items = ListingItem::query()
+            ->where('status', 'published')
             ->where('visibility', true)
             ->latest()->paginate($this->perPage);
         $this->emit('listingItemsStore');

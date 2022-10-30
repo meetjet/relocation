@@ -9,7 +9,7 @@
             <li id="listing-items-component" class="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2" >
                 <div
                     tabindex="1"
-                    class="h-full flex flex-col justify-between border rounded p-3 space-y-2 hover:shadow-[3px_3px_8px_rgb(161,161,161,0.3)] focus-within:shadow-[3px_3px_8px_rgb(161,161,161,0.3)] transition-all duration-300"
+                    class="h-full flex flex-col justify-between border rounded p-3 space-y-2 hover:shadow-[3px_3px_8px_rgb(161,161,161,0.3)] focus-within:shadow-[3px_3px_8px_rgb(161,161,161,0.3)] transition-all duration-300 outline-none"
                 >
                     <div class="space-y-2">
                         <a href="/listing-items/{{ $item->slug }}" class="w-full max-w-[200px] mx-auto flex items-center justify-center outline-none">
@@ -26,7 +26,11 @@
                     </div>
                     <div class="space-y-2">
                         <div class="text-[20px] leading-none font-bold">33 270 ₽</div>
-                        <div class="text-xs leading-none">{{ $item->status }}</div>
+                        <a
+                            href="/listing-items/{{ $item->slug }}"
+                            class="flex justify-center bg-[#306BC9] hover:bg-opacity-90 transition-colors duration-300 text-white text-sm font-bold leading-none rounded p-3"
+                            tabindex="-1"
+                        >Подробнее</a>
                     </div>
                 </div>
             </li>
