@@ -19,6 +19,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "nutgram/nutgram": "^3.7",
+        "opcodesio/log-viewer": "^1.6",
         "socialiteproviders/telegram": "^4.1",
         "spatie/laravel-sluggable": "^3.4",
         "stancl/virtualcolumn": "^1.2"
