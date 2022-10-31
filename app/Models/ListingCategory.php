@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Enums\ListingCategoryStatus;
 use App\Traits\HasUUID;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -76,5 +78,13 @@ class ListingCategory extends Model
     public function items(): HasMany
     {
         return $this->hasMany(ListingItem::class, 'category_id');
+    }
+
+    /**
+     * @param Builder $query
+     */
+    public function scopeActive(Builder $query): void
+    {
+        $query->where('status', ListingCategoryStatus::ACTIVE);
     }
 }

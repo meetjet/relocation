@@ -58,20 +58,17 @@ class PicturesRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                Tables\Columns\Layout\Split::make([
-                    Tables\Columns\Layout\Stack::make([
-                        Tables\Columns\ImageColumn::make('url')
-                            ->label(__('Picture'))
-                            ->height(200)
-                            ->extraImgAttributes(['class' => "border"])
-                            ->grow(false),
+                Tables\Columns\ImageColumn::make('url')
+                    ->label(__('Picture'))
+                    ->height(200)
+                    ->extraImgAttributes(['class' => "border"]),
 
-                        Tables\Columns\TextColumn::make('caption')
-                            ->alignLeft()
-                            ->hidden(fn($record): bool => is_null($record) || is_null($record->caption))
-                            ->label(__('Caption')),
-                    ]),
-                ]),
+                Tables\Columns\TextColumn::make('caption')
+                    ->label(__('Caption')),
+
+                Tables\Columns\IconColumn::make('cover')
+                    ->label(__('Cover'))
+                    ->boolean(),
             ])
             ->filters([
                 //

@@ -4,6 +4,7 @@ use App\Enums\Countries;
 use App\Enums\FaqStatus;
 use App\Enums\ListingCategoryStatus;
 use App\Enums\ListingItemStatus;
+use App\Enums\TelegramBotImageMimeType;
 use App\Enums\TelegramBotType;
 
 return [
@@ -32,4 +33,8 @@ return [
         TelegramBotType::GEORGIA => 'Georgia',
         TelegramBotType::TURKEY => 'Turkey',
     ],
+    TelegramBotImageMimeType::class => [
+        TelegramBotImageMimeType::JPEG => 'JPEG',
+        TelegramBotImageMimeType::PNG => 'PNG',
+    ]
 ];

@@ -24,7 +24,7 @@ class ArmeniaTelegramController extends Controller
         try {
             $bot = $telegram->getArmeniaBot();
             $bot->middleware(AuthMiddleware::class);
-            $bot->middleware(LocaleMiddleware::class);
+//            $bot->middleware(LocaleMiddleware::class); // TODO: temporarily hidden
 
             $bot->onCommand(ArmeniaStartCommand::getName(), ArmeniaStartCommand::class)
                 ->description(ArmeniaStartCommand::getDescription());

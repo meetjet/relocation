@@ -26,7 +26,7 @@ class DefaultTelegramController extends Controller
         try {
             $bot = $telegram->getDefaultBot();
             $bot->middleware(AuthMiddleware::class);
-            $bot->middleware(LocaleMiddleware::class);
+//            $bot->middleware(LocaleMiddleware::class); // TODO: temporarily hidden
 
             $bot->onCommand(DefaultStartCommand::getName(), DefaultStartCommand::class)
                 ->description(DefaultStartCommand::getDescription());
