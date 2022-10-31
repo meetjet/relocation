@@ -8,7 +8,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
-class ListingItemsController extends Controller
+class ListingItemController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class ListingItemsController extends Controller
      */
     public function index()
     {
-        return view('listing-items.index');
+        return view('listings.index');
     }
 
     /**
