@@ -66,6 +66,10 @@ class ListListingItems extends ListRecords
                 ->type("listing-items")
                 ->toggleable(),
 
+            Columns\TextColumn::make('price')
+                ->label(__('Price'))
+                ->toggleable(),
+
             Columns\TextColumn::make('country')
                 ->label(__('Country'))
                 ->enum(Countries::asSelectArray())
