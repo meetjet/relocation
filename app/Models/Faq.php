@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use App\Enums\FaqStatus;
+use App\Enums\ListingItemStatus;
 use App\Observers\FaqObserver;
 use App\Traits\HasUUID;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -76,5 +79,14 @@ class Faq extends Model
     public function getRouteKeyName(): string
     {
         return 'slug';
+    }
+
+    /**
+     * @param Builder $query
+     */
+    public function scopeActive(Builder $query): void
+    {
+        $query->where('status', FaqStatus::PUBLISHED)
+            ->where('visibility', true);
     }
 }
