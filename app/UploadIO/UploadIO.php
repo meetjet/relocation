@@ -43,4 +43,14 @@ class UploadIO
             ->delete(sprintf("https://api.upload.io/v2/accounts/%s/files?filePath=%s", config('uploadio.account_id'), $filepath))
             ->throw();
     }
+
+    /**
+     * @param string $transformation
+     * @param string $filepath
+     * @return string
+     */
+    public function transform(string $transformation, string $filepath): string
+    {
+        return sprintf("https://upcdn.io/%s/%s%s", config('uploadio.account_id'), $transformation, $filepath);
+    }
 }

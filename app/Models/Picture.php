@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Observers\PictureObserver;
 use App\Traits\HasUUID;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -46,5 +47,13 @@ class Picture extends Model
     public function model(): MorphTo
     {
         return $this->morphTo();
+    }
+
+    /**
+     * @param Builder $query
+     */
+    public function scopeCover(Builder $query): void
+    {
+        $query->where('data->cover', true);
     }
 }

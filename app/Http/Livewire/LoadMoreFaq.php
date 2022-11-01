@@ -2,6 +2,9 @@
 
 namespace App\Http\Livewire;
 
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use App\Models\Faq;
 
@@ -19,21 +22,24 @@ class LoadMoreFaq extends Component
         $this->perPage += 5;
     }
 
-    public function render()
+    /**
+     * @return Application|Factory|View
+     */
+    public function render(): Application|Factory|View
     {
         if ($this->total === -1) {
-            $this->total = Faq::query()
-                ->where('status', 'published')
-                ->where('visibility', true)
-                ->count();
+            $this->total = Faq::active()->count();
         }
 
-        $faqs = Faq::query()
-            ->where('status', 'published')
-            ->where('visibility', true)
-            ->latest()->paginate($this->perPage);
+        $faqs = Faq::active()
+            ->latest()
+            ->paginate($this->perPage);
+
         $this->emit('faqStore');
 
-        return view('livewire.load-more-faq', ['faqs' => $faqs, 'total' => $this->total]);
+        return view('livewire.load-more-faq', [
+            'faqs' => $faqs,
+            'total' => $this->total,
+        ]);
     }
 }

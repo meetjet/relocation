@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Faq;
-use App\Models\ListingCategory;
 use App\Models\ListingItem;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -33,12 +32,8 @@ class DatabaseSeeder extends Seeder
             ->count(100)
             ->create();
 
-        ListingCategory::factory()
-            ->count(10)
-            ->create();
-
         ListingItem::factory()
-            ->count(30)
+            ->count(100)
             ->create();
     }
 }
