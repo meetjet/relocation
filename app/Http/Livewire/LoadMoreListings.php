@@ -3,6 +3,10 @@
 namespace App\Http\Livewire;
 
 use App\Models\ListingItem;
+use App\UploadIO\UploadIO;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class LoadMoreListings extends Component
@@ -19,56 +23,37 @@ class LoadMoreListings extends Component
         $this->perPage += 10;
     }
 
-    public function render()
+    /**
+     * @param UploadIO $uploadIO
+     * @return Application|Factory|View
+     */
+    public function render(UploadIO $uploadIO): Application|Factory|View
     {
         if ($this->total === -1) {
-            $this->total = ListingItem::query()
-                ->where('status', 'published')
-                ->where('visibility', true)
-                ->count();
+            $this->total = ListingItem::active()->count();
         }
 
-        $items = ListingItem::query()
-            ->where('status', 'published')
-            ->where('visibility', true)
-            ->latest()->paginate($this->perPage);
+        $items = ListingItem::active()
+            ->latest()
+            ->paginate($this->perPage);
+
+        $items->each(function ($_item) use ($uploadIO) {
+            // Get a cover image.
+            $picture = $_item->pictures()->cover()->first();
+
+            $_item->cover_image = $picture ? [
+                // TODO: may need transformation
+//                'url' => $uploadIO->transform("listing-cover", $picture->uploadio_file_path),
+                'url' => $picture->url,
+                'caption' => $picture->caption,
+            ] : null;
+        });
+
         $this->emit('listingsStore');
 
-        $images = [
-            "https://balance.designmyshop.ru/wa-data/public/shop/products/37/00/37/images/309/309.200.jpg",
-            "https://balance.designmyshop.ru/wa-data/public/shop/products/52/00/52/images/355/355.200.jpg",
-            "https://balance.designmyshop.ru/wa-data/public/shop/products/55/00/55/images/378/378.200.jpg",
-            "https://balance.designmyshop.ru/wa-data/public/shop/products/37/00/37/images/309/309.200.jpg",
-            "https://balance.designmyshop.ru/wa-data/public/shop/products/52/00/52/images/355/355.200.jpg",
-            "https://balance.designmyshop.ru/wa-data/public/shop/products/55/00/55/images/378/378.200.jpg",
-            "https://balance.designmyshop.ru/wa-data/public/shop/products/37/00/37/images/309/309.200.jpg",
-            "https://balance.designmyshop.ru/wa-data/public/shop/products/52/00/52/images/355/355.200.jpg",
-            "https://balance.designmyshop.ru/wa-data/public/shop/products/55/00/55/images/378/378.200.jpg",
-            "https://balance.designmyshop.ru/wa-data/public/shop/products/37/00/37/images/309/309.200.jpg",
-            "https://balance.designmyshop.ru/wa-data/public/shop/products/52/00/52/images/355/355.200.jpg",
-            "https://balance.designmyshop.ru/wa-data/public/shop/products/55/00/55/images/378/378.200.jpg",
-            "https://balance.designmyshop.ru/wa-data/public/shop/products/37/00/37/images/309/309.200.jpg",
-            "https://balance.designmyshop.ru/wa-data/public/shop/products/52/00/52/images/355/355.200.jpg",
-            "https://balance.designmyshop.ru/wa-data/public/shop/products/55/00/55/images/378/378.200.jpg",
-            "https://balance.designmyshop.ru/wa-data/public/shop/products/55/00/55/images/378/378.200.jpg",
-            "https://balance.designmyshop.ru/wa-data/public/shop/products/37/00/37/images/309/309.200.jpg",
-            "https://balance.designmyshop.ru/wa-data/public/shop/products/52/00/52/images/355/355.200.jpg",
-            "https://balance.designmyshop.ru/wa-data/public/shop/products/55/00/55/images/378/378.200.jpg",
-            "https://balance.designmyshop.ru/wa-data/public/shop/products/37/00/37/images/309/309.200.jpg",
-            "https://balance.designmyshop.ru/wa-data/public/shop/products/52/00/52/images/355/355.200.jpg",
-            "https://balance.designmyshop.ru/wa-data/public/shop/products/55/00/55/images/378/378.200.jpg",
-            "https://balance.designmyshop.ru/wa-data/public/shop/products/37/00/37/images/309/309.200.jpg",
-            "https://balance.designmyshop.ru/wa-data/public/shop/products/52/00/52/images/355/355.200.jpg",
-            "https://balance.designmyshop.ru/wa-data/public/shop/products/55/00/55/images/378/378.200.jpg",
-            "https://balance.designmyshop.ru/wa-data/public/shop/products/37/00/37/images/309/309.200.jpg",
-            "https://balance.designmyshop.ru/wa-data/public/shop/products/52/00/52/images/355/355.200.jpg",
-            "https://balance.designmyshop.ru/wa-data/public/shop/products/55/00/55/images/378/378.200.jpg",
-            "https://balance.designmyshop.ru/wa-data/public/shop/products/37/00/37/images/309/309.200.jpg",
-            "https://balance.designmyshop.ru/wa-data/public/shop/products/52/00/52/images/355/355.200.jpg",
-            "https://balance.designmyshop.ru/wa-data/public/shop/products/55/00/55/images/378/378.200.jpg",
-            "https://balance.designmyshop.ru/wa-data/public/shop/products/55/00/55/images/378/378.200.jpg"
-        ];
-
-        return view('livewire.load-more-listings', ['items' => $items, 'total' => $this->total, 'images' => $images]);
+        return view('livewire.load-more-listings', [
+            'items' => $items,
+            'total' => $this->total,
+        ]);
     }
 }

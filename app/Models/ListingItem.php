@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Enums\ListingItemStatus;
 use App\Observers\ListingItemObserver;
 use App\Traits\HasUUID;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -93,5 +95,14 @@ class ListingItem extends Model
     public function pictures(): MorphMany
     {
         return $this->morphMany(Picture::class, 'model');
+    }
+
+    /**
+     * @param Builder $query
+     */
+    public function scopeActive(Builder $query): void
+    {
+        $query->where('status', ListingItemStatus::PUBLISHED)
+            ->where('visibility', true);
     }
 }
