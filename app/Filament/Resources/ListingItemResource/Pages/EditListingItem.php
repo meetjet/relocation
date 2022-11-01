@@ -72,6 +72,14 @@ class EditListingItem extends EditRecord
                                 ->label(__('Tags'))
                                 ->type("listing-items"),
                         ]),
+
+                    Components\Section::make(__('Additional information'))
+                        ->schema([
+                            Components\TextInput::make('price')
+                                ->label(__('Price'))
+                                ->disabled()
+                                ->dehydrated(false),
+                        ])->collapsible(),
                 ])
                 ->columnSpan(['lg' => 2]),
 
