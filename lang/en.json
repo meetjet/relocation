@@ -351,6 +351,7 @@
     "No quizzes found": "No quizzes found",
     "Questions": "Questions",
     "Question": "Question",
+    "Total questions": "Total questions",
     "No questions found": "No questions found",
     "Answers": "Answers",
     "Answer": "Answer",
@@ -533,6 +534,7 @@
     "Flea market": "Flea market",
     "Announcement": "Announcement",
     "Announcements": "Announcements",
+    "Total announcements": "Total announcements",
     "Category": "Category",
     "Categories": "Categories",
     "If this field is left blank, the link will be generated automatically": "If this field is left blank, the link will be generated automatically",
@@ -541,5 +543,6 @@
     "Picture": "Picture",
     "Caption": "Caption",
     "Cover": "Cover",
-    "Additional information": "Additional information"
+    "Additional information": "Additional information",
+    "More": "More"
 }
