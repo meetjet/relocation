@@ -1,5 +1,5 @@
 <x-app-layout>
     <div>
-        @livewire('load-more-listing-items')
+        @livewire('load-more-listings')
     </div>
 </x-app-layout>
