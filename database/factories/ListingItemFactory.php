@@ -28,8 +28,10 @@ class ListingItemFactory extends Factory
             'country' => $this->faker->randomElement(array_merge(Countries::getValues(), [null])),
             'title' => $this->faker->text(100),
             'description' => $this->faker->text(400),
-            'status' => $this->faker->randomElement(ListingItemStatus::getValues()),
+//            'status' => $this->faker->randomElement(ListingItemStatus::getValues()),
+            'status' => ListingItemStatus::PUBLISHED,
             'visibility' => $this->faker->boolean(),
+            'price' => $this->faker->randomNumber(),
         ];
     }
 
