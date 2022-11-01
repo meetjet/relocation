@@ -1,6 +1,6 @@
 <div id="faqs-list" data-has-more="{{ $total !== count($faqs) ? 'true' : 'false' }}" data-loading="false">
     <div class="mb-6">
-        <span class="text-2xl font-bold">Всего вопросов</span>
+        <span class="text-2xl font-bold">{{ __('Total questions') }}</span>
         <span class="text-sm font-bold text-[#a1a5b7]">({{ $total }})</span>
     </div>
 
