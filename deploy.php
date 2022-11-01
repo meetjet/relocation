@@ -30,6 +30,7 @@ task('deploy', [
     'artisan:view:cache',
     'artisan:config:cache',
     'artisan:migrate',
+    'initialize:listing-categories',
     'npm:install',
     'npm:build',
     'deploy:publish',
@@ -51,5 +52,11 @@ task('artisan:lighthouse:clear-cache', function () {
     cd('{{release_or_current_path}}');
     run('php artisan lighthouse:clear-cache');
 });
+
+task('initialize:listing-categories', function () {
+    cd('{{release_or_current_path}}');
+    run('php artisan initialize:listing-categories');
+});
+
 
 after('deploy:failed', 'deploy:unlock');
