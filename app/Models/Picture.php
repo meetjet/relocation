@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Observers\PictureObserver;
 use App\Traits\HasUUID;
+use App\UploadIO\UploadIO;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -55,5 +56,17 @@ class Picture extends Model
     public function scopeCover(Builder $query): void
     {
         $query->where('data->cover', true);
+    }
+
+    /**
+     * Apply the transformation to the picture.
+     * @see https://upload.io/dashboard/transformations
+     *
+     * @param string $transformation
+     * @return string
+     */
+    public function transform(string $transformation): string
+    {
+        return app(UploadIO::class)->transform($transformation, $this->url);
     }
 }

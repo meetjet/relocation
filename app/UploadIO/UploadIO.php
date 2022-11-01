@@ -6,6 +6,7 @@ use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 
 class UploadIO
 {
@@ -51,6 +52,6 @@ class UploadIO
      */
     public function transform(string $transformation, string $filepath): string
     {
-        return sprintf("https://upcdn.io/%s/%s%s", config('uploadio.account_id'), $transformation, $filepath);
+        return Str::replace("raw", $transformation, $filepath);
     }
 }
