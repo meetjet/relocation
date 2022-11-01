@@ -19,10 +19,12 @@ Route::get('/', function () {
     return redirect('/faqs');
 })->name('welcome');
 
+// FAQ
 Route::get('/faqs/{slug}', [FaqController::class, 'show'])->name('faqs.show');
 Route::resource('faqs', FaqController::class, ['except' => ['show']]);
 
-Route::get('/listings', [ListingItemController::class, 'index'])->name('listings.index');
+// Listings
+Route::resource('/listings', ListingItemController::class);
 
 Route::middleware([
     'auth:sanctum',

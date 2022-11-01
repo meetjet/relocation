@@ -1,6 +1,6 @@
 <div id="listings-list" data-has-more="{{ $total !== count($items) ? 'true' : 'false' }}" data-loading="false">
     <div class="mb-6">
-        <span class="text-2xl font-bold">Всего товаров</span>
+        <span class="text-2xl font-bold">{{ __('Total announcements') }}</span>
         <span class="text-sm font-bold text-[#a1a5b7]">({{ $total }})</span>
     </div>
 
@@ -13,7 +13,7 @@
                 >
                     <div class="space-y-2">
                         @if($item->cover_image)
-                            <a href="/listings/{{ $item->slug }}"
+                            <a href="{{ route('listings.show', ['listing' => $item->slug]) }}"
                                class="w-full max-w-[200px] mx-auto flex items-center justify-center outline-none">
                                 <img
                                     src="{{ $item->cover_image['url'] }}"
@@ -25,15 +25,16 @@
                                 >
                             </a>
                         @endif
-                        <a href="/listings/{{ $item->slug }}" tabindex="-1">{{ $item->title }}</a>
+                        <a href="{{ route('listings.show', ['listing' => $item->slug]) }}"
+                           tabindex="-1">{{ $item->title }}</a>
                     </div>
                     <div class="space-y-2">
                         <div class="text-[20px] leading-none font-bold">{{ $item->price }} ₽</div>
                         <a
-                            href="/listings/{{ $item->slug }}"
+                            href="{{ route('listings.show', ['listing' => $item->slug]) }}"
                             class="flex justify-center bg-[#306BC9] hover:bg-opacity-90 transition-colors duration-300 text-white text-sm font-bold leading-none rounded p-3"
                             tabindex="-1"
-                        >Подробнее</a>
+                        >{{ __('More') }}</a>
                     </div>
                 </div>
             </li>

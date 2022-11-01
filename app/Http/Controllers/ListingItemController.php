@@ -13,9 +13,9 @@ class ListingItemController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
-    public function index()
+    public function index(): Application|Factory|View
     {
         return view('listings.index');
     }
@@ -23,7 +23,7 @@ class ListingItemController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -33,7 +33,7 @@ class ListingItemController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -47,15 +47,24 @@ class ListingItemController extends Controller
      * @param string $slug
      * @return Application|Factory|View
      */
-    public function show(string $slug)
+    public function show(string $slug): Application|Factory|View
     {
-        //
+        $entity = ListingItem::active()
+            ->where('slug', $slug)
+            ->with(['tags', 'pictures', 'category'])
+            ->first();
+
+        abort_unless(!is_null($entity), 404);
+
+        return view('listings.show', [
+            'entity' => $entity,
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -66,8 +75,8 @@ class ListingItemController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -78,7 +87,7 @@ class ListingItemController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
