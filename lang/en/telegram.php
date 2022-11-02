@@ -49,6 +49,7 @@ return [
             'ask-confirmation' => "Add this announcement?",
             'confirmation-successful' => "Thank you, your announcement has been successfully added.",
             'confirmation-canceled' => "You canceled adding an announcement.",
+            'reply' => "Your announcement has been posted! To view it, follow the link: :link",
         ],
     ],
 ];
