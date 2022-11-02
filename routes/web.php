@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FaqByTagController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ListingItemController;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,7 @@ Route::get('/', function () {
 // FAQ
 Route::get('/faqs/{slug}', [FaqController::class, 'show'])->name('faqs.show');
 Route::resource('faqs', FaqController::class, ['except' => ['show']]);
+Route::get('/faqs/tags/{tag}', [FaqByTagController::class, 'index'])->name('faqs-by-tag.index');
 
 // Listings
 Route::resource('/listings', ListingItemController::class);
