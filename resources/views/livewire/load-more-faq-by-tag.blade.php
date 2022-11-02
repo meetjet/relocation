@@ -18,7 +18,11 @@
             <footer class="flex flex-wrap items-center justify-between -m-1">
                 <div class="flex flex-wrap space-x-1.5 p-1">
                     @foreach($_faq->tags as $_tag)
-                        <a class="text-xs font-medium mt-1 px-2.5 py-1.5 bg-[#f5f8fa] text-[#7E8299] rounded"
+                        @php
+                            $bgColor = $_tag->slug === $currentTag ? "bg-indigo-200" : "bg-[#f5f8fa]";
+                            $textColor = $_tag->slug === $currentTag ? "text-indigo-900" : "text-[#7E8299]";
+                        @endphp
+                        <a class="text-xs font-medium mt-1 px-2.5 py-1.5 {{ $bgColor }} {{ $textColor }} rounded"
                            href="{{ route('faqs-by-tag.index', $_tag->slug) }}">{{ $_tag->name }}</a>
                     @endforeach
                 </div>
