@@ -15,6 +15,10 @@
                     <x-jet-nav-link href="{{ route('faqs.index') }}" :active="request()->routeIs('faqs*')">
                         {{ __('FAQ') }}
                     </x-jet-nav-link>
+{{-- TODO: temporarily hidden --}}
+{{--                    <x-jet-nav-link href="{{ route('listings.index') }}" :active="request()->routeIs('listings*')">--}}
+{{--                        {{ __('Announcements') }}--}}
+{{--                    </x-jet-nav-link>--}}
                 </div>
             </div>
 

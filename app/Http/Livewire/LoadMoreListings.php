@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\ListingItem;
+use App\Models\Picture;
 use App\UploadIO\UploadIO;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -39,11 +40,11 @@ class LoadMoreListings extends Component
 
         $items->each(function ($_item) use ($uploadIO) {
             // Get a cover image.
+            /** @var Picture $picture */
             $picture = $_item->pictures()->cover()->first();
 
             $_item->cover_image = $picture ? [
-                // TODO: may need transformation
-//                'url' => $uploadIO->transform("listing-cover", $picture->uploadio_file_path),
+//                'url' => $picture->transform("resize-200-crop-center"), // TODO: if transformation is required
                 'url' => $picture->url,
                 'caption' => $picture->caption,
             ] : null;
