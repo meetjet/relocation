@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\Countries;
+use App\Enums\EventStatus;
 use App\Enums\FaqStatus;
 use App\Enums\ListingCategoryStatus;
 use App\Enums\ListingItemStatus;
@@ -21,6 +22,11 @@ return [
         ListingItemStatus::CREATED => 'Создано',
         ListingItemStatus::PUBLISHED => 'Опубликовано',
         ListingItemStatus::REJECTED => 'Отклонено',
+    ],
+    EventStatus::class => [
+        EventStatus::CREATED => 'Создано',
+        EventStatus::PUBLISHED => 'Опубликовано',
+        EventStatus::REJECTED => 'Отклонено',
     ],
     Countries::class => [
         Countries::ARM => 'Армения',
