@@ -1,0 +1,230 @@
+{
+    "erevan": {
+        "ru": "Ереван",
+        "en": "Yerevan"
+    },
+    "aragacotn": {
+        "ru": "Арагацотн",
+        "en": "Aragatsotn"
+    },
+    "ashtarak": {
+        "ru": "Аштарак",
+        "en": "Ashtarak"
+    },
+    "aparan": {
+        "ru": "Апаран",
+        "en": "Aparan"
+    },
+    "talin": {
+        "ru": "Талин",
+        "en": "Talin"
+    },
+    "ararat": {
+        "ru": "Арарат",
+        "en": "Ararat"
+    },
+    "artashat": {
+        "ru": "Арташат",
+        "en": "Artashat"
+    },
+    "vedi": {
+        "ru": "Веди",
+        "en": "Lead"
+    },
+    "masis": {
+        "ru": "Масис",
+        "en": "Masis"
+    },
+    "armavir": {
+        "ru": "Армавир",
+        "en": "Armavir"
+    },
+    "vagarshapat": {
+        "ru": "Вагаршапат",
+        "en": "Vagharshapat"
+    },
+    "mecamor": {
+        "ru": "Мецамор",
+        "en": "Metsamor"
+    },
+    "vajoc-dzor": {
+        "ru": "Вайоц Дзор",
+        "en": "Vayots Dzor"
+    },
+    "ehegnadzor": {
+        "ru": "Ехегнадзор",
+        "en": "Yeghegnadzor"
+    },
+    "vajk": {
+        "ru": "Вайк",
+        "en": "Vayk"
+    },
+    "dzhermuk": {
+        "ru": "Джермук",
+        "en": "Jermuk"
+    },
+    "gegarkunik": {
+        "ru": "Гегаркуник",
+        "en": "Gegharkunik"
+    },
+    "gavar": {
+        "ru": "Гавар",
+        "en": "Gavar"
+    },
+    "vardenis": {
+        "ru": "Варденис",
+        "en": "Vardenis"
+    },
+    "martuni": {
+        "ru": "Мартуни",
+        "en": "Martuni"
+    },
+    "sevan": {
+        "ru": "Севан",
+        "en": "Sevan"
+    },
+    "chambarak": {
+        "ru": "Чамбарак",
+        "en": "Chambarak"
+    },
+    "kotajk": {
+        "ru": "Котайк",
+        "en": "Kotayk"
+    },
+    "razdan": {
+        "ru": "Раздан",
+        "en": "Hrazdan"
+    },
+    "abovjan": {
+        "ru": "Абовян",
+        "en": "Abovyan"
+    },
+    "bjuregavan": {
+        "ru": "Бюрегаван",
+        "en": "Byureghavan"
+    },
+    "egvard": {
+        "ru": "Егвард",
+        "en": "Yeghvard"
+    },
+    "nor-achin": {
+        "ru": "Нор-Ачин",
+        "en": "Nor Hachin"
+    },
+    "cahkadzor": {
+        "ru": "Цахкадзор",
+        "en": "Tsaghkadzor"
+    },
+    "charencavan": {
+        "ru": "Чаренцаван",
+        "en": "Charentsavan"
+    },
+    "lori": {
+        "ru": "Лори",
+        "en": "Lori"
+    },
+    "vanadzor": {
+        "ru": "Ванадзор",
+        "en": "Vanadzor"
+    },
+    "alaverdi": {
+        "ru": "Алаверди",
+        "en": "Alaverdi"
+    },
+    "ahtala": {
+        "ru": "Ахтала",
+        "en": "Akhtala"
+    },
+    "spitak": {
+        "ru": "Спитак",
+        "en": "Spitak"
+    },
+    "stepanavan": {
+        "ru": "Степанаван",
+        "en": "Stepanavan"
+    },
+    "tashir": {
+        "ru": "Ташир",
+        "en": "Tashir"
+    },
+    "tumanjan": {
+        "ru": "Туманян",
+        "en": "Tumanyan"
+    },
+    "shamlug": {
+        "ru": "Шамлуг",
+        "en": "Shamlugh"
+    },
+    "sjunik": {
+        "ru": "Сюник",
+        "en": "Syunik"
+    },
+    "kapan": {
+        "ru": "Капан",
+        "en": "Kapan"
+    },
+    "agarak": {
+        "ru": "Агарак",
+        "en": "Agarak"
+    },
+    "goris": {
+        "ru": "Горис",
+        "en": "Goris"
+    },
+    "dastakert": {
+        "ru": "Дастакерт",
+        "en": "Dastakert"
+    },
+    "kadzharan": {
+        "ru": "Каджаран",
+        "en": "Kajaran"
+    },
+    "megri": {
+        "ru": "Мегри",
+        "en": "Meghri"
+    },
+    "sisian": {
+        "ru": "Сисиан",
+        "en": "Sisian"
+    },
+    "tavush": {
+        "ru": "Тавуш",
+        "en": "Tavush"
+    },
+    "idzhevan": {
+        "ru": "Иджеван",
+        "en": "Ijevan"
+    },
+    "berd": {
+        "ru": "Берд",
+        "en": "bird"
+    },
+    "dilizhan": {
+        "ru": "Дилижан",
+        "en": "Dilijan"
+    },
+    "noemberjan": {
+        "ru": "Ноемберян",
+        "en": "Noyemberyan"
+    },
+    "ajrum": {
+        "ru": "Айрум",
+        "en": "Ayrum"
+    },
+    "shirak": {
+        "ru": "Ширак",
+        "en": "Shirak"
+    },
+    "gjumri": {
+        "ru": "Гюмри",
+        "en": "Gyumri"
+    },
+    "artik": {
+        "ru": "Артик",
+        "en": "Artik"
+    },
+    "maralik": {
+        "ru": "Маралик",
+        "en": "Maralik"
+    }
+}
