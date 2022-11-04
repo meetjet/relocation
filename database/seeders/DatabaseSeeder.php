@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Event;
 use App\Models\Faq;
 use App\Models\ListingItem;
 use App\Models\User;
@@ -33,6 +34,10 @@ class DatabaseSeeder extends Seeder
             ->create();
 
         ListingItem::factory()
+            ->count(100)
+            ->create();
+
+        Event::factory()
             ->count(100)
             ->create();
     }
