@@ -2,7 +2,7 @@
 
 namespace App\Facades;
 
-use App\Services\Cities\CitiesService;
+use App\Services\CitiesService;
 use Illuminate\Support\Facades\Facade;
 
 /**

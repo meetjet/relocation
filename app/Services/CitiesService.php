@@ -1,20 +1,12 @@
 <?php
 
-namespace App\Services\Cities;
+namespace App\Services;
 
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
 class CitiesService
 {
-    private Collection $cityCollectionCache;
-
-    public function __construct()
-    {
-        $this->cityCollectionCache = collect();
-    }
-
     /**
      * @param string|null $country
      * @return string[]
@@ -65,28 +57,16 @@ class CitiesService
     private function getCityCollection(?string $country): ?Collection
     {
         if ($country) {
-            if ($this->cityCollectionCache->has($country)) {
-                return $this->cityCollectionCache->get($country);
-            }
+            $collection = collect(config('cities.' . Str::lower($country)));
 
-            $filepath = app_path('Services/Cities/' . Str::lower($country) . '.json');
-
-            if (File::exists($filepath)) {
-                $collection = collect(json_decode(File::get($filepath), true));
-
+            if ($collection->isNotEmpty()) {
                 $cityLocale = array_key_exists(app()->getLocale(), $collection->first())
                     ? app()->getLocale()
                     : config('app.fallback_locale');
 
-                $cityCollection = $collection
-                    ->sortBy($cityLocale)
-                    ->map(function ($_item) use ($cityLocale) {
-                        return $_item[$cityLocale];
-                    });
-
-                $this->cityCollectionCache->put($country, $cityCollection);
-
-                return $cityCollection;
+                return $collection->map(function ($_item) use ($cityLocale) {
+                    return $_item[$cityLocale];
+                });
             }
         }
 

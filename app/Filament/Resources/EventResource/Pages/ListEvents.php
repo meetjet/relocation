@@ -198,7 +198,7 @@ class ListEvents extends ListRecords
                         ->placeholder("-")
                         ->options(collect(Countries::asSelectArray())->put('no_country', __("No")))
                         ->reactive()
-                        ->afterStateUpdated(fn(Closure $set) => $set('city', null)),
+                        ->afterStateUpdated(fn(Closure $set) => $set('city', "")),
 
                     Components\Select::make('city')
                         ->label(__('City'))

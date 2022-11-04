@@ -107,7 +107,7 @@ class EditEvent extends EditRecord
                                 ->options(Countries::asSelectArray())
                                 ->placeholder("-")
                                 ->reactive()
-                                ->afterStateUpdated(fn(Closure $set) => $set('city', null))
+                                ->afterStateUpdated(fn(Closure $set) => $set('city', ""))
                                 ->nullable(),
 
                             Components\Select::make('city')
