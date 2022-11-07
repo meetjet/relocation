@@ -1,20 +1,13 @@
 [
     {
-        "title": "Dashboard",
-        "icon": "ri-home-line",
-        "route_name": "dashboard",
-        "permission": "users_view",
-        "opened": false
-    },
-    {
-        "title": "Faqs",
+        "title": "Вопрос-Ответ",
         "icon": "ri-user-line",
         "route_name": "faqs.index",
         "permission": "users_view",
         "opened": false
     },
     {
-        "title": "Listings",
+        "title": "Объявления",
         "icon": "ri-user-line",
         "route_name": "listings.index",
         "permission": "users_view",
