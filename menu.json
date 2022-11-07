@@ -1,0 +1,23 @@
+[
+    {
+        "title": "Dashboard",
+        "icon": "ri-home-line",
+        "route_name": "dashboard",
+        "permission": "users_view",
+        "opened": false
+    },
+    {
+        "title": "Faqs",
+        "icon": "ri-user-line",
+        "route_name": "faqs.index",
+        "permission": "users_view",
+        "opened": false
+    },
+    {
+        "title": "Listings",
+        "icon": "ri-user-line",
+        "route_name": "listings.index",
+        "permission": "users_view",
+        "opened": false
+    }
+]
