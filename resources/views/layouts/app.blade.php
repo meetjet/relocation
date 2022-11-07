@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Inter:wght@400;600;700&display=swap">
 
         <!-- Analytics -->
-        <script defer data-domain="relocation.digital" src="//plausible.io/js/script.js"></script>
+        {{--<script defer data-domain="relocation.digital" src="//plausible.io/js/script.js"></script>--}}
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
