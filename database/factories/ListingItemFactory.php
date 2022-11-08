@@ -22,16 +22,21 @@ class ListingItemFactory extends Factory
      */
     public function definition(): array
     {
+        $country = $this->faker->randomElement(array_merge(Countries::getValues(), [null]));
+        $price = $country ? $this->faker->randomNumber() : null;
+        $currency = $price ? config("countries.{$country}.currency.code") : null;
+
         return [
             'user_id' => 1,
             'category_id' => $this->faker->randomElement(array_merge(ListingCategory::all()->pluck('id')->toArray(), [null])),
-            'country' => $this->faker->randomElement(array_merge(Countries::getValues(), [null])),
+            'country' => $country,
             'title' => $this->faker->text(100),
             'description' => $this->faker->text(400),
 //            'status' => $this->faker->randomElement(ListingItemStatus::getValues()),
             'status' => ListingItemStatus::PUBLISHED,
             'visibility' => $this->faker->boolean(),
-            'price' => $this->faker->randomNumber(),
+            'price' => $price,
+            'currency' => $currency,
         ];
     }
 
