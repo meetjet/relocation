@@ -105,4 +105,24 @@ class ListingItem extends Model
         $query->where('status', ListingItemStatus::PUBLISHED)
             ->where('visibility', true);
     }
+
+    /**
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+     * @return ConnectedAccount|null
+     */
+    public function getContactAttribute(): ?ConnectedAccount
+    {
+        if ($this->user) {
+            return $this->user->currentConnectedAccount()->first();
+        }
+
+        return null;
+    }
 }

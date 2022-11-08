@@ -27,5 +27,12 @@
                 </div>
             </div>
         @endif
+
+        @if($entity->contact)
+            <div class=" mt-4">
+                {{ __("Contact") }}:
+                <a href="https://t.me/{{ $entity->contact->nickname }}" target="_blank">{{ $entity->contact->name }}</a>
+            </div>
+        @endif
     </div>
 </article>
