@@ -2,7 +2,6 @@
 
 namespace App\Telegram\Conversations;
 
-use App\Enums\Countries;
 use App\Enums\TelegramBotImageMimeType;
 use App\Enums\TelegramBotType;
 use App\Models\ListingCategory;
@@ -343,7 +342,7 @@ class ArmeniaAddListingConversation extends InlineMenu
             ListingItem::forceCreate([
                 'user_id' => app(CreateUserAction::class)->execute($bot->user()),
                 'category_id' => $this->categoryId,
-                'country' => Countries::ARM,
+                'country' => "armenia",
                 'title' => $this->title,
                 'description' => $this->description,
                 'price' => $this->price,

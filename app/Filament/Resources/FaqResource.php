@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources;
 
-use App\Enums\Countries;
 use App\Enums\FaqStatus;
+use App\Facades\Countries;
 use App\Filament\Resources\FaqResource\Pages;
 use App\Models\Faq;
 use App\Traits\PageListHelpers;
