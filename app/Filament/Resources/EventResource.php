@@ -15,7 +15,15 @@ class EventResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-calendar';
 
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 0;
+
+    /**
+     * @return string
+     */
+    public static function getNavigationGroup(): string
+    {
+        return __('Events');
+    }
 
     /**
      * @return string
