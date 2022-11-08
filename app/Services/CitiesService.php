@@ -57,7 +57,7 @@ class CitiesService
     private function getCityCollection(?string $country): ?Collection
     {
         if ($country) {
-            $collection = collect(config('cities.' . Str::lower($country)));
+            $collection = collect(config('countries.' . Str::lower($country) . '.cities'));
 
             if ($collection->isNotEmpty()) {
                 $cityLocale = array_key_exists(app()->getLocale(), $collection->first())

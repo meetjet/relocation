@@ -25,11 +25,11 @@
                                 >
                             </a>
                         @endif
-                        <a href="{{ route('listings.show', ['listing' => $item->slug]) }}"
+                        <a class="text-blue-600 font-bold" href="{{ route('listings.show', ['listing' => $item->slug]) }}"
                            tabindex="-1">{{ $item->title }}</a>
                     </div>
                     <div class="space-y-2">
-                        <div class="text-[20px] leading-none font-bold">{{ $item->price }} ₽</div>
+                        <div class="text-[20px] leading-none font-bold">{{ $item->price }} ֏</div>
                         <a
                             href="{{ route('listings.show', ['listing' => $item->slug]) }}"
                             class="flex justify-center bg-blue-500 hover:bg-blue-600 transition-colors duration-300 text-white text-sm font-bold leading-none rounded p-3"

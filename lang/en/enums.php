@@ -1,6 +1,5 @@
 <?php
 
-use App\Enums\Countries;
 use App\Enums\EventStatus;
 use App\Enums\FaqStatus;
 use App\Enums\ListingCategoryStatus;
@@ -27,11 +26,6 @@ return [
         EventStatus::CREATED => 'Created',
         EventStatus::PUBLISHED => 'Published',
         EventStatus::REJECTED => 'Rejected',
-    ],
-    Countries::class => [
-        Countries::ARM => 'Armenia',
-        Countries::GEO => 'Georgia',
-        Countries::TUR => 'Turkey',
     ],
     TelegramBotType::class => [
         TelegramBotType::DEFAULT => 'Default',
