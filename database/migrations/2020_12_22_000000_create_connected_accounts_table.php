@@ -15,7 +15,7 @@ class CreateConnectedAccountsTable extends Migration
     {
         Schema::create('connected_accounts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('provider');
             $table->string('provider_id');
             $table->string('name')->nullable();
