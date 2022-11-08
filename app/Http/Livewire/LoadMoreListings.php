@@ -44,8 +44,7 @@ class LoadMoreListings extends Component
             $picture = $_item->pictures()->cover()->first();
 
             $_item->cover_image = $picture ? [
-//                'url' => $picture->transform("resize-200-crop-center"), // TODO: if transformation is required
-                'url' => $picture->url,
+                'url' => $picture->thumbnail_square,
                 'caption' => $picture->caption,
             ] : null;
         });

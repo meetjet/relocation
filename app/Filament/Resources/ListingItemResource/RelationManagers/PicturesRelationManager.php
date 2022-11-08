@@ -38,7 +38,7 @@ class PicturesRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                PicturePreview::make('url')
+                PicturePreview::make('medium')
                     ->disableLabel()
                     ->dehydrated(false),
 
@@ -58,7 +58,7 @@ class PicturesRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('url')
+                Tables\Columns\ImageColumn::make('thumbnail_square')
                     ->label(__('Picture'))
                     ->height(200)
                     ->extraImgAttributes(['class' => "border"]),
