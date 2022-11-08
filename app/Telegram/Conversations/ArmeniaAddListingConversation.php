@@ -346,6 +346,7 @@ class ArmeniaAddListingConversation extends InlineMenu
                 'title' => $this->title,
                 'description' => $this->description,
                 'price' => $this->price,
+                'currency' => config('countries.armenia.currency.code'),
                 'telegram_bot_type' => TelegramBotType::ARMENIA,
                 'telegram_user_id' => $bot->userId(),
                 'telegram_user_language_code' => $bot->user()->language_code,
