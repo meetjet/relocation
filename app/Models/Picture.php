@@ -27,7 +27,7 @@ class Picture extends Model
         'content' => "{}",
     ];
 
-    protected $appends = ['raw', 'original', 'medium', 'thumbnail', 'thumbnail_square'];
+    protected $appends = ['raw', 'large', 'medium', 'thumbnail', 'thumbnail_square'];
 
     public static function boot(): void
     {
@@ -83,10 +83,10 @@ class Picture extends Model
     /**
      * @return string|null
      */
-    public function getOriginalAttribute(): ?string
+    public function getLargeAttribute(): ?string
     {
-        if ($this->content->has('original')) {
-            return $this->content->get('original');
+        if ($this->content->has('large')) {
+            return $this->content->get('large');
         }
 
         return null;

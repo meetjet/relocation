@@ -8,7 +8,7 @@ return [
     // @see https://upload.io/dashboard/transformations
     'transformations' => [
         'raw',
-        'original',
+        'large',
         'medium',
         'thumbnail',
         'thumbnail-square',
