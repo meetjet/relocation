@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Enums\Countries;
 use App\Enums\ListingItemStatus;
+use App\Facades\Countries;
 use App\Models\ListingCategory;
 use App\Models\ListingItem;
 use Illuminate\Database\Eloquent\Collection;
