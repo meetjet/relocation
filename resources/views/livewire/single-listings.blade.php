@@ -33,7 +33,7 @@
                 {{ __("Contact") }}:
                 <a href="https://t.me/{{ $entity->contact->nickname }}"
                    target="_blank"
-                   class="text-blue-600">{{ $entity->contact->name }}</a>
+                   class="text-blue-600">{{ $entity->contact->name }} ({{ "@" . $entity->contact->nickname }})</a>
             </div>
         @endif
     </div>
