@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->uuid()->nullable()->unique();
             $table->morphs('model');
 
-            $table->text('url');
+            $table->jsonb('content')->nullable();
             $table->jsonb('data')->nullable();
 
             $table->timestamps();
