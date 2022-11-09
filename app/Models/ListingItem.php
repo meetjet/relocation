@@ -12,8 +12,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\Sluggable\HasSlug;
-use Spatie\Sluggable\SlugOptions;
 use Spatie\Tags\HasTags;
 use Stancl\VirtualColumn\VirtualColumn;
 
@@ -24,9 +22,8 @@ class ListingItem extends Model
     use VirtualColumn;
     use HasUUID;
     use HasTags;
-    use HasSlug;
 
-    protected $fillable = ['slug', 'user_id', 'category_id', 'country', 'title', 'description', 'status', 'visibility'];
+    protected $fillable = ['user_id', 'category_id', 'country', 'title', 'description', 'status', 'visibility'];
 
     public static function boot(): void
     {
@@ -43,7 +40,6 @@ class ListingItem extends Model
         return [
             'id',
             'uuid',
-            'slug',
             'user_id',
             'category_id',
             'country',
@@ -58,28 +54,11 @@ class ListingItem extends Model
     }
 
     /**
-     * @return SlugOptions
-     */
-    public function getSlugOptions(): SlugOptions
-    {
-        $slugOptions = SlugOptions::create()
-            ->generateSlugsFrom('title')
-            ->saveSlugsTo('slug')
-            ->skipGenerateWhen(fn() => is_null($this->title));
-
-        if (!is_null($this->slug)) {
-            $slugOptions->doNotGenerateSlugsOnUpdate();
-        }
-
-        return $slugOptions;
-    }
-
-    /**
      * @return string
      */
     public function getRouteKeyName(): string
     {
-        return 'slug';
+        return 'uuid';
     }
 
     /**

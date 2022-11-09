@@ -44,15 +44,20 @@ class ListingItemController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param string $slug
+     * @param string $uuid
      * @return Application|Factory|View
      */
-    public function show(string $slug): Application|Factory|View
+    public function show(string $uuid): Application|Factory|View
     {
-        $entity = ListingItem::active()
-            ->where('slug', $slug)
-            ->with(['tags', 'pictures', 'category'])
-            ->first();
+        try {
+            $entity = ListingItem::active()
+                ->ByUUID($uuid)
+                ->with(['tags', 'pictures', 'category'])
+                ->first();
+        } catch (\Throwable $th) {
+            logger($th->getMessage());
+            abort(404);
+        }
 
         abort_unless(!is_null($entity), 404);
 
