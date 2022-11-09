@@ -6,13 +6,13 @@
 
     <div class="h-full scrollbar overflow-y-auto">
         <ul>
-            @foreach(json_decode($menu) as $item)
+            @foreach($menu as $item)
                 <li>
                     <a
-                        href="{{ route($item->route_name) }}"
+                        href="{{ route($item['route_name'], $item['route_params']) }}"
                         class="cursor-pointer w-full flex py-2 px-6 rounded-lg items-center font-medium leading-5 transition duration-150 ease-in-out focus:outline-none"
                     >
-                        <span class="ml-2 ml-3">{{ $item->title }}</span>
+                        <span class="ml-2 ml-3">{{ $item['title'] }}</span>
                     </a>
                 </li>
             @endforeach
