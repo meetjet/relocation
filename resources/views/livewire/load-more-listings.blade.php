@@ -12,20 +12,25 @@
                     class="h-full flex flex-col justify-between border rounded p-3 space-y-2 hover:shadow-[3px_3px_8px_rgb(161,161,161,0.3)] focus-within:shadow-[3px_3px_8px_rgb(161,161,161,0.3)] transition-all duration-300 outline-none"
                 >
                     <div class="space-y-2">
-                        @if($item->cover_picture)
-                            <a href="{{ route('listings.show', ['listing' => $item->slug]) }}"
-                               class="w-full max-w-[200px] mx-auto flex items-center justify-center outline-none">
-                                <img
-                                    src="{{ $item->cover_picture->thumbnail_square }}"
-                                    alt="{{ $item->cover_picture->caption }}"
-                                    class="w-[200px] aspect-square object-contain"
-                                    width="2000"
-                                    height="1160"
-                                    loading="lazy"
+                        <a href="{{ route('listings.show', ['listing' => $item->slug]) }}"
+                           class="w-full max-w-[200px] mx-auto flex items-center justify-center outline-none">
+                            @if($item->cover_picture)
+                                <img src="{{ $item->cover_picture->thumbnail_square }}"
+                                     alt="{{ $item->cover_picture->caption }}"
+                                     class="w-[200px] aspect-square object-contain"
+                                     width="2000"
+                                     height="1160"
+                                     loading="lazy"
                                 >
-                            </a>
-                        @endif
-                        <a class="text-blue-600 font-bold" href="{{ route('listings.show', ['listing' => $item->slug]) }}"
+                            @else
+                                <img src="{{ asset('images/no-image.jpg') }}"
+                                     class="w-[200px] aspect-square object-contain"
+                                     loading="lazy"
+                                >
+                            @endif
+                        </a>
+                        <a class="text-blue-600 font-bold"
+                           href="{{ route('listings.show', ['listing' => $item->slug]) }}"
                            tabindex="-1">{{ $item->title }}</a>
                     </div>
                     <div class="space-y-2">
