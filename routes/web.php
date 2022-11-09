@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect('/faqs');
+    return redirect('/listings');
 })->name('welcome');
 
 // FAQ
