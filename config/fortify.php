@@ -144,8 +144,4 @@ return [
         //]),
     ],
 
-    'redirects' => [
-        'login' => url()->previous(),
-        'logout' => url()->previous(),
-    ],
 ];
