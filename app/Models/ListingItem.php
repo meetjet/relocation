@@ -98,8 +98,7 @@ class ListingItem extends Model
      */
     public function scopeActive(Builder $query): void
     {
-        $query->whereNotNull('country')
-            ->where('status', ListingItemStatus::PUBLISHED)
+        $query->where('status', ListingItemStatus::PUBLISHED)
             ->where('visibility', true);
     }
 

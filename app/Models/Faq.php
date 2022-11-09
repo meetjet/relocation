@@ -93,8 +93,7 @@ class Faq extends Model
      */
     public function scopeActive(Builder $query): void
     {
-        $query->whereNotNull('country')
-            ->where('status', FaqStatus::PUBLISHED)
+        $query->where('status', FaqStatus::PUBLISHED)
             ->where('visibility', true);
     }
 }
