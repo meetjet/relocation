@@ -12,10 +12,13 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-4 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('listings.index') }}" :active="request()->routeIs('listings*')">
+                    @php
+                        $country = Route::current()->parameter('country');
+                    @endphp
+                    <x-jet-nav-link href="{{ route('listings.index', $country) }}" :active="request()->routeIs('listings*')">
                         {{ __('Announcements') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('faqs.index') }}" :active="request()->routeIs('faqs*')">
+                    <x-jet-nav-link href="{{ route('faqs.index', $country) }}" :active="request()->routeIs('faqs*')">
                         {{ __('FAQ') }}
                     </x-jet-nav-link>
                 </div>
