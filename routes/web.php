@@ -21,12 +21,16 @@ Route::get('/', function () {
 })->name('welcome');
 
 // FAQ
-Route::get('/faqs/{slug}', [FaqController::class, 'show'])->name('faqs.show');
-Route::resource('faqs', FaqController::class, ['except' => ['show']]);
-Route::get('/faqs/tags/{tag}', [FaqByTagController::class, 'index'])->name('faqs-by-tag.index');
+Route::domain('{country}.' . config('app.domain'))->group(function () {
+    Route::get('/faqs/{slug}', [FaqController::class, 'show'])->name('faqs.show');
+    Route::resource('faqs', FaqController::class, ['except' => ['show']]);
+    Route::get('/faqs/tags/{tag}', [FaqByTagController::class, 'index'])->name('faqs-by-tag.index');
+});
 
 // Listings
-Route::resource('/listings', ListingItemController::class);
+Route::domain('{country}.' . config('app.domain'))->group(function () {
+    Route::resource('/listings', ListingItemController::class);
+});
 
 Route::middleware([
     'auth:sanctum',
