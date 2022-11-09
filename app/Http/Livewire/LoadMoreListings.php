@@ -25,10 +25,9 @@ class LoadMoreListings extends Component
     }
 
     /**
-     * @param UploadIO $uploadIO
      * @return Application|Factory|View
      */
-    public function render(UploadIO $uploadIO): Application|Factory|View
+    public function render(): Application|Factory|View
     {
         if ($this->total === -1) {
             $this->total = ListingItem::active()->count();
@@ -38,15 +37,8 @@ class LoadMoreListings extends Component
             ->latest()
             ->paginate($this->perPage);
 
-        $items->each(function ($_item) use ($uploadIO) {
-            // Get a cover image.
-            /** @var Picture $picture */
-            $picture = $_item->pictures()->cover()->first();
-
-            $_item->cover_image = $picture ? [
-                'url' => $picture->thumbnail_square,
-                'caption' => $picture->caption,
-            ] : null;
+        $items->each(function ($_item) {
+            $_item->cover_picture = $_item->firstPicture()->first();
         });
 
         $this->emit('listingsStore');

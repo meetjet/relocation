@@ -65,10 +65,6 @@ class PicturesRelationManager extends RelationManager
 
                 Tables\Columns\TextColumn::make('caption')
                     ->label(__('Caption')),
-
-                Tables\Columns\IconColumn::make('cover')
-                    ->label(__('Cover'))
-                    ->boolean(),
             ])
             ->filters([
                 //

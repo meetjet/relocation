@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
@@ -95,6 +96,14 @@ class ListingItem extends Model
     public function pictures(): MorphMany
     {
         return $this->morphMany(Picture::class, 'model');
+    }
+
+    /**
+     * @return MorphOne
+     */
+    public function firstPicture(): MorphOne
+    {
+        return $this->morphOne(Picture::class, 'model')->oldestOfMany();
     }
 
     /**

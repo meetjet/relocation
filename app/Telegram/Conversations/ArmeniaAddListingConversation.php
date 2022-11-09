@@ -222,7 +222,6 @@ class ArmeniaAddListingConversation extends InlineMenu
                 'file_id' => $picture['file_id'],
                 'file_unique_id' => $picture['file_unique_id'],
                 'caption' => $message->caption,
-                'cover' => is_null($this->pictures),
             ];
             $this->askMorePicture($bot);
             return;
@@ -238,7 +237,6 @@ class ArmeniaAddListingConversation extends InlineMenu
                     'file_id' => $file->file_id,
                     'file_unique_id' => $file->file_unique_id,
                     'caption' => $message->caption,
-                    'cover' => is_null($this->pictures),
                 ];
                 $this->askMorePicture($bot);
                 return;
