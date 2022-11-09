@@ -34,12 +34,10 @@ class LoadMoreFaq extends Component
 
         if ($this->total === -1) {
             $this->total = Faq::active()
-                ->where('country', $this->country)
                 ->count();
         }
 
         $faqs = Faq::active()
-            ->where('country', $this->country)
             ->latest()
             ->paginate($this->perPage);
 

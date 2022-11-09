@@ -54,7 +54,6 @@ class ListingItemController extends Controller
         try {
             $entity = ListingItem::active()
                 ->ByUUID($uuid)
-                ->where('country', $country)
                 ->with(['tags', 'pictures', 'category'])
                 ->first();
         } catch (\Throwable $th) {

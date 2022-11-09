@@ -35,13 +35,11 @@ class LoadMoreFaqByTag extends Component
 
         if ($this->total === -1) {
             $this->total = Faq::active()
-                ->where('country', $this->country)
                 ->withAnyTags($this->tag, "faqs")
                 ->count();
         }
 
         $faqs = Faq::active()
-            ->where('country', $this->country)
             ->withAnyTags($this->tag, "faqs")
             ->latest()
             ->paginate($this->perPage);

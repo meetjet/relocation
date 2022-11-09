@@ -53,7 +53,6 @@ class FaqController extends Controller
     {
         $entity = Faq::active()
             ->where('slug', $slug)
-            ->where('country', $country)
             ->with('tags')
             ->first();
 

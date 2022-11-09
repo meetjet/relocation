@@ -34,12 +34,10 @@ class LoadMoreListings extends Component
 
         if ($this->total === -1) {
             $this->total = ListingItem::active()
-                ->where('country', $this->country)
                 ->count();
         }
 
         $items = ListingItem::active()
-            ->where('country', $this->country)
             ->latest()
             ->paginate($this->perPage);
 
