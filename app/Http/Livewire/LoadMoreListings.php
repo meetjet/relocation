@@ -3,8 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\Models\ListingItem;
-use App\Models\Picture;
-use App\UploadIO\UploadIO;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;

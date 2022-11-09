@@ -12,7 +12,7 @@
                     class="h-full flex flex-col justify-between border rounded p-3 space-y-2 hover:shadow-[3px_3px_8px_rgb(161,161,161,0.3)] focus-within:shadow-[3px_3px_8px_rgb(161,161,161,0.3)] transition-all duration-300 outline-none"
                 >
                     <div class="space-y-2">
-                        <a href="{{ route('listings.show', ['listing' => $item->slug]) }}"
+                        <a href="{{ route('listings.show', ['listing' => $item->uuid]) }}"
                            class="w-full max-w-[200px] mx-auto flex items-center justify-center outline-none">
                             @if($item->cover_picture)
                                 <img src="{{ $item->cover_picture->thumbnail_square }}"
@@ -30,13 +30,13 @@
                             @endif
                         </a>
                         <a class="text-blue-600 font-bold"
-                           href="{{ route('listings.show', ['listing' => $item->slug]) }}"
+                           href="{{ route('listings.show', ['listing' => $item->uuid]) }}"
                            tabindex="-1">{{ $item->title }}</a>
                     </div>
                     <div class="space-y-2">
                         <div class="text-[20px] leading-none font-bold">{{ $item->price }} ֏</div>
                         <a
-                            href="{{ route('listings.show', ['listing' => $item->slug]) }}"
+                            href="{{ route('listings.show', ['listing' => $item->uuid]) }}"
                             class="flex justify-center bg-blue-500 hover:bg-blue-600 transition-colors duration-300 text-white text-sm font-bold leading-none rounded p-3"
                             tabindex="-1"
                         >{{ __('More') }}</a>

@@ -17,6 +17,7 @@ use Filament\Tables\Columns;
 use Filament\Tables\Filters;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 
 class ListListingItems extends ListRecords
 {
@@ -52,8 +53,8 @@ class ListListingItems extends ListRecords
         return [
             Columns\TextColumn::make('title')
                 ->label(__('Title'))
-                ->description(fn($record) => (!$record->deleted_at && $record->category && $record->category->slug && $record->slug)
-                    ? static::externalLink(route('listings.show', ['listing' => $record->slug]), $record->slug)
+                ->description(fn($record) => (!$record->deleted_at && $record->uuid)
+                    ? static::externalLink(route('listings.show', ['listing' => $record->uuid]), Str::lower(__('Link')))
                     : null)
                 ->limit(200)
                 ->wrap()
