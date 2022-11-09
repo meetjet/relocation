@@ -1,5 +1,5 @@
 <aside
-    class="w-80 h-screen flex flex-col bg-white fixed top-0 transition-transform duration-300 shadow"
+    class="w-80 h-screen flex flex-col bg-white fixed top-0 transition-transform duration-300 shadow -translate-x-full"
     :class="{'-translate-x-full': !open }"
 >
     <header class="p-4"></header>
