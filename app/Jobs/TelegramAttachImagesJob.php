@@ -56,7 +56,7 @@ class TelegramAttachImagesJob implements ShouldQueue
                     $uploadedFileData = $uploadIO->upload($tmpFilepath);
                     File::delete($tmpFilepath);
                     $this->model->pictures()->forceCreate(array_merge($_image, [
-                        'url' => $uploadedFileData['fileUrl'],
+                        'content' => $uploadIO->getTransformationsCollection($uploadedFileData['fileUrl']),
                         'uploadio_file_path' => $uploadedFileData['filePath'],
                     ]));
                 } else {

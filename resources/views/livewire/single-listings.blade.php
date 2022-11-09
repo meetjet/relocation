@@ -9,8 +9,7 @@
         @if($entity->pictures->count())
             <div class="flex space-x-4">
                 @foreach($entity->pictures as $picture)
-                    {{-- TODO: if transformation is required, then replace "$picture->url" with "$picture->transform('resize-200-crop-center')" --}}
-                    <img src="{{ $picture->url }}"
+                    <img src="{{ $picture->thumbnail_square }}"
                          alt="{{ $picture->caption }}"
                          class="w-[200px] aspect-square object-contain"/>
                 @endforeach

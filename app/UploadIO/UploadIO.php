@@ -4,6 +4,7 @@ namespace App\UploadIO;
 
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Http\Client\RequestException;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
@@ -46,12 +47,19 @@ class UploadIO
     }
 
     /**
-     * @param string $transformation
-     * @param string $filepath
-     * @return string
+     * @see https://upload.io/dashboard/transformations
+     * @param string $rawUrl
+     * @return Collection
      */
-    public function transform(string $transformation, string $filepath): string
+    public function getTransformationsCollection(string $rawUrl): Collection
     {
-        return Str::replace("raw", $transformation, $filepath);
+        $collection = collect();
+        $transformations = config('uploadio.transformations');
+
+        foreach ($transformations as $_transformation) {
+            $collection->put($_transformation, Str::replace("raw", $_transformation, $rawUrl));
+        }
+
+        return $collection;
     }
 }
