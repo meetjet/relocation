@@ -16,7 +16,6 @@ return new class extends Migration {
         Schema::create('listing_items', static function (Blueprint $table) {
             $table->id();
             $table->uuid()->nullable()->unique();
-            $table->string('slug')->nullable()->unique();
             $table->foreignId('user_id');
             $table->foreignId('category_id')->nullable()
                 ->constrained('listing_categories')
