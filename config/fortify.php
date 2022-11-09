@@ -145,7 +145,7 @@ return [
     ],
 
     'redirects' => [
-        'login' => app()->runningInConsole() ?: url()->previous(),
-        'logout' => app()->runningInConsole() ?: url()->previous(),
+        'login' => url()->previous(),
+        'logout' => url()->previous(),
     ],
 ];
