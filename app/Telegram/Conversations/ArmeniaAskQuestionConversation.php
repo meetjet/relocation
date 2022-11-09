@@ -44,7 +44,7 @@ class ArmeniaAskQuestionConversation extends Conversation
             ]);
             $bot->sendMessage(__('telegram.armenia.question.end', [
                 'command' => self::getName(),
-                'link' => route("faqs.index"),
+                'link' => route("faqs.index", "armenia"),
             ]));
             $this->end();
             return;

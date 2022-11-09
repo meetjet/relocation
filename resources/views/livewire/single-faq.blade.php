@@ -10,7 +10,7 @@
             <div class="flex space-x-1.5 p-1">
                 @foreach($entity->tags as $_tag)
                     <a class="text-xs font-medium px-2.5 py-1.5 bg-[#f5f8fa] text-[#7E8299] rounded"
-                       href="{{ route('faqs-by-tag.index', $_tag->slug) }}">{{ $_tag->name }}</a>
+                       href="{{ route('faqs-by-tag.index', [$entity->country, $_tag->slug]) }}">{{ $_tag->name }}</a>
                 @endforeach
             </div>
         </div>

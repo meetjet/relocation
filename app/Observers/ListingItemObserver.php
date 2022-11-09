@@ -45,7 +45,8 @@ class ListingItemObserver
     public function updated(ListingItem $listingItem): void
     {
         if (
-            $listingItem->status === ListingItemStatus::PUBLISHED
+            !is_null($listingItem->country)
+            && $listingItem->status === ListingItemStatus::PUBLISHED
             && $listingItem->visibility === true
             && $listingItem->uuid
             && $listingItem->telegram_chat_id

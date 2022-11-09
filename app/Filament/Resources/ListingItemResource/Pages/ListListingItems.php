@@ -53,8 +53,8 @@ class ListListingItems extends ListRecords
         return [
             Columns\TextColumn::make('title')
                 ->label(__('Title'))
-                ->description(fn($record) => (!$record->deleted_at && $record->uuid)
-                    ? static::externalLink(route('listings.show', ['listing' => $record->uuid]), Str::lower(__('Link')))
+                ->description(fn($record) => (!$record->deleted_at && $record->country && $record->uuid)
+                    ? static::externalLink(route('listings.show', [$record->country, $record->uuid]), Str::lower(__('Link')))
                     : null)
                 ->limit(200)
                 ->wrap()

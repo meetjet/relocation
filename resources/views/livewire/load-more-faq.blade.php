@@ -1,4 +1,7 @@
-<div id="faqs-list" data-has-more="{{ $total !== count($faqs) ? 'true' : 'false' }}" data-loading="false">
+<div id="faqs-list"
+     data-has-more="{{ $total !== count($faqs) ? 'true' : 'false' }}"
+     data-loading="false"
+     data-country="{{ $country }}">
     <div class="mb-6">
         <span class="text-2xl font-bold">{{ __('Total questions') }}</span>
         <span class="text-sm font-bold text-[#a1a5b7]">({{ $total }})</span>
@@ -8,7 +11,7 @@
         <article id="faq-component"
                  class="{{ !$loop->last ? 'mb-8 pb-8 border-b border-dashed border-[#a1a5b7]' : 'pb-8' }}">
             <header class="mb-3">
-                <a href="{{ route('faqs.show', $_faq->slug) }}"
+                <a href="{{ route('faqs.show', [$_faq->country, $_faq->slug]) }}"
                    class="text-xl font-bold hover:text-[#009ef7] transition-colors duration-300 mb-3"
                 >{{ $_faq->title }}</a>
             </header>
@@ -19,7 +22,7 @@
                 <div class="flex flex-wrap space-x-1.5 p-1">
                     @foreach($_faq->tags as $_tag)
                         <a class="text-xs font-medium mt-1 px-2.5 py-1.5 bg-[#f5f8fa] text-[#7E8299] rounded"
-                           href="{{ route('faqs-by-tag.index', $_tag->slug) }}">{{ $_tag->name }}</a>
+                           href="{{ route('faqs-by-tag.index', [$_faq->country, $_tag->slug]) }}">{{ $_tag->name }}</a>
                     @endforeach
                 </div>
             </footer>
@@ -40,7 +43,7 @@
             const hasMore = faqsList.getAttribute('data-has-more') === 'true';
 
             if (hasMore && (window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-                window.livewire.emit('faqs-load-more');
+                window.livewire.emit('faqs-load-more', faqsList.getAttribute('data-country'));
             }
         };
     </script>

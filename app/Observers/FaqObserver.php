@@ -30,7 +30,8 @@ class FaqObserver
     public function updated(Faq $faq): void
     {
         if (
-            $faq->status === FaqStatus::PUBLISHED
+            !is_null($faq->country)
+            && $faq->status === FaqStatus::PUBLISHED
             && $faq->slug
             && $faq->telegram_chat_id
             && is_null($faq->telegram_published_notify_sent)

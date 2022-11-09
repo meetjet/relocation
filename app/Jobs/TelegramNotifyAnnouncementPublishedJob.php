@@ -78,7 +78,7 @@ class TelegramNotifyAnnouncementPublishedJob implements ShouldQueue
         };
 
         return __($langKey, [
-            'link' => route("listings.show", $this->listingItem->uuid),
+            'link' => route("listings.show", [$this->listingItem->country, $this->listingItem->uuid]),
         ], $this->listingItem->telegram_user_language_code);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\ListingItemStatus;
 use App\Observers\ListingItemObserver;
+use App\Scopes\CountryScope;
 use App\Traits\HasUUID;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -30,6 +31,13 @@ class ListingItem extends Model
         parent::boot();
 
         self::observe(ListingItemObserver::class);
+    }
+
+    protected static function booted(): void
+    {
+        parent::booted();
+
+        static::addGlobalScope(new CountryScope);
     }
 
     /**
@@ -90,7 +98,8 @@ class ListingItem extends Model
      */
     public function scopeActive(Builder $query): void
     {
-        $query->where('status', ListingItemStatus::PUBLISHED)
+        $query->whereNotNull('country')
+            ->where('status', ListingItemStatus::PUBLISHED)
             ->where('visibility', true);
     }
 

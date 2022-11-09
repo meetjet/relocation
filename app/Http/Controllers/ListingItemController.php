@@ -13,9 +13,10 @@ class ListingItemController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param string $country
      * @return Application|Factory|View
      */
-    public function index(): Application|Factory|View
+    public function index(string $country): Application|Factory|View
     {
         return view('listings.index');
     }
@@ -44,14 +45,16 @@ class ListingItemController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param string $country
      * @param string $uuid
      * @return Application|Factory|View
      */
-    public function show(string $uuid): Application|Factory|View
+    public function show(string $country, string $uuid): Application|Factory|View
     {
         try {
             $entity = ListingItem::active()
                 ->ByUUID($uuid)
+                ->where('country', $country)
                 ->with(['tags', 'pictures', 'category'])
                 ->first();
         } catch (\Throwable $th) {

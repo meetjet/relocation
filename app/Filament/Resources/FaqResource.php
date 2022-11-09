@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Str;
 
 class FaqResource extends Resource
 {
@@ -85,8 +86,8 @@ class FaqResource extends Resource
                 Columns\TextColumn::make('original')
                     ->getStateUsing(fn($record): ?string => $record->title ?: $record->original)
                     ->label(__('Question'))
-                    ->description(fn($record) => (!$record->deleted_at && $record->slug)
-                        ? static::externalLink(route("faqs.show", ['slug' => $record->slug]), $record->slug)
+                    ->description(fn($record) => (!$record->deleted_at && $record->country && $record->slug)
+                        ? static::externalLink(route("faqs.show", [$record->country, $record->slug]), Str::lower(__('Link')))
                         : null)
                     ->limit(200)
                     ->wrap()

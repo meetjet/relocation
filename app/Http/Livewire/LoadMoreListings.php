@@ -6,20 +6,23 @@ use App\Models\ListingItem;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Route;
 use Livewire\Component;
 
 class LoadMoreListings extends Component
 {
     public int $total = -1;
     public int $perPage = 10;
+    public ?string $country = null;
 
     protected $listeners = [
         'listings-load-more' => 'listingsLoadMore'
     ];
 
-    public function listingsLoadMore(): void
+    public function listingsLoadMore(string $country): void
     {
         $this->perPage += 10;
+        $this->country = $country;
     }
 
     /**
@@ -27,11 +30,16 @@ class LoadMoreListings extends Component
      */
     public function render(): Application|Factory|View
     {
+        $this->country = $this->country ?: Route::current()->parameter('country');
+
         if ($this->total === -1) {
-            $this->total = ListingItem::active()->count();
+            $this->total = ListingItem::active()
+                ->where('country', $this->country)
+                ->count();
         }
 
         $items = ListingItem::active()
+            ->where('country', $this->country)
             ->latest()
             ->paginate($this->perPage);
 

@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use App\Enums\FaqStatus;
-use App\Enums\ListingItemStatus;
 use App\Observers\FaqObserver;
+use App\Scopes\CountryScope;
 use App\Traits\HasUUID;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -31,6 +31,13 @@ class Faq extends Model
         parent::boot();
 
         self::observe(FaqObserver::class);
+    }
+
+    protected static function booted(): void
+    {
+        parent::booted();
+
+        static::addGlobalScope(new CountryScope);
     }
 
     /**
@@ -86,7 +93,8 @@ class Faq extends Model
      */
     public function scopeActive(Builder $query): void
     {
-        $query->where('status', FaqStatus::PUBLISHED)
+        $query->whereNotNull('country')
+            ->where('status', FaqStatus::PUBLISHED)
             ->where('visibility', true);
     }
 }

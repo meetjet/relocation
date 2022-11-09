@@ -77,7 +77,7 @@ class TelegramNotifyQuestionAnsweredJob implements ShouldQueue
         };
 
         return __($langKey, [
-            'link' => route("faqs.show", ['slug' => $this->faq->slug]),
+            'link' => route("faqs.show", [$this->faq->country, $this->faq->slug]),
         ], $this->faq->telegram_user_language_code);
     }
 }
