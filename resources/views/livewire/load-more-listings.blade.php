@@ -15,26 +15,29 @@
                     class="h-full flex flex-col justify-between border rounded p-3 space-y-2 hover:shadow-[3px_3px_8px_rgb(161,161,161,0.3)] focus-within:shadow-[3px_3px_8px_rgb(161,161,161,0.3)] transition-all duration-300 outline-none"
                 >
                     <div class="space-y-2">
-                        <a href="{{ route('listings.show', [$item->country, $item->uuid]) }}"
-                           class="w-full max-w-[200px] mx-auto flex items-center justify-center outline-none">
+                        <a href="{{ route('listings.show', [$item->country, $item->uuid]) }}" class="flex outline-none">
                             @if($item->cover_picture)
                                 <img src="{{ $item->cover_picture->thumbnail_square }}"
                                      alt="{{ $item->cover_picture->caption }}"
-                                     class="w-[200px] aspect-square object-contain"
-                                     width="2000"
-                                     height="1160"
+                                     class="aspect-square object-cover max-w-auto w-full"
+                                     width="400"
+                                     height="400"
                                      loading="lazy"
                                 >
                             @else
-                                <img src="{{ asset('images/no-image.jpg') }}"
-                                     class="w-[200px] aspect-square object-contain"
-                                     loading="lazy"
+                                <img
+                                    src="{{ asset('images/no-image.jpg') }}"
+                                    class="aspect-square object-cover max-w-auto w-full"
+                                    width="400"
+                                    height="400"
+                                    loading="lazy"
                                 >
                             @endif
                         </a>
-                        <a class="text-blue-600 font-bold"
-                           href="{{ route('listings.show', [$item->country, $item->uuid]) }}"
-                           tabindex="-1">{{ $item->title }}</a>
+                        <a class="flex text-blue-600 font-bold"
+                           href="{{ route('listings.show', [$item->country, $item->uuid]) }}" tabindex="-1">
+                            {{ $item->title }}
+                        </a>
                     </div>
                     <div class="space-y-2">
                         <div class="text-[20px] leading-none font-bold">{{ $item->price }} ֏</div>
