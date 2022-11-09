@@ -1,15 +1,15 @@
 [
     {
-        "title": "Вопрос-Ответ",
+        "title": "Объявления",
         "icon": "ri-user-line",
-        "route_name": "faqs.index",
+        "route_name": "listings.index",
         "permission": "users_view",
         "opened": false
     },
     {
-        "title": "Объявления",
+        "title": "Вопрос-Ответ",
         "icon": "ri-user-line",
-        "route_name": "listings.index",
+        "route_name": "faqs.index",
         "permission": "users_view",
         "opened": false
     }
