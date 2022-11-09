@@ -1,6 +1,6 @@
 <aside
-    class="w-80 h-screen flex flex-col bg-white fixed top-0 -translate-x-full transition-transform duration-300 shadow"
-    :class="{'translate-x-0': open }"
+    class="w-80 h-screen flex flex-col bg-white fixed top-0 transition-transform duration-300 shadow"
+    :class="{'-translate-x-full': !open }"
 >
     <header class="p-4"></header>
 
