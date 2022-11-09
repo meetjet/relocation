@@ -15,7 +15,7 @@ class AppLayout extends Component
      */
     public function render()
     {
-        $menu = json_decode(file_get_contents(__DIR__ . "/../../../menu.json"), true);
+        $menu = json_decode(file_get_contents(base_path('menu.json')), true);
 
         $country = Route::current()->parameter('country');
         $menu = Arr::map($menu, static function ($_item) use ($country) {
