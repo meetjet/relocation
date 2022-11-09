@@ -11,11 +11,10 @@ class FaqByTagController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param string $country
      * @param string $tag
      * @return Application|Factory|View
      */
-    public function index(string $country, string $tag): Application|Factory|View
+    public function index(string $tag): Application|Factory|View
     {
         return view('faqs.by-tag-index', [
             'tag' => $tag,

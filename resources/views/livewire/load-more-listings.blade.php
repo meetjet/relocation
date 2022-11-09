@@ -1,7 +1,4 @@
-<div id="listings-list"
-     data-has-more="{{ $total !== count($items) ? 'true' : 'false' }}"
-     data-loading="false"
-     data-country="{{ $country }}">
+<div id="listings-list" data-has-more="{{ $total !== count($items) ? 'true' : 'false' }}" data-loading="false">
     <div class="mb-6">
         <span class="text-2xl font-bold">{{ __('Total announcements') }}</span>
         <span class="text-sm font-bold text-[#a1a5b7]">({{ $total }})</span>
@@ -66,7 +63,7 @@
             const hasMore = faqsList.getAttribute('data-has-more') === 'true';
 
             if (hasMore && (window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-                window.livewire.emit('listings-load-more', faqsList.getAttribute('data-country'));
+                window.livewire.emit('listings-load-more');
             }
         };
     </script>

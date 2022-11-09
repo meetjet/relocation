@@ -13,10 +13,9 @@ class FaqController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param string $country
      * @return Application|Factory|View
      */
-    public function index(string $country): Application|Factory|View
+    public function index(): Application|Factory|View
     {
         return view('faqs.index');
     }
@@ -45,11 +44,10 @@ class FaqController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param string $country
      * @param string $slug
      * @return Application|Factory|View
      */
-    public function show(string $country, string $slug): Application|Factory|View
+    public function show(string $slug): Application|Factory|View
     {
         $entity = Faq::active()
             ->where('slug', $slug)
