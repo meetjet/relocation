@@ -70,6 +70,18 @@ class EditListingItem extends EditRecord
                                 ->type("listing-items"),
                         ]),
 
+                    Components\Section::make(__('Announcement owner'))
+                        ->schema([
+                            Components\TextInput::make('contact.nickname')
+                                ->label(__('Real owner nickname'))
+                                ->disabled()
+                                ->dehydrated(false),
+
+                            Components\TextInput::make('custom_nickname')
+                                ->label(__('Custom nickname'))
+                                ->default("-"),
+                        ])->columns()->collapsible(),
+
                     Components\Section::make(__('Additional information'))
                         ->schema([
                             Components\TextInput::make('price')
