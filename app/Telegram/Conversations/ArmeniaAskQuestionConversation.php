@@ -5,6 +5,7 @@ namespace App\Telegram\Conversations;
 use App\Enums\TelegramBotType;
 use App\Models\Faq;
 use App\Telegram\Actions\CreateUserAction;
+use Illuminate\Support\Str;
 use Psr\SimpleCache\InvalidArgumentException;
 use SergiX44\Nutgram\Conversations\Conversation;
 use SergiX44\Nutgram\Nutgram;
@@ -42,9 +43,14 @@ class ArmeniaAskQuestionConversation extends Conversation
                 'telegram_chat_id' => $bot->chatId(),
                 'telegram_message_id' => $bot->messageId(),
             ]);
+
+            // TODO: replace with helper
+            $domain = config('app.domain');
+            $link = Str::replace($domain, "armenia.{$domain}", route("faqs.index"));
+
             $bot->sendMessage(__('telegram.armenia.question.end', [
                 'command' => self::getName(),
-                'link' => route("faqs.index"),
+                'link' => $link,
             ]));
             $this->end();
             return;

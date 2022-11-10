@@ -12,6 +12,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use SergiX44\Nutgram\Telegram\Attributes\ParseMode;
 use Throwable;
 
@@ -76,8 +77,12 @@ class TelegramNotifyQuestionAnsweredJob implements ShouldQueue
             default => "telegram.default.question.reply",
         };
 
+        // TODO: replace with helper
+        $domain = config('app.domain');
+        $link = Str::replace($domain, "{$this->faq->country}.{$domain}", route("faqs.show", ['slug' => $this->faq->slug]));
+
         return __($langKey, [
-            'link' => route("faqs.show", ['slug' => $this->faq->slug]),
+            'link' => $link,
         ], $this->faq->telegram_user_language_code);
     }
 }

@@ -13,6 +13,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use SergiX44\Nutgram\Telegram\Attributes\ParseMode;
 use Throwable;
 
@@ -77,8 +78,12 @@ class TelegramNotifyAnnouncementPublishedJob implements ShouldQueue
             default => "telegram.default.listing-add.reply",
         };
 
+        // TODO: replace with helper
+        $domain = config('app.domain');
+        $link = Str::replace($domain, "{$this->listingItem->country}.{$domain}", route("listings.show", $this->listingItem->uuid));
+
         return __($langKey, [
-            'link' => route("listings.show", $this->listingItem->uuid),
+            'link' => $link,
         ], $this->listingItem->telegram_user_language_code);
     }
 }
