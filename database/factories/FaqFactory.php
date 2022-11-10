@@ -22,7 +22,7 @@ class FaqFactory extends Factory
     public function definition(): array
     {
         $content = $this->faker->text(400);
-        $country = $this->faker->randomElement(array_merge(Countries::getValues(), [null]));
+        $country = $this->faker->randomElement(Countries::getValues());
         $status = $this->faker->randomElement(FaqStatus::getValues());
         $visibility = $this->faker->boolean();
 

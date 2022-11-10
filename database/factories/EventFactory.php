@@ -22,8 +22,8 @@ class EventFactory extends Factory
      */
     public function definition(): array
     {
-        $country = $this->faker->randomElement(array_merge(Countries::getValues(), [null]));
-        $city = $this->faker->randomElement(array_merge(Cities::getValues($country), [null]));
+        $country = $this->faker->randomElement(Countries::getValues());
+        $city = $this->faker->randomElement(Cities::getValues($country));
 
         return [
             'user_id' => 1,
@@ -34,7 +34,7 @@ class EventFactory extends Factory
             'status' => $this->faker->randomElement(EventStatus::getValues()),
 //            'status' => EventStatus::PUBLISHED,
             'visibility' => $this->faker->boolean(),
-            'price' => $this->faker->randomNumber(),
+            'price' => $this->faker->randomNumber() + 10,
         ];
     }
 
