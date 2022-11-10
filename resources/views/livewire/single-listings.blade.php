@@ -18,10 +18,11 @@
 
         <div class="text-2xl font-bold my-4">{{ $entity->price }} ֏</div>
 
-        @if(Auth::user() && $entity->contact)
-            {{-- Announcement owner --}}
-            <div class=" mt-4">
-                {{ __("Contact") }}:
+
+        {{-- Announcement owner --}}
+        <div class=" mt-4">
+            {{ __("Contact") }}:
+            @if(Auth::user() && $entity->contact)
                 @if($entity->custom_nickname)
                     {{-- Custom nickname --}}
                     <a href="https://t.me/{{ $entity->custom_nickname }}"
@@ -33,8 +34,17 @@
                        target="_blank"
                        class="text-blue-600">{{ "@" . $entity->contact->nickname }}</a>
                 @endif
-            </div>
-        @endif
+            @else
+                <div>
+                    @php
+                        $country = str(request()->getHost())->replace(('.' . config('app.domain')), "");
+                        $route = str(route('auth.login'))->replace("{$country}.", "");
+                        $url = "{$route}?return_url=" . url()->current();
+                    @endphp
+                    <a href="{{ $url }}" class="text-blue-600 underline">Войдите через Telegram</a>, чтобы связаться с продавцом
+                </div>
+            @endif
+        </div>
 
         @if($entity->tags->count())
             <div class="flex flex-wrap items-center justify-between -m-1 mt-4">
