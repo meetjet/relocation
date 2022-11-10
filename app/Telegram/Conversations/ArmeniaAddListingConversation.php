@@ -217,7 +217,7 @@ class ArmeniaAddListingConversation extends InlineMenu
         if ($message && $message->getType() === MessageTypes::TEXT) {
             $price = abs((int)$message->text);
 
-            if ($price && (string)$price === $message->text) {
+            if ($price >= 0 && (string)$price === $message->text) {
                 $this->price = $price;
                 $this->askPicture($bot);
                 return;
