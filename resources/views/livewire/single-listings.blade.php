@@ -20,8 +20,8 @@
 
 
         {{-- Announcement owner --}}
-        <div class=" mt-4">
-            {{ __("Contact") }}:
+        <div class="flex flex-wrap mt-4">
+            <div>{{ __("Contact") }}:</div>
             @if(Auth::user() && $entity->contact)
                 @if($entity->custom_nickname)
                     {{-- Custom nickname --}}
