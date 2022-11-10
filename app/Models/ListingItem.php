@@ -24,7 +24,9 @@ class ListingItem extends Model
     use HasUUID;
     use HasTags;
 
-    protected $fillable = ['user_id', 'category_id', 'country', 'city', 'title', 'description', 'status', 'visibility'];
+    protected $fillable = ['user_id', 'category_id', 'country', 'city', 'title', 'description', 'status', 'visibility', 'custom_nickname'];
+
+    protected $appends = ['contact'];
 
     public static function boot(): void
     {

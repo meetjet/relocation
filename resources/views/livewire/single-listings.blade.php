@@ -28,11 +28,20 @@
         @endif
 
         @if(Auth::user() && $entity->contact)
+            {{-- Announcement owner --}}
             <div class=" mt-4">
                 {{ __("Contact") }}:
-                <a href="https://t.me/{{ $entity->contact->nickname }}"
-                   target="_blank"
-                   class="text-blue-600">{{ $entity->contact->name }} ({{ "@" . $entity->contact->nickname }})</a>
+                @if($entity->custom_nickname)
+                    {{-- Custom nickname --}}
+                    <a href="https://t.me/{{ $entity->custom_nickname }}"
+                       target="_blank"
+                       class="text-blue-600">{{ "@" . $entity->custom_nickname }}</a>
+                @else
+                    {{-- Real owner nickname --}}
+                    <a href="https://t.me/{{ $entity->contact->nickname }}"
+                       target="_blank"
+                       class="text-blue-600">{{ "@" . $entity->contact->nickname }}</a>
+                @endif
             </div>
         @endif
     </div>
