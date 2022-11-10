@@ -4,6 +4,7 @@ namespace App\Telegram\Conversations;
 
 use App\Enums\TelegramBotImageMimeType;
 use App\Enums\TelegramBotType;
+use App\Facades\Cities;
 use App\Models\ListingCategory;
 use App\Models\ListingItem;
 use App\Telegram\Actions\CreateUserAction;
@@ -24,6 +25,7 @@ class ArmeniaAddListingConversation extends InlineMenu
 {
     protected ?string $step = "start";
     protected int $maxPictures = 3;
+    protected ?string $city = null;
     protected ?int $categoryId = null;
     protected ?string $title;
     protected ?string $description;
@@ -41,6 +43,46 @@ class ArmeniaAddListingConversation extends InlineMenu
         $bot->sendMessage(__('telegram.armenia.listing-add.start'), [
             'parse_mode' => ParseMode::HTML,
         ]);
+        $this->askCity($bot);
+    }
+
+    /**
+     * @param Nutgram $bot
+     * @throws InvalidArgumentException
+     */
+    public function askCity(Nutgram $bot): void
+    {
+        $menu = $this->menuText(__('telegram.armenia.listing-add.ask-city'));
+
+        collect(Cities::asSelectArray('armenia'))->each(function ($_value, $_key) use ($menu) {
+            $menu->addButtonRow(InlineKeyboardButton::make($_value, callback_data: "{$_key}@handleCity"));
+        });
+
+        $menu->orNext("handleWrongCity")->showMenu();
+    }
+
+    /**
+     * @param Nutgram $bot
+     * @throws InvalidArgumentException
+     */
+    public function handleWrongCity(Nutgram $bot): void
+    {
+        $this->clearButtons()->closeMenu();
+        $bot->sendMessage(__('telegram.armenia.listing-add.ask-city-error'));
+        $this->askCity($bot);
+    }
+
+    /**
+     * @param Nutgram $bot
+     * @throws InvalidArgumentException
+     */
+    public function handleCity(Nutgram $bot): void
+    {
+        $this->clearButtons()->closeMenu();
+        $this->city = $bot->callbackQuery()->data;
+        $bot->sendMessage(__('telegram.armenia.listing-add.ask-city-chosen', [
+            'city' => Cities::getDescription("armenia", $this->city),
+        ]));
         $this->askCategory($bot);
     }
 
@@ -308,6 +350,7 @@ class ArmeniaAddListingConversation extends InlineMenu
         $category = ListingCategory::find($this->categoryId);
 
         $message = $bot->sendMessage(__('telegram.armenia.listing-add.announcement-preview', [
+            'city' => Cities::getDescription("armenia", $this->city),
             'category' => $category ? $category->title : __('No'),
             'title' => $this->title,
             'description' => $this->description,
@@ -341,6 +384,7 @@ class ArmeniaAddListingConversation extends InlineMenu
                 'user_id' => app(CreateUserAction::class)->execute($bot->user()),
                 'category_id' => $this->categoryId,
                 'country' => "armenia",
+                'city' => $this->city,
                 'title' => $this->title,
                 'description' => $this->description,
                 'price' => $this->price,
