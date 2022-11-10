@@ -23,7 +23,7 @@ class ListingItem extends Model
     use HasUUID;
     use HasTags;
 
-    protected $fillable = ['user_id', 'category_id', 'country', 'title', 'description', 'status', 'visibility'];
+    protected $fillable = ['user_id', 'category_id', 'country', 'city', 'title', 'description', 'status', 'visibility'];
 
     public static function boot(): void
     {
@@ -43,6 +43,7 @@ class ListingItem extends Model
             'user_id',
             'category_id',
             'country',
+            'city',
             'title',
             'description',
             'status',

@@ -3,9 +3,11 @@
 namespace App\Filament\Resources\ListingItemResource\Pages;
 
 use App\Enums\ListingItemStatus;
+use App\Facades\Cities;
 use App\Facades\Countries;
 use App\Filament\Actions\Pages\DeleteAction;
 use App\Filament\Resources\ListingItemResource;
+use Closure;
 use Filament\Forms\Components;
 use Filament\Resources\Pages\EditRecord;
 
@@ -106,6 +108,14 @@ class EditListingItem extends EditRecord
                                 ->label(__('Country'))
                                 ->options(Countries::asSelectArray())
                                 ->placeholder("-")
+                                ->reactive()
+                                ->afterStateUpdated(fn(Closure $set) => $set('city', ""))
+                                ->nullable(),
+
+                            Components\Select::make('city')
+                                ->label(__('City'))
+                                ->placeholder("-")
+                                ->options(fn(Closure $get): array => Cities::asSelectArray($get('country')))
                                 ->nullable(),
                         ]),
                 ])
