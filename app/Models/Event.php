@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\EventStatus;
+use App\Scopes\CountryScope;
 use App\Traits\HasUUID;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -33,6 +34,11 @@ class Event extends Model
 //
 //        self::observe(EventObserver::class);
 //    }
+
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new CountryScope());
+    }
 
     /**
      * @return string[]

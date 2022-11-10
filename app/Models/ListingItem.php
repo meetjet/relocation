@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\ListingItemStatus;
 use App\Observers\ListingItemObserver;
+use App\Scopes\CountryScope;
 use App\Traits\HasUUID;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -30,6 +31,11 @@ class ListingItem extends Model
         parent::boot();
 
         self::observe(ListingItemObserver::class);
+    }
+
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new CountryScope());
     }
 
     /**
