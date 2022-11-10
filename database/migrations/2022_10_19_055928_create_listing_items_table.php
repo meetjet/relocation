@@ -22,6 +22,7 @@ return new class extends Migration {
                 ->nullOnDelete();
 
             $table->string('country')->nullable();
+            $table->string('city')->nullable();
             $table->string('title')->nullable();
             $table->text('description')->nullable();
             $table->string('status')->default(ListingItemStatus::CREATED);
