@@ -16,7 +16,7 @@ class ListingItemResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-lightning-bolt';
 
-    protected static ?string $slug = 'listing/items';
+    protected static ?string $slug = 'listings/items';
 
     protected static ?int $navigationSort = 0;
 
@@ -80,9 +80,7 @@ class ListingItemResource extends Resource
      */
     protected static function getNavigationBadge(): ?string
     {
-        return self::$model::where('status', ListingItemStatus::PUBLISHED)
-            ->where('visibility', true)
-            ->count();
+        return self::$model::active()->count();
     }
 
     /**

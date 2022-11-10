@@ -22,7 +22,7 @@ class ListingCategoryResource extends Resource
 
     protected static ?string $model = ListingCategory::class;
 
-    protected static ?string $slug = 'listing/categories';
+    protected static ?string $slug = 'listings/categories';
 
     protected static ?string $recordTitleAttribute = 'title';
 

@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\ListingItemResource\Pages;
 
 use App\Enums\ListingItemStatus;
+use App\Facades\Cities;
 use App\Facades\Countries;
 use App\Filament\Resources\ListingItemResource;
 use App\Models\ListingCategory;
@@ -75,6 +76,11 @@ class ListListingItems extends ListRecords
                 ->label(__('Country'))
                 ->enum(Countries::asSelectArray())
                 ->sortable()
+                ->toggleable(),
+
+            Columns\TextColumn::make('city')
+                ->label(__('City'))
+                ->getStateUsing(fn($record): string => Cities::getDescription($record->country, $record->city))
                 ->toggleable(),
 
             Columns\TextColumn::make('category.title')
