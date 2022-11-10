@@ -7,25 +7,16 @@
         <div class="mb-4">{!! $entity->description !!}</div>
 
         @if($entity->pictures->count())
-            <div class="flex space-x-4">
+            <div class="flex flex-wrap space-x-4">
                 @foreach($entity->pictures as $picture)
                     <img src="{{ $picture->thumbnail_square }}"
                          alt="{{ $picture->caption }}"
-                         class="w-[200px] aspect-square object-contain"/>
+                         class="w-full md:w-[400px] aspect-square object-contain"/>
                 @endforeach
             </div>
         @endif
 
-        @if($entity->tags->count())
-            <div class="flex flex-wrap items-center justify-between -m-1 mt-4">
-                <div class="flex space-x-1.5 p-1">
-                    @foreach($entity->tags as $tag)
-                        <a class="text-xs font-medium px-2.5 py-1.5 bg-[#f5f8fa] text-[#7E8299] rounded"
-                           href="#">{{ $tag->name }}</a>
-                    @endforeach
-                </div>
-            </div>
-        @endif
+        <div class="text-2xl font-bold my-4">{{ $entity->price }} ֏</div>
 
         @if(Auth::user() && $entity->contact)
             {{-- Announcement owner --}}
@@ -42,6 +33,17 @@
                        target="_blank"
                        class="text-blue-600">{{ "@" . $entity->contact->nickname }}</a>
                 @endif
+            </div>
+        @endif
+
+        @if($entity->tags->count())
+            <div class="flex flex-wrap items-center justify-between -m-1 mt-4">
+                <div class="flex space-x-0 md:space-x-2 p-1">
+                    @foreach($entity->tags as $tag)
+                        <a class="text-xs font-medium px-2.5 py-1.5 bg-[#f5f8fa] text-[#7E8299] rounded"
+                           href="#">{{ $tag->name }}</a>
+                    @endforeach
+                </div>
             </div>
         @endif
     </div>
