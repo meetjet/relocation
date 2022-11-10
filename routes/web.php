@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthTelegramLoginController;
 use App\Http\Controllers\FaqByTagController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ListingItemController;
@@ -19,6 +20,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect('/listings');
 })->name('welcome');
+
+Route::get('auth/login', [AuthTelegramLoginController::class, 'show'])
+    ->middleware(['guest:' . config('fortify.guard')])
+    ->name('auth.login');
 
 // FAQ
 Route::get('/faqs/{slug}', [FaqController::class, 'show'])->name('faqs.show');

@@ -136,8 +136,16 @@
                             </div>
                         </div>
                     @else
+                        <!-- Telegram login button -->
                         <div class="flex items-center">
-                            {!! Socialite::driver('telegram')->getButton() !!}
+                            @php
+                                $country = str(request()->getHost())->replace(('.' . config('app.domain')), "");
+                                $route = str(route('auth.login'))->replace("{$country}.", "");
+                                $url = "{$route}?return_url=" . url()->current();
+                            @endphp
+                            <a href="{{ $url }}">
+                                <x-login-button/>
+                            </a>
                         </div>
                     @endauth
                 @endif
