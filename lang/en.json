@@ -338,6 +338,8 @@
     "Price": "Price",
     "Discount": "Discount",
     "Discount price": "Discount price",
+    "Currency": "Currency",
+    "Selected automatically based on country": "Selected automatically based on country",
     "Delivery": "Delivery",
     "Status": "Status",
     "Change status": "Change status",
