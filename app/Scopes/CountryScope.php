@@ -17,7 +17,7 @@ class CountryScope implements Scope
     {
         $host = request()->getHost();
 
-        if (!Str::contains(url()->current(), "{$host}/admin") && !Str::contains(url()->current(), "{$host}/livewire")) {
+        if (!Str::contains(url()->current(), "{$host}/admin") && !Str::contains(url()->current(), "{$host}/livewire/message/app.filament.resources")) {
             $domainPattern = '.' . config('app.domain');
             $country = Str::contains($host, $domainPattern)
                 ? Str::before($host, $domainPattern)
