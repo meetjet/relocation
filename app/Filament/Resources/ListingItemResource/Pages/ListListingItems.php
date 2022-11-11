@@ -33,7 +33,7 @@ class ListListingItems extends ListRecords
     protected function getActions(): array
     {
         return [
-//            Pages\Actions\CreateAction::make(),
+            Pages\Actions\CreateAction::make(),
         ];
     }
 

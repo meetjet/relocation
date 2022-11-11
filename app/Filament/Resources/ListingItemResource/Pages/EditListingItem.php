@@ -5,6 +5,7 @@ namespace App\Filament\Resources\ListingItemResource\Pages;
 use App\Enums\ListingItemStatus;
 use App\Facades\Cities;
 use App\Facades\Countries;
+use App\Facades\Currencies;
 use App\Filament\Actions\Pages\DeleteAction;
 use App\Filament\Resources\ListingItemResource;
 use Closure;
@@ -68,27 +69,37 @@ class EditListingItem extends EditRecord
                             Components\SpatieTagsInput::make('tags')
                                 ->label(__('Tags'))
                                 ->type("listing-items"),
+
+                            Components\Grid::make()
+                                ->schema([
+                                    Components\TextInput::make('price')
+                                        ->label(__('Price'))
+                                        ->numeric()
+                                        ->required(),
+
+                                    Components\Select::make('currency')
+                                        ->label(__('Currency'))
+                                        ->hint(__('Selected automatically based on country'))
+                                        ->placeholder("-")
+                                        ->options(Currencies::asSelectArray())
+                                        ->default(Currencies::getCodeByCountry("armenia"))
+                                        ->disabled(),
+                                ]),
                         ]),
 
                     Components\Section::make(__('Announcement owner'))
                         ->schema([
                             Components\TextInput::make('contact.nickname')
                                 ->label(__('Real owner nickname'))
+                                ->placeholder(__('No'))
                                 ->disabled()
                                 ->dehydrated(false),
 
                             Components\TextInput::make('custom_nickname')
                                 ->label(__('Custom nickname'))
-                                ->default("-"),
+                                ->placeholder(__('No'))
+                                ->required(fn(Closure $get): bool => is_null($get('contact.nickname'))),
                         ])->columns()->collapsible(),
-
-                    Components\Section::make(__('Additional information'))
-                        ->schema([
-                            Components\TextInput::make('price')
-                                ->label(__('Price'))
-                                ->disabled()
-                                ->dehydrated(false),
-                        ])->collapsible(),
                 ])
                 ->columnSpan(['lg' => 2]),
 
@@ -122,6 +133,7 @@ class EditListingItem extends EditRecord
                                 ->placeholder("-")
                                 ->reactive()
                                 ->afterStateUpdated(fn(Closure $set) => $set('city', ""))
+                                ->afterStateUpdated(fn(Closure $set, Closure $get) => $set('currency', Currencies::getCodeByCountry($get('country'))))
                                 ->nullable(),
 
                             Components\Select::make('city')
@@ -140,6 +152,6 @@ class EditListingItem extends EditRecord
      */
     protected function getRedirectUrl(): string
     {
-        return $this->previousUrl ?? self::getResource()::getUrl('index');
+        return self::getResource()::getUrl('index');
     }
 }

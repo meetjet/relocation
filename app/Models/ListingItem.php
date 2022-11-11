@@ -24,7 +24,7 @@ class ListingItem extends Model
     use HasUUID;
     use HasTags;
 
-    protected $fillable = ['user_id', 'category_id', 'country', 'city', 'title', 'description', 'status', 'visibility', 'custom_nickname'];
+    protected $fillable = ['user_id', 'category_id', 'country', 'city', 'title', 'description', 'price', 'currency', 'status', 'visibility', 'custom_nickname'];
 
     protected $appends = ['contact'];
 
@@ -117,7 +117,7 @@ class ListingItem extends Model
     public function getContactAttribute(): ?ConnectedAccount
     {
         if ($this->user) {
-            return $this->user->currentConnectedAccount()->first();
+            return $this->user->contact;
         }
 
         return null;
