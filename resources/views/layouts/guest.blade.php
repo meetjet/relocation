@@ -23,7 +23,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
         <!-- Analytics -->
-        <script defer data-domain="relocation.digital" src="//plausible.io/js/script.js"></script>
+        <script defer data-domain="{{ request()->getHost() }}" src="//plausible.io/js/script.js"></script>
     </head>
     <body>
         <div class="font-sans text-gray-900 antialiased">
