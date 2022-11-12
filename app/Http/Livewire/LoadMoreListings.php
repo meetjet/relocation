@@ -11,7 +11,7 @@ use Livewire\Component;
 class LoadMoreListings extends Component
 {
     public int $total = -1;
-    public int $perPage = 10;
+    public int $perPage = 12;
 
     protected $listeners = [
         'listings-load-more' => 'listingsLoadMore'
@@ -19,7 +19,7 @@ class LoadMoreListings extends Component
 
     public function listingsLoadMore(): void
     {
-        $this->perPage += 10;
+        $this->perPage += 12;
     }
 
     /**
