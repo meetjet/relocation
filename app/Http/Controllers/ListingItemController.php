@@ -61,6 +61,15 @@ class ListingItemController extends Controller
 
         abort_unless(!is_null($entity), 404);
 
+//        $entity->pictures = (object)[
+//            (object)['thumbnail_square' => 'https://upcdn.io/FW25awg/thumbnail-square/uploads/2022/11/10/HT6gygbi.jpeg', 'caption' => 'caption'],
+//            (object)['thumbnail_square' => 'https://upcdn.io/FW25awg/thumbnail-square/uploads/2022/11/10/gnFB1nrs.jpeg', 'caption' => 'caption'],
+//            (object)['thumbnail_square' => 'https://upcdn.io/FW25awg/thumbnail-square/uploads/2022/11/10/gnFB1nrs.jpeg', 'caption' => 'caption'],
+//            (object)['thumbnail_square' => 'https://upcdn.io/FW25awg/thumbnail-square/uploads/2022/11/10/gnFB1nrs.jpeg', 'caption' => 'caption'],
+//            (object)['thumbnail_square' => 'https://upcdn.io/FW25awg/thumbnail-square/uploads/2022/11/10/gnFB1nrs.jpeg', 'caption' => 'caption'],
+//            (object)['thumbnail_square' => 'https://upcdn.io/FW25awg/thumbnail-square/uploads/2022/11/10/gnFB1nrs.jpeg', 'caption' => 'caption'],
+//        ];
+
         return view('listings.show', [
             'entity' => $entity,
         ]);
