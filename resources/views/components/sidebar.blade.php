@@ -20,14 +20,10 @@
         <ul>
             @foreach(json_decode($menu) as $item)
                 <li>
-                    @if(Route::current()->getName() === $item->route_name)
-                        <div class="font-bold py-2 px-6 select-none">{{ $item->title }}</div>
-                    @else
-                        <a
-                            href="{{ route($item->route_name) }}"
-                            class="cursor-pointer w-full flex py-2 px-6 rounded-lg items-center font-medium leading-5 transition duration-150 ease-in-out focus:outline-none"
-                        >{{ $item->title }}</a>
-                    @endif
+                    <a
+                        href="{{ route($item->route_name) }}"
+                        class="{{ request()->routeIs($item->route_name_regex) ? 'font-bold bg-indigo-200 text-indigo-900 ' : '' }}cursor-pointer w-full flex py-2 px-6 items-center font-medium leading-5 transition duration-150 ease-in-out focus:outline-none"
+                    >{{ $item->title }}</a>
                 </li>
             @endforeach
         </ul>
