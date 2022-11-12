@@ -18,12 +18,12 @@
 
     <div class="h-full scrollbar overflow-y-auto py-3">
         <ul>
-            @foreach(json_decode($menu) as $item)
+            @foreach($menu as $item)
                 <li>
                     <a
                         href="{{ route($item->route_name) }}"
                         class="{{ request()->routeIs($item->route_name_regex) ? 'font-bold bg-indigo-200 text-indigo-900 ' : '' }}cursor-pointer w-full flex py-2 px-6 items-center font-medium leading-5 transition duration-150 ease-in-out focus:outline-none"
-                    >{{ $item->title }}</a>
+                    >{{ __($item->title) }}</a>
                 </li>
             @endforeach
         </ul>

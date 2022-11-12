@@ -11,14 +11,16 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-4 lg:-my-px lg:ml-10 lg:flex">
-                    <x-jet-nav-link href="{{ route('listings.index') }}" :active="request()->routeIs('listings*')">
-                        {{ __('Announcements') }}
-                    </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('faqs.index') }}" :active="request()->routeIs('faqs*')">
-                        {{ __('FAQ') }}
-                    </x-jet-nav-link>
-                </div>
+                <ul class="hidden lg:flex space-x-4 lg:-my-px lg:ml-10 ">
+                    @foreach($menu as $item)
+                        <li>
+                            <x-jet-nav-link href="{{ route($item->route_name) }}" :active="request()->routeIs($item->route_name_regex)">
+                                {{ __($item->title) }}
+                            </x-jet-nav-link>
+                        </li>
+                    @endforeach
+                </ul>
+
             </div>
 
             <div class="flex items-center space-x-6">
