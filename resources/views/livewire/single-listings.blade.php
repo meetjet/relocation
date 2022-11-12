@@ -7,17 +7,22 @@
         <div class="mb-4">{!! $entity->description !!}</div>
 
         @if($entity->pictures->count())
-            <div class="flex flex-wrap space-x-0 md:space-x-4">
+            <ul class="sm:flex sm:flex-wrap -m-2">
                 @foreach($entity->pictures as $picture)
-                    <img src="{{ $picture->thumbnail_square }}"
-                         alt="{{ $picture->caption }}"
-                         class="w-full md:w-[400px] aspect-square object-contain"/>
+                    <li class="p-2 sm:w-1/2 md:w-1/3 lg:w-1/4">
+                        <img
+                            src="{{ $picture->thumbnail_square }}"
+                            alt="{{ $picture->caption }}"
+                            class="w-full aspect-square object-contain"
+                            width="400"
+                            height="400"
+                        />
+                    </li>
                 @endforeach
-            </div>
+            </ul>
         @endif
 
         <div class="text-2xl font-bold my-4">{{ $entity->price }} ֏</div>
-
 
         {{-- Announcement owner --}}
         <div class="flex flex-wrap mt-4">
@@ -41,7 +46,8 @@
                         $route = str(route('auth.login'))->replace("{$country}.", "");
                         $url = "{$route}?return_url=" . url()->current();
                     @endphp
-                    <a href="{{ $url }}" class="text-blue-600 underline">Войдите через Telegram</a>, чтобы связаться с продавцом
+                    <a href="{{ $url }}" class="text-blue-600 underline">Войдите через Telegram</a>, чтобы связаться с
+                    продавцом
                 </div>
             @endif
         </div>

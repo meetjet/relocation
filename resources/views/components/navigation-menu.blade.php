@@ -11,14 +11,16 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-4 lg:-my-px lg:ml-10 lg:flex">
-                    <x-jet-nav-link href="{{ route('listings.index') }}" :active="request()->routeIs('listings*')">
-                        {{ __('Announcements') }}
-                    </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('faqs.index') }}" :active="request()->routeIs('faqs*')">
-                        {{ __('FAQ') }}
-                    </x-jet-nav-link>
-                </div>
+                <ul class="hidden lg:flex space-x-4 lg:-my-px lg:ml-10 ">
+                    @foreach($menu as $item)
+                        <li>
+                            <x-jet-nav-link href="{{ route($item->route_name) }}" :active="request()->routeIs($item->route_name_regex)">
+                                {{ __($item->title) }}
+                            </x-jet-nav-link>
+                        </li>
+                    @endforeach
+                </ul>
+
             </div>
 
             <div class="flex items-center space-x-6">
@@ -85,22 +87,22 @@
                                             </button>
                                         @else
                                             <span class="inline-flex rounded-md">
-                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition">
-                                        <span class="hidden lg:block">{{ Auth::user()->name }}</span>
+                                                <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition">
+                                                    <span class="hidden lg:block">{{ Auth::user()->name }}</span>
 
-                                        <svg class="ml-2 -mr-0.5 h-4 w-4 hidden lg:block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                            <path
-                                                fill-rule="evenodd"
-                                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                clip-rule="evenodd"
-                                            />
-                                        </svg>
+                                                    <svg class="ml-2 -mr-0.5 h-4 w-4 hidden lg:block" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path
+                                                            fill-rule="evenodd"
+                                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                            clip-rule="evenodd"
+                                                        />
+                                                    </svg>
 
-                                        <svg class="flex lg:hidden" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512" fill="currentColor">
-                                            <path d="M288 353.306v-26.39c35.249-19.864 64-69.386 64-118.916 0-79.529 0-144-96-144s-96 64.471-96 144c0 49.53 28.751 99.052 64 118.916v26.39c-108.551 8.874-192 62.21-192 126.694h448c0-64.484-83.449-117.82-192-126.694z"></path>
-                                        </svg>
-                                    </button>
-                                </span>
+                                                    <svg class="flex lg:hidden" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512" fill="currentColor">
+                                                        <path d="M288 353.306v-26.39c35.249-19.864 64-69.386 64-118.916 0-79.529 0-144-96-144s-96 64.471-96 144c0 49.53 28.751 99.052 64 118.916v26.39c-108.551 8.874-192 62.21-192 126.694h448c0-64.484-83.449-117.82-192-126.694z"></path>
+                                                    </svg>
+                                                </button>
+                                            </span>
                                         @endif
                                     </x-slot>
 
@@ -154,8 +156,7 @@
                 <div class="-mr-2 flex items-center lg:hidden">
                     <button @click="open = !open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition">
                         <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                            <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                            <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
                     </button>
                 </div>

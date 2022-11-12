@@ -3,6 +3,7 @@
         "title": "Объявления",
         "icon": "ri-user-line",
         "route_name": "listings.index",
+        "route_name_regex": "listings*",
         "permission": "users_view",
         "opened": false
     },
@@ -10,6 +11,7 @@
         "title": "Вопрос-Ответ",
         "icon": "ri-user-line",
         "route_name": "faqs.index",
+        "route_name_regex": "faqs*",
         "permission": "users_view",
         "opened": false
     }
