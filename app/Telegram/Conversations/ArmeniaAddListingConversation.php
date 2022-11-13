@@ -8,6 +8,7 @@ use App\Facades\Cities;
 use App\Models\ListingCategory;
 use App\Models\ListingItem;
 use App\Telegram\Actions\CreateUserAction;
+use Illuminate\Support\Str;
 use Psr\SimpleCache\InvalidArgumentException;
 use SergiX44\Nutgram\Conversations\InlineMenu;
 use SergiX44\Nutgram\Nutgram;
@@ -215,9 +216,9 @@ class ArmeniaAddListingConversation extends InlineMenu
         $message = $bot->message();
 
         if ($message && $message->getType() === MessageTypes::TEXT) {
-            $price = abs((int)$message->text);
+            $price = (int)Str::remove(" ", $message->text);
 
-            if ($price >= 0 && (string)$price === $message->text) {
+            if ($price >= 0) {
                 $this->price = $price;
                 $this->askPicture($bot);
                 return;
