@@ -24,6 +24,17 @@
 
         <div class="text-2xl font-bold my-4">{{ $entity->price }} ֏</div>
 
+        {{-- Location --}}
+        @if($entity->country)
+            <div class="flex flex-wrap mt-4">
+                <div class="mr-2">{{ __('Location') }}:</div>
+                <div>{{ \App\Facades\Countries::getDescription($entity->country) }}</div>
+                @if($entity->city)
+                    <div>, {{ \App\Facades\Cities::getDescription($entity->country, $entity->city) }}</div>
+                @endif
+            </div>
+        @endif
+
         {{-- Announcement owner --}}
         <div class="flex flex-wrap mt-4">
             <div class="mr-2">{{ __("Contact") }}:</div>

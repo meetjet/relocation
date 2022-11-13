@@ -567,5 +567,6 @@
     "Login via Telegram": "Логин",
     "Announcement owner": "Владелец объявления",
     "Real owner nickname": "Никнейм настоящего владельца",
-    "Custom nickname": "Пользовательский никнейм"
+    "Custom nickname": "Пользовательский никнейм",
+    "Location": "Локация"
 }
