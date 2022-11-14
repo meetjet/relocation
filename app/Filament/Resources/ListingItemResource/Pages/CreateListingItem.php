@@ -132,8 +132,10 @@ class CreateListingItem extends CreateRecord
                                 ->options(Countries::asSelectArray())
                                 ->placeholder("-")
                                 ->reactive()
-                                ->afterStateUpdated(fn(Closure $set) => $set('city', ""))
-                                ->afterStateUpdated(fn(Closure $set, Closure $get) => $set('currency', Currencies::getCodeByCountry($get('country'))))
+                                ->afterStateUpdated(function (Closure $set, Closure $get) {
+                                    $set('city', "");
+                                    $set('currency', Currencies::getCodeByCountry($get('country')));
+                                })
                                 ->default("armenia")
                                 ->nullable(),
 

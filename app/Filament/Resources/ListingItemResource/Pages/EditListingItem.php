@@ -132,8 +132,10 @@ class EditListingItem extends EditRecord
                                 ->options(Countries::asSelectArray())
                                 ->placeholder("-")
                                 ->reactive()
-                                ->afterStateUpdated(fn(Closure $set) => $set('city', ""))
-                                ->afterStateUpdated(fn(Closure $set, Closure $get) => $set('currency', Currencies::getCodeByCountry($get('country'))))
+                                ->afterStateUpdated(function (Closure $set, Closure $get) {
+                                    $set('city', "");
+                                    $set('currency', Currencies::getCodeByCountry($get('country')));
+                                })
                                 ->nullable(),
 
                             Components\Select::make('city')
