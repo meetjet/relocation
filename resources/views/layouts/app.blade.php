@@ -29,7 +29,7 @@
         <script defer data-domain="{{ request()->getHost() }}" src="//plausible.io/js/script.js"></script>
     </head>
     <body
-        class="font-sans antialiased"
+        class="font-sans antialiased pt-[109px]"
         :class="{ 'overflow-y-hidden': open }"
         x-data="{ open: false }"
         @resize.window="open = false"
