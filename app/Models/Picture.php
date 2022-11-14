@@ -16,7 +16,7 @@ class Picture extends Model
     use VirtualColumn;
     use HasUUID;
 
-    protected $fillable = ['caption'];
+    protected $fillable = ['caption', 'tmp_image'];
 
     protected $casts = [
         'content' => AsCollection::class,

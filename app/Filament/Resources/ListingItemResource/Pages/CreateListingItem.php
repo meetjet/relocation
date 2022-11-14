@@ -5,19 +5,17 @@ namespace App\Filament\Resources\ListingItemResource\Pages;
 use App\Enums\ListingItemStatus;
 use App\Facades\Cities;
 use App\Facades\Countries;
+use App\Facades\Currencies;
 use App\Filament\Resources\ListingItemResource;
 use Closure;
 use Filament\Forms\Components;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Support\Facades\Request;
 
-/**
- * @package App\Filament\Resources\ListingItemResource\Pages
- * @deprecated
- */
 class CreateListingItem extends CreateRecord
 {
     protected static string $resource = ListingItemResource::class;
+    protected static bool $canCreateAnother = false;
 
     /**
      * @return array
@@ -63,9 +61,46 @@ class CreateListingItem extends CreateRecord
                                 ->label(__('Tags'))
                                 ->type("listing-items"),
 
+                            Components\Grid::make()
+                                ->schema([
+                                    Components\TextInput::make('price')
+                                        ->label(__('Price'))
+                                        ->numeric()
+                                        ->required(),
+
+                                    Components\Select::make('currency')
+                                        ->label(__('Currency'))
+                                        ->hint(__('Selected automatically based on country'))
+                                        ->placeholder("-")
+                                        ->options(Currencies::asSelectArray())
+                                        ->default(Currencies::getCodeByCountry("armenia"))
+                                        ->disabled(),
+                                ]),
+
                             Components\Hidden::make('user_id')
                                 ->default(fn(): int => Request::user()->id),
                         ]),
+
+                    Components\Section::make(__('Announcement owner'))
+                        ->schema([
+                            Components\TextInput::make('contact.nickname')
+                                ->label(__('Real owner nickname'))
+                                ->placeholder(__('No'))
+                                ->default(function () {
+                                    $user = Request::user();
+
+                                    return $user && $user->contact
+                                        ? $user->contact->nickname
+                                        : null;
+                                })
+                                ->disabled()
+                                ->dehydrated(false),
+
+                            Components\TextInput::make('custom_nickname')
+                                ->label(__('Custom nickname'))
+                                ->placeholder(__('No'))
+                                ->required(fn(Closure $get): bool => is_null($get('contact.nickname'))),
+                        ])->columns()->collapsible(),
                 ])
                 ->columnSpan(['lg' => 2]),
 
@@ -77,7 +112,7 @@ class CreateListingItem extends CreateRecord
                                 ->label(__('Status'))
                                 ->options(ListingItemStatus::asSelectArray())
                                 ->placeholder("-")
-                                ->default(ListingItemStatus::CREATED)
+                                ->default(ListingItemStatus::PUBLISHED)
                                 ->required(),
 
                             Components\Toggle::make('visibility')
@@ -98,7 +133,11 @@ class CreateListingItem extends CreateRecord
                                 ->options(Countries::asSelectArray())
                                 ->placeholder("-")
                                 ->reactive()
-                                ->afterStateUpdated(fn(Closure $set) => $set('city', ""))
+                                ->afterStateUpdated(function (Closure $set, Closure $get) {
+                                    $set('city', "");
+                                    $set('currency', Currencies::getCodeByCountry($get('country')));
+                                })
+                                ->default("armenia")
                                 ->nullable(),
 
                             Components\Select::make('city')
@@ -110,13 +149,5 @@ class CreateListingItem extends CreateRecord
                 ])
                 ->columnSpan(['lg' => 1]),
         ];
-    }
-
-    /**
-     * @return string
-     */
-    protected function getRedirectUrl(): string
-    {
-        return self::getResource()::getUrl('index');
     }
 }

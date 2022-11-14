@@ -69,6 +69,7 @@ class User extends Authenticatable implements FilamentUser, Customer
      */
     protected $appends = [
         'profile_photo_url',
+        'contact',
     ];
 
     /**
@@ -92,5 +93,13 @@ class User extends Authenticatable implements FilamentUser, Customer
     {
         // TODO: temporary way to identify administrator users.
         return str_ends_with(Str::lower($this->email), '@relocation.digital');
+    }
+
+    /**
+     * @return ConnectedAccount|null
+     */
+    public function getContactAttribute(): ?ConnectedAccount
+    {
+        return $this->currentConnectedAccount()->first();
     }
 }

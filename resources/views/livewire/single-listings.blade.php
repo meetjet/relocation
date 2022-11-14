@@ -38,7 +38,7 @@
         {{-- Announcement owner --}}
         <div class="flex flex-wrap mt-4">
             <div class="mr-2">{{ __("Contact") }}:</div>
-            @if(Auth::user() && $entity->contact)
+            @if(Auth::user())
                 @if($entity->custom_nickname)
                     {{-- Custom nickname --}}
                     <a href="https://t.me/{{ $entity->custom_nickname }}"

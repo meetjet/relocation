@@ -132,7 +132,7 @@ class ListingItem extends Model
     public function getContactAttribute(): ?ConnectedAccount
     {
         if ($this->user) {
-            return $this->user->currentConnectedAccount()->first();
+            return $this->user->contact;
         }
 
         return null;
