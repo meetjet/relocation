@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Request;
 class CreateListingItem extends CreateRecord
 {
     protected static string $resource = ListingItemResource::class;
+    protected static bool $canCreateAnother = false;
 
     /**
      * @return array
