@@ -1,4 +1,4 @@
-<nav class="bg-white border-b border-gray-100">
+<nav class="bg-white border-b border-gray-100 sticky top-0">
     <!-- Primary Navigation Menu -->
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16 space-x-6">
@@ -161,6 +161,26 @@
                     </button>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-1">
+        <div class="overflow-x-auto scrollbar scrollbar-sm py-1">
+            <ul class="flex space-x-2">
+                <li class="text-xs bg-gray-200 py-1 px-2 rounded-full select-none whitespace-nowrap">Недвижимость</li>
+                <li class="text-xs bg-gray-200 py-1 px-2 rounded-full select-none whitespace-nowrap">Трнспорт</li>
+                <li class="text-xs bg-gray-200 py-1 px-2 rounded-full select-none whitespace-nowrap">Услуги</li>
+                <li class="text-xs bg-gray-200 py-1 px-2 rounded-full select-none whitespace-nowrap">Работа</li>
+                <li class="text-xs bg-gray-200 py-1 px-2 rounded-full select-none whitespace-nowrap">Электроника</li>
+                <li class="text-xs bg-gray-200 py-1 px-2 rounded-full select-none whitespace-nowrap">Бытовая техника</li>
+                <li class="text-xs bg-gray-200 py-1 px-2 rounded-full select-none whitespace-nowrap">Дом и сад</li>
+                <li class="text-xs bg-gray-200 py-1 px-2 rounded-full select-none whitespace-nowrap">Мода и стиль</li>
+                <li class="text-xs bg-gray-200 py-1 px-2 rounded-full select-none whitespace-nowrap">Детский мир</li>
+                <li class="text-xs bg-gray-200 py-1 px-2 rounded-full select-none whitespace-nowrap">Хобби и спорт</li>
+                <li class="text-xs bg-gray-200 py-1 px-2 rounded-full select-none whitespace-nowrap">Оборудование и материалы</li>
+                <li class="text-xs bg-gray-200 py-1 px-2 rounded-full select-none whitespace-nowrap">Животные</li>
+                <li class="text-xs bg-gray-200 py-1 px-2 rounded-full select-none whitespace-nowrap">Продукты и напитки</li>
+            </ul>
         </div>
     </div>
 </nav>
