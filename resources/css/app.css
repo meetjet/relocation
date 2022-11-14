@@ -30,6 +30,11 @@
     .scrollbar::-webkit-scrollbar-track {
         @apply bg-gray-100;
     }
+
+    .scrollbar-sm::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+    }
 }
 
 @tailwind utilities;
