@@ -16,8 +16,10 @@ class AppLayout extends Component
      */
     public function render(): Application|Factory|View
     {
+        $file = file_get_contents(base_path('menu.json'));
+
         return view('layouts.app', [
-            'menu' => file_get_contents(base_path('menu.json')),
+            'menu' => json_decode($file),
         ]);
     }
 }

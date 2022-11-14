@@ -26,7 +26,7 @@
         @livewireStyles
 
         <!-- Analytics -->
-        <script defer data-domain="relocation.digital" src="//plausible.io/js/script.js"></script>
+        <script defer data-domain="{{ request()->getHost() }}" src="//plausible.io/js/script.js"></script>
     </head>
     <body
         class="font-sans antialiased"
@@ -37,7 +37,7 @@
         <x-jet-banner />
 
         <div class="min-h-screen transition-all duration-300">
-            @livewire('navigation-menu')
+            <x-navigation-menu :menu="$menu"/>
 
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex">
                 {{--<div class="hidden md:block w-60">test</div>--}}
