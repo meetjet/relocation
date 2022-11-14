@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\EventResource\Pages;
 
 use App\Enums\EventStatus;
-use App\Facades\Cities;
+use App\Facades\Locations;
 use App\Facades\Countries;
 use App\Filament\Resources\EventResource;
 use App\Traits\PageListHelpers;
@@ -78,7 +78,7 @@ class ListEvents extends ListRecords
 
             Columns\TextColumn::make('city')
                 ->label(__('City'))
-                ->getStateUsing(fn($record): string => Cities::getDescription($record->country, $record->city))
+                ->getStateUsing(fn($record): string => Locations::getDescription($record->country, $record->city))
                 ->toggleable(),
 
             Columns\TextColumn::make('created_at')
@@ -203,7 +203,7 @@ class ListEvents extends ListRecords
                     Components\Select::make('city')
                         ->label(__('City'))
                         ->placeholder("-")
-                        ->options(fn(Closure $get): Collection => collect(Cities::asSelectArray($get('country')))->put('no_city', __("No"))),
+                        ->options(fn(Closure $get): Collection => collect(Locations::asSelectArray($get('country')))->put('no_city', __("No"))),
                 ])
                 ->columns()
                 ->query(function (Builder $query, array $data): Builder {
@@ -234,7 +234,7 @@ class ListEvents extends ListRecords
                     if ($data['city'] ?? null) {
                         $city = $data['city'] === "no_city"
                             ? __("No")
-                            : Cities::getDescription($data['country'], $data['city']);
+                            : Locations::getDescription($data['country'], $data['city']);
                         $indicators['city'] = __('City') . ' "' . $city . '"';
                     }
 

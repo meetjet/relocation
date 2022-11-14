@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\EventResource\Pages;
 
 use App\Enums\ListingItemStatus;
-use App\Facades\Cities;
+use App\Facades\Locations;
 use App\Facades\Countries;
 use App\Filament\Actions\Pages\DeleteAction;
 use App\Filament\Resources\EventResource;
@@ -113,7 +113,7 @@ class EditEvent extends EditRecord
                             Components\Select::make('city')
                                 ->label(__('City'))
                                 ->placeholder("-")
-                                ->options(fn(Closure $get): array => Cities::asSelectArray($get('country')))
+                                ->options(fn(Closure $get): array => Locations::asSelectArray($get('country')))
                                 ->nullable(),
                         ]),
                 ])

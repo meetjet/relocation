@@ -6,7 +6,7 @@ return [
             'ru' => "Армения",
             'en' => "Armenia",
         ],
-        'cities' => [
+        'locations' => [
             'yerevan' => [
                 'ru' => "Ереван",
                 'en' => "Yerevan",
@@ -35,7 +35,7 @@ return [
             'ru' => "Грузия",
             'en' => "Georgia",
         ],
-        'cities' => [
+        'locations' => [
             'tbilisi' => [
                 'ru' => "Тбилиси",
                 'en' => "Tbilisi",
@@ -64,7 +64,7 @@ return [
             'ru' => "Турция",
             'en' => "Turkey",
         ],
-        'cities' => [
+        'locations' => [
             'istanbul' => [
                 'ru' => "Стамбул",
                 'en' => "Istanbul",

@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Enums\ListingItemStatus;
-use App\Facades\Cities;
+use App\Facades\Locations;
 use App\Facades\Countries;
 use App\Models\ListingCategory;
 use App\Models\ListingItem;
@@ -24,7 +24,7 @@ class ListingItemFactory extends Factory
     public function definition(): array
     {
         $country = $this->faker->randomElement(Countries::getValues());
-        $city = $this->faker->randomElement(Cities::getValues($country));
+        $location = $this->faker->randomElement(Locations::getValues($country));
         $price = $this->faker->randomNumber() + 10;
         $currency = $price ? config("countries.{$country}.currency.code") : null;
 
@@ -32,7 +32,7 @@ class ListingItemFactory extends Factory
             'user_id' => 1,
             'category_id' => $this->faker->randomElement(array_merge(ListingCategory::all()->pluck('id')->toArray(), [null])),
             'country' => $country,
-            'city' => $city,
+            'location' => $location,
             'title' => $this->faker->text(100),
             'description' => $this->faker->text(400),
 //            'status' => $this->faker->randomElement(ListingItemStatus::getValues()),

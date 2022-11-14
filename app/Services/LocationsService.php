@@ -5,7 +5,7 @@ namespace App\Services;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
-class CitiesService
+class LocationsService
 {
     /**
      * @param string|null $country
@@ -13,10 +13,10 @@ class CitiesService
      */
     public function asSelectArray(?string $country): array
     {
-        $cities = $this->getCityCollection($country);
+        $locations = $this->getLocationCollection($country);
 
-        if ($cities) {
-            return $cities->toArray();
+        if ($locations) {
+            return $locations->toArray();
         }
 
         return [];
@@ -28,10 +28,10 @@ class CitiesService
      */
     public function getValues(?string $country): array
     {
-        $cities = $this->getCityCollection($country);
+        $locations = $this->getLocationCollection($country);
 
-        if ($cities) {
-            return $cities->keys()->toArray();
+        if ($locations) {
+            return $locations->keys()->toArray();
         }
 
         return [];
@@ -39,11 +39,11 @@ class CitiesService
 
     public function getDescription(?string $country, ?string $key): string
     {
-        $cities = $this->getCityCollection($country);
+        $locations = $this->getLocationCollection($country);
 
-        if ($key && $cities) {
-            return $cities->has($key)
-                ? $cities->get($key)
+        if ($key && $locations) {
+            return $locations->has($key)
+                ? $locations->get($key)
                 : $key;
         }
 
@@ -54,18 +54,18 @@ class CitiesService
      * @param string|null $country
      * @return Collection|null
      */
-    private function getCityCollection(?string $country): ?Collection
+    private function getLocationCollection(?string $country): ?Collection
     {
         if ($country) {
-            $collection = collect(config('countries.' . Str::lower($country) . '.cities'));
+            $collection = collect(config('countries.' . Str::lower($country) . '.locations'));
 
             if ($collection->isNotEmpty()) {
-                $cityLocale = array_key_exists(app()->getLocale(), $collection->first())
+                $locationLocale = array_key_exists(app()->getLocale(), $collection->first())
                     ? app()->getLocale()
                     : config('app.fallback_locale');
 
-                return $collection->map(function ($_item) use ($cityLocale) {
-                    return $_item[$cityLocale];
+                return $collection->map(function ($_item) use ($locationLocale) {
+                    return $_item[$locationLocale];
                 });
             }
         }
