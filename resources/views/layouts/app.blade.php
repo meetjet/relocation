@@ -37,7 +37,9 @@
         <x-jet-banner />
 
         <div class="min-h-screen transition-all duration-300">
-            <x-navigation-menu :menu="$menu"/>
+            <x-navigation-menu
+                :menu="$menu"
+                :listingCategories="$listingCategories"/>
 
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex">
                 {{--<div class="hidden md:block w-60">test</div>--}}
