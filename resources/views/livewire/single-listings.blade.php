@@ -29,8 +29,8 @@
             <div class="flex flex-wrap mt-4">
                 <div class="mr-2">{{ __('Location') }}:</div>
                 <div>{{ \App\Facades\Countries::getDescription($entity->country) }}</div>
-                @if($entity->city)
-                    <div>, {{ \App\Facades\Cities::getDescription($entity->country, $entity->city) }}</div>
+                @if($entity->location)
+                    <div>, {{ \App\Facades\Locations::getDescription($entity->country, $entity->location) }}</div>
                 @endif
             </div>
         @endif

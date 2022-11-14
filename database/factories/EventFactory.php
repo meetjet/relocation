@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Enums\EventStatus;
-use App\Facades\Cities;
+use App\Facades\Locations;
 use App\Facades\Countries;
 use App\Models\Event;
 use Illuminate\Database\Eloquent\Collection;
@@ -23,7 +23,7 @@ class EventFactory extends Factory
     public function definition(): array
     {
         $country = $this->faker->randomElement(Countries::getValues());
-        $city = $this->faker->randomElement(Cities::getValues($country));
+        $city = $this->faker->randomElement(Locations::getValues($country));
 
         return [
             'user_id' => 1,

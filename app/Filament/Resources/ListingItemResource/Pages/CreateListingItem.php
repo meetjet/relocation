@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\ListingItemResource\Pages;
 
 use App\Enums\ListingItemStatus;
-use App\Facades\Cities;
+use App\Facades\Locations;
 use App\Facades\Countries;
 use App\Facades\Currencies;
 use App\Filament\Resources\ListingItemResource;
@@ -134,16 +134,16 @@ class CreateListingItem extends CreateRecord
                                 ->placeholder("-")
                                 ->reactive()
                                 ->afterStateUpdated(function (Closure $set, Closure $get) {
-                                    $set('city', "");
+                                    $set('location', "");
                                     $set('currency', Currencies::getCodeByCountry($get('country')));
                                 })
                                 ->default("armenia")
                                 ->nullable(),
 
-                            Components\Select::make('city')
-                                ->label(__('City'))
+                            Components\Select::make('location')
+                                ->label(__('Location'))
                                 ->placeholder("-")
-                                ->options(fn(Closure $get): array => Cities::asSelectArray($get('country')))
+                                ->options(fn(Closure $get): array => Locations::asSelectArray($get('country')))
                                 ->nullable(),
                         ]),
                 ])
