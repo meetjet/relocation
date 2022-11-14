@@ -2,7 +2,7 @@
 
 namespace App\Facades;
 
-use App\Services\CitiesService;
+use App\Services\LocationsService;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -11,10 +11,10 @@ use Illuminate\Support\Facades\Facade;
  * @method static array getValues(?string $country)
  * @method static string getDescription(?string $country, ?string $key)
  */
-class Cities extends Facade
+class Locations extends Facade
 {
     protected static function getFacadeAccessor(): string
     {
-        return CitiesService::class;
+        return LocationsService::class;
     }
 }
