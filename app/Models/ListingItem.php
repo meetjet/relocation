@@ -25,9 +25,13 @@ class ListingItem extends Model
     use HasUUID;
     use HasTags;
 
-    protected $fillable = ['user_id', 'category_id', 'country', 'location', 'title', 'description', 'price', 'currency', 'status', 'visibility', 'custom_nickname'];
+    protected $fillable = ['user_id', 'category_id', 'country', 'location', 'title', 'description', 'price', 'currency', 'status', 'visibility', 'custom_nickname', 'published_at'];
 
     protected $appends = ['contact'];
+
+    protected $casts = [
+        'published_at' => 'datetime',
+    ];
 
     public static function boot(): void
     {
@@ -62,6 +66,7 @@ class ListingItem extends Model
             'created_at',
             'updated_at',
             'deleted_at',
+            'published_at',
         ];
     }
 
@@ -81,7 +86,7 @@ class ListingItem extends Model
     protected function price(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => (int)$value,
+            get: fn($value) => (int)$value,
         );
     }
 

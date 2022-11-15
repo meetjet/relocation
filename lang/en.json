@@ -451,7 +451,7 @@
     "Send verification code again": "Send verification code again",
     "Your phone number has been verified": "Your phone number has been verified",
     "Number of projects": "Number of projects",
-    "Created": "Created",
+    "Created at": "Created at",
     "This is a verified phone": "This is a verified phone",
     "This is a verified email address": "This is a verified email address",
     "Change password": "Change password",
@@ -552,5 +552,9 @@
     "Announcement owner": "Announcement owner",
     "Real owner nickname": "Real owner nickname",
     "Custom nickname": "Custom nickname",
-    "Location": "Location"
+    "Location": "Location",
+    "Last modified at": "Last modified at",
+    "Published at": "Published at",
+    "Published from": "Published from",
+    "Published until": "Published until"
 }

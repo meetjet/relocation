@@ -8,6 +8,7 @@ use App\Facades\Countries;
 use App\Filament\Resources\ListingItemResource;
 use App\Models\ListingCategory;
 use App\Traits\PageListHelpers;
+use Closure;
 use Exception;
 use Filament\Forms\Components;
 use Filament\Pages;
@@ -18,6 +19,7 @@ use Filament\Tables\Columns;
 use Filament\Tables\Filters;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 class ListListingItems extends ListRecords
@@ -90,8 +92,14 @@ class ListListingItems extends ListRecords
                 ->toggleable(),
 
             Columns\TextColumn::make('created_at')
-                ->label(__('Created'))
-                ->date("j M Y")
+                ->label(__('Created at'))
+                ->date("j M Y, H:i")
+                ->sortable()
+                ->toggleable(),
+
+            Columns\TextColumn::make('published_at')
+                ->label(__('Published at'))
+                ->date("j M Y, H:i")
                 ->sortable()
                 ->toggleable(),
 
@@ -155,38 +163,64 @@ class ListListingItems extends ListRecords
         return [
             Filters\TrashedFilter::make(),
 
-            Filters\Filter::make('country')
+            Filters\Filter::make('country_and_location')
                 ->form([
-                    Components\Select::make('country')
-                        ->label(__('Country'))
-                        ->placeholder("-")
-                        ->options(collect(Countries::asSelectArray())->put('no_country', __("No"))),
+                    Components\Grid::make()
+                        ->schema([
+                            Components\Select::make('country')
+                                ->label(__('Country'))
+                                ->placeholder("-")
+                                ->options(collect(Countries::asSelectArray())->put('no_country', __("No")))
+                                ->reactive()
+                                ->afterStateUpdated(fn(Closure $set, Closure $get) => $set('location', "")),
+
+                            Components\Select::make('location')
+                                ->label(__('Location'))
+                                ->placeholder("-")
+                                ->options(fn(Closure $get): Collection => collect(Locations::asSelectArray($get('country')))->put('no_location', __("No"))),
+                        ])
                 ])
                 ->query(function (Builder $query, array $data): Builder {
-                    return $query->when(
-                        $data['country'],
-                        fn(Builder $query, $country): Builder => $country === "no_country"
-                            ? $query->whereNull('country')
-                            : $query->where('country', $country),
-                    );
+                    return $query
+                        ->when(
+                            $data['country'],
+                            fn(Builder $query, $country): Builder => $country === "no_country"
+                                ? $query->whereNull('country')
+                                : $query->where('country', $country),
+                        )
+                        ->when(
+                            $data['location'],
+                            fn(Builder $query, $location): Builder => $location === "no_location"
+                                ? $query->whereNull('location')
+                                : $query->where('location', $location),
+                        );
                 })
-                ->indicateUsing(function (array $data): ?string {
-                    if ($data['country']) {
+                ->indicateUsing(function (array $data): array {
+                    $indicators = [];
+
+                    if ($data['country'] ?? null) {
                         $country = $data['country'] === "no_country"
                             ? __("No")
                             : Countries::getDescription($data['country']);
-                        return __('Country') . ' "' . $country . '"';
+                        $indicators['country'] = __('Country') . ' "' . $country . '"';
                     }
 
-                    return null;
+                    if ($data['location'] ?? null) {
+                        $location = $data['location'] === "no_location"
+                            ? __("No")
+                            : Locations::getDescription($data['country'], $data['location']);
+                        $indicators['location'] = __('Location') . ' "' . $location . '"';
+                    }
+
+                    return $indicators;
                 }),
 
-            Filters\Filter::make('category_id')
+            Filters\Filter::make('category')
                 ->form([
                     Components\Select::make('category_id')
                         ->label(__('Category'))
                         ->placeholder("-")
-                        ->options(ListingCategory::all()->pluck('title', 'id')->put('no_category', __("No"))),
+                        ->options(ListingCategory::orderBy('title')->get()->pluck('title', 'id')->put('no_category', __("No"))),
                 ])
                 ->query(function (Builder $query, array $data): Builder {
                     return $query->when(
@@ -207,94 +241,138 @@ class ListListingItems extends ListRecords
                     return null;
                 }),
 
-            Filters\Filter::make('status')
+            Filters\Filter::make('status_and_visibility')
                 ->form([
-                    Components\Select::make('status')
-                        ->label(__('Status'))
-                        ->placeholder("-")
-                        ->options(ListingItemStatus::asSelectArray()),
-                ])
-                ->query(function (Builder $query, array $data): Builder {
-                    return $query->when(
-                        $data['status'],
-                        fn(Builder $query, $status): Builder => $query->where('status', $status),
-                    );
-                })
-                ->indicateUsing(function (array $data): ?string {
-                    if ($data['status']) {
-                        return __('Status') . ' "' . ListingItemStatus::getDescription($data['status']) . '"';
-                    }
+                    Components\Grid::make()
+                        ->schema([
+                            Components\Select::make('status')
+                                ->label(__('Status'))
+                                ->placeholder("-")
+                                ->options(ListingItemStatus::asSelectArray()),
 
-                    return null;
-                }),
-
-            Filters\Filter::make('visibility')
-                ->form([
-                    Components\Select::make('visibility')
-                        ->label(__('Visibility'))
-                        ->placeholder("-")
-                        ->options([
-                            'true' => __("Yes"),
-                            'false' => __("No"),
-                        ]),
-                ])
-                ->query(function (Builder $query, array $data): Builder {
-                    return $query->when(
-                        $data['visibility'],
-                        fn(Builder $query, $visibility): Builder => $query->where('visibility', json_decode($visibility)),
-                    );
-                })
-                ->indicateUsing(function (array $data): ?string {
-                    if ($data['visibility']) {
-                        return __('Visibility') . ' "' . (json_decode($data['visibility']) ? __("Yes") : __("No")) . '"';
-                    }
-
-                    return null;
-                }),
-
-            Filters\Filter::make('created_at')
-                ->form([
-                    Components\DatePicker::make('published_from')
-                        ->label(__('Created from'))
-                        ->displayFormat("j M Y")
-                        ->maxDate(Carbon::today())
-                        ->placeholder(fn($state): string => Carbon::parse(now())
-                            ->setTimezone(config('app.timezone'))
-                            ->translatedFormat("j M Y")),
-                    Components\DatePicker::make('published_until')
-                        ->label(__('Created until'))
-                        ->displayFormat("j M Y")
-                        ->maxDate(Carbon::today())
-                        ->placeholder(fn($state): string => Carbon::parse(now())
-                            ->setTimezone(config('app.timezone'))
-                            ->translatedFormat("j M Y")),
+                            Components\Select::make('visibility')
+                                ->label(__('Visibility'))
+                                ->placeholder("-")
+                                ->options([
+                                    'true' => __("Yes"),
+                                    'false' => __("No"),
+                                ]),
+                        ])
                 ])
                 ->query(function (Builder $query, array $data): Builder {
                     return $query
                         ->when(
-                            $data['published_from'],
+                            $data['status'],
+                            fn(Builder $query, $status): Builder => $query->where('status', $status),
+                        )
+                        ->when(
+                            $data['visibility'],
+                            fn(Builder $query, $visibility): Builder => $query->where('visibility', json_decode($visibility)),
+                        );
+                })
+                ->indicateUsing(function (array $data): array {
+                    $indicators = [];
+
+                    if ($data['status'] ?? null) {
+                        $indicators['status'] = __('Status') . ' "' . ListingItemStatus::getDescription($data['status']) . '"';
+                    }
+
+                    if ($data['visibility'] ?? null) {
+                        $indicators['visibility'] = __('Visibility') . ' "' . (json_decode($data['visibility']) ? __("Yes") : __("No")) . '"';
+                    }
+
+                    return $indicators;
+                }),
+
+            Filters\Filter::make('created_from_until')
+                ->form([
+                    Components\Grid::make()
+                        ->schema([
+                            Components\DatePicker::make('created_from')
+                                ->label(__('Created from'))
+                                ->displayFormat("j M Y")
+//                                ->maxDate(Carbon::today())
+                                ->placeholder(fn(): string => now()->translatedFormat("j M Y")),
+
+                            Components\DatePicker::make('created_until')
+                                ->label(__('Created until'))
+                                ->displayFormat("j M Y")
+//                                ->maxDate(Carbon::today())
+                                ->placeholder(fn(): string => now()->translatedFormat("j M Y")),
+                        ])
+                ])
+                ->query(function (Builder $query, array $data): Builder {
+                    return $query
+                        ->when(
+                            $data['created_from'],
                             fn(Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
                         )
                         ->when(
-                            $data['published_until'],
+                            $data['created_until'],
                             fn(Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
                         );
                 })
                 ->indicateUsing(function (array $data): array {
                     $indicators = [];
+                    if ($data['created_from'] ?? null) {
+                        $indicators['created_from'] = __('Created from') . ' ' . Carbon::parse($data['created_from'])
+                                ->translatedFormat("j M Y");
+                    }
+                    if ($data['created_until'] ?? null) {
+                        $indicators['created_until'] = __('Created until') . ' ' . Carbon::parse($data['created_until'])
+                                ->translatedFormat("j M Y");
+                    }
+
+                    return $indicators;
+                }),
+
+            Filters\Filter::make('published_from_until')
+                ->form([
+                    Components\Grid::make()
+                        ->schema([
+                            Components\DatePicker::make('published_from')
+                                ->label(__('Published from'))
+                                ->displayFormat("j M Y")
+                                ->placeholder(fn(): string => now()->translatedFormat("j M Y")),
+
+                            Components\DatePicker::make('published_until')
+                                ->label(__('Published until'))
+                                ->displayFormat("j M Y")
+                                ->placeholder(fn(): string => now()->translatedFormat("j M Y")),
+                        ])
+                ])
+                ->query(function (Builder $query, array $data): Builder {
+                    return $query
+                        ->when(
+                            $data['published_from'],
+                            fn(Builder $query, $date): Builder => $query->whereDate('published_at', '>=', $date),
+                        )
+                        ->when(
+                            $data['published_until'],
+                            fn(Builder $query, $date): Builder => $query->whereDate('published_at', '<=', $date),
+                        );
+                })
+                ->indicateUsing(function (array $data): array {
+                    $indicators = [];
                     if ($data['published_from'] ?? null) {
-                        $indicators['published_from'] = __('Created from') . ' ' . Carbon::parse($data['published_from'])
-                                ->setTimezone(config('app.timezone'))
+                        $indicators['published_from'] = __('Published from') . ' ' . Carbon::parse($data['published_from'])
                                 ->translatedFormat("j M Y");
                     }
                     if ($data['published_until'] ?? null) {
-                        $indicators['published_until'] = __('Created until') . ' ' . Carbon::parse($data['published_until'])
-                                ->setTimezone(config('app.timezone'))
+                        $indicators['published_until'] = __('Published until') . ' ' . Carbon::parse($data['published_until'])
                                 ->translatedFormat("j M Y");
                     }
 
                     return $indicators;
                 }),
         ];
+    }
+
+    /**
+     * @return string
+     */
+    protected function getTableFiltersFormWidth(): string
+    {
+        return 'xl';
     }
 }

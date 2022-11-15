@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthTelegramLoginController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\FaqByTagController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ListingItemByCategoryController;
@@ -35,6 +36,9 @@ Route::get('/faqs/tags/{tag}', [FaqByTagController::class, 'index'])->name('faqs
 Route::get('/listings', [ListingItemController::class, 'index'])->name('listings.index');
 Route::get('/listings/{category}', [ListingItemByCategoryController::class, 'index'])->name('listings.category');
 Route::get('/listings/{category}/{uuid}', [ListingItemByCategoryController::class, 'show'])->name('listings.show');
+
+// Events
+Route::resource('/events', EventController::class);
 
 Route::middleware([
     'auth:sanctum',

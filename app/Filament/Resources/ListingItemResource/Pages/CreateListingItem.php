@@ -66,6 +66,7 @@ class CreateListingItem extends CreateRecord
                                     Components\TextInput::make('price')
                                         ->label(__('Price'))
                                         ->numeric()
+                                        ->minValue(0)
                                         ->required(),
 
                                     Components\Select::make('currency')
@@ -113,7 +114,22 @@ class CreateListingItem extends CreateRecord
                                 ->options(ListingItemStatus::asSelectArray())
                                 ->placeholder("-")
                                 ->default(ListingItemStatus::PUBLISHED)
+                                ->reactive()
+                                ->afterStateUpdated(function (Closure $set, Closure $get) {
+                                    if ($get('status') === ListingItemStatus::PUBLISHED) {
+                                        $set('published_at', now());
+                                    } else {
+                                        $set('published_at', null);
+                                    }
+                                })
                                 ->required(),
+
+                            Components\DateTimePicker::make('published_at')
+                                ->label(__('Published at'))
+                                ->displayFormat("j M Y, H:i")
+                                ->withoutSeconds()
+                                ->default(fn(): string => now())
+                                ->placeholder(fn(): string => now()->translatedFormat("j M Y, H:i")),
 
                             Components\Toggle::make('visibility')
                                 ->label(__('Visibility'))
