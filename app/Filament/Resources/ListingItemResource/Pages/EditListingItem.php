@@ -9,12 +9,15 @@ use App\Facades\Currencies;
 use App\Filament\Actions\Pages\DeleteAction;
 use App\Filament\Resources\ListingItemResource;
 use App\Models\ListingItem;
+use App\Traits\PageListHelpers;
 use Closure;
 use Filament\Forms\Components;
 use Filament\Resources\Pages\EditRecord;
 
 class EditListingItem extends EditRecord
 {
+    use PageListHelpers;
+
     protected static string $resource = ListingItemResource::class;
 
     /**
@@ -101,6 +104,10 @@ class EditListingItem extends EditRecord
                                 ->label(__('Custom nickname'))
                                 ->placeholder(__('No'))
                                 ->required(fn(Closure $get): bool => is_null($get('contact.nickname'))),
+
+                            Components\Placeholder::make('user')
+                                ->label(__('User'))
+                                ->content(fn($record) => static::link(route('filament.resources.users.edit', $record->user), $record->user->name)),
                         ])->columns()->collapsible(),
                 ])
                 ->columnSpan(['lg' => 2]),
