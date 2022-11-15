@@ -13,9 +13,9 @@ window.addEventListener('scroll', function () {
     let st = window.pageYOffset || document.documentElement.scrollTop;
 
     if (st > lastScrollTop && lastScrollTop > 20) { // downscroll code
-        categories.classList.add('-mt-[44px]')
+        categories.classList.add('-mt-[40px]')
     } else { // upscroll code
-        categories.classList.remove('-mt-[44px]')
+        categories.classList.remove('-mt-[40px]')
     }
 
     lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
