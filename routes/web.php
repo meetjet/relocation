@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthTelegramLoginController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\FaqByTagController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\ListingItemByCategoryController;
 use App\Http\Controllers\ListingItemController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,7 +33,11 @@ Route::resource('faqs', FaqController::class, ['except' => ['show']]);
 Route::get('/faqs/tags/{tag}', [FaqByTagController::class, 'index'])->name('faqs-by-tag.index');
 
 // Listings
-Route::resource('/listings', ListingItemController::class);
+Route::get('/listings', [ListingItemController::class, 'index'])->name('listings.index');
+Route::get('/listings/{category}', [ListingItemByCategoryController::class, 'index'])->name('listings.category');
+Route::get('/listings/{category}/{uuid}', [ListingItemByCategoryController::class, 'show'])->name('listings.show');
+
+// Events
 Route::resource('/events', EventController::class);
 
 Route::middleware([

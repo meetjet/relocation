@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Route;
 use Kalnoy\Nestedset\NodeTrait;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
@@ -86,5 +87,28 @@ class ListingCategory extends Model
     public function scopeActive(Builder $query): void
     {
         $query->where('status', ListingCategoryStatus::ACTIVE);
+    }
+
+    /**
+     * @param Builder $query
+     * @param string $slug
+     *
+     * @return Builder
+     */
+    public function scopeBySlug(Builder $query, string $slug): Builder
+    {
+        return $query->where('slug', $slug);
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsCurrentAttribute(): bool
+    {
+        $currentRoute = Route::current();
+
+        return $currentRoute
+            ? $currentRoute->parameter('category') === $this->slug
+            : false;
     }
 }

@@ -7,6 +7,7 @@ use App\Models\Faq;
 use App\Models\ListingItem;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
@@ -33,8 +34,10 @@ class DatabaseSeeder extends Seeder
             ->count(100)
             ->create();
 
+        Artisan::call('initialize:listing-categories');
+
         ListingItem::factory()
-            ->count(100)
+            ->count(500)
             ->create();
 
         Event::factory()

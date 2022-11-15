@@ -80,7 +80,10 @@ class TelegramNotifyAnnouncementPublishedJob implements ShouldQueue
 
         // TODO: replace with helper
         $domain = config('app.domain');
-        $link = Str::replace($domain, "{$this->listingItem->country}.{$domain}", route("listings.show", $this->listingItem->uuid));
+        $link = Str::replace($domain, "{$this->listingItem->country}.{$domain}", route("listings.show", [
+            $this->listingItem->category->slug,
+            $this->listingItem->uuid,
+        ]));
 
         return __($langKey, [
             'link' => $link,
