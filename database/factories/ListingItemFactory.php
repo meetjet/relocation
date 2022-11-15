@@ -30,16 +30,17 @@ class ListingItemFactory extends Factory
 
         return [
             'user_id' => 1,
-            'category_id' => $this->faker->randomElement(array_merge(ListingCategory::all()->pluck('id')->toArray(), [null])),
+            'category_id' => $this->faker->randomElement(ListingCategory::all()->pluck('id')->toArray()),
             'country' => $country,
             'location' => $location,
             'title' => $this->faker->text(100),
             'description' => $this->faker->text(400),
 //            'status' => $this->faker->randomElement(ListingItemStatus::getValues()),
             'status' => ListingItemStatus::PUBLISHED,
-            'visibility' => $this->faker->boolean(),
+            'visibility' => $this->faker->randomElement([true, true, true, true, false]),
             'price' => $price,
             'currency' => $currency,
+            'custom_nickname' => $this->faker->word(),
         ];
     }
 
