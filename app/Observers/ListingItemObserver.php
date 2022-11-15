@@ -47,6 +47,8 @@ class ListingItemObserver
         if (
             $listingItem->status === ListingItemStatus::PUBLISHED
             && $listingItem->visibility === true
+            && $listingItem->country
+            && $listingItem->category
             && $listingItem->uuid
             && $listingItem->telegram_chat_id
             && is_null($listingItem->telegram_published_notify_sent)
