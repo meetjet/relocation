@@ -62,7 +62,7 @@ class ListUsers extends ListRecords
                 ->toggleable(),
 
             Columns\TextColumn::make('created_at')
-                ->label(__('Created'))
+                ->label(__('Created at'))
                 ->date("j M Y, H:i")
                 ->sortable()
                 ->toggleable(),
