@@ -29,6 +29,10 @@ class ListingItem extends Model
 
     protected $appends = ['contact'];
 
+    protected $casts = [
+        'published_at' => 'datetime',
+    ];
+
     public static function boot(): void
     {
         parent::boot();
