@@ -173,8 +173,12 @@
                 <div class="overflow-x-auto scrollbar scrollbar-sm py-1">
                     <ul class="flex space-x-2">
                         @foreach($listingCategories as $_category)
-                            <li class="text-xs bg-gray-200 py-1 px-2 rounded-full select-none whitespace-nowrap">
-                                {{ $_category->title }}
+                            @php
+                                $bgColor = $_category->isCurrent ? "bg-indigo-200" : "bg-gray-200";
+                                $textColor = $_category->isCurrent ? "text-indigo-900" : "text-black";
+                            @endphp
+                            <li class="text-xs {{ $bgColor }} {{ $textColor }} py-1 px-2 rounded-full select-none whitespace-nowrap">
+                                <a href="{{ route('listings.category', $_category->slug) }}">{{ $_category->title }}</a>
                             </li>
                         @endforeach
                     </ul>
