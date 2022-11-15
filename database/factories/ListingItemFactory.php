@@ -41,6 +41,7 @@ class ListingItemFactory extends Factory
             'price' => $price,
             'currency' => $currency,
             'custom_nickname' => $this->faker->word(),
+            'published_at' => now(),
         ];
     }
 
