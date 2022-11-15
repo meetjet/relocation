@@ -111,7 +111,7 @@ class FaqResource extends Resource
                     ->toggleable(),
 
                 Columns\TextColumn::make('created_at')
-                    ->label(__('Created'))
+                    ->label(__('Created at'))
                     ->date("j M Y")
                     ->sortable()
                     ->toggleable(),

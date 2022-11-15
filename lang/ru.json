@@ -469,7 +469,7 @@
     "Send verification code again": "Отправить код подтверждения еще раз",
     "Your phone number has been verified": "Ваш номер телефона подтвержден",
     "Number of projects": "Количество проектов",
-    "Created": "Создан",
+    "Created at": "Создано",
     "This is a verified phone": "Это проверенный телефон",
     "This is a verified email address": "Это проверенный E-Mail",
     "Change password": "Изменить пароль",
@@ -570,5 +570,9 @@
     "Announcement owner": "Владелец объявления",
     "Real owner nickname": "Никнейм настоящего владельца",
     "Custom nickname": "Пользовательский никнейм",
-    "Location": "Локация"
+    "Location": "Локация",
+    "Last modified at": "Последнее изменение",
+    "Published at": "Опубликовано",
+    "Published from": "Опубликовано с",
+    "Published until": "Опубликовано по"
 }
