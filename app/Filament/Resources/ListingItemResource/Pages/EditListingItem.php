@@ -8,6 +8,7 @@ use App\Facades\Countries;
 use App\Facades\Currencies;
 use App\Filament\Actions\Pages\DeleteAction;
 use App\Filament\Resources\ListingItemResource;
+use App\Models\ListingItem;
 use Closure;
 use Filament\Forms\Components;
 use Filament\Resources\Pages\EditRecord;
@@ -75,6 +76,7 @@ class EditListingItem extends EditRecord
                                     Components\TextInput::make('price')
                                         ->label(__('Price'))
                                         ->numeric()
+                                        ->minValue(0)
                                         ->required(),
 
                                     Components\Select::make('currency')
@@ -107,11 +109,38 @@ class EditListingItem extends EditRecord
                 ->schema([
                     Components\Card::make()
                         ->schema([
+                            Components\Placeholder::make('created_at')
+                                ->label(__('Created at'))
+                                ->content(fn($record): string => $record->created_at->diffForHumans()),
+
+                            Components\Placeholder::make('updated_at')
+                                ->label(__('Last modified at'))
+                                ->content(fn($record): string => $record->updated_at->diffForHumans()),
+                        ]),
+
+                    Components\Card::make()
+                        ->schema([
                             Components\Select::make('status')
                                 ->label(__('Status'))
                                 ->options(ListingItemStatus::asSelectArray())
                                 ->placeholder("-")
+                                ->reactive()
+                                ->afterStateUpdated(function (ListingItem $record, Closure $set, Closure $get) {
+                                    if (is_null($record->published_at)) {
+                                        if ($get('status') === ListingItemStatus::PUBLISHED) {
+                                            $set('published_at', now());
+                                        } else {
+                                            $set('published_at', null);
+                                        }
+                                    }
+                                })
                                 ->required(),
+
+                            Components\DateTimePicker::make('published_at')
+                                ->label(__('Published at'))
+                                ->displayFormat("j M Y, H:i")
+                                ->withoutSeconds()
+                                ->placeholder(fn(): string => now()->translatedFormat("j M Y, H:i")),
 
                             Components\Toggle::make('visibility')
                                 ->label(__('Visibility')),
@@ -154,6 +183,6 @@ class EditListingItem extends EditRecord
      */
     protected function getRedirectUrl(): string
     {
-        return self::getResource()::getUrl('index');
+        return $this->previousUrl ?? self::getResource()::getUrl('index');
     }
 }
