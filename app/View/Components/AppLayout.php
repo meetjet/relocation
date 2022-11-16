@@ -11,6 +11,14 @@ use Illuminate\View\Component;
 
 class AppLayout extends Component
 {
+    public string $activeCountry = 'Выберите страну';
+    public array $countries = [
+        'armenia' => 'Армения',
+        'georgia' => 'Грузия',
+        'turkey' => 'Турция',
+        'thailand' => 'Таиланд'
+    ];
+
     /**
      * Get the view / contents that represents the component.
      *
@@ -24,9 +32,25 @@ class AppLayout extends Component
             ? ListingCategory::active()->orderBy('id')->get()
             : null;
 
+        $this->setCountry();
+
         return view('layouts.app', [
+            'countries' => $this->countries,
+            'activeCountry' => $this->activeCountry,
             'menu' => json_decode($file),
             'listingCategories' => $listingCategories,
         ]);
+    }
+
+    public function setCountry()
+    {
+        $subdomain = explode('.', $_SERVER['HTTP_HOST'])[0];
+
+        foreach ($this->countries as $key => $value) {
+            if ($key === $subdomain) {
+                $this->activeCountry = $this->countries[$subdomain];
+                break;
+            }
+        }
     }
 }
