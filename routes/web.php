@@ -5,6 +5,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\FaqByTagController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ListingItemByCategoryController;
+use App\Http\Controllers\ListingItemByTagController;
 use App\Http\Controllers\ListingItemController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +37,7 @@ Route::get('/faqs/tags/{tag}', [FaqByTagController::class, 'index'])->name('faqs
 Route::get('/listings', [ListingItemController::class, 'index'])->name('listings.index');
 Route::get('/listings/{category}', [ListingItemByCategoryController::class, 'index'])->name('listings.category');
 Route::get('/listings/{category}/{uuid}', [ListingItemByCategoryController::class, 'show'])->name('listings.show');
+Route::get('/listings/tags/{tag}', [ListingItemByTagController::class, 'index'])->name('listings-by-tag.index');
 
 // Events
 Route::resource('/events', EventController::class);
