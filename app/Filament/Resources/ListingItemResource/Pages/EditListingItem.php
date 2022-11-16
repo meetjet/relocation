@@ -13,6 +13,7 @@ use App\Traits\PageListHelpers;
 use Closure;
 use Filament\Forms\Components;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Support\Facades\Request;
 
 class EditListingItem extends EditRecord
 {
@@ -96,14 +97,12 @@ class EditListingItem extends EditRecord
                         ->schema([
                             Components\TextInput::make('contact.nickname')
                                 ->label(__('Real owner nickname'))
-                                ->placeholder(__('No'))
                                 ->disabled()
                                 ->dehydrated(false),
 
                             Components\TextInput::make('custom_nickname')
                                 ->label(__('Custom nickname'))
-                                ->placeholder(__('No'))
-                                ->required(fn(Closure $get): bool => is_null($get('contact.nickname'))),
+                                ->requiredWithout('contact.nickname'),
 
                             Components\Placeholder::make('user')
                                 ->label(__('User'))
@@ -130,7 +129,7 @@ class EditListingItem extends EditRecord
                             Components\Select::make('status')
                                 ->label(__('Status'))
                                 ->options(ListingItemStatus::asSelectArray())
-                                ->placeholder("-")
+                                ->disablePlaceholderSelection()
                                 ->reactive()
                                 ->afterStateUpdated(function (ListingItem $record, Closure $set, Closure $get) {
                                     if (is_null($record->published_at)) {
@@ -146,8 +145,7 @@ class EditListingItem extends EditRecord
                             Components\DateTimePicker::make('published_at')
                                 ->label(__('Published at'))
                                 ->displayFormat("j M Y, H:i")
-                                ->withoutSeconds()
-                                ->placeholder(fn(): string => now()->translatedFormat("j M Y, H:i")),
+                                ->withoutSeconds(),
 
                             Components\Toggle::make('visibility')
                                 ->label(__('Visibility')),
@@ -158,10 +156,8 @@ class EditListingItem extends EditRecord
                             Components\Select::make('category_id')
                                 ->label(__('Category'))
                                 ->relationship('category', 'title')
-                                ->placeholder("-")
-//                                ->searchable()
-//                                ->getSearchResultsUsing(fn(string $search) => ListingCategory::where('title', 'ilike', "%{$search}%")->limit(10)->pluck('title', 'id'))
-                                ->nullable(),
+                                ->disablePlaceholderSelection()
+                                ->required(),
 
                             Components\Select::make('country')
                                 ->label(__('Country'))
