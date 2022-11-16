@@ -126,8 +126,7 @@ class CreateListingItem extends CreateRecord
                                 ->label(__('Published at'))
                                 ->displayFormat("j M Y, H:i")
                                 ->withoutSeconds()
-                                ->default(fn(): string => now())
-                                ->placeholder(fn(): string => now()->translatedFormat("j M Y, H:i")),
+                                ->default(fn(): string => now()),
 
                             Components\Toggle::make('visibility')
                                 ->label(__('Visibility'))

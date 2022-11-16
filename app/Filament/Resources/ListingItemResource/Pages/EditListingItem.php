@@ -145,8 +145,7 @@ class EditListingItem extends EditRecord
                             Components\DateTimePicker::make('published_at')
                                 ->label(__('Published at'))
                                 ->displayFormat("j M Y, H:i")
-                                ->withoutSeconds()
-                                ->placeholder(fn(): string => now()->translatedFormat("j M Y, H:i")),
+                                ->withoutSeconds(),
 
                             Components\Toggle::make('visibility')
                                 ->label(__('Visibility')),
