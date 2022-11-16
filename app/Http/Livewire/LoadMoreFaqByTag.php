@@ -7,6 +7,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use App\Models\Faq;
+use Spatie\Tags\Tag;
 
 class LoadMoreFaqByTag extends Component
 {
@@ -28,14 +29,21 @@ class LoadMoreFaqByTag extends Component
      */
     public function render(): Application|Factory|View
     {
+        $locale = app()->getLocale();
+
+        $tag = Tag::query()
+            ->where("slug->{$locale}", $this->tag)
+            ->where('type', "faqs")
+            ->first();
+
         if ($this->total === -1) {
             $this->total = Faq::active()
-                ->withAnyTags($this->tag, "faqs")
+                ->withAnyTags($tag)
                 ->count();
         }
 
         $faqs = Faq::active()
-            ->withAnyTags($this->tag, "faqs")
+            ->withAnyTags($tag)
             ->latest()
             ->paginate($this->perPage);
 
