@@ -21,7 +21,7 @@ class AppLayout extends Component
         $file = file_get_contents(base_path('menu.json'));
 
         $listingCategories = Request::route()->named('listings.index', 'listings.category', 'listings.show', 'listings-by-tag.index')
-            ? ListingCategory::active()->get()
+            ? ListingCategory::active()->orderBy('id')->get()
             : null;
 
         return view('layouts.app', [
