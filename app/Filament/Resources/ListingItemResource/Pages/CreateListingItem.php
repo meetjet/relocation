@@ -10,6 +10,7 @@ use App\Filament\Resources\ListingItemResource;
 use Closure;
 use Filament\Forms\Components;
 use Filament\Resources\Pages\CreateRecord;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Request;
 
 class CreateListingItem extends CreateRecord
@@ -137,7 +138,11 @@ class CreateListingItem extends CreateRecord
                         ->schema([
                             Components\Select::make('category_id')
                                 ->label(__('Category'))
-                                ->relationship('category', 'title')
+                                ->relationship(
+                                    'category',
+                                    'title',
+                                    fn(Builder $query): Builder => $query->orderBy('id')
+                                )
                                 ->placeholder("-")
                                 ->required(),
 

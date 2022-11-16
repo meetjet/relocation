@@ -13,6 +13,7 @@ use App\Traits\PageListHelpers;
 use Closure;
 use Filament\Forms\Components;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Request;
 
 class EditListingItem extends EditRecord
@@ -155,7 +156,11 @@ class EditListingItem extends EditRecord
                         ->schema([
                             Components\Select::make('category_id')
                                 ->label(__('Category'))
-                                ->relationship('category', 'title')
+                                ->relationship(
+                                    'category',
+                                    'title',
+                                    fn(Builder $query): Builder => $query->orderBy('id')
+                                )
                                 ->disablePlaceholderSelection()
                                 ->required(),
 
