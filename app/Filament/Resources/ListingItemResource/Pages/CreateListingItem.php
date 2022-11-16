@@ -86,7 +86,6 @@ class CreateListingItem extends CreateRecord
                         ->schema([
                             Components\TextInput::make('contact.nickname')
                                 ->label(__('Real owner nickname'))
-                                ->placeholder(__('No'))
                                 ->default(function () {
                                     $user = Request::user();
 
@@ -99,8 +98,7 @@ class CreateListingItem extends CreateRecord
 
                             Components\TextInput::make('custom_nickname')
                                 ->label(__('Custom nickname'))
-                                ->placeholder(__('No'))
-                                ->required(fn(Closure $get): bool => is_null($get('contact.nickname'))),
+                                ->requiredWithout('contact.nickname'),
                         ])->columns()->collapsible(),
                 ])
                 ->columnSpan(['lg' => 2]),
@@ -112,7 +110,7 @@ class CreateListingItem extends CreateRecord
                             Components\Select::make('status')
                                 ->label(__('Status'))
                                 ->options(ListingItemStatus::asSelectArray())
-                                ->placeholder("-")
+                                ->disablePlaceholderSelection()
                                 ->default(ListingItemStatus::PUBLISHED)
                                 ->reactive()
                                 ->afterStateUpdated(function (Closure $set, Closure $get) {
@@ -142,7 +140,7 @@ class CreateListingItem extends CreateRecord
                                 ->label(__('Category'))
                                 ->relationship('category', 'title')
                                 ->placeholder("-")
-                                ->nullable(),
+                                ->required(),
 
                             Components\Select::make('country')
                                 ->label(__('Country'))
