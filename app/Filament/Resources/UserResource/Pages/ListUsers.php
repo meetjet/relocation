@@ -61,6 +61,11 @@ class ListUsers extends ListRecords
                 ->sortable()
                 ->toggleable(),
 
+            Columns\IconColumn::make('contact')
+                ->label(__('Contact'))
+                ->boolean()
+                ->toggleable(),
+
             Columns\TextColumn::make('created_at')
                 ->label(__('Created at'))
                 ->date("j M Y, H:i")
@@ -111,17 +116,11 @@ class ListUsers extends ListRecords
                     Components\DatePicker::make('published_from')
                         ->label(__('Created from'))
                         ->displayFormat("j M Y")
-                        ->maxDate(Carbon::today())
-                        ->placeholder(fn($state): string => Carbon::parse(now())
-                            ->setTimezone(config('app.timezone'))
-                            ->translatedFormat("j M Y")),
+                        ->placeholder(fn($state): string => now()->translatedFormat("j M Y")),
                     Components\DatePicker::make('published_until')
                         ->label(__('Created until'))
                         ->displayFormat("j M Y")
-                        ->maxDate(Carbon::today())
-                        ->placeholder(fn($state): string => Carbon::parse(now())
-                            ->setTimezone(config('app.timezone'))
-                            ->translatedFormat("j M Y")),
+                        ->placeholder(fn($state): string => now()->translatedFormat("j M Y")),
                 ])
                 ->query(function (Builder $query, array $data): Builder {
                     return $query
@@ -138,12 +137,10 @@ class ListUsers extends ListRecords
                     $indicators = [];
                     if ($data['published_from'] ?? null) {
                         $indicators['published_from'] = __('Created from') . ' ' . Carbon::parse($data['published_from'])
-                                ->setTimezone(config('app.timezone'))
                                 ->translatedFormat("j M Y");
                     }
                     if ($data['published_until'] ?? null) {
                         $indicators['published_until'] = __('Created until') . ' ' . Carbon::parse($data['published_until'])
-                                ->setTimezone(config('app.timezone'))
                                 ->translatedFormat("j M Y");
                     }
 

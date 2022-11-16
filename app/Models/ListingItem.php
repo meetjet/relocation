@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\ListingItemStatus;
 use App\Observers\ListingItemObserver;
 use App\Scopes\CountryScope;
+use App\Scopes\HasUserScope;
 use App\Traits\HasUUID;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -43,6 +44,7 @@ class ListingItem extends Model
     protected static function booted(): void
     {
         static::addGlobalScope(new CountryScope());
+        static::addGlobalScope(new HasUserScope());
     }
 
     /**
