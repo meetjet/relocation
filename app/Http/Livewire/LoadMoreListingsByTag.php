@@ -29,18 +29,18 @@ class LoadMoreListingsByTag extends Component
      */
     public function render(): Application|Factory|View
     {
-        if ($this->total === -1) {
-            $this->total = ListingItem::active()
-                ->withAnyTags($this->tag, "listing-items")
-                ->count();
-        }
-
         $locale = app()->getLocale();
 
         $tag = Tag::query()
             ->where("slug->{$locale}", $this->tag)
             ->where('type', "listing-items")
             ->first();
+
+        if ($this->total === -1) {
+            $this->total = ListingItem::active()
+                ->withAnyTags($tag)
+                ->count();
+        }
 
         $items = ListingItem::active()
             ->withAnyTags($tag)
@@ -56,7 +56,7 @@ class LoadMoreListingsByTag extends Component
         return view('livewire.load-more-listings-by-tag', [
             'items' => $items,
             'total' => $this->total,
-            'currentTag' => $tag,
+            'currentTag' => $this->tag,
         ]);
     }
 }
