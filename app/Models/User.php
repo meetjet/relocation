@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Scopes\HasUserScope;
 use Bavix\Wallet\Interfaces\Customer;
 use Bavix\Wallet\Traits\CanPay;
 use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -73,6 +75,23 @@ class User extends Authenticatable implements FilamentUser, Customer
     ];
 
     /**
+     * @return void
+     */
+    protected static function booted(): void
+    {
+        static::forceDeleted(static function (User $user) {
+            // Delete all user announcement. TODO: try to implement in job.
+            $user->listingItems()
+                ->withoutGlobalScope(HasUserScope::class)
+                ->withTrashed()
+                ->get()
+                ->each(function ($_listingItem) {
+                    $_listingItem->forceDelete();
+                });
+        });
+    }
+
+    /**
      * Get the URL to the user's profile photo.
      *
      * @return string
@@ -101,5 +120,13 @@ class User extends Authenticatable implements FilamentUser, Customer
     public function getContactAttribute(): ?ConnectedAccount
     {
         return $this->currentConnectedAccount()->first();
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function listingItems(): HasMany
+    {
+        return $this->hasMany(ListingItem::class, 'user_id');
     }
 }
