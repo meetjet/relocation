@@ -32,6 +32,8 @@ class ArmeniaAddListingConversation extends InlineMenu
     protected ?string $description;
     protected ?array $pictures = null;
     protected ?int $price;
+    protected ?string $customContactValue = null;
+    protected ?string $customContactType = null;
     protected ?int $announcementMessageId;
 
 
@@ -93,7 +95,7 @@ class ArmeniaAddListingConversation extends InlineMenu
      */
     public function askCategory(Nutgram $bot): void
     {
-        $categoryList = ListingCategory::active()->get()->pluck('title', 'id');
+        $categoryList = ListingCategory::active()->orderBy('id')->get()->pluck('title', 'id');
 
         if ($categoryList->count()) {
             $menu = $this->menuText(__('telegram.armenia.listing-add.ask-category'));
@@ -306,7 +308,7 @@ class ArmeniaAddListingConversation extends InlineMenu
     public function askMorePicture(Nutgram $bot): void
     {
         if (count($this->pictures) === $this->maxPictures) {
-            $this->announcementPreview($bot);
+            $this->askContact($bot);
             return;
         }
 
@@ -337,9 +339,70 @@ class ArmeniaAddListingConversation extends InlineMenu
             } else {
                 $this->clearButtons()
                     ->closeMenu();
-                $this->announcementPreview($bot);
+                $this->askContact($bot);
             }
         }
+    }
+
+    /**
+     * @param Nutgram $bot
+     * @throws InvalidArgumentException
+     */
+    public function askContact(Nutgram $bot): void
+    {
+        $user = $bot->user();
+
+        if ($user && $user->username) {
+            $this->announcementPreview($bot);
+            return;
+        }
+
+        $bot->sendMessage(__('telegram.armenia.listing-add.ask-contact'));
+        $this->next("handleContact");
+    }
+
+    /**
+     * @param Nutgram $bot
+     * @throws InvalidArgumentException
+     */
+    public function handleContact(Nutgram $bot): void
+    {
+        $message = $bot->message();
+
+        if ($message && $message->getType() === MessageTypes::TEXT) {
+            $contactValue = Str::remove(" ", $message->text);
+
+            if (filter_var($contactValue, FILTER_VALIDATE_EMAIL)) {
+                // Email received.
+                $this->customContactValue = $contactValue;
+                $this->customContactType = "email";
+                $this->announcementPreview($bot);
+                return;
+            }
+
+            $phoneNumber = parsePhoneNumber($contactValue, "armenia");
+
+            if ($phoneNumber && Str::length($phoneNumber) >= 6) {
+                // Phone number received.
+                $this->customContactValue = $phoneNumber;
+                $this->customContactType = "phone";
+                $this->announcementPreview($bot);
+                return;
+            }
+
+            // Error contact value.
+            $bot->sendMessage(__('telegram.armenia.listing-add.ask-contact-error-value'), [
+                'parse_mode' => ParseMode::HTML,
+            ]);
+            $this->askContact($bot);
+            return;
+        }
+
+        // Error contact format.
+        $bot->sendMessage(__('telegram.armenia.listing-add.ask-contact-error-format'), [
+            'parse_mode' => ParseMode::HTML,
+        ]);
+        $this->askContact($bot);
     }
 
     /**
@@ -350,6 +413,14 @@ class ArmeniaAddListingConversation extends InlineMenu
     {
         $category = ListingCategory::find($this->categoryId);
 
+        if ($this->customContactType === "email") {
+            $contact = $this->customContactValue;
+        } elseif ($this->customContactType === "phone") {
+            $contact = formatPhoneNumber($this->customContactValue, "armenia");
+        } else {
+            $contact = "@{$bot->user()->username}";
+        }
+
         $message = $bot->sendMessage(__('telegram.armenia.listing-add.announcement-preview', [
             'location' => Locations::getDescription("armenia", $this->location),
             'category' => $category ? $category->title : __('No'),
@@ -357,6 +428,7 @@ class ArmeniaAddListingConversation extends InlineMenu
             'description' => $this->description,
             'price' => $this->price,
             'images' => count($this->pictures),
+            'contact' => $contact,
         ]), [
             'parse_mode' => ParseMode::HTML,
         ]);
@@ -390,6 +462,7 @@ class ArmeniaAddListingConversation extends InlineMenu
                 'description' => $this->description,
                 'price' => $this->price,
                 'currency' => config('countries.armenia.currency.code'),
+                'custom_contact' => $this->customContactValue,
                 'telegram_bot_type' => TelegramBotType::ARMENIA,
                 'telegram_user_id' => $bot->userId(),
                 'telegram_user_language_code' => $bot->user()->language_code,
