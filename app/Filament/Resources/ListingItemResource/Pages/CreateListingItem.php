@@ -99,7 +99,13 @@ class CreateListingItem extends CreateRecord
 
                             Components\TextInput::make('custom_nickname')
                                 ->label(__('Custom nickname'))
-                                ->requiredWithout('contact.nickname'),
+                                ->requiredWithoutAll(['contact.nickname', 'custom_contact']),
+
+                            Components\TextInput::make('custom_contact')
+                                ->label(__('Additional owner contact'))
+                                ->hint(__('Phone or email'))
+                                ->helperText(__('Requested from the user if he does not have a nickname'))
+                                ->requiredWithoutAll(['contact.nickname', 'custom_nickname']),
                         ])->columns()->collapsible(),
                 ])
                 ->columnSpan(['lg' => 2]),

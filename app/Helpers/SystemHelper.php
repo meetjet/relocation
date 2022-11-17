@@ -40,7 +40,7 @@ if (!function_exists('includeRouteFiles')) {
     }
 }
 
-if (!function_exists('getFullPhoneNumber')) {
+if (!function_exists('getFullRussianPhoneNumber')) {
 
     /**
      * Returns the full Russian mobile phone number (11 digits) in international format. For example:
@@ -53,7 +53,7 @@ if (!function_exists('getFullPhoneNumber')) {
      *
      * @return string|null
      */
-    function getFullPhoneNumber(?string $number): ?string
+    function getFullRussianPhoneNumber(?string $number): ?string
     {
         if ($number) {
             $number = preg_replace("/\D+/", '', $number);
@@ -72,7 +72,7 @@ if (!function_exists('getFullPhoneNumber')) {
     }
 }
 
-if (!function_exists('formatPhoneNumber')) {
+if (!function_exists('formatRussianPhoneNumber')) {
     /**
      * "+79998887766" => "+7 999 888-77-66"
      *
@@ -82,7 +82,7 @@ if (!function_exists('formatPhoneNumber')) {
      *
      * @return string|null
      */
-    function formatPhoneNumber(?string $value): ?string
+    function formatRussianPhoneNumber(?string $value): ?string
     {
         if (is_null($value)) {
             return null;
@@ -131,6 +131,40 @@ if (!function_exists('generatePhoneNumber')) {
             . $num_arr[array_rand($num_arr)]
             . $num_arr[array_rand($num_arr)]
             . $num_arr[array_rand($num_arr)];
+    }
+}
+
+if (!function_exists('parsePhoneNumber')) {
+
+    /**
+     * Returns the full mobile phone number in international format. For example:
+     *  "+7 (999) 888-77-66" => "79998887766"
+     *
+     * @param string|null $value
+     * @param string $country
+     * @return string|null
+     */
+    function parsePhoneNumber(?string $value, string $country): ?string
+    {
+        if ($value) {
+            $value = preg_replace("/\D+/", '', $value);
+        }
+
+        return $value;
+    }
+}
+
+if (!function_exists('formatPhoneNumber')) {
+    /**
+     * "+79998887766" => "+7 999 888-77-66"
+     *
+     * @param string|null $value
+     * @param string $country
+     * @return string|null
+     */
+    function formatPhoneNumber(?string $value, string $country): ?string
+    {
+        return $value;
     }
 }
 

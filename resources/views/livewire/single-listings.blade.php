@@ -44,11 +44,17 @@
                     <a href="https://t.me/{{ $entity->custom_nickname }}"
                        target="_blank"
                        class="text-blue-600">{{ "@" . $entity->custom_nickname }}</a>
-                @else
+                @elseif($entity->contact->nickname)
                     {{-- Real owner nickname --}}
                     <a href="https://t.me/{{ $entity->contact->nickname }}"
                        target="_blank"
                        class="text-blue-600">{{ "@" . $entity->contact->nickname }}</a>
+                @elseif($entity->custom_contact)
+                    {{-- Additional owner contact --}}
+                    {{ $entity->custom_contact }}
+                @else
+                    {{-- Something went wrong! --}}
+                    {{ str(__('Not found'))->lower() }}
                 @endif
             @else
                 <div>

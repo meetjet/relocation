@@ -25,6 +25,11 @@ class CreateUserAction
         $account = Socialstream::findConnectedAccountForProviderAndId("telegram", $telegramUser->id);
 
         if ($account) {
+            // Keep current nickname.
+            $account->forceFill([
+                'nickname' => $telegramUser->username,
+            ])->save();
+
             return $account->user_id;
         }
 
