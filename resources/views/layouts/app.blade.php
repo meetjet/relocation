@@ -38,8 +38,11 @@
 
         <div class="min-h-screen transition-all duration-300">
             <x-navigation-menu
+                :activeCountry="$activeCountry"
+                :countries="$countries"
                 :menu="$menu"
-                :listingCategories="$listingCategories"/>
+                :listingCategories="$listingCategories"
+            />
 
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex">
                 {{--<div class="hidden md:block w-60">test</div>--}}
