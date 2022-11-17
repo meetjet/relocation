@@ -78,12 +78,13 @@ class TelegramNotifyAnnouncementPublishedJob implements ShouldQueue
             default => "telegram.default.listing-add.reply",
         };
 
-        // TODO: replace with helper
-        $domain = config('app.domain');
-        $link = Str::replace($domain, "{$this->listingItem->country}.{$domain}", route("listings.show", [
-            $this->listingItem->category->slug,
-            $this->listingItem->uuid,
-        ]));
+        $link = addSubdomainToUrl(
+            route('listings.show', [
+                $this->listingItem->category->slug,
+                $this->listingItem->uuid,
+            ]),
+            $this->listingItem->country
+        );
 
         return __($langKey, [
             'link' => $link,

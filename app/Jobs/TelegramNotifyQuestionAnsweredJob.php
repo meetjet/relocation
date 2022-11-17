@@ -77,12 +77,8 @@ class TelegramNotifyQuestionAnsweredJob implements ShouldQueue
             default => "telegram.default.question.reply",
         };
 
-        // TODO: replace with helper
-        $domain = config('app.domain');
-        $link = Str::replace($domain, "{$this->faq->country}.{$domain}", route("faqs.show", ['slug' => $this->faq->slug]));
-
         return __($langKey, [
-            'link' => $link,
+            'link' => addSubdomainToUrl(route('faqs.show', $this->faq->slug), $this->faq->country),
         ], $this->faq->telegram_user_language_code);
     }
 }

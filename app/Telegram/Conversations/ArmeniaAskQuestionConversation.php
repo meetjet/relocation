@@ -44,13 +44,9 @@ class ArmeniaAskQuestionConversation extends Conversation
                 'telegram_message_id' => $bot->messageId(),
             ]);
 
-            // TODO: replace with helper
-            $domain = config('app.domain');
-            $link = Str::replace($domain, "armenia.{$domain}", route("faqs.index"));
-
             $bot->sendMessage(__('telegram.armenia.question.end', [
                 'command' => self::getName(),
-                'link' => $link,
+                'link' => addSubdomainToUrl(route('faqs.index'), "armenia"),
             ]));
             $this->end();
             return;
