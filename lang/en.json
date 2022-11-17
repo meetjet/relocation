@@ -562,5 +562,6 @@
     "Nickname": "Nickname",
     "Additional owner contact": "Additional owner contact",
     "Phone or email": "Phone or email",
-    "Requested from the user if he does not have a nickname": "Requested from the user if he does not have a nickname"
+    "Requested from the user if he does not have a nickname": "Requested from the user if he does not have a nickname",
+    "Not found": "Not found"
 }

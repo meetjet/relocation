@@ -580,5 +580,6 @@
     "Nickname": "Никнейм",
     "Additional owner contact": "Дополнительный контакт владельца",
     "Phone or email": "Телефон или email",
-    "Requested from the user if he does not have a nickname": "Запрашивается у пользователя, если у него нет никнейма"
+    "Requested from the user if he does not have a nickname": "Запрашивается у пользователя, если у него нет никнейма",
+    "Not found": "Не найдено"
 }

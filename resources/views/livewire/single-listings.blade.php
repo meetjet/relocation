@@ -52,6 +52,9 @@
                 @elseif($entity->custom_contact)
                     {{-- Additional owner contact --}}
                     {{ $entity->custom_contact }}
+                @else
+                    {{-- Something went wrong! --}}
+                    {{ str(__('Not found'))->lower() }}
                 @endif
             @else
                 <div>
