@@ -369,4 +369,12 @@ class FaqResource extends Resource
                 }),
         ];
     }
+
+    /**
+     * @return string|null
+     */
+    protected static function getNavigationBadge(): ?string
+    {
+        return self::$model::active()->count();
+    }
 }
