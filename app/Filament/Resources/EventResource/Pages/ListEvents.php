@@ -18,6 +18,7 @@ use Filament\Tables\Filters;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 class ListEvents extends ListRecords
 {
@@ -53,8 +54,8 @@ class ListEvents extends ListRecords
         return [
             Columns\TextColumn::make('title')
                 ->label(__('Title'))
-                ->description(fn($record) => (!$record->deleted_at && $record->slug)
-                    ? static::externalLink(route('dashboard'), $record->slug)
+                ->description(fn($record) => (!$record->deleted_at && $record->status === EventStatus::PUBLISHED && $record->visibility && $record->country && $record->slug)
+                    ? static::externalLink(addSubdomainToUrl(route('events.show', $record->slug), $record->country), Str::lower(__('Link')))
                     : null)
                 ->limit(200)
                 ->wrap()

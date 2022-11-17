@@ -71,4 +71,12 @@ class UserResource extends Resource
                 SoftDeletingScope::class,
             ]);
     }
+
+    /**
+     * @return string|null
+     */
+    protected static function getNavigationBadge(): ?string
+    {
+        return self::$model::count();
+    }
 }

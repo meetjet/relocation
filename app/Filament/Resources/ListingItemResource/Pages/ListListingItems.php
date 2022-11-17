@@ -56,8 +56,8 @@ class ListListingItems extends ListRecords
         return [
             Columns\TextColumn::make('title')
                 ->label(__('Title'))
-                ->description(fn($record) => (!$record->deleted_at && $record->category && $record->uuid)
-                    ? static::externalLink(route('listings.show', [$record->category->slug, $record->uuid]), Str::lower(__('Link')))
+                ->description(fn($record) => (!$record->deleted_at && $record->status === ListingItemStatus::PUBLISHED && $record->visibility && $record->uuid)
+                    ? static::externalLink(addSubdomainToUrl(route('listings.show', [$record->category->slug, $record->uuid]), $record->country), Str::lower(__('Link')))
                     : null)
                 ->limit(200)
                 ->wrap()
