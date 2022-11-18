@@ -74,6 +74,7 @@ class TelegramNotifyQuestionAnsweredJob implements ShouldQueue
     {
         $langKey = match ((string)$this->faq->telegram_bot_type) {
             TelegramBotType::ARMENIA => "telegram.armenia.question.reply",
+            TelegramBotType::THAILAND => "telegram.thailand.question.reply",
             default => "telegram.default.question.reply",
         };
 

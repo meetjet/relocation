@@ -22,15 +22,15 @@
             </ul>
         @endif
 
-        <div class="text-2xl font-bold my-4">{{ $entity->price }} ֏</div>
+        <div class="text-2xl font-bold my-4">{{ $entity->price }} {{ currencies()->getSign($entity->currency) }}</div>
 
         {{-- Location --}}
         @if($entity->country)
             <div class="flex flex-wrap mt-4">
                 <div class="mr-2">{{ __('Location') }}:</div>
-                <div>{{ \App\Facades\Countries::getDescription($entity->country) }}</div>
+                <div>{{ countries()->getDescription($entity->country) }}</div>
                 @if($entity->location)
-                    <div>, {{ \App\Facades\Locations::getDescription($entity->country, $entity->location) }}</div>
+                    <div>, {{ locations()->getDescription($entity->country, $entity->location) }}</div>
                 @endif
             </div>
         @endif
