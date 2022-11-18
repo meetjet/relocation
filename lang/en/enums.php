@@ -31,6 +31,7 @@ return [
         TelegramBotType::DEFAULT => 'Default',
         TelegramBotType::ARMENIA => 'Armenia',
         TelegramBotType::GEORGIA => 'Georgia',
+        TelegramBotType::THAILAND => 'Thailand',
         TelegramBotType::TURKEY => 'Turkey',
     ],
     TelegramBotImageMimeType::class => [

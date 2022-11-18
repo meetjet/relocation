@@ -10,5 +10,6 @@ class TelegramBotType extends Enum implements LocalizedEnum
     public const DEFAULT = "default";
     public const ARMENIA = "armenia";
     public const GEORGIA = "georgia";
+    public const THAILAND = "thailand";
     public const TURKEY = "turkey";
 }
