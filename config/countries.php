@@ -59,6 +59,23 @@ return [
         ]
     ],
 
+    'thailand' => [
+        'locale' => [
+            'ru' => "Таиланд",
+            'en' => "Thailand",
+        ],
+        'locations' => [
+        ],
+        'currency' => [
+            'code' => "THB",
+            'locale' => [
+                'ru' => "Бат",
+                'en' => "Baht",
+            ],
+            'sign' => "฿",
+        ]
+    ],
+
     'turkey' => [
         'locale' => [
             'ru' => "Турция",
