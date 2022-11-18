@@ -5,7 +5,6 @@ namespace App\Telegram\Conversations;
 use App\Enums\TelegramBotType;
 use App\Models\Faq;
 use App\Telegram\Actions\CreateUserAction;
-use Illuminate\Support\Str;
 use Psr\SimpleCache\InvalidArgumentException;
 use SergiX44\Nutgram\Conversations\Conversation;
 use SergiX44\Nutgram\Nutgram;
