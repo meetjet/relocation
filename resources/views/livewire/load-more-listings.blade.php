@@ -38,7 +38,8 @@
                         </a>
                     </div>
                     <div class="space-y-2">
-                        <div class="text-[20px] leading-none font-bold">{{ $item->price }} ֏</div>
+                        <div
+                            class="text-[20px] leading-none font-bold">{{ $item->price }} {{ currencies()->getSign($item->currency) }}</div>
                         <a
                             href="{{ route('listings.show', [$item->category->slug, $item->uuid]) }}"
                             class="flex justify-center bg-blue-500 hover:bg-blue-600 transition-colors duration-300 text-white text-sm font-bold leading-none rounded p-3"
