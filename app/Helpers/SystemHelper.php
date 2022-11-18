@@ -1,5 +1,8 @@
 <?php
 
+use App\Services\CountriesService;
+use App\Services\CurrenciesService;
+use App\Services\LocationsService;
 use Illuminate\Support\Str;
 use JetBrains\PhpStorm\Pure;
 
@@ -188,3 +191,32 @@ if (!function_exists('addSubdomainToUrl')) {
     }
 }
 
+if (!function_exists('countries')) {
+    /**
+     * @return CountriesService
+     */
+    function countries(): CountriesService
+    {
+        return app(CountriesService::class);
+    }
+}
+
+if (!function_exists('currencies')) {
+    /**
+     * @return CurrenciesService
+     */
+    function currencies(): CurrenciesService
+    {
+        return app(CurrenciesService::class);
+    }
+}
+
+if (!function_exists('locations')) {
+    /**
+     * @return LocationsService
+     */
+    function locations(): LocationsService
+    {
+        return app(LocationsService::class);
+    }
+}
