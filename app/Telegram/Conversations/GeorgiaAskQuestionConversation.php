@@ -10,7 +10,7 @@ use SergiX44\Nutgram\Conversations\Conversation;
 use SergiX44\Nutgram\Nutgram;
 use Throwable;
 
-class ThailandAskQuestionConversation extends Conversation
+class GeorgiaAskQuestionConversation extends Conversation
 {
     /**
      * @param Nutgram $bot
@@ -18,7 +18,7 @@ class ThailandAskQuestionConversation extends Conversation
      */
     public function start(Nutgram $bot): void
     {
-        $bot->sendMessage(__('telegram.thailand.question.start'));
+        $bot->sendMessage(__('telegram.georgia.question.start'));
         $this->next('askQuestion');
     }
 
@@ -35,23 +35,23 @@ class ThailandAskQuestionConversation extends Conversation
             Faq::forceCreate([
                 'user_id' => app(CreateUserAction::class)->execute($bot->user()),
                 'original' => $questionText,
-                'country' => "thailand",
-                'telegram_bot_type' => TelegramBotType::THAILAND,
+                'country' => "georgia",
+                'telegram_bot_type' => TelegramBotType::GEORGIA,
                 'telegram_user_id' => $bot->userId(),
                 'telegram_user_language_code' => $bot->user()->language_code,
                 'telegram_chat_id' => $bot->chatId(),
                 'telegram_message_id' => $bot->messageId(),
             ]);
 
-            $bot->sendMessage(__('telegram.thailand.question.end', [
+            $bot->sendMessage(__('telegram.georgia.question.end', [
                 'command' => self::getName(),
-                'link' => addSubdomainToUrl(route('faqs.index'), "thailand"),
+                'link' => addSubdomainToUrl(route('faqs.index'), "georgia"),
             ]));
             $this->end();
             return;
         }
 
-        $bot->sendMessage(__('telegram.thailand.question.unsupported'));
+        $bot->sendMessage(__('telegram.georgia.question.unsupported'));
         $this->start($bot);
     }
 
@@ -68,6 +68,6 @@ class ThailandAskQuestionConversation extends Conversation
      */
     public static function getDescription(): string
     {
-        return __('telegram.thailand.question.description');
+        return __('telegram.georgia.question.description');
     }
 }
