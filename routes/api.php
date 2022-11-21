@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\ArmeniaTelegramController;
 use App\Http\Controllers\Api\DefaultTelegramController;
 use App\Http\Controllers\Api\GeorgiaTelegramController;
 use App\Http\Controllers\Api\ThailandTelegramController;
+use App\Http\Controllers\Api\TurkeyTelegramController;
 use App\Http\Middleware\JsonRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,7 @@ Route::prefix('bots')->group(function () {
         Route::post('armenia', ArmeniaTelegramController::class);
         Route::post('georgia', GeorgiaTelegramController::class);
         Route::post('thailand', ThailandTelegramController::class);
+        Route::post('turkey', TurkeyTelegramController::class);
     });
 
     // Viber webhook

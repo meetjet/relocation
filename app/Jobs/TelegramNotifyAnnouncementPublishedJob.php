@@ -3,7 +3,6 @@
 namespace App\Jobs;
 
 use App\Enums\TelegramBotType;
-use App\Models\Faq;
 use App\Models\ListingItem;
 use App\Telegram\Telegram;
 use Exception;
@@ -13,7 +12,6 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 use SergiX44\Nutgram\Telegram\Attributes\ParseMode;
 use Throwable;
 
@@ -77,6 +75,7 @@ class TelegramNotifyAnnouncementPublishedJob implements ShouldQueue
             TelegramBotType::ARMENIA => "telegram.armenia.listing-add.reply",
             TelegramBotType::GEORGIA => "telegram.georgia.listing-add.reply",
             TelegramBotType::THAILAND => "telegram.thailand.listing-add.reply",
+            TelegramBotType::TURKEY => "telegram.turkey.listing-add.reply",
             default => "telegram.default.listing-add.reply",
         };
 
