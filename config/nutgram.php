@@ -17,6 +17,10 @@ return [
     'token_thailand' => env('TELEGRAM_BOT_TOKEN_THAILAND'),
     'log_channel_thailand' => env('TELEGRAM_BOT_LOG_CHANNEL_THAILAND', 'null'),
 
+    // The Telegram BOT api token (Turkey)
+    'token_turkey' => env('TELEGRAM_BOT_TOKEN_TURKEY'),
+    'log_channel_turkey' => env('TELEGRAM_BOT_LOG_CHANNEL_TURKEY', 'null'),
+
     // The Telegram BOT api secret
     'secret' => env('TELEGRAM_BOT_SECRET'),
 
