@@ -103,13 +103,18 @@ class EditListingItem extends EditRecord
 
                             Components\TextInput::make('custom_nickname')
                                 ->label(__('Custom nickname'))
-                                ->requiredWithoutAll(['contact.nickname', 'custom_contact']),
+                                ->requiredWithoutAll(['contact.nickname', 'email', 'phone']),
 
-                            Components\TextInput::make('custom_contact')
-                                ->label(__('Additional owner contact'))
-                                ->hint(__('Phone or email'))
+                            Components\TextInput::make('email')
+                                ->label(__('Owner email'))
                                 ->helperText(__('Requested from the user if he does not have a nickname'))
-                                ->requiredWithoutAll(['contact.nickname', 'custom_nickname']),
+                                ->email()
+                                ->requiredWithoutAll(['contact.nickname', 'custom_nickname', 'phone']),
+
+                            Components\TextInput::make('phone')
+                                ->label(__('Owner phone'))
+                                ->helperText(__('Requested from the user if he does not have a nickname'))
+                                ->requiredWithoutAll(['contact.nickname', 'custom_nickname', 'email']),
 
                             Components\Placeholder::make('user')
                                 ->label(__('User'))

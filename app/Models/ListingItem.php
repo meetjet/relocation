@@ -39,7 +39,8 @@ class ListingItem extends Model
         'visibility',
         'custom_nickname',
         'published_at',
-        'custom_contact',
+        'email',
+        'phone',
     ];
 
     protected $appends = ['contact'];
