@@ -8,18 +8,18 @@
         "opened": false
     },
     {
-        "title": "Вопрос-Ответ",
-        "icon": "ri-user-line",
-        "route_name": "faqs.index",
-        "route_name_regex": "faqs*",
-        "permission": "users_view",
-        "opened": false
-    },
-    {
         "title": "События",
         "icon": "ri-user-line",
         "route_name": "events.index",
         "route_name_regex": "events*",
+        "permission": "users_view",
+        "opened": false
+    },
+    {
+        "title": "Вопрос-Ответ",
+        "icon": "ri-user-line",
+        "route_name": "faqs.index",
+        "route_name_regex": "faqs*",
         "permission": "users_view",
         "opened": false
     }
