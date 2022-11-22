@@ -65,6 +65,18 @@ return [
             'en' => "Thailand",
         ],
         'locations' => [
+            'phuket' => [
+                'ru' => "Пхукет",
+                'en' => "Phuket",
+            ],
+            'pattaya' => [
+                'ru' => "Паттайя",
+                'en' => "Pattaya",
+            ],
+            'bangkok' => [
+                'ru' => "Бангкок",
+                'en' => "Bangkok",
+            ],
         ],
         'currency' => [
             'code' => "THB",
