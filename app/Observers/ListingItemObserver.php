@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Enums\ListingItemStatus;
 use App\Jobs\TelegramAttachImagesJob;
 use App\Jobs\TelegramNotifyAnnouncementPublishedJob;
+use App\Jobs\TelegramSendAnnouncementToChannelJob;
 use App\Models\ListingItem;
 
 class ListingItemObserver
@@ -54,6 +55,25 @@ class ListingItemObserver
             && is_null($listingItem->telegram_published_notify_sent)
         ) {
             TelegramNotifyAnnouncementPublishedJob::dispatch($listingItem);
+
+            $listingItem->forceFill([
+                'telegram_published_notify_sent' => true,
+            ])->save();
+        }
+
+        if (
+            $listingItem->status === ListingItemStatus::PUBLISHED
+            && $listingItem->visibility === true
+            && $listingItem->country
+            && $listingItem->category
+            && $listingItem->uuid
+            && is_null($listingItem->telegram_to_channel_sent)
+        ) {
+            TelegramSendAnnouncementToChannelJob::dispatch($listingItem);
+
+            $listingItem->forceFill([
+                'telegram_to_channel_sent' => true,
+            ])->save();
         }
     }
 }

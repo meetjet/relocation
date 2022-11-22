@@ -64,6 +64,11 @@ class EditListingItem extends EditRecord
                                 ->rows(2)
                                 ->required(),
 
+                            Components\Placeholder::make('original')
+                                ->label(__('Original text'))
+                                ->hidden(fn($record): bool => is_null($record) || is_null($record->original))
+                                ->content(fn($record): ?string => $record->original),
+
                             Components\RichEditor::make('description')
                                 ->label(__('Description'))
                                 ->disableToolbarButtons([
