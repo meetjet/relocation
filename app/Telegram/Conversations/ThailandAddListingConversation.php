@@ -46,49 +46,48 @@ class ThailandAddListingConversation extends InlineMenu
         $bot->sendMessage(__('telegram.thailand.listing-add.start'), [
             'parse_mode' => ParseMode::HTML,
         ]);
-//        $this->askLocation($bot);
-        $this->askCategory($bot);
+        $this->askLocation($bot);
     }
 
     /**
      * @param Nutgram $bot
      * @throws InvalidArgumentException
      */
-//    public function askLocation(Nutgram $bot): void
-//    {
-//        $menu = $this->menuText(__('telegram.thailand.listing-add.ask-location'));
-//
-//        collect(Locations::asSelectArray('thailand'))->each(function ($_value, $_key) use ($menu) {
-//            $menu->addButtonRow(InlineKeyboardButton::make($_value, callback_data: "{$_key}@handleLocation"));
-//        });
-//
-//        $menu->orNext("handleWrongLocation")->showMenu();
-//    }
+    public function askLocation(Nutgram $bot): void
+    {
+        $menu = $this->menuText(__('telegram.thailand.listing-add.ask-location'));
+
+        collect(Locations::asSelectArray('thailand'))->each(function ($_value, $_key) use ($menu) {
+            $menu->addButtonRow(InlineKeyboardButton::make($_value, callback_data: "{$_key}@handleLocation"));
+        });
+
+        $menu->orNext("handleWrongLocation")->showMenu();
+    }
 
     /**
      * @param Nutgram $bot
      * @throws InvalidArgumentException
      */
-//    public function handleWrongLocation(Nutgram $bot): void
-//    {
-//        $this->clearButtons()->closeMenu();
-//        $bot->sendMessage(__('telegram.thailand.listing-add.ask-location-error'));
-//        $this->askLocation($bot);
-//    }
+    public function handleWrongLocation(Nutgram $bot): void
+    {
+        $this->clearButtons()->closeMenu();
+        $bot->sendMessage(__('telegram.thailand.listing-add.ask-location-error'));
+        $this->askLocation($bot);
+    }
 
     /**
      * @param Nutgram $bot
      * @throws InvalidArgumentException
      */
-//    public function handleLocation(Nutgram $bot): void
-//    {
-//        $this->clearButtons()->closeMenu();
-//        $this->location = $bot->callbackQuery()->data;
-//        $bot->sendMessage(__('telegram.thailand.listing-add.ask-location-chosen', [
-//            'location' => Locations::getDescription("thailand", $this->location),
-//        ]));
-//        $this->askCategory($bot);
-//    }
+    public function handleLocation(Nutgram $bot): void
+    {
+        $this->clearButtons()->closeMenu();
+        $this->location = $bot->callbackQuery()->data;
+        $bot->sendMessage(__('telegram.thailand.listing-add.ask-location-chosen', [
+            'location' => Locations::getDescription("thailand", $this->location),
+        ]));
+        $this->askCategory($bot);
+    }
 
     /**
      * @param Nutgram $bot
@@ -423,7 +422,7 @@ class ThailandAddListingConversation extends InlineMenu
         }
 
         $message = $bot->sendMessage(__('telegram.thailand.listing-add.announcement-preview', [
-//            'location' => Locations::getDescription("thailand", $this->location),
+            'location' => Locations::getDescription("thailand", $this->location),
             'category' => $category ? $category->title : __('No'),
             'title' => $this->title,
             'description' => $this->description,
