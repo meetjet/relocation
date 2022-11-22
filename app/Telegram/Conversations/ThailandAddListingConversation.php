@@ -459,7 +459,7 @@ class ThailandAddListingConversation extends InlineMenu
                 'country' => "thailand",
                 'location' => $this->location,
                 'title' => $this->title,
-                'description' => $this->description,
+                'original' => $this->description,
                 'price' => $this->price,
                 'currency' => config('countries.thailand.currency.code'),
                 'email' => $this->customContactType === "email" ? $this->customContactValue : null,
