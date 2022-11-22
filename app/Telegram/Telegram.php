@@ -34,6 +34,22 @@ class Telegram
     /**
      * Get the default Telegram bot instance.
      *
+     * @param string $type
+     * @return Nutgram
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
+    public function getChannelBotByType(string $type): Nutgram
+    {
+        return $this->getBotInstance(
+            (string)config("nutgram.channel_token_{$type}"),
+            (string)config("nutgram.channel_log_channel_{$type}")
+        );
+    }
+
+    /**
+     * Get the default Telegram bot instance.
+     *
      * @return Nutgram
      */
     public function getDefaultBot(): Nutgram
