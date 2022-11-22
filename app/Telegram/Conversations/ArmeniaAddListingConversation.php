@@ -459,7 +459,7 @@ class ArmeniaAddListingConversation extends InlineMenu
                 'country' => "armenia",
                 'location' => $this->location,
                 'title' => $this->title,
-                'description' => $this->description,
+                'original' => $this->description,
                 'price' => $this->price,
                 'currency' => config('countries.armenia.currency.code'),
                 'email' => $this->customContactType === "email" ? $this->customContactValue : null,

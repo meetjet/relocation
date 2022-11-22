@@ -41,6 +41,7 @@ class ListingItem extends Model
         'published_at',
         'email',
         'phone',
+        'original',
     ];
 
     protected $appends = ['contact'];
@@ -84,6 +85,7 @@ class ListingItem extends Model
             'updated_at',
             'deleted_at',
             'published_at',
+            'original',
         ];
     }
 
