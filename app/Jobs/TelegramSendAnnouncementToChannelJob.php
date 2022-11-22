@@ -44,7 +44,7 @@ class TelegramSendAnnouncementToChannelJob implements ShouldQueue
     public function handle(Telegram $telegram): void
     {
         try {
-            $bot = $telegram->getChannelBotByType($this->listingItem->country);
+            $bot = $telegram->getChannelBotByCountry($this->listingItem->country);
             $chatId = config("nutgram.listing_{$this->listingItem->country}_channel_id");
             $picture = $this->listingItem->firstPicture()->first();
 
