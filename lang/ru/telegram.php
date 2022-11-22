@@ -142,6 +142,7 @@ return [
             'confirmation-successful' => "Спасибо, Ваше объявление успешно добавлено.",
             'confirmation-canceled' => "Вы отменили добавление объявления.",
             'reply' => "Ваше объявление размещено! Чтобы его просмотреть, перейдите по ссылке: :link",
+            'send-to-channel' => "<b>:title</b>\n\n:description\n\n<i>Цена:</i> :price\n\n<i>Локация:</i> :location\n\n<i>Контакт:</i> :contact\n\n:link",
         ],
     ],
 ];
