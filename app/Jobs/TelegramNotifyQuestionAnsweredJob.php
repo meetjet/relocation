@@ -12,7 +12,6 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 use SergiX44\Nutgram\Telegram\Attributes\ParseMode;
 use Throwable;
 
@@ -76,6 +75,7 @@ class TelegramNotifyQuestionAnsweredJob implements ShouldQueue
             TelegramBotType::ARMENIA => "telegram.armenia.question.reply",
             TelegramBotType::GEORGIA => "telegram.georgia.question.reply",
             TelegramBotType::THAILAND => "telegram.thailand.question.reply",
+            TelegramBotType::TURKEY => "telegram.turkey.question.reply",
             default => "telegram.default.question.reply",
         };
 
