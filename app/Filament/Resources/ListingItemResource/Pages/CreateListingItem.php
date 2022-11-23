@@ -75,7 +75,7 @@ class CreateListingItem extends CreateRecord
                                         ->hint(__('Selected automatically based on country'))
                                         ->placeholder("-")
                                         ->options(Currencies::asSelectArray())
-                                        ->default(Currencies::getCodeByCountry("armenia"))
+//                                        ->default(Currencies::getCodeByCountry("armenia"))
                                         ->disabled(),
                                 ]),
 
@@ -166,7 +166,7 @@ class CreateListingItem extends CreateRecord
                                     $set('location', "");
                                     $set('currency', Currencies::getCodeByCountry($get('country')));
                                 })
-                                ->default("armenia")
+//                                ->default("armenia")
                                 ->nullable(),
 
                             Components\Select::make('location')
