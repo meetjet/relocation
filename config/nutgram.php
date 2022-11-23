@@ -26,6 +26,9 @@ return [
     // The Telegram BOT api token (Turkey)
     'token_turkey' => env('TELEGRAM_BOT_TOKEN_TURKEY'),
     'log_channel_turkey' => env('TELEGRAM_BOT_LOG_CHANNEL_TURKEY', 'null'),
+    'channel_token_turkey' => env('TELEGRAM_BOT_CHANNEL_TOKEN_TURKEY'),
+    'channel_log_channel_turkey' => env('TELEGRAM_BOT_CHANNEL_LOG_CHANNEL_TURKEY', 'null'),
+    'listing_turkey_channel_id' => env('TELEGRAM_LISTING_TURKEY_CHANNEL_ID'),
 
     // The Telegram BOT api secret
     'secret' => env('TELEGRAM_BOT_SECRET'),

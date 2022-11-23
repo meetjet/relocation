@@ -459,7 +459,7 @@ class TurkeyAddListingConversation extends InlineMenu
                 'country' => "turkey",
                 'location' => $this->location,
                 'title' => $this->title,
-                'description' => $this->description,
+                'original' => $this->description,
                 'price' => $this->price,
                 'currency' => config('countries.turkey.currency.code'),
                 'custom_contact' => $this->customContactValue,
