@@ -8,6 +8,9 @@ return [
     // The Telegram BOT api token (Armenia)
     'token_armenia' => env('TELEGRAM_BOT_TOKEN_ARMENIA'),
     'log_channel_armenia' => env('TELEGRAM_BOT_LOG_CHANNEL_ARMENIA', 'null'),
+    'channel_token_armenia' => env('TELEGRAM_BOT_CHANNEL_TOKEN_ARMENIA'),
+    'channel_log_channel_armenia' => env('TELEGRAM_BOT_CHANNEL_LOG_CHANNEL_ARMENIA', 'null'),
+    'listing_armenia_channel_id' => env('TELEGRAM_LISTING_ARMENIA_CHANNEL_ID'),
 
     // The Telegram BOT api token (Georgia)
     'token_georgia' => env('TELEGRAM_BOT_TOKEN_GEORGIA'),
@@ -16,6 +19,9 @@ return [
     // The Telegram BOT api token (Thailand)
     'token_thailand' => env('TELEGRAM_BOT_TOKEN_THAILAND'),
     'log_channel_thailand' => env('TELEGRAM_BOT_LOG_CHANNEL_THAILAND', 'null'),
+    'channel_token_thailand' => env('TELEGRAM_BOT_CHANNEL_TOKEN_THAILAND'),
+    'channel_log_channel_thailand' => env('TELEGRAM_BOT_CHANNEL_LOG_CHANNEL_THAILAND', 'null'),
+    'listing_thailand_channel_id' => env('TELEGRAM_LISTING_THAILAND_CHANNEL_ID'),
 
     // The Telegram BOT api token (Turkey)
     'token_turkey' => env('TELEGRAM_BOT_TOKEN_TURKEY'),

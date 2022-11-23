@@ -55,10 +55,6 @@ class TelegramNotifyAnnouncementPublishedJob implements ShouldQueue
                     'disable_web_page_preview' => true,
                     'allow_sending_without_reply' => true,
                 ]);
-
-            $this->listingItem->forceFill([
-                'telegram_published_notify_sent' => true,
-            ])->save();
         } catch (Exception $e) {
             Log::error("Telegram notifies about the published announcement: " . $e->getMessage());
         } catch (Throwable $e) {

@@ -560,8 +560,8 @@
     "Connected account information": "Connected account information",
     "Avatar": "Avatar",
     "Nickname": "Nickname",
-    "Additional owner contact": "Additional owner contact",
-    "Phone or email": "Phone or email",
+    "Owner email": "Owner email",
+    "Owner phone": "Owner phone",
     "Requested from the user if he does not have a nickname": "Requested from the user if he does not have a nickname",
     "Not found": "Not found"
 }

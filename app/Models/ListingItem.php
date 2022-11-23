@@ -39,7 +39,9 @@ class ListingItem extends Model
         'visibility',
         'custom_nickname',
         'published_at',
-        'custom_contact',
+        'email',
+        'phone',
+        'original',
     ];
 
     protected $appends = ['contact'];
@@ -83,6 +85,7 @@ class ListingItem extends Model
             'updated_at',
             'deleted_at',
             'published_at',
+            'original',
         ];
     }
 
