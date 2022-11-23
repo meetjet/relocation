@@ -15,6 +15,9 @@ return [
     // The Telegram BOT api token (Georgia)
     'token_georgia' => env('TELEGRAM_BOT_TOKEN_GEORGIA'),
     'log_channel_georgia' => env('TELEGRAM_BOT_LOG_CHANNEL_GEORGIA', 'null'),
+    'channel_token_georgia' => env('TELEGRAM_BOT_CHANNEL_TOKEN_GEORGIA'),
+    'channel_log_channel_georgia' => env('TELEGRAM_BOT_CHANNEL_LOG_CHANNEL_GEORGIA', 'null'),
+    'listing_georgia_channel_id' => env('TELEGRAM_LISTING_GEORGIA_CHANNEL_ID'),
 
     // The Telegram BOT api token (Thailand)
     'token_thailand' => env('TELEGRAM_BOT_TOKEN_THAILAND'),

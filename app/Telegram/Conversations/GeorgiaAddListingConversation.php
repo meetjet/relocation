@@ -459,7 +459,7 @@ class GeorgiaAddListingConversation extends InlineMenu
                 'country' => "georgia",
                 'location' => $this->location,
                 'title' => $this->title,
-                'description' => $this->description,
+                'original' => $this->description,
                 'price' => $this->price,
                 'currency' => config('countries.georgia.currency.code'),
                 'email' => $this->customContactType === "email" ? $this->customContactValue : null,
