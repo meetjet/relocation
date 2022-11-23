@@ -57,7 +57,7 @@ return [
             'confirmation-successful' => "Спасибо, Ваше объявление успешно добавлено.",
             'confirmation-canceled' => "Вы отменили добавление объявления.",
             'reply' => "Ваше объявление размещено! Чтобы его просмотреть, перейдите по ссылке: :link",
-            'send-to-channel' => "<b>:title</b>\n\n:description\n\n<i>Цена:</i> :price\n\n<i>Локация:</i> :location\n\n<i>Контакт:</i> :contact\n\n:link",
+            'send-to-channel' => ":text\n\n&#128176; Цена: :price\n\n&#128681; Локация: :location\n\n&#128172; Контакт: :contact\n\n:link",
         ],
     ],
     'georgia' => [
@@ -100,7 +100,7 @@ return [
             'confirmation-successful' => "Спасибо, Ваше объявление успешно добавлено.",
             'confirmation-canceled' => "Вы отменили добавление объявления.",
             'reply' => "Ваше объявление размещено! Чтобы его просмотреть, перейдите по ссылке: :link",
-            'send-to-channel' => "<b>:title</b>\n\n:description\n\n<i>Цена:</i> :price\n\n<i>Локация:</i> :location\n\n<i>Контакт:</i> :contact\n\n:link",
+            'send-to-channel' => ":text\n\n&#128176; Цена: :price\n\n&#128681; Локация: :location\n\n&#128172; Контакт: :contact\n\n:link",
         ],
     ],
     'thailand' => [
@@ -143,7 +143,7 @@ return [
             'confirmation-successful' => "Спасибо, Ваше объявление успешно добавлено.",
             'confirmation-canceled' => "Вы отменили добавление объявления.",
             'reply' => "Ваше объявление размещено! Чтобы его просмотреть, перейдите по ссылке: :link",
-            'send-to-channel' => "<b>:title</b>\n\n:description\n\n<i>Цена:</i> :price\n\n<i>Локация:</i> :location\n\n<i>Контакт:</i> :contact\n\n:link",
+            'send-to-channel' => ":text\n\n&#128176; Цена: :price\n\n&#128681; Локация: :location\n\n&#128172; Контакт: :contact\n\n:link",
         ],
     ],
     'turkey' => [
@@ -186,7 +186,7 @@ return [
             'confirmation-successful' => "Спасибо, Ваше объявление успешно добавлено.",
             'confirmation-canceled' => "Вы отменили добавление объявления.",
             'reply' => "Ваше объявление размещено! Чтобы его просмотреть, перейдите по ссылке: :link",
-            'send-to-channel' => "<b>:title</b>\n\n:description\n\n<i>Цена:</i> :price\n\n<i>Локация:</i> :location\n\n<i>Контакт:</i> :contact\n\n:link",
+            'send-to-channel' => ":text\n\n&#128176; Цена: :price\n\n&#128681; Локация: :location\n\n&#128172; Контакт: :contact\n\n:link",
         ],
     ],
 ];
