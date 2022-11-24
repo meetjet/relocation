@@ -88,7 +88,7 @@ class TelegramSendAnnouncementToChannelJob implements ShouldQueue
         // TODO: remove unsupported tags from description
         $description = strip_tags($this->listingItem->description, '<b><strong><i><em><u><ins><s><strike><del><a>');
 
-        $text = $this->listingItem->title;
+        $text = "<b>{$this->listingItem->title}</b>";
 
         if ($description) {
             $text .= "\n\n{$description}";
@@ -100,7 +100,7 @@ class TelegramSendAnnouncementToChannelJob implements ShouldQueue
             'price' => $this->listingItem->price . ' ' . currencies()->getSign($this->listingItem->currency),
             'contact' => $this->getContact(),
             'link' => '<a href="' . $link . '">' . __('Link') . '</a>',
-        ], $this->listingItem->telegram_user_language_code);
+        ]);
     }
 
 
