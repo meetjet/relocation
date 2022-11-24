@@ -75,6 +75,11 @@ class EditListingItem extends EditRecord
                                     'attachFiles',
                                     'codeBlock',
                                 ])
+                                ->afterStateHydrated(function ($component, $state, $record) {
+                                    if (is_null($state) && $record->status === ListingItemStatus::CREATED) {
+                                        $component->state($record->original);
+                                    }
+                                })
                                 ->nullable(),
 
                             Components\SpatieTagsInput::make('tags')
