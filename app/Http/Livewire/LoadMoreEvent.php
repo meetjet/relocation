@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\Models\Event;
-use App\Models\ListingItem;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -36,9 +35,9 @@ class LoadMoreEvent extends Component
             ->latest()
             ->paginate($this->perPage);
 
-//        $items->each(function ($_item) {
-//            $_item->cover_picture = $_item->firstPicture()->first();
-//        });
+        $items->each(function ($_item) {
+            $_item->cover_picture = $_item->firstPicture()->first();
+        });
 
         $this->emit('EventsStore');
 

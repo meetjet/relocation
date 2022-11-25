@@ -37,8 +37,11 @@ class DatabaseSeeder extends Seeder
         Artisan::call('initialize:listing-categories');
 
         ListingItem::factory()
-            ->count(500)
+            ->count(100)
             ->create();
+
+        Artisan::call('initialize:event-categories');
+        Artisan::call('initialize:event-points');
 
         Event::factory()
             ->count(100)
