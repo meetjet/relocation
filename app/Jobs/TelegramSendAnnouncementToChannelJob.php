@@ -65,6 +65,7 @@ class TelegramSendAnnouncementToChannelJob implements ShouldQueue
                     'allow_sending_without_reply' => true,
                 ]);
             }
+            Log::debug("Try send announcement to channel with chatId = " . $chatId);
         } catch (Exception $e) {
             Log::error("Telegram send announcement to channel: " . $e->getMessage());
         } catch (Throwable $e) {
