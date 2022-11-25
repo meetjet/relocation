@@ -15,6 +15,7 @@
     "Add": "Add",
     "Added.": "Added.",
     "Address": "Address",
+    "Address specified": "Address specified",
     "Administrator users can perform any action.": "Administrator users can perform any action.",
     "Administrator": "Administrator",
     "All of the people that are part of this team.": "All of the people that are part of this team.",
@@ -485,6 +486,7 @@
     "Filename": "Filename",
     "Events": "Events",
     "Event": "Event",
+    "Total events": "Total events",
     "Purchase of the tariff plan «:plan_name»": "Purchase of the tariff plan «:plan_name»",
     "The request to change the tariff plan was completed successfully": "The request to change the tariff plan was completed successfully",
     "The project is closed": "The project is closed",
@@ -563,5 +565,14 @@
     "Owner email": "Owner email",
     "Owner phone": "Owner phone",
     "Requested from the user if he does not have a nickname": "Requested from the user if he does not have a nickname",
-    "Not found": "Not found"
+    "Not found": "Not found",
+    "Payment type": "Payment type",
+    "Point": "Point",
+    "Points": "Points",
+    "Start/finish date": "Start/finish date",
+    "Start date": "Start date",
+    "Start time": "Start time",
+    "Finish date": "Finish date",
+    "Finish time": "Finish time",
+    "Event owner": "Event owner"
 }
