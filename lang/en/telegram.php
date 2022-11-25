@@ -21,7 +21,7 @@ return [
         'start' => [
             'description' => "Restart bot",
             'welcome' => "Relocation Digital Bot Armenia welcomes you.",
-            'manual' => "To add an announcement, type the \:command command or click on the corresponding menu button."
+            'manual' => "To add an announcement, type the \:command command or click on the corresponding menu button.\n\nTo see other people's announcements, follow the link - :link"
         ],
         'question' => [
             'description' => "Ask a question",
@@ -63,7 +63,7 @@ return [
         'start' => [
             'description' => "Restart bot",
             'welcome' => "Relocation Digital Bot Georgia welcomes you.",
-            'manual' => "To add an announcement, type the \:command command or click on the corresponding menu button."
+            'manual' => "To add an announcement, type the \:command command or click on the corresponding menu button.\n\nTo see other people's announcements, follow the link - :link"
         ],
         'question' => [
             'description' => "Ask a question",
@@ -105,7 +105,7 @@ return [
         'start' => [
             'description' => "Restart bot",
             'welcome' => "Relocation Digital Bot Thailand welcomes you.",
-            'manual' => "To add an announcement, type the \:command command or click on the corresponding menu button."
+            'manual' => "To add an announcement, type the \:command command or click on the corresponding menu button.\n\nTo see other people's announcements, follow the link - :link"
         ],
         'question' => [
             'description' => "Ask a question",
@@ -147,7 +147,7 @@ return [
         'start' => [
             'description' => "Restart bot",
             'welcome' => "Relocation Digital Bot Turkey welcomes you.",
-            'manual' => "To add an announcement, type the \:command command or click on the corresponding menu button."
+            'manual' => "To add an announcement, type the \:command command or click on the corresponding menu button.\n\nTo see other people's announcements, follow the link - :link"
         ],
         'question' => [
             'description' => "Ask a question",
