@@ -26,8 +26,10 @@ class ArmeniaStartCommand
     {
         return __('telegram.armenia.start.welcome')
             . PHP_EOL
+            . PHP_EOL
             . __('telegram.armenia.start.manual', [
                 'command' => ArmeniaAddListingConversation::getName(),
+                'link' => addSubdomainToUrl(route('listings.index'), "armenia"),
             ]);
     }
 

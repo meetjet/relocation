@@ -472,7 +472,9 @@ class TurkeyAddListingConversation extends InlineMenu
             ]);
 
             $this->clearButtons()
-                ->closeMenu(__('telegram.turkey.listing-add.confirmation-successful'));
+                ->closeMenu(__('telegram.turkey.listing-add.confirmation-successful', [
+                    'link' => addSubdomainToUrl(route('listings.index'), "turkey"),
+                ]));
         } else {
             $this->clearButtons()
                 ->closeMenu(__('telegram.turkey.listing-add.confirmation-canceled'));

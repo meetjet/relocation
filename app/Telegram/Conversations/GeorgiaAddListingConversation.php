@@ -473,7 +473,9 @@ class GeorgiaAddListingConversation extends InlineMenu
             ]);
 
             $this->clearButtons()
-                ->closeMenu(__('telegram.georgia.listing-add.confirmation-successful'));
+                ->closeMenu(__('telegram.georgia.listing-add.confirmation-successful', [
+                    'link' => addSubdomainToUrl(route('listings.index'), "georgia"),
+                ]));
         } else {
             $this->clearButtons()
                 ->closeMenu(__('telegram.georgia.listing-add.confirmation-canceled'));
