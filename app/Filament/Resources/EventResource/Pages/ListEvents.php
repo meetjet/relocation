@@ -2,14 +2,19 @@
 
 namespace App\Filament\Resources\EventResource\Pages;
 
+use App\Enums\EventPaymentType;
 use App\Enums\EventStatus;
 use App\Facades\Locations;
 use App\Facades\Countries;
 use App\Filament\Resources\EventResource;
+use App\Models\Event;
+use App\Models\EventCategory;
+use App\Models\EventPoint;
 use App\Traits\PageListHelpers;
 use Closure;
 use Exception;
 use Filament\Forms\Components;
+use Filament\Pages;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Resources\Table;
 use App\Filament\Actions;
@@ -33,7 +38,7 @@ class ListEvents extends ListRecords
     protected function getActions(): array
     {
         return [
-//            Pages\Actions\CreateAction::make(),
+            Pages\Actions\CreateAction::make(),
         ];
     }
 
@@ -54,8 +59,8 @@ class ListEvents extends ListRecords
         return [
             Columns\TextColumn::make('title')
                 ->label(__('Title'))
-                ->description(fn($record) => (!$record->deleted_at && $record->status === EventStatus::PUBLISHED && $record->visibility && $record->country && $record->slug)
-                    ? static::externalLink(addSubdomainToUrl(route('events.show', $record->slug), $record->country), Str::lower(__('Link')))
+                ->description(fn($record) => (!$record->deleted_at && $record->status === EventStatus::PUBLISHED && $record->visibility && $record->country && $record->uuid)
+                    ? static::externalLink(addSubdomainToUrl(route('events.show', $record->uuid), $record->country), Str::lower(__('Link')))
                     : null)
                 ->limit(200)
                 ->wrap()
@@ -72,19 +77,60 @@ class ListEvents extends ListRecords
                 ->label(__('Price'))
                 ->toggleable(),
 
+            Columns\TextColumn::make('payment_type')
+                ->label(__('Payment type'))
+                ->enum(EventPaymentType::asSelectArray())
+                ->toggleable(),
+
+            Columns\ViewColumn::make('start_finish_date')
+                ->view('tables.columns.event-datetime')
+                ->label(__('Start/finish date'))
+                ->getStateUsing(fn(Event $record) => $record)
+                ->toggleable(),
+
+            Columns\TextColumn::make('category.title')
+                ->label(__('Category'))
+                ->wrap()
+                ->sortable()
+                ->toggleable(),
+
             Columns\TextColumn::make('country')
                 ->label(__('Country'))
                 ->enum(Countries::asSelectArray())
                 ->toggleable(),
 
-            Columns\TextColumn::make('city')
-                ->label(__('City'))
-                ->getStateUsing(fn($record): string => Locations::getDescription($record->country, $record->city))
+            Columns\TextColumn::make('location')
+                ->label(__('Location'))
+                ->getStateUsing(fn($record): string => Locations::getDescription($record->country, $record->location))
+                ->toggleable(),
+
+            Columns\TextColumn::make('point_title')
+                ->label(__('Point'))
+                ->getStateUsing(function ($record) {
+                    if ($record->point) {
+                        return $record->point->title;
+                    }
+
+                    if ($record->address) {
+                        return $record->address;
+                    }
+
+                    return null;
+                })
+                ->description(fn($record): ?string => ($record->point_slug && $record->address) ? __('Address specified') : null)
+                ->wrap()
+                ->sortable()
                 ->toggleable(),
 
             Columns\TextColumn::make('created_at')
                 ->label(__('Created at'))
-                ->date("j M Y")
+                ->date("j M Y, H:i")
+                ->sortable()
+                ->toggleable(),
+
+            Columns\TextColumn::make('published_at')
+                ->label(__('Published at'))
+                ->date("j M Y, H:i")
                 ->sortable()
                 ->toggleable(),
 
@@ -192,19 +238,58 @@ class ListEvents extends ListRecords
                     return $indicators;
                 }),
 
-            Filters\Filter::make('country_and_city')
+            Filters\Filter::make('payment_type_and_start_date')
+                ->form([
+                    Components\Select::make('payment_type')
+                        ->label(__('Payment type'))
+                        ->placeholder("-")
+                        ->options(EventPaymentType::asSelectArray()),
+
+                    Components\DatePicker::make('start_date')
+                        ->label(__('Start date'))
+                        ->displayFormat("j M Y")
+                        ->placeholder("-"),
+                ])
+                ->columns()
+                ->query(function (Builder $query, array $data): Builder {
+                    return $query
+                        ->when(
+                            $data['payment_type'],
+                            fn(Builder $query, $paymentType): Builder => $query->where('payment_type', $paymentType),
+                        )
+                        ->when(
+                            $data['start_date'],
+                            fn(Builder $query, $startDate): Builder => $query->where('start_date', $startDate),
+                        );
+                })
+                ->indicateUsing(function (array $data): array {
+                    $indicators = [];
+
+                    if ($data['payment_type'] ?? null) {
+                        $indicators['payment_type'] = __('Payment type') . ' "' . EventPaymentType::getDescription($data['payment_type']) . '"';
+                    }
+
+                    if ($data['start_date'] ?? null) {
+                        $indicators['start_date'] = __('Start date') . ' ' . Carbon::parse($data['start_date'])
+                                ->translatedFormat("j M Y");
+                    }
+
+                    return $indicators;
+                }),
+
+            Filters\Filter::make('country_and_location')
                 ->form([
                     Components\Select::make('country')
                         ->label(__('Country'))
                         ->placeholder("-")
                         ->options(collect(Countries::asSelectArray())->put('no_country', __("No")))
                         ->reactive()
-                        ->afterStateUpdated(fn(Closure $set) => $set('city', "")),
+                        ->afterStateUpdated(fn(Closure $set) => $set('location', "")),
 
-                    Components\Select::make('city')
-                        ->label(__('City'))
+                    Components\Select::make('location')
+                        ->label(__('Location'))
                         ->placeholder("-")
-                        ->options(fn(Closure $get): Collection => collect(Locations::asSelectArray($get('country')))->put('no_city', __("No"))),
+                        ->options(fn(Closure $get): Collection => collect(Locations::asSelectArray($get('country')))->put('no_location', __("No"))),
                 ])
                 ->columns()
                 ->query(function (Builder $query, array $data): Builder {
@@ -216,10 +301,10 @@ class ListEvents extends ListRecords
                                 : $query->where('country', $country),
                         )
                         ->when(
-                            $data['city'],
-                            fn(Builder $query, $city): Builder => $city === "no_city"
-                                ? $query->whereNull('city')
-                                : $query->where('city', $city),
+                            $data['location'],
+                            fn(Builder $query, $location): Builder => $location === "no_location"
+                                ? $query->whereNull('location')
+                                : $query->where('location', $location),
                         );
                 })
                 ->indicateUsing(function (array $data): array {
@@ -232,11 +317,59 @@ class ListEvents extends ListRecords
                         $indicators['country'] = __('Country') . ' "' . $country . '"';
                     }
 
-                    if ($data['city'] ?? null) {
-                        $city = $data['city'] === "no_city"
+                    if ($data['location'] ?? null) {
+                        $location = $data['location'] === "no_location"
                             ? __("No")
-                            : Locations::getDescription($data['country'], $data['city']);
-                        $indicators['city'] = __('City') . ' "' . $city . '"';
+                            : Locations::getDescription($data['country'], $data['location']);
+                        $indicators['location'] = __('Location') . ' "' . $location . '"';
+                    }
+
+                    return $indicators;
+                }),
+
+            Filters\Filter::make('category_and_point')
+                ->form([
+                    Components\Select::make('category_id')
+                        ->label(__('Category'))
+                        ->placeholder("-")
+                        ->options(EventCategory::orderBy('title')->get()->pluck('title', 'id')->put('no_category', __("No"))),
+
+                    Components\Select::make('point_slug')
+                        ->label(__('Point'))
+                        ->placeholder("-")
+                        ->options(EventPoint::orderBy('title')->get()->pluck('title', 'slug')->put('no_point', __("No"))),
+                ])
+                ->columns()
+                ->query(function (Builder $query, array $data): Builder {
+                    return $query
+                        ->when(
+                            $data['category_id'],
+                            fn(Builder $query, $categoryId): Builder => $categoryId === "no_category"
+                                ? $query->whereNull('category_id')
+                                : $query->where('category_id', $categoryId),
+                        )
+                        ->when(
+                            $data['point_slug'],
+                            fn(Builder $query, $pointSlug): Builder => $pointSlug === "no_point"
+                                ? $query->whereNull('point_slug')
+                                : $query->where('point_slug', $pointSlug),
+                        );
+                })
+                ->indicateUsing(function (array $data): array {
+                    $indicators = [];
+
+                    if ($data['category_id'] ?? null) {
+                        $category = $data['category_id'] === "no_category"
+                            ? __("No")
+                            : EventCategory::find($data['category_id'])->title;
+                        $indicators['category'] = __('Category') . ' "' . $category . '"';
+                    }
+
+                    if ($data['point_slug'] ?? null) {
+                        $point = $data['point_slug'] === "no_point"
+                            ? __("No")
+                            : EventPoint::bySlug($data['point_slug'])->first()->title;
+                        $indicators['point'] = __('Point') . ' "' . $point . '"';
                     }
 
                     return $indicators;
@@ -247,18 +380,12 @@ class ListEvents extends ListRecords
                     Components\DatePicker::make('published_from')
                         ->label(__('Created from'))
                         ->displayFormat("j M Y")
-                        ->maxDate(Carbon::today())
-                        ->placeholder(fn($state): string => Carbon::parse(now())
-                            ->setTimezone(config('app.timezone'))
-                            ->translatedFormat("j M Y")),
+                        ->placeholder("-"),
 
                     Components\DatePicker::make('published_until')
                         ->label(__('Created until'))
                         ->displayFormat("j M Y")
-                        ->maxDate(Carbon::today())
-                        ->placeholder(fn($state): string => Carbon::parse(now())
-                            ->setTimezone(config('app.timezone'))
-                            ->translatedFormat("j M Y")),
+                        ->placeholder("-"),
                 ])
                 ->columns()
                 ->query(function (Builder $query, array $data): Builder {
@@ -277,13 +404,11 @@ class ListEvents extends ListRecords
 
                     if ($data['published_from'] ?? null) {
                         $indicators['published_from'] = __('Created from') . ' ' . Carbon::parse($data['published_from'])
-                                ->setTimezone(config('app.timezone'))
                                 ->translatedFormat("j M Y");
                     }
 
                     if ($data['published_until'] ?? null) {
                         $indicators['published_until'] = __('Created until') . ' ' . Carbon::parse($data['published_until'])
-                                ->setTimezone(config('app.timezone'))
                                 ->translatedFormat("j M Y");
                     }
 
