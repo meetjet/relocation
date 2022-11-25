@@ -15,6 +15,8 @@ class EventResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-calendar';
 
+    protected static ?string $slug = 'events';
+
     protected static ?int $navigationSort = 0;
 
     /**
@@ -56,7 +58,7 @@ class EventResource extends Resource
     {
         return [
             'index' => Pages\ListEvents::route('/'),
-//            'create' => Pages\CreateEvent::route('/create'),
+            'create' => Pages\CreateEvent::route('/create'),
             'edit' => Pages\EditEvent::route('/{record}/edit'),
         ];
     }

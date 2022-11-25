@@ -3,12 +3,16 @@
 namespace App\Models;
 
 use App\Enums\EventStatus;
+use App\Observers\EventObserver;
 use App\Scopes\CountryScope;
+use App\Scopes\HasUserScope;
 use App\Traits\HasUUID;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
@@ -24,20 +28,53 @@ class Event extends Model
     use HasTags;
     use HasSlug;
 
-    protected $fillable = ['slug', 'user_id', 'country', 'city', 'title', 'description', 'status', 'visibility'];
+    protected $fillable = [
+        'slug',
+        'user_id',
+        'country',
+        'location',
+        'title',
+        'description',
+        'status',
+        'visibility',
+        'custom_nickname',
+        'email',
+        'phone',
+        'price',
+        'currency',
+        'payment_type',
+        'point_slug',
+        'address',
+        'category_id',
+        'published_at',
+        'start_date',
+        'start_time',
+        'finish_date',
+        'finish_time',
+    ];
 
-    protected $appends = ['formatted_price'];
+    protected $appends = ['formatted_price', 'contact'];
 
-//    public static function boot(): void
-//    {
-//        parent::boot();
-//
-//        self::observe(EventObserver::class);
-//    }
+    protected $casts = [
+        'price' => 'integer',
+        'published_at' => 'datetime',
+        'start_date' => 'datetime',
+        'start_time' => 'datetime',
+        'finish_date' => 'datetime',
+        'finish_time' => 'datetime',
+    ];
+
+    public static function boot(): void
+    {
+        parent::boot();
+
+        self::observe(EventObserver::class);
+    }
 
     protected static function booted(): void
     {
         static::addGlobalScope(new CountryScope());
+        static::addGlobalScope(new HasUserScope());
     }
 
     /**
@@ -51,7 +88,7 @@ class Event extends Model
             'slug',
             'user_id',
             'country',
-            'city',
+            'location',
             'title',
             'description',
             'status',
@@ -59,6 +96,17 @@ class Event extends Model
             'created_at',
             'updated_at',
             'deleted_at',
+            'published_at',
+            'price',
+            'currency',
+            'payment_type',
+            'point_slug',
+            'address',
+            'category_id',
+            'start_date',
+            'start_time',
+            'finish_date',
+            'finish_time',
         ];
     }
 
@@ -88,11 +136,43 @@ class Event extends Model
     }
 
     /**
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(EventCategory::class, 'category_id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function point(): BelongsTo
+    {
+        return $this->belongsTo(EventPoint::class, 'point_slug', 'slug');
+    }
+
+    /**
      * @return MorphMany
      */
     public function pictures(): MorphMany
     {
         return $this->morphMany(Picture::class, 'model');
+    }
+
+    /**
+     * @return MorphOne
+     */
+    public function firstPicture(): MorphOne
+    {
+        return $this->morphOne(Picture::class, 'model')->oldestOfMany();
     }
 
     /**
@@ -105,11 +185,24 @@ class Event extends Model
     }
 
     /**
-     * TODO: make price formatting based on currency
-     * @return string
+     * @return string|null
      */
-    public function getFormattedPriceAttribute(): string
+    public function getFormattedPriceAttribute(): ?string
     {
-        return (string)$this->price;
+        return $this->price
+            ? $this->price . ' ' . currencies()->getSign($this->currency)
+            : null;
+    }
+
+    /**
+     * @return ConnectedAccount|null
+     */
+    public function getContactAttribute(): ?ConnectedAccount
+    {
+        if ($this->user) {
+            return $this->user->contact;
+        }
+
+        return null;
     }
 }

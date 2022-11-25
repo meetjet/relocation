@@ -1,6 +1,6 @@
 <div id="events" data-has-more="{{ $total !== count($items) ? 'true' : 'false' }}" data-loading="false">
     <div class="mb-6">
-        <span class="text-2xl font-bold">{{ __('Total announcements') }}</span>
+        <span class="text-2xl font-bold">{{ __('Total events') }}</span>
         <span class="text-sm font-bold text-[#a1a5b7]">({{ $total }})</span>
     </div>
 
@@ -38,7 +38,7 @@
                         </a>
                     </div>
                     <div class="space-y-2">
-                        <div class="text-[20px] leading-none font-bold">{{ $item->price }} ֏</div>
+                        <div class="text-[20px] leading-none font-bold">{{ $item->price }} {{ currencies()->getSign($item->currency) }}</div>
                         <a
                             href="{{ route('events.show', $item->uuid) }}"
                             class="flex justify-center bg-blue-500 hover:bg-blue-600 transition-colors duration-300 text-white text-sm font-bold leading-none rounded p-3"
