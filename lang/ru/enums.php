@@ -1,5 +1,8 @@
 <?php
 
+use App\Enums\EventCategoryStatus;
+use App\Enums\EventPaymentType;
+use App\Enums\EventPointStatus;
 use App\Enums\EventStatus;
 use App\Enums\FaqStatus;
 use App\Enums\ListingCategoryStatus;
@@ -37,5 +40,18 @@ return [
     TelegramBotImageMimeType::class => [
         TelegramBotImageMimeType::JPEG => 'JPEG',
         TelegramBotImageMimeType::PNG => 'PNG',
-    ]
+    ],
+    EventCategoryStatus::class => [
+        EventCategoryStatus::ACTIVE => 'Активна',
+        EventCategoryStatus::INACTIVE => 'Неактивна',
+    ],
+    EventPointStatus::class => [
+        EventPointStatus::ACTIVE => 'Активно',
+        EventPointStatus::INACTIVE => 'Неактивно',
+    ],
+    EventPaymentType::class => [
+        EventPaymentType::FREE => 'Бесплатно',
+        EventPaymentType::PAID => 'Платно',
+        EventPaymentType::DONATION => 'Донат',
+    ],
 ];
