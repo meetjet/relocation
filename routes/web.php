@@ -40,7 +40,12 @@ Route::get('/listings/{category}/{uuid}', [ListingItemByCategoryController::clas
 Route::get('/listings/tags/{tag}', [ListingItemByTagController::class, 'index'])->name('listings-by-tag.index');
 
 // Events
-Route::resource('/events', EventController::class);
+Route::get('/events', [EventController::class, 'index'])->name('events.index');
+Route::get('/events/{uuid}', [EventController::class, 'show'])->name('events.show');
+// TODO: not implemented yet
+//Route::get('/events/{category}', [EventByCategoryController::class, 'index'])->name('events.category');
+//Route::get('/events/{category}/{uuid}', [EventByCategoryController::class, 'show'])->name('events.show');
+//Route::get('/events/tags/{tag}', [EventByTagController::class, 'index'])->name('events-by-tag.index');
 
 Route::middleware([
     'auth:sanctum',
