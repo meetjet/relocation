@@ -473,7 +473,9 @@ class ArmeniaAddListingConversation extends InlineMenu
             ]);
 
             $this->clearButtons()
-                ->closeMenu(__('telegram.armenia.listing-add.confirmation-successful'));
+                ->closeMenu(__('telegram.armenia.listing-add.confirmation-successful', [
+                    'link' => addSubdomainToUrl(route('listings.index'), "armenia"),
+                ]));
         } else {
             $this->clearButtons()
                 ->closeMenu(__('telegram.armenia.listing-add.confirmation-canceled'));
