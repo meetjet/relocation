@@ -15,11 +15,11 @@ use SergiX44\Nutgram\Telegram\Attributes\ParseMode;
 use Throwable;
 
 /**
- * Telegram notifies about the published announcement.
+ * Telegram notifies about the rejected announcement.
  *
  * @package App\Jobs
  */
-class TelegramNotifyAnnouncementPublishedJob implements ShouldQueue
+class TelegramNotifyAnnouncementRejectedJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -55,7 +55,7 @@ class TelegramNotifyAnnouncementPublishedJob implements ShouldQueue
                     'allow_sending_without_reply' => true,
                 ]);
         } catch (Exception $e) {
-            Log::error("Telegram notifies about the published announcement: " . $e->getMessage());
+            Log::error("Telegram notifies about the rejected announcement: " . $e->getMessage());
         } catch (Throwable $e) {
             Log::error($e);
         }
@@ -66,16 +66,6 @@ class TelegramNotifyAnnouncementPublishedJob implements ShouldQueue
      */
     private function getMessageText(): string
     {
-        $link = addSubdomainToUrl(
-            route('listings.show', [
-                $this->listingItem->category->slug,
-                $this->listingItem->uuid,
-            ]),
-            $this->listingItem->country
-        );
-
-        return __("telegram.{$this->listingItem->country}.listing-add.published", [
-            'link' => $link,
-        ]);
+        return __("telegram.{$this->listingItem->country}.listing-add.rejected");
     }
 }
