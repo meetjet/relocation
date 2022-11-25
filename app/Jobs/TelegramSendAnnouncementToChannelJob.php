@@ -46,6 +46,9 @@ class TelegramSendAnnouncementToChannelJob implements ShouldQueue
         try {
             $bot = $telegram->getChannelBotByCountry($this->listingItem->country);
             $chatId = config("nutgram.listing_{$this->listingItem->country}_channel_id");
+
+            Log::error("Try send announcement to channel with chatId = " . $chatId);
+
             $picture = $this->listingItem->firstPicture()->first();
 
             if ($picture) {
@@ -65,7 +68,6 @@ class TelegramSendAnnouncementToChannelJob implements ShouldQueue
                     'allow_sending_without_reply' => true,
                 ]);
             }
-            Log::debug("Try send announcement to channel with chatId = " . $chatId);
         } catch (Exception $e) {
             Log::error("Telegram send announcement to channel: " . $e->getMessage());
         } catch (Throwable $e) {
