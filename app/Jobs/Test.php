@@ -10,6 +10,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class Test implements ShouldQueue
 {
@@ -32,6 +33,7 @@ class Test implements ShouldQueue
      */
     public function handle()
     {
+        Storage::put(Str::random(8) . '.txt', 'test');
         Log::error('Test Job Executed');
     }
 }
