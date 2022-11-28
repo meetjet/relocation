@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthTelegramLoginController;
+use App\Http\Controllers\EventByTagController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\FaqByTagController;
 use App\Http\Controllers\FaqController;
@@ -42,10 +43,7 @@ Route::get('/listings/tags/{tag}', [ListingItemByTagController::class, 'index'])
 // Events
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
 Route::get('/events/{uuid}', [EventController::class, 'show'])->name('events.show');
-// TODO: not implemented yet
-//Route::get('/events/{category}', [EventByCategoryController::class, 'index'])->name('events.category');
-//Route::get('/events/{category}/{uuid}', [EventByCategoryController::class, 'show'])->name('events.show');
-//Route::get('/events/tags/{tag}', [EventByTagController::class, 'index'])->name('events-by-tag.index');
+Route::get('/events/tags/{tag}', [EventByTagController::class, 'index'])->name('events-by-tag.index');
 
 Route::middleware([
     'auth:sanctum',
