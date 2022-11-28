@@ -2,26 +2,26 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Event;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
-use App\Models\Faq;
 use Spatie\Tags\Tag;
 
-class LoadMoreFaqByTag extends Component
+class LoadMoreEventByTag extends Component
 {
     public string $tag;
     public int $total = -1;
-    public int $perPage = 10;
+    public int $perPage = 12;
 
     protected $listeners = [
-        'faqs-load-more' => 'faqsLoadMore'
+        'load-more-event' => 'loadMoreEvent'
     ];
 
-    public function faqsLoadMore(): void
+    public function loadMoreEvent(): void
     {
-        $this->perPage += 10;
+        $this->perPage += 12;
     }
 
     /**
@@ -33,27 +33,31 @@ class LoadMoreFaqByTag extends Component
 
         $tag = Tag::query()
             ->where("slug->{$locale}", $this->tag)
-            ->where('type', "faqs")
+            ->where('type', "events")
             ->first();
 
         abort_unless(!is_null($tag), 404);
 
         if ($this->total === -1) {
-            $this->total = Faq::active()
+            $this->total = Event::active()
                 ->withAnyTags($tag)
                 ->count();
         }
 
-        $faqs = Faq::active()
+        $items = Event::active()
             ->withAnyTags($tag)
             ->latest()
             ->paginate($this->perPage);
 
-        $this->emit('faqStore');
+        $items->each(function ($_item) {
+            $_item->cover_picture = $_item->firstPicture()->first();
+        });
 
-        return view('livewire.load-more-faq-by-tag', [
+        $this->emit('EventsStore');
+
+        return view('livewire.load-more-event-by-tag', [
+            'items' => $items,
             'total' => $this->total,
-            'faqs' => $faqs,
             'currentTag' => $this->tag,
         ]);
     }

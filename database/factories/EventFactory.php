@@ -33,6 +33,9 @@ class EventFactory extends Factory
         $price = ($paymentType !== EventPaymentType::FREE) ? $this->faker->randomNumber(3) : 0;
         $currency = config("countries.{$country}.currency.code");
 
+        $pointSlug = $this->faker->randomElement([null, $this->faker->randomElement(EventPoint::all()->pluck('slug')->toArray())]);
+        $address = $pointSlug ? null : $this->faker->text(100);
+
         $startDate = $this->faker->date();
         $startTime = $this->faker->time();
         $finishDate = $this->faker->randomElement([null, $this->faker->date()]);
@@ -46,11 +49,12 @@ class EventFactory extends Factory
             'description' => $this->faker->text(400),
             'status' => $status,
             'visibility' => $visibility,
+            'custom_nickname' => "common",
             'price' => $price,
             'currency' => $currency,
             'payment_type' => $paymentType,
-            'point_slug' => $this->faker->randomElement([null, $this->faker->randomElement(EventPoint::all()->pluck('slug')->toArray())]),
-            'address' => $this->faker->randomElement([null, $this->faker->text(100)]),
+            'point_slug' => $pointSlug,
+            'address' => $address,
             'category_id' => $this->faker->randomElement(EventCategory::all()->pluck('id')->toArray()),
             'published_at' => $status === EventStatus::PUBLISHED ? now() : null,
             'start_date' => $startDate,
@@ -71,8 +75,9 @@ class EventFactory extends Factory
 
         $events->each(function (Event $_event) {
             if ($_event->status === EventStatus::PUBLISHED) {
-                $tags = $this->faker->words($this->faker->randomDigit());
-                $_event->attachTags($tags, "events");
+                $tags = collect($this->faker->words($this->faker->randomDigit()));
+                $tags->push("common");
+                $_event->attachTags($tags->toArray(), "events");
             }
         });
 
