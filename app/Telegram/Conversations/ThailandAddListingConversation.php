@@ -473,7 +473,9 @@ class ThailandAddListingConversation extends InlineMenu
             ]);
 
             $this->clearButtons()
-                ->closeMenu(__('telegram.thailand.listing-add.confirmation-successful'));
+                ->closeMenu(__('telegram.thailand.listing-add.confirmation-successful', [
+                    'link' => addSubdomainToUrl(route('listings.index'), "thailand"),
+                ]));
         } else {
             $this->clearButtons()
                 ->closeMenu(__('telegram.thailand.listing-add.confirmation-canceled'));

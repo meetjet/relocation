@@ -26,8 +26,10 @@ class GeorgiaStartCommand
     {
         return __('telegram.georgia.start.welcome')
             . PHP_EOL
+            . PHP_EOL
             . __('telegram.georgia.start.manual', [
                 'command' => GeorgiaAddListingConversation::getName(),
+                'link' => addSubdomainToUrl(route('listings.index'), "georgia"),
             ]);
     }
 

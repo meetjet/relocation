@@ -190,7 +190,7 @@ class CreateEvent extends CreateRecord
                                     fn(Builder $query): Builder => $query->orderBy('id')
                                 )
                                 ->placeholder("-")
-                                ->required(),
+                                ->nullable(),
 
                             Components\Select::make('country')
                                 ->label(__('Country'))

@@ -21,7 +21,7 @@ return [
         'start' => [
             'description' => "Restart bot",
             'welcome' => "Relocation Digital Bot Armenia welcomes you.",
-            'manual' => "To add an announcement, type the \:command command or click on the corresponding menu button."
+            'manual' => "To add an announcement, type the \:command command or click on the corresponding menu button.\n\nTo see other people's announcements, follow the link - :link"
         ],
         'question' => [
             'description' => "Ask a question",
@@ -53,9 +53,10 @@ return [
             'ask-contact-error-value' => "Error, contact must be <b>a phone number or email</b>.",
             'announcement-preview' => "<b>Your announcement</b>\n\n<i>Location:</i> :location\n\n<i>Category:</i> :category\n\n<i>Title:</i> :title\n\n<i>Text:</i> :description\n\n<i>Price (Armenian dram):</i> :price\n\n<i>Added images:</i> :images\n\n<i>Contact:</i> :contact",
             'ask-confirmation' => "Add this announcement?",
-            'confirmation-successful' => "Thank you, your announcement has been successfully added.",
+            'confirmation-successful' => "Thank you, your announcement has been successfully added. You will be notified as soon as it is published. To see other people's announcements, follow the link - :link",
             'confirmation-canceled' => "You canceled adding an announcement.",
-            'reply' => "Your announcement has been posted! To view it, follow the link: :link",
+            'published' => "Your announcement has been posted! To view it, follow the link: :link",
+            'rejected' => "Your announcement has been rejected.",
             'send-to-channel' => ":text\n\n&#128176; Price: :price\n\n&#128681; Location: :location\n\n&#128172; Contact: :contact\n\n:link",
         ],
     ],
@@ -63,7 +64,7 @@ return [
         'start' => [
             'description' => "Restart bot",
             'welcome' => "Relocation Digital Bot Georgia welcomes you.",
-            'manual' => "To add an announcement, type the \:command command or click on the corresponding menu button."
+            'manual' => "To add an announcement, type the \:command command or click on the corresponding menu button.\n\nTo see other people's announcements, follow the link - :link"
         ],
         'question' => [
             'description' => "Ask a question",
@@ -95,9 +96,10 @@ return [
             'ask-contact-error-value' => "Error, contact must be <b>a phone number or email</b>.",
             'announcement-preview' => "<b>Your announcement</b>\n\n<i>Location:</i> :location\n\n<i>Category:</i> :category\n\n<i>Title:</i> :title\n\n<i>Text:</i> :description\n\n<i>Price (lari):</i> :price\n\n<i>Added images:</i> :images\n\n<i>Contact:</i> :contact",
             'ask-confirmation' => "Add this announcement?",
-            'confirmation-successful' => "Thank you, your announcement has been successfully added.",
+            'confirmation-successful' => "Thank you, your announcement has been successfully added. You will be notified as soon as it is published. To see other people's announcements, follow the link - :link",
             'confirmation-canceled' => "You canceled adding an announcement.",
-            'reply' => "Your announcement has been posted! To view it, follow the link: :link",
+            'published' => "Your announcement has been posted! To view it, follow the link: :link",
+            'rejected' => "Your announcement has been rejected.",
             'send-to-channel' => ":text\n\n&#128176; Price: :price\n\n&#128681; Location: :location\n\n&#128172; Contact: :contact\n\n:link",
         ],
     ],
@@ -105,7 +107,7 @@ return [
         'start' => [
             'description' => "Restart bot",
             'welcome' => "Relocation Digital Bot Thailand welcomes you.",
-            'manual' => "To add an announcement, type the \:command command or click on the corresponding menu button."
+            'manual' => "To add an announcement, type the \:command command or click on the corresponding menu button.\n\nTo see other people's announcements, follow the link - :link"
         ],
         'question' => [
             'description' => "Ask a question",
@@ -137,9 +139,10 @@ return [
             'ask-contact-error-value' => "Error, contact must be <b>a phone number or email</b>.",
             'announcement-preview' => "<b>Your announcement</b>\n\n<i>Location:</i> :location\n\n<i>Location:</i> :location\n\n<i>Category:</i> :category\n\n<i>Title:</i> :title\n\n<i>Text:</i> :description\n\n<i>Price (baht):</i> :price\n\n<i>Added images:</i> :images\n\n<i>Contact:</i> :contact",
             'ask-confirmation' => "Add this announcement?",
-            'confirmation-successful' => "Thank you, your announcement has been successfully added.",
+            'confirmation-successful' => "Thank you, your announcement has been successfully added. You will be notified as soon as it is published. To see other people's announcements, follow the link - :link",
             'confirmation-canceled' => "You canceled adding an announcement.",
-            'reply' => "Your announcement has been posted! To view it, follow the link: :link",
+            'published' => "Your announcement has been posted! To view it, follow the link: :link",
+            'rejected' => "Your announcement has been rejected.",
             'send-to-channel' => ":text\n\n&#128176; Price: :price\n\n&#128681; Location: :location\n\n&#128172; Contact: :contact\n\n:link",
         ],
     ],
@@ -147,7 +150,7 @@ return [
         'start' => [
             'description' => "Restart bot",
             'welcome' => "Relocation Digital Bot Turkey welcomes you.",
-            'manual' => "To add an announcement, type the \:command command or click on the corresponding menu button."
+            'manual' => "To add an announcement, type the \:command command or click on the corresponding menu button.\n\nTo see other people's announcements, follow the link - :link"
         ],
         'question' => [
             'description' => "Ask a question",
@@ -179,9 +182,10 @@ return [
             'ask-contact-error-value' => "Error, contact must be <b>a phone number or email</b>.",
             'announcement-preview' => "<b>Your announcement</b>\n\n<i>Location:</i> :location\n\n<i>Category:</i> :category\n\n<i>Title:</i> :title\n\n<i>Text:</i> :description\n\n<i>Price (Turkish lira):</i> :price\n\n<i>Added images:</i> :images\n\n<i>Contact:</i> :contact",
             'ask-confirmation' => "Add this announcement?",
-            'confirmation-successful' => "Thank you, your announcement has been successfully added.",
+            'confirmation-successful' => "Thank you, your announcement has been successfully added. You will be notified as soon as it is published. To see other people's announcements, follow the link - :link",
             'confirmation-canceled' => "You canceled adding an announcement.",
-            'reply' => "Your announcement has been posted! To view it, follow the link: :link",
+            'published' => "Your announcement has been posted! To view it, follow the link: :link",
+            'rejected' => "Your announcement has been rejected.",
             'send-to-channel' => ":text\n\n&#128176; Price: :price\n\n&#128681; Location: :location\n\n&#128172; Contact: :contact\n\n:link",
         ],
     ],

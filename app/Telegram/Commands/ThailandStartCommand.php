@@ -26,8 +26,10 @@ class ThailandStartCommand
     {
         return __('telegram.thailand.start.welcome')
             . PHP_EOL
+            . PHP_EOL
             . __('telegram.thailand.start.manual', [
                 'command' => ThailandAddListingConversation::getName(),
+                'link' => addSubdomainToUrl(route('listings.index'), "thailand"),
             ]);
     }
 
