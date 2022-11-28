@@ -36,6 +36,8 @@ class LoadMoreListingsByTag extends Component
             ->where('type', "listing-items")
             ->first();
 
+        abort_unless(!is_null($tag), 404);
+
         if ($this->total === -1) {
             $this->total = ListingItem::active()
                 ->withAnyTags($tag)

@@ -36,6 +36,8 @@ class LoadMoreFaqByTag extends Component
             ->where('type', "faqs")
             ->first();
 
+        abort_unless(!is_null($tag), 404);
+
         if ($this->total === -1) {
             $this->total = Faq::active()
                 ->withAnyTags($tag)
