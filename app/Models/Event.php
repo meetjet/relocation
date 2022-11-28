@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\EventPaymentType;
 use App\Enums\EventStatus;
 use App\Observers\EventObserver;
 use App\Scopes\CountryScope;
@@ -53,7 +54,7 @@ class Event extends Model
         'finish_time',
     ];
 
-    protected $appends = ['formatted_price', 'contact'];
+    protected $appends = ['formatted_price', 'frontend_price', 'contact'];
 
     protected $casts = [
         'price' => 'integer',
@@ -192,6 +193,16 @@ class Event extends Model
         return $this->price
             ? $this->price . ' ' . currencies()->getSign($this->currency)
             : null;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFrontendPriceAttribute(): ?string
+    {
+        return $this->payment_type === EventPaymentType::FREE
+            ? EventPaymentType::getDescription($this->payment_type)
+            : $this->formatted_price;
     }
 
     /**

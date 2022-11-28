@@ -38,12 +38,7 @@
                         </a>
                     </div>
                     <div class="space-y-2">
-                        @php
-                            $price = $item->payment_type === \App\Enums\EventPaymentType::FREE
-                                ? \App\Enums\EventPaymentType::getDescription($item->payment_type)
-                                : $item->price . ' ' . currencies()->getSign($item->currency);
-                        @endphp
-                        <div class="text-[20px] leading-none font-bold">{{ $price }}</div>
+                        <div class="text-[20px] leading-none font-bold">{{ $item->frontend_price }}</div>
                         <a
                             href="{{ route('events.show', $item->uuid) }}"
                             class="flex justify-center bg-blue-500 hover:bg-blue-600 transition-colors duration-300 text-white text-sm font-bold leading-none rounded p-3"
