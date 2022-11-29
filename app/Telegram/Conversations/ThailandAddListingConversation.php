@@ -81,9 +81,8 @@ class ThailandAddListingConversation extends InlineMenu
      */
     public function handleLocation(Nutgram $bot): void
     {
-        $this->clearButtons()->closeMenu();
         $this->location = $bot->callbackQuery()->data;
-        $bot->sendMessage(__('telegram.thailand.listing-add.ask-location-chosen', [
+        $this->clearButtons()->closeMenu(__('telegram.thailand.listing-add.ask-location-chosen', [
             'location' => Locations::getDescription("thailand", $this->location),
         ]));
         $this->askCategory($bot);
@@ -127,10 +126,9 @@ class ThailandAddListingConversation extends InlineMenu
      */
     public function handleCategory(Nutgram $bot): void
     {
-        $this->clearButtons()->closeMenu();
         $this->categoryId = (int)$bot->callbackQuery()->data;
         $category = ListingCategory::find($this->categoryId);
-        $bot->sendMessage(__('telegram.thailand.listing-add.ask-category-chosen', [
+        $this->clearButtons()->closeMenu(__('telegram.thailand.listing-add.ask-category-chosen', [
             'category' => $category->title,
         ]));
         $this->askTitle($bot);
@@ -333,12 +331,10 @@ class ThailandAddListingConversation extends InlineMenu
             $isPictureMore = json_decode($bot->callbackQuery()->data, false, 512, JSON_THROW_ON_ERROR);
 
             if ($isPictureMore) {
-                $this->clearButtons()
-                    ->closeMenu(__('telegram.thailand.listing-add.ask-picture'));
+                $this->clearButtons()->closeMenu(__('telegram.thailand.listing-add.ask-picture'));
                 $this->next("handlePicture");
             } else {
-                $this->clearButtons()
-                    ->closeMenu();
+                $this->clearButtons()->closeMenu();
                 $this->askContact($bot);
             }
         }
@@ -472,13 +468,11 @@ class ThailandAddListingConversation extends InlineMenu
                 'telegram_attached_images' => $this->pictures,
             ]);
 
-            $this->clearButtons()
-                ->closeMenu(__('telegram.thailand.listing-add.confirmation-successful', [
-                    'link' => addSubdomainToUrl(route('listings.index'), "thailand"),
-                ]));
+            $this->clearButtons()->closeMenu(__('telegram.thailand.listing-add.confirmation-successful', [
+                'link' => addSubdomainToUrl(route('listings.index'), "thailand"),
+            ]));
         } else {
-            $this->clearButtons()
-                ->closeMenu(__('telegram.thailand.listing-add.confirmation-canceled'));
+            $this->clearButtons()->closeMenu(__('telegram.thailand.listing-add.confirmation-canceled'));
         }
 
         $this->end();
