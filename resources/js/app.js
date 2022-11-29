@@ -21,3 +21,8 @@ window.addEventListener('scroll', function () {
     lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
 })
 
+const grid = document.querySelector('.grid');
+
+new Masonry(grid, {
+    itemSelector: '.grid-item',
+});
