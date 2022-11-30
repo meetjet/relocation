@@ -7,12 +7,15 @@
         <div class="mb-4">{!! $entity->description !!}</div>
 
         @if($entity->pictures->count())
-            <ul class="masonry-grid">
+            <ul class="sm:flex sm:flex-wrap -m-2">
                 @foreach($entity->pictures as $picture)
-                    <li class="masonry-grid-item">
+                    <li class="p-2 sm:w-1/2 md:w-1/3 lg:w-1/4">
                         <img
                             src="{{ $picture->thumbnail_square }}"
                             alt="{{ $picture->caption }}"
+                            width="400"
+                            height="400"
+                            class="w-full aspect-square object-contain"
                         />
                     </li>
                 @endforeach
