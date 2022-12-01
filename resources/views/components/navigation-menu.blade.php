@@ -26,6 +26,55 @@
                 </div>
 
                 <div class="flex items-center space-x-6">
+
+                    <div class="relative">
+                        <!-- Country switch -->
+                        <x-jet-dropdown align="right" width="48">
+                            <x-slot name="trigger">
+                            <span class="inline-flex rounded-md">
+                                <button
+                                    type="button"
+                                    class="lg:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 512 512"
+                                        width="24"
+                                        height="24"
+                                        fill="currentColor"
+                                    >
+                                        <path
+                                            d="M256 0c-141.385 0-256 114.615-256 256s114.615 256 256 256 256-114.615 256-256-114.615-256-256-256zM256 480.001c-31.479 0-61.436-6.506-88.615-18.226l116.574-131.145c2.603-2.929 4.041-6.711 4.041-10.63v-48c0-8.837-7.163-16-16-16-56.495 0-116.102-58.731-116.687-59.313-3-3.001-7.070-4.687-11.313-4.687h-64c-8.836 0-16 7.164-16 16v96c0 6.061 3.424 11.601 8.845 14.311l55.155 27.578v93.943c-58.026-40.478-96-107.716-96-183.832 0-34.357 7.745-66.903 21.569-96h58.431c4.244 0 8.313-1.686 11.314-4.686l64-64c3-3.001 4.686-7.070 4.686-11.314v-38.706c20.281-6.037 41.759-9.294 64-9.294 35.203 0 68.502 8.13 98.141 22.6-2.072 1.751-4.088 3.582-6.023 5.518-18.133 18.132-28.118 42.239-28.118 67.882s9.985 49.75 28.118 67.882c18.217 18.216 42.609 28.132 67.817 28.13 1.583 0 3.171-0.040 4.759-0.118 6.907 25.901 19.376 93.328-4.202 186.167-0.222 0.872-0.348 1.744-0.421 2.612-40.662 41.54-97.35 67.328-160.071 67.328z"
+                                        ></path>
+                                    </svg>
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="hidden lg:inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition"
+                                >
+                                    <span>{{ $activeCountry }}</span>
+                                    <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path
+                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                            fill-rule="evenodd"
+                                            clip-rule="evenodd"
+                                        />
+                                    </svg>
+                                </button>
+                            </span>
+                            </x-slot>
+                            <x-slot name="content">
+                                @foreach($countries as $_country)
+                                    <x-jet-dropdown-link href="{{ $_country['url'] }}"
+                                                         class="{{ $_country['is_active'] ? 'font-bold' : '' }}">
+                                        {{ $_country['name'] }}
+                                    </x-jet-dropdown-link>
+                                @endforeach
+                            </x-slot>
+                        </x-jet-dropdown>
+                    </div>
+
                     @if (Route::has('login'))
                         @auth
                             <div class="flex items-center">
@@ -153,54 +202,6 @@
                             </div>
                         @endauth
                     @endif
-
-                    <div class="relative">
-                        <!-- Country switch -->
-                        <x-jet-dropdown align="right" width="48">
-                            <x-slot name="trigger">
-                            <span class="inline-flex rounded-md">
-                                <button
-                                    type="button"
-                                    class="lg:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 512 512"
-                                        width="24"
-                                        height="24"
-                                        fill="currentColor"
-                                    >
-                                        <path
-                                            d="M256 0c-141.385 0-256 114.615-256 256s114.615 256 256 256 256-114.615 256-256-114.615-256-256-256zM256 480.001c-31.479 0-61.436-6.506-88.615-18.226l116.574-131.145c2.603-2.929 4.041-6.711 4.041-10.63v-48c0-8.837-7.163-16-16-16-56.495 0-116.102-58.731-116.687-59.313-3-3.001-7.070-4.687-11.313-4.687h-64c-8.836 0-16 7.164-16 16v96c0 6.061 3.424 11.601 8.845 14.311l55.155 27.578v93.943c-58.026-40.478-96-107.716-96-183.832 0-34.357 7.745-66.903 21.569-96h58.431c4.244 0 8.313-1.686 11.314-4.686l64-64c3-3.001 4.686-7.070 4.686-11.314v-38.706c20.281-6.037 41.759-9.294 64-9.294 35.203 0 68.502 8.13 98.141 22.6-2.072 1.751-4.088 3.582-6.023 5.518-18.133 18.132-28.118 42.239-28.118 67.882s9.985 49.75 28.118 67.882c18.217 18.216 42.609 28.132 67.817 28.13 1.583 0 3.171-0.040 4.759-0.118 6.907 25.901 19.376 93.328-4.202 186.167-0.222 0.872-0.348 1.744-0.421 2.612-40.662 41.54-97.35 67.328-160.071 67.328z"
-                                        ></path>
-                                    </svg>
-                                </button>
-
-                                <button
-                                    type="button"
-                                    class="hidden lg:inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition"
-                                >
-                                    <span>{{ $activeCountry }}</span>
-                                    <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                        <path
-                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                            fill-rule="evenodd"
-                                            clip-rule="evenodd"
-                                        />
-                                    </svg>
-                                </button>
-                            </span>
-                            </x-slot>
-                            <x-slot name="content">
-                                @foreach($countries as $_country)
-                                    <x-jet-dropdown-link href="{{ $_country['url'] }}"
-                                                         class="{{ $_country['is_active'] ? 'font-bold' : '' }}">
-                                        {{ $_country['name'] }}
-                                    </x-jet-dropdown-link>
-                                @endforeach
-                            </x-slot>
-                        </x-jet-dropdown>
-                    </div>
 
                     <!-- Hamburger -->
                     <div class="-mr-2 flex items-center lg:hidden">
