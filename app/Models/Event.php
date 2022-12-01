@@ -15,8 +15,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\Sluggable\HasSlug;
-use Spatie\Sluggable\SlugOptions;
 use Spatie\Tags\HasTags;
 use Stancl\VirtualColumn\VirtualColumn;
 
@@ -27,10 +25,8 @@ class Event extends Model
     use VirtualColumn;
     use HasUUID;
     use HasTags;
-    use HasSlug;
 
     protected $fillable = [
-        'slug',
         'user_id',
         'country',
         'location',
@@ -92,7 +88,6 @@ class Event extends Model
         return [
             'id',
             'uuid',
-            'slug',
             'user_id',
             'country',
             'location',
@@ -115,31 +110,6 @@ class Event extends Model
             'finish_date',
             'finish_time',
         ];
-    }
-
-    /**
-     * @return SlugOptions
-     */
-    public function getSlugOptions(): SlugOptions
-    {
-        $slugOptions = SlugOptions::create()
-            ->generateSlugsFrom('title')
-            ->saveSlugsTo('slug')
-            ->skipGenerateWhen(fn() => is_null($this->title));
-
-        if (!is_null($this->slug)) {
-            $slugOptions->doNotGenerateSlugsOnUpdate();
-        }
-
-        return $slugOptions;
-    }
-
-    /**
-     * @return string
-     */
-    public function getRouteKeyName(): string
-    {
-        return 'slug';
     }
 
     /**
