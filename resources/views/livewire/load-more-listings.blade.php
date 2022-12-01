@@ -6,7 +6,10 @@
 
     <ul id="listings" class="flex flex-wrap -m-2">
         @foreach($items as $item)
-            <li id="listings-component" class="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2">
+            <li
+                id="listings-component"
+                class="w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-2"
+            >
                 <div
                     tabindex="1"
                     class="h-full flex flex-col justify-between border rounded p-3 space-y-2 hover:shadow-[3px_3px_8px_rgb(161,161,161,0.3)] focus-within:shadow-[3px_3px_8px_rgb(161,161,161,0.3)] transition-all duration-300 outline-none"
@@ -52,7 +55,7 @@
     </ul>
 
     @if($total !== count($items))
-        <div wire:loading class="h-10 w-full mb-4 flex justify-center items-center bg-gray-200 font-bold">
+        <div wire:loading:flex class="h-10 w-full my-4 flex justify-center items-center bg-gray-200 font-bold">
             {{ __('Loading...') }}
         </div>
     @endif

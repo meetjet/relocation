@@ -62,38 +62,3 @@
     display: inline-block;
     vertical-align: top;
 }
-
-.masonry-grid {
-    display: flex;
-    z-index: -1;
-}
-
-.masonry-grid li {
-    width: 100%
-}
-
-.masonry-grid li img {
-    outline: none;
-    border: none;
-    display: block;
-    width: 100%;
-    height: auto;
-}
-
-@media screen and (min-width: 560px) {
-    .masonry-grid li {
-        width: calc(100% / 2);
-    }
-}
-
-@media screen and (min-width: 992px) {
-    .masonry-grid li {
-        width: calc(100% / 3);
-    }
-}
-
-@media screen and (min-width: 1542px) {
-    .masonry-grid li {
-        width: calc(100% / 4);
-    }
-}
