@@ -31,11 +31,24 @@ class LoadMoreEvent extends Component
             $this->total = Event::active()->count();
         }
 
+//        $pictures  = [
+//            'https://picsum.photos/200/300',
+//            'https://picsum.photos/300/300',
+//            'https://picsum.photos/300/200',
+//            'https://picsum.photos/500/300',
+//            'https://picsum.photos/600/300'
+//
+//        ];
+
         $items = Event::active()
             ->latest()
             ->paginate($this->perPage);
 
         $items->each(function ($_item) {
+//            $_item->cover_picture = (object)[
+//                'thumbnail_square' => !empty($pictures[$i]) ? $pictures[$i] : 'https://picsum.photos/200/300',
+//                'caption' => ''
+//            ];
             $_item->cover_picture = $_item->firstPicture()->first();
         });
 

@@ -13,9 +13,9 @@
                         <img
                             src="{{ $picture->thumbnail_square }}"
                             alt="{{ $picture->caption }}"
-                            class="w-full aspect-square object-contain"
                             width="400"
                             height="400"
+                            class="w-full aspect-square object-contain"
                         />
                     </li>
                 @endforeach
