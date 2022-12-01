@@ -20,9 +20,7 @@ class EventCategoryFactory extends Factory
         return [
             'title' => $this->faker->words(asText: true),
             'description' => $this->faker->text(100),
-//            'status' => $this->faker->randomElement(EventCategoryStatus::getValues()),
             'status' => EventCategoryStatus::ACTIVE,
-//            'visibility' => $this->faker->boolean(),
             'visibility' => true,
         ];
     }

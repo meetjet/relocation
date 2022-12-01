@@ -21,9 +21,7 @@ class EventPointFactory extends Factory
             'title' => $this->faker->words(7, true),
             'description' => $this->faker->text(100),
             'address' => $this->faker->text(50),
-//            'status' => $this->faker->randomElement(EventPointStatus::getValues()),
             'status' => EventPointStatus::ACTIVE,
-//            'visibility' => $this->faker->boolean(),
             'visibility' => true,
         ];
     }
