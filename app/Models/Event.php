@@ -76,8 +76,8 @@ class Event extends Model
 
     protected static function booted(): void
     {
-//        static::addGlobalScope(new CountryScope());
-//        static::addGlobalScope(new HasUserScope());
+        static::addGlobalScope(new CountryScope());
+        static::addGlobalScope(new HasUserScope());
     }
 
     /**
