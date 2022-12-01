@@ -59,6 +59,9 @@ return [
             'rejected' => "Your announcement has been rejected.",
             'send-to-channel' => ":text\n\n&#128176; Price: :price\n\n&#128681; Location: :location\n\n&#128172; Contact: :contact\n\n:link",
         ],
+        'event-add' => [
+            'send-to-channel' => "&#128197; Date and time: :datetime\n\n:text\n\n&#128681; Address: :address\n\n&#128176; Price: :price\n\n&#128172; Organizer: :organizer\n\n:link",
+        ],
     ],
     'georgia' => [
         'start' => [
@@ -101,6 +104,9 @@ return [
             'published' => "Your announcement has been posted! To view it, follow the link: :link",
             'rejected' => "Your announcement has been rejected.",
             'send-to-channel' => ":text\n\n&#128176; Price: :price\n\n&#128681; Location: :location\n\n&#128172; Contact: :contact\n\n:link",
+        ],
+        'event-add' => [
+            'send-to-channel' => "&#128197; Date and time: :datetime\n\n:text\n\n&#128681; Address: :address\n\n&#128176; Price: :price\n\n&#128172; Organizer: :organizer\n\n:link",
         ],
     ],
     'thailand' => [
@@ -145,6 +151,9 @@ return [
             'rejected' => "Your announcement has been rejected.",
             'send-to-channel' => ":text\n\n&#128176; Price: :price\n\n&#128681; Location: :location\n\n&#128172; Contact: :contact\n\n:link",
         ],
+        'event-add' => [
+            'send-to-channel' => "&#128197; Date and time: :datetime\n\n:text\n\n&#128681; Address: :address\n\n&#128176; Price: :price\n\n&#128172; Organizer: :organizer\n\n:link",
+        ],
     ],
     'turkey' => [
         'start' => [
@@ -187,6 +196,9 @@ return [
             'published' => "Your announcement has been posted! To view it, follow the link: :link",
             'rejected' => "Your announcement has been rejected.",
             'send-to-channel' => ":text\n\n&#128176; Price: :price\n\n&#128681; Location: :location\n\n&#128172; Contact: :contact\n\n:link",
+        ],
+        'event-add' => [
+            'send-to-channel' => "&#128197; Date and time: :datetime\n\n:text\n\n&#128681; Address: :address\n\n&#128176; Price: :price\n\n&#128172; Organizer: :organizer\n\n:link",
         ],
     ],
 ];
