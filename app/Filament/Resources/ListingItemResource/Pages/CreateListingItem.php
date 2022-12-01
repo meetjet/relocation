@@ -72,7 +72,7 @@ class CreateListingItem extends CreateRecord
 
                                     Components\Select::make('currency')
                                         ->label(__('Currency'))
-                                        ->hint(__('Selected automatically based on country'))
+                                        ->hint(__('Automatic selection'))
                                         ->placeholder("-")
                                         ->options(Currencies::asSelectArray())
 //                                        ->default(Currencies::getCodeByCountry("armenia"))
