@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Models\ListingItem;
+use App\Models\Event;
 use App\Telegram\Telegram;
 use Exception;
 use Illuminate\Bus\Queueable;
@@ -15,24 +15,24 @@ use SergiX44\Nutgram\Telegram\Attributes\ParseMode;
 use Throwable;
 
 /**
- * Telegram send announcement to channel.
+ * Telegram send event to channel.
  *
  * @package App\Jobs
  */
-class TelegramSendAnnouncementToChannelJob implements ShouldQueue
+class TelegramSendEventToChannelJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private ListingItem $listingItem;
+    private Event $event;
 
     /**
      * Create a new job instance.
      *
-     * @param ListingItem $listingItem
+     * @param Event $event
      */
-    public function __construct(ListingItem $listingItem)
+    public function __construct(Event $event)
     {
-        $this->listingItem = $listingItem;
+        $this->event = $event;
     }
 
     /**
@@ -44,12 +44,12 @@ class TelegramSendAnnouncementToChannelJob implements ShouldQueue
     public function handle(Telegram $telegram): void
     {
         try {
-            $bot = $telegram->getChannelBotByCountry($this->listingItem->country);
-            $chatId = config("nutgram.listing_{$this->listingItem->country}_channel_id");
+            $bot = $telegram->getChannelBotByCountry($this->event->country);
+            $chatId = config("nutgram.event_{$this->event->country}_channel_id");
 
-            Log::error("Try send announcement to channel with chatId = " . $chatId);
+            Log::error("Try send event to channel with chatId = " . $chatId);
 
-            $picture = $this->listingItem->firstPicture()->first();
+            $picture = $this->event->firstPicture()->first();
 
             if ($picture) {
                 $bot->sendPhoto($picture->medium, [
@@ -69,7 +69,7 @@ class TelegramSendAnnouncementToChannelJob implements ShouldQueue
                 ]);
             }
         } catch (Exception $e) {
-            Log::error("Telegram send announcement to channel: " . $e->getMessage());
+            Log::error("Telegram send event to channel: " . $e->getMessage());
         } catch (Throwable $e) {
             Log::error($e);
         }
@@ -81,27 +81,29 @@ class TelegramSendAnnouncementToChannelJob implements ShouldQueue
     private function getMessageText(): string
     {
         $link = addSubdomainToUrl(
-            route('listings.show', [
-                $this->listingItem->category->slug,
-                $this->listingItem->uuid,
-            ]),
-            $this->listingItem->country
+            route('events.show', $this->event->uuid),
+            $this->event->country
         );
 
-        // TODO: remove unsupported tags from description
-        $description = strip_tags($this->listingItem->description, '<b><strong><i><em><u><ins><s><strike><del><a>');
+        // Replace tags and entities.
+        $description = str($this->event->description)->replace(["<br>", "</p><p>", "&nbsp;"], ["\n", "\n\n", " "]);
+        // Remove unsupported tags.
+        $description = strip_tags($description, '<b><strong><i><em><u><ins><s><strike><del><a>');
+        // Strip whitespace from the beginning and end of a string.
+        $description = str($description)->trim();
 
-        $text = "<b>{$this->listingItem->title}</b>";
+        $text = "<b>{$this->event->title}</b>";
 
         if ($description) {
             $text .= "\n\n{$description}";
         }
 
-        return __("telegram.{$this->listingItem->country}.listing-add.send-to-channel", [
-            'location' => locations()->getDescription($this->listingItem->country, $this->listingItem->location),
+        return __("telegram.{$this->event->country}.event-add.send-to-channel", [
+            'datetime' => $this->event->frontend_start_datetime,
             'text' => $text,
-            'price' => $this->listingItem->price . ' ' . currencies()->getSign($this->listingItem->currency),
-            'contact' => $this->getContact(),
+            'address' => $this->event->frontend_address,
+            'price' => str($this->event->frontend_price)->lower(),
+            'organizer' => $this->getContact(),
             'link' => '<a href="' . $link . '">' . __('Link') . '</a>',
         ]);
     }
@@ -112,20 +114,20 @@ class TelegramSendAnnouncementToChannelJob implements ShouldQueue
      */
     public function getContact(): string
     {
-        if ($this->listingItem->custom_nickname) {
-            return "@" . $this->listingItem->custom_nickname;
+        if ($this->event->custom_nickname) {
+            return "@" . $this->event->custom_nickname;
         }
 
-        if ($this->listingItem->contact && $this->listingItem->contact->nickname) {
-            return "@" . $this->listingItem->contact->nickname;
+        if ($this->event->contact && $this->event->contact->nickname) {
+            return "@" . $this->event->contact->nickname;
         }
 
-        if ($this->listingItem->email) {
-            return $this->listingItem->email;
+        if ($this->event->email) {
+            return $this->event->email;
         }
 
-        if ($this->listingItem->phone) {
-            return $this->listingItem->phone;
+        if ($this->event->phone) {
+            return $this->event->phone;
         }
 
         return str(__('Not found'))->lower();
