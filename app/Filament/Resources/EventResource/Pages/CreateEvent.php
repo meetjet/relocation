@@ -53,11 +53,6 @@ class CreateEvent extends CreateRecord
                                 ->required()
                                 ->autofocus(),
 
-                            Components\TextInput::make('slug')
-                                ->label(__('Slug'))
-                                ->hint(__('If this field is left blank, the link will be generated automatically'))
-                                ->unique(ignoreRecord: true),
-
                             Components\RichEditor::make('description')
                                 ->label(__('Description'))
                                 ->disableToolbarButtons([
