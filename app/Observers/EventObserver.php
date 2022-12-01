@@ -6,6 +6,7 @@ use App\Enums\EventStatus;
 use App\Jobs\TelegramAttachImagesJob;
 use App\Jobs\TelegramNotifyAnnouncementPublishedJob;
 use App\Jobs\TelegramSendAnnouncementToChannelJob;
+use App\Jobs\TelegramSendEventToChannelJob;
 use App\Models\Event;
 
 class EventObserver
@@ -45,36 +46,18 @@ class EventObserver
      */
     public function updated(Event $event): void
     {
-        // TODO: not implemented yet
-//        if (
-//            $event->status === EventStatus::PUBLISHED
-//            && $event->visibility === true
-//            && $event->country
-//            && $event->category
-//            && $event->uuid
-//            && $event->telegram_chat_id
-//            && is_null($event->telegram_published_notify_sent)
-//        ) {
-//            TelegramNotifyAnnouncementPublishedJob::dispatch($event);
-//
-//            $event->forceFill([
-//                'telegram_published_notify_sent' => true,
-//            ])->save();
-//        }
-//
-//        if (
-//            $event->status === EventStatus::PUBLISHED
-//            && $event->visibility === true
-//            && $event->country
-//            && $event->category
-//            && $event->uuid
-//            && is_null($event->telegram_to_channel_sent)
-//        ) {
-//            TelegramSendAnnouncementToChannelJob::dispatch($event);
-//
-//            $event->forceFill([
-//                'telegram_to_channel_sent' => true,
-//            ])->save();
-//        }
+        if (
+            $event->status === EventStatus::PUBLISHED
+            && $event->visibility === true
+            && $event->country
+            && $event->uuid
+            && is_null($event->telegram_to_channel_sent)
+        ) {
+            TelegramSendEventToChannelJob::dispatch($event);
+
+            $event->forceFill([
+                'telegram_to_channel_sent' => true,
+            ])->save();
+        }
     }
 }

@@ -54,7 +54,13 @@ class Event extends Model
         'finish_time',
     ];
 
-    protected $appends = ['formatted_price', 'frontend_price', 'contact'];
+    protected $appends = [
+        'formatted_price',
+        'frontend_price',
+        'contact',
+        'frontend_start_datetime',
+        'frontend_address',
+    ];
 
     protected $casts = [
         'price' => 'integer',
@@ -212,6 +218,40 @@ class Event extends Model
     {
         if ($this->user) {
             return $this->user->contact;
+        }
+
+        return null;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFrontendStartDatetimeAttribute(): ?string
+    {
+        if ($this->start_date) {
+            $result = $this->start_date->translatedFormat("j F Y");
+
+            if ($this->start_time) {
+                $result .= ', ' . $this->start_time->translatedFormat("H:i");
+            }
+
+            return $result;
+        }
+
+        return null;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFrontendAddressAttribute(): ?string
+    {
+        if ($this->address) {
+            return $this->address;
+        }
+
+        if ($this->point->address) {
+            return $this->point->address;
         }
 
         return null;

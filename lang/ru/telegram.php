@@ -60,6 +60,9 @@ return [
             'rejected' => "Ваше объявление было отклонено.",
             'send-to-channel' => ":text\n\n&#128176; Цена: :price\n\n&#128681; Локация: :location\n\n&#128172; Контакт: :contact\n\n:link",
         ],
+        'event-add' => [
+            'send-to-channel' => "&#128197; Дата и время: :datetime\n\n:text\n\n&#128681; Адрес: :address\n\n&#128176; Цена: :price\n\n&#128172; Организатор: :organizer\n\n:link",
+        ],
     ],
     'georgia' => [
         'start' => [
@@ -103,6 +106,9 @@ return [
             'published' => "Ваше объявление размещено! Чтобы его просмотреть, перейдите по ссылке: :link",
             'rejected' => "Ваше объявление было отклонено.",
             'send-to-channel' => ":text\n\n&#128176; Цена: :price\n\n&#128681; Локация: :location\n\n&#128172; Контакт: :contact\n\n:link",
+        ],
+        'event-add' => [
+            'send-to-channel' => "&#128197; Дата и время: :datetime\n\n:text\n\n&#128681; Адрес: :address\n\n&#128176; Цена: :price\n\n&#128172; Организатор: :organizer\n\n:link",
         ],
     ],
     'thailand' => [
@@ -148,6 +154,9 @@ return [
             'rejected' => "Ваше объявление было отклонено.",
             'send-to-channel' => ":text\n\n&#128176; Цена: :price\n\n&#128681; Локация: :location\n\n&#128172; Контакт: :contact\n\n:link",
         ],
+        'event-add' => [
+            'send-to-channel' => "&#128197; Дата и время: :datetime\n\n:text\n\n&#128681; Адрес: :address\n\n&#128176; Цена: :price\n\n&#128172; Организатор: :organizer\n\n:link",
+        ],
     ],
     'turkey' => [
         'start' => [
@@ -191,6 +200,9 @@ return [
             'published' => "Ваше объявление размещено! Чтобы его просмотреть, перейдите по ссылке: :link",
             'rejected' => "Ваше объявление было отклонено.",
             'send-to-channel' => ":text\n\n&#128176; Цена: :price\n\n&#128681; Локация: :location\n\n&#128172; Контакт: :contact\n\n:link",
+        ],
+        'event-add' => [
+            'send-to-channel' => "&#128197; Дата и время: :datetime\n\n:text\n\n&#128681; Адрес: :address\n\n&#128176; Цена: :price\n\n&#128172; Организатор: :organizer\n\n:link",
         ],
     ],
 ];

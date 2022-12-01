@@ -11,6 +11,7 @@ return [
     'channel_token_armenia' => env('TELEGRAM_BOT_CHANNEL_TOKEN_ARMENIA'),
     'channel_log_channel_armenia' => env('TELEGRAM_BOT_CHANNEL_LOG_CHANNEL_ARMENIA', 'null'),
     'listing_armenia_channel_id' => env('TELEGRAM_LISTING_ARMENIA_CHANNEL_ID'),
+    'event_armenia_channel_id' => env('TELEGRAM_EVENT_ARMENIA_CHANNEL_ID'),
 
     // The Telegram BOT api token (Georgia)
     'token_georgia' => env('TELEGRAM_BOT_TOKEN_GEORGIA'),
@@ -18,6 +19,7 @@ return [
     'channel_token_georgia' => env('TELEGRAM_BOT_CHANNEL_TOKEN_GEORGIA'),
     'channel_log_channel_georgia' => env('TELEGRAM_BOT_CHANNEL_LOG_CHANNEL_GEORGIA', 'null'),
     'listing_georgia_channel_id' => env('TELEGRAM_LISTING_GEORGIA_CHANNEL_ID'),
+    'event_georgia_channel_id' => env('TELEGRAM_EVENT_GEORGIA_CHANNEL_ID'),
 
     // The Telegram BOT api token (Thailand)
     'token_thailand' => env('TELEGRAM_BOT_TOKEN_THAILAND'),
@@ -25,6 +27,7 @@ return [
     'channel_token_thailand' => env('TELEGRAM_BOT_CHANNEL_TOKEN_THAILAND'),
     'channel_log_channel_thailand' => env('TELEGRAM_BOT_CHANNEL_LOG_CHANNEL_THAILAND', 'null'),
     'listing_thailand_channel_id' => env('TELEGRAM_LISTING_THAILAND_CHANNEL_ID'),
+    'event_thailand_channel_id' => env('TELEGRAM_EVENT_THAILAND_CHANNEL_ID'),
 
     // The Telegram BOT api token (Turkey)
     'token_turkey' => env('TELEGRAM_BOT_TOKEN_TURKEY'),
@@ -32,6 +35,7 @@ return [
     'channel_token_turkey' => env('TELEGRAM_BOT_CHANNEL_TOKEN_TURKEY'),
     'channel_log_channel_turkey' => env('TELEGRAM_BOT_CHANNEL_LOG_CHANNEL_TURKEY', 'null'),
     'listing_turkey_channel_id' => env('TELEGRAM_LISTING_TURKEY_CHANNEL_ID'),
+    'event_turkey_channel_id' => env('TELEGRAM_EVENT_TURKEY_CHANNEL_ID'),
 
     // The Telegram BOT api secret
     'secret' => env('TELEGRAM_BOT_SECRET'),
