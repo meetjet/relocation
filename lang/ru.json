@@ -348,7 +348,7 @@
     "Discount": "Скидка",
     "Discount price": "Цена со скидкой",
     "Currency": "Валюта",
-    "Selected automatically based on country": "Выбирается автоматически на основе страны",
+    "Automatic selection": "Автоматический выбор",
     "Delivery": "Доставка",
     "Status": "Статус",
     "Change status": "Изменить статус",
@@ -591,5 +591,6 @@
     "Start time": "Время начала",
     "Finish date": "Дата окончания",
     "Finish time": "Время окончания",
-    "Event owner": "Владелец события"
+    "Event owner": "Владелец события",
+    "Choose a country": "Выберите страну"
 }

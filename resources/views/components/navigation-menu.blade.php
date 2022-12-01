@@ -155,6 +155,7 @@
                     @endif
 
                     <div class="relative">
+                        <!-- Country switch -->
                         <x-jet-dropdown align="right" width="48">
                             <x-slot name="trigger">
                             <span class="inline-flex rounded-md">
@@ -191,9 +192,10 @@
                             </span>
                             </x-slot>
                             <x-slot name="content">
-                                @foreach($countries as $key => $value)
-                                    <x-jet-dropdown-link href="https://{{ $key }}.relocation.digital" class="{{ $activeCountry === $value ? 'font-bold' : '' }}">
-                                        {{ __($value) }}
+                                @foreach($countries as $_country)
+                                    <x-jet-dropdown-link href="{{ $_country['url'] }}"
+                                                         class="{{ $_country['is_active'] ? 'font-bold' : '' }}">
+                                        {{ $_country['name'] }}
                                     </x-jet-dropdown-link>
                                 @endforeach
                             </x-slot>

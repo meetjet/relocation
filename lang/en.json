@@ -340,7 +340,7 @@
     "Discount": "Discount",
     "Discount price": "Discount price",
     "Currency": "Currency",
-    "Selected automatically based on country": "Selected automatically based on country",
+    "Automatic selection": "Automatic selection",
     "Delivery": "Delivery",
     "Status": "Status",
     "Change status": "Change status",
@@ -574,5 +574,6 @@
     "Start time": "Start time",
     "Finish date": "Finish date",
     "Finish time": "Finish time",
-    "Event owner": "Event owner"
+    "Event owner": "Event owner",
+    "Choose a country": "Choose a country"
 }
