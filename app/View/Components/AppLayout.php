@@ -30,7 +30,7 @@ class AppLayout extends Component
             : null;
 
         //<editor-fold desc="Country switch">
-        $currentUrl = url()->current();
+        $homeUrl = route('welcome');
         $currentCountry = str(request()->getHost())
             ->replace(('.' . config('app.domain')), "")
             ->lower()
@@ -41,10 +41,10 @@ class AppLayout extends Component
             ? Countries::getDescription($currentCountry)
             : __('Choose a country');
 
-        $this->countries = Arr::map(Countries::asSelectArray(), static function ($_countryName, $_countrySlug) use ($currentUrl, $currentCountry, $countryValues) {
+        $this->countries = Arr::map(Countries::asSelectArray(), static function ($_countryName, $_countrySlug) use ($homeUrl, $currentCountry, $countryValues) {
             $url = in_array($currentCountry, $countryValues, true)
-                ? str($currentUrl)->replace($currentCountry, $_countrySlug)
-                : addSubdomainToUrl($currentUrl, $_countrySlug);
+                ? str($homeUrl)->replace($currentCountry, $_countrySlug)
+                : addSubdomainToUrl($homeUrl, $_countrySlug);
 
             return [
                 'name' => $_countryName,
