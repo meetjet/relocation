@@ -28,11 +28,14 @@ class LoadMoreEvent extends Component
     public function render(): Application|Factory|View
     {
         if ($this->total === -1) {
-            $this->total = Event::active()->count();
+            $this->total = Event::active()
+                ->startOfCurrentMonth()
+                ->count();
         }
 
         $items = Event::active()
-            ->latest()
+            ->startOfCurrentMonth()
+            ->orderByStartDate()
             ->paginate($this->perPage);
 
         $items->each(function ($_item) {

@@ -40,13 +40,15 @@ class LoadMoreEventByTag extends Component
 
         if ($this->total === -1) {
             $this->total = Event::active()
+                ->startOfCurrentMonth()
                 ->withAnyTags($tag)
                 ->count();
         }
 
         $items = Event::active()
+            ->startOfCurrentMonth()
             ->withAnyTags($tag)
-            ->latest()
+            ->orderByStartDate()
             ->paginate($this->perPage);
 
         $items->each(function ($_item) {

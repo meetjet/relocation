@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 use Spatie\Tags\HasTags;
 use Stancl\VirtualColumn\VirtualColumn;
 
@@ -159,6 +160,23 @@ class Event extends Model
     {
         $query->where('status', EventStatus::PUBLISHED)
             ->where('visibility', true);
+    }
+
+    /**
+     * @param Builder $query
+     */
+    public function scopeStartOfCurrentMonth(Builder $query): void
+    {
+        $query->where('start_date', '>=', Carbon::now()->startOfMonth());
+    }
+
+    /**
+     * @param Builder $query
+     */
+    public function scopeOrderByStartDate(Builder $query): void
+    {
+        $query->orderBy('start_date')
+            ->orderBy('start_time');
     }
 
     /**
