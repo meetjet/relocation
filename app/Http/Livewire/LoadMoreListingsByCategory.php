@@ -15,6 +15,7 @@ class LoadMoreListingsByCategory extends Component
     public ListingCategory $category;
     public int $total = -1;
     public int $perPage = 12;
+    public ?string $botUsername;
 
     protected $listeners = [
         'listings-load-more' => 'listingsLoadMore'
@@ -37,6 +38,11 @@ class LoadMoreListingsByCategory extends Component
                 })
                 ->count();
         }
+
+        $currentCounty = getCurrentCountry();
+        $this->botUsername = $currentCounty
+            ? config("nutgram.username_{$currentCounty}")
+            : null;
 
         $items = ListingItem::active()
             ->whereHas('category', function (Builder $query) {

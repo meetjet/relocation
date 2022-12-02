@@ -12,6 +12,7 @@ class LoadMoreListings extends Component
 {
     public int $total = -1;
     public int $perPage = 12;
+    public ?string $botUsername;
 
     protected $listeners = [
         'listings-load-more' => 'listingsLoadMore'
@@ -30,6 +31,11 @@ class LoadMoreListings extends Component
         if ($this->total === -1) {
             $this->total = ListingItem::active()->count();
         }
+
+        $currentCounty = getCurrentCountry();
+        $this->botUsername = $currentCounty
+            ? config("nutgram.username_{$currentCounty}")
+            : null;
 
         $items = ListingItem::active()
             ->latest()
