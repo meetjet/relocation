@@ -122,18 +122,6 @@ class ListEvents extends ListRecords
                 ->sortable()
                 ->toggleable(),
 
-            Columns\TextColumn::make('created_at')
-                ->label(__('Created at'))
-                ->date("j M Y, H:i")
-                ->sortable()
-                ->toggleable(),
-
-            Columns\TextColumn::make('published_at')
-                ->label(__('Published at'))
-                ->date("j M Y, H:i")
-                ->sortable()
-                ->toggleable(),
-
             Columns\BadgeColumn::make('status')
                 ->label(__('Status'))
                 ->enum(EventStatus::asSelectArray())
@@ -370,46 +358,6 @@ class ListEvents extends ListRecords
                             ? __("No")
                             : EventPoint::bySlug($data['point_slug'])->first()->title;
                         $indicators['point'] = __('Point') . ' "' . $point . '"';
-                    }
-
-                    return $indicators;
-                }),
-
-            Filters\Filter::make('published_from_to')
-                ->form([
-                    Components\DatePicker::make('published_from')
-                        ->label(__('Created from'))
-                        ->displayFormat("j M Y")
-                        ->placeholder("-"),
-
-                    Components\DatePicker::make('published_until')
-                        ->label(__('Created until'))
-                        ->displayFormat("j M Y")
-                        ->placeholder("-"),
-                ])
-                ->columns()
-                ->query(function (Builder $query, array $data): Builder {
-                    return $query
-                        ->when(
-                            $data['published_from'],
-                            fn(Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
-                        )
-                        ->when(
-                            $data['published_until'],
-                            fn(Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
-                        );
-                })
-                ->indicateUsing(function (array $data): array {
-                    $indicators = [];
-
-                    if ($data['published_from'] ?? null) {
-                        $indicators['published_from'] = __('Created from') . ' ' . Carbon::parse($data['published_from'])
-                                ->translatedFormat("j M Y");
-                    }
-
-                    if ($data['published_until'] ?? null) {
-                        $indicators['published_until'] = __('Created until') . ' ' . Carbon::parse($data['published_until'])
-                                ->translatedFormat("j M Y");
                     }
 
                     return $indicators;
