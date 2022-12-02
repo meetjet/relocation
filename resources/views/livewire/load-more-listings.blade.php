@@ -1,12 +1,12 @@
 <div id="listings-list" data-has-more="{{ $total !== count($items) ? 'true' : 'false' }}" data-loading="false">
-    <div class="flex items-center space-x-4 mb-6">
+    <div class="flex items-center justify-between mb-6">
         <div>
             <span class="text-2xl font-bold">{{ __('Total announcements') }}</span>
             <span class="text-sm font-bold text-[#a1a5b7]">({{ $total }})</span>
         </div>
         @if($botUsername)
             <div>
-                <a class="flex justify-center bg-blue-500 hover:bg-blue-600 transition-colors duration-300 text-white text-sm font-bold leading-none rounded px-3 py-2"
+                <a class="flex justify-center bg-blue-500 hover:bg-blue-600 transition-colors duration-300 text-white text-sm font-bold leading-none rounded px-4 py-3"
                    href="https://t.me/{{ $botUsername }}" target="_blank"
                    tabindex="-1">{{ __("Create announcement") }}</a>
             </div>
