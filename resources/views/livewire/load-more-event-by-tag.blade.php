@@ -32,19 +32,28 @@
                                 >
                             @endif
                         </a>
+                        <div>{{ $_item->frontend_start_datetime }}</div>
                         <a class="flex text-blue-600 font-bold"
                            href="{{ route('events.show', $_item->uuid) }}" tabindex="-1">
                             {{ $_item->title }}
                         </a>
                     </div>
                     <div class="space-y-2">
-                        <div
-                            class="text-[20px] leading-none font-bold">{{ $_item->frontend_price }}</div>
-                        <a
-                            href="{{ route('events.show', $_item->uuid) }}"
-                            class="flex justify-center bg-blue-500 hover:bg-blue-600 transition-colors duration-300 text-white text-sm font-bold leading-none rounded p-3"
-                            tabindex="-1"
-                        >{{ __('More') }}</a>
+                        <div class="text-[20px] leading-none font-bold">{{ $_item->frontend_price }}</div>
+                        @if($_item->tags->count())
+                            <div>
+                                <div class="flex space-x-1.5 mt-4">
+                                    @foreach($_item->tags->take(3) as $_tag)
+                                        @php
+                                            $bgColor = $_tag->slug === $currentTag ? "bg-indigo-200" : "bg-[#f5f8fa]";
+                                            $textColor = $_tag->slug === $currentTag ? "text-indigo-900" : "text-[#7E8299]";
+                                        @endphp
+                                        <a class="text-xs font-medium px-2.5 py-1.5 {{ $bgColor }} {{ $textColor }} rounded"
+                                           href="{{ route('events-by-tag.index', $_tag->slug) }}">{{ $_tag->name }}</a>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </li>
