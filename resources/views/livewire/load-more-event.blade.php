@@ -34,6 +34,7 @@
                                 >
                             @endif
                         </a>
+                        <div>{{ $item->frontend_start_datetime }}</div>
                         <a class="flex text-blue-600 font-bold"
                            href="{{ route('events.show', $item->uuid) }}" tabindex="-1">
                             {{ $item->title }}
@@ -41,11 +42,16 @@
                     </div>
                     <div class="space-y-2">
                         <div class="text-[20px] leading-none font-bold">{{ $item->frontend_price }}</div>
-                        <a
-                            href="{{ route('events.show', $item->uuid) }}"
-                            class="flex justify-center bg-blue-500 hover:bg-blue-600 transition-colors duration-300 text-white text-sm font-bold leading-none rounded p-3"
-                            tabindex="-1"
-                        >{{ __('More') }}</a>
+                        @if($item->tags->count())
+                            <div>
+                                <div class="flex space-x-1.5 mt-4">
+                                    @foreach($item->tags->take(3) as $_tag)
+                                        <a class="text-xs font-medium px-2.5 py-1.5 bg-[#f5f8fa] text-[#7E8299] rounded"
+                                           href="{{ route('events-by-tag.index', $_tag->slug) }}">{{ $_tag->name }}</a>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </li>
