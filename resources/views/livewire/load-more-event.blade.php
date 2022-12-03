@@ -34,14 +34,14 @@
                                 >
                             @endif
                         </a>
-                        <div>{{ $item->frontend_start_datetime }}</div>
                         <a class="flex text-blue-600 font-bold"
                            href="{{ route('events.show', $item->uuid) }}" tabindex="-1">
                             {{ $item->title }}
                         </a>
+                        <div>{{ $item->frontend_start_datetime }}</div>
                     </div>
                     <div class="space-y-2">
-                        <div class="text-[20px] leading-none font-bold">{{ $item->frontend_price }}</div>
+                        <div class="leading-none">{{ $item->frontend_price }}</div>
                         @if($item->tags->count())
                             <div>
                                 <div class="flex space-x-1.5 mt-4">
