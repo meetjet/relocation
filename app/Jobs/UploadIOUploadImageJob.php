@@ -13,6 +13,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
+use RuntimeException;
 
 class UploadIOUploadImageJob implements ShouldQueue
 {
@@ -39,7 +40,7 @@ class UploadIOUploadImageJob implements ShouldQueue
     public function handle(UploadIO $uploadIO): void
     {
         try {
-            $tmpFilepath = public_path("storage/{$this->model->tmp_image}");
+            $tmpFilepath = storage_path("app/{$this->model->tmp_image}");
             $uploadedFileData = $uploadIO->upload($tmpFilepath);
             File::delete($tmpFilepath);
             $this->model->forceFill([
@@ -47,7 +48,7 @@ class UploadIOUploadImageJob implements ShouldQueue
                 'uploadio_file_path' => $uploadedFileData['filePath'],
                 'tmp_image' => null,
             ])->save();
-        } catch (FileNotFoundException | RequestException $e) {
+        } catch (RuntimeException | FileNotFoundException | RequestException $e) {
             Log::error($e->getMessage());
         }
     }

@@ -11,6 +11,7 @@ use Illuminate\Http\Client\RequestException;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
+use RuntimeException;
 
 class UploadIODeleteImageJob implements ShouldQueue
 {
@@ -38,7 +39,7 @@ class UploadIODeleteImageJob implements ShouldQueue
     {
         try {
             $uploadIO->delete($this->filepath);
-        } catch (RequestException $e) {
+        } catch (RuntimeException | RequestException $e) {
             Log::error($e->getMessage());
         } catch (Exception $e) {
             Log::error($e);
