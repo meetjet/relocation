@@ -2,9 +2,12 @@
 
 namespace App\Observers;
 
+use App\Jobs\LocalStorageDeleteImageJob;
+use App\Jobs\LocalStorageSaveImageJob;
 use App\Jobs\UploadIODeleteImageJob;
 use App\Jobs\UploadIOUploadImageJob;
 use App\Models\Picture;
+use Illuminate\Support\Facades\Log;
 
 class PictureObserver
 {
@@ -19,7 +22,15 @@ class PictureObserver
     public function created(Picture $picture): void
     {
         if ($picture->tmp_image) {
-            UploadIOUploadImageJob::dispatch($picture);
+            if (config('filesystems.default') === "uploadio") {
+                // Upload image to cloud.
+                UploadIOUploadImageJob::dispatch($picture);
+            } elseif (config('filesystems.default') === "local") {
+                // Save image to local storage.
+                LocalStorageSaveImageJob::dispatch($picture);
+            } else {
+                Log::error("An unsupported disk was specified for the file system. Check the FILESYSTEM_DISK setting.");
+            }
         }
     }
 
@@ -33,6 +44,8 @@ class PictureObserver
     {
         if ($picture->uploadio_file_path) {
             UploadIODeleteImageJob::dispatch($picture->uploadio_file_path);
+        } elseif ($picture->local_file_path) {
+            LocalStorageDeleteImageJob::dispatch($picture->local_file_path);
         }
     }
 }

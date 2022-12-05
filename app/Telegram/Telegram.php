@@ -121,7 +121,7 @@ class Telegram
 
         $bot = new Nutgram($token, array_merge([
             'cache' => $app->get(Cache::class),
-            'logger' => $app->get(LoggerInterface::class)->channel($logChannel),
+            'logger' => $app->get(LoggerInterface::class)->channel($logChannel ?: 'null'),
         ], config('nutgram.config', [])));
 
         if ($app->runningInConsole()) {

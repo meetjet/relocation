@@ -74,7 +74,7 @@ class PicturesRelationManager extends RelationManager
                     ->height(200)
                     ->extraImgAttributes(['class' => "object-cover"])
                     ->getStateUsing(function (Picture $record): string {
-                        return $record->thumbnail_square ?: asset("storage/{$record->tmp_image}");
+                        return $record->thumbnail_square ?: asset("images/image-in-progress.jpg");
                     }),
 
                 Tables\Columns\TextColumn::make('caption')
@@ -90,7 +90,7 @@ class PicturesRelationManager extends RelationManager
             ->actions([
                 Actions\Tables\EditAction::make()
                     ->mutateRecordDataUsing(function (array $data): array {
-                        $data['medium'] = $data['medium'] ?: asset("storage/{$data['tmp_image']}");
+                        $data['medium'] = $data['medium'] ?: asset("images/image-in-progress.jpg");
 
                         return $data;
                     }),
