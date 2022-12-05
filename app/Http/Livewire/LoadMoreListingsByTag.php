@@ -14,6 +14,7 @@ class LoadMoreListingsByTag extends Component
     public string $tag;
     public int $total = -1;
     public int $perPage = 12;
+    public ?string $botUsername;
 
     protected $listeners = [
         'listings-load-more' => 'listingsLoadMore'
@@ -43,6 +44,11 @@ class LoadMoreListingsByTag extends Component
                 ->withAnyTags($tag)
                 ->count();
         }
+
+        $currentCounty = getCurrentCountry();
+        $this->botUsername = $currentCounty
+            ? config("nutgram.username_{$currentCounty}")
+            : null;
 
         $items = ListingItem::active()
             ->withAnyTags($tag)

@@ -90,7 +90,7 @@ class TelegramSendEventToChannelJob implements ShouldQueue
         // Remove unsupported tags.
         $description = strip_tags($description, '<b><strong><i><em><u><ins><s><strike><del><a>');
         // Strip whitespace from the beginning and end of a string.
-        $description = str($description)->trim();
+        $description = str($description)->trim()->value();
 
         $text = "<b>{$this->event->title}</b>";
 

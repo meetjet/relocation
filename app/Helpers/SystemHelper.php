@@ -220,3 +220,26 @@ if (!function_exists('locations')) {
         return app(LocationsService::class);
     }
 }
+
+if (!function_exists('getCurrentCountry')) {
+    /**
+     * @return string|null
+     */
+    function getCurrentCountry(): ?string
+    {
+        $request = request();
+
+        if ($request) {
+            $currentCountry = str($request->getHost())
+                ->replace(('.' . config('app.domain')), "")
+                ->lower()
+                ->value();
+
+            return in_array($currentCountry, countries()->getValues(), true)
+                ? $currentCountry
+                : null;
+        }
+
+        return null;
+    }
+}

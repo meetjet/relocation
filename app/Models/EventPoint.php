@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Route;
 use Spatie\Sluggable\HasSlug;
@@ -75,6 +77,22 @@ class EventPoint extends Model
     public function events(): HasMany
     {
         return $this->hasMany(Event::class, 'point_slug', 'slug');
+    }
+
+    /**
+     * @return MorphMany
+     */
+    public function pictures(): MorphMany
+    {
+        return $this->morphMany(Picture::class, 'model');
+    }
+
+    /**
+     * @return MorphOne
+     */
+    public function firstPicture(): MorphOne
+    {
+        return $this->morphOne(Picture::class, 'model')->oldestOfMany();
     }
 
     /**
