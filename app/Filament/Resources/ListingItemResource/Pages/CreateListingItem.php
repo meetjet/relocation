@@ -118,15 +118,13 @@ class CreateListingItem extends CreateRecord
                         ->schema([
                             Components\TextInput::make('seo.title')
                                 ->label(__('SEO title'))
+                                ->hint(__('If this field is left blank, it will be filled in automatically'))
                                 ->nullable(),
 
                             Components\Textarea::make('seo.description')
                                 ->label(__('SEO description'))
+                                ->hint(__('If this field is left blank, it will be filled in automatically'))
                                 ->rows(2)
-                                ->nullable(),
-
-                            Components\TextInput::make('seo.robots')
-                                ->label(__('SEO robots'))
                                 ->nullable(),
                         ])->collapsible(),
                 ])
