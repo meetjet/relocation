@@ -27,6 +27,7 @@
         "mad-web/laravel-initializer": "^3.4",
         "nutgram/nutgram": "^3.7",
         "opcodesio/log-viewer": "^1.6",
+        "ralphjsmit/laravel-seo": "^1.2",
         "socialiteproviders/telegram": "dev-main",
         "spatie/laravel-sluggable": "^3.4",
         "stancl/virtualcolumn": "^1.2",
