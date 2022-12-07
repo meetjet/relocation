@@ -157,7 +157,7 @@
     "Manage Role": "Manage Role",
     "Manage Team": "Manage Team",
     "No": "No",
-    "No products yet":"No products yet",
+    "No products yet": "No products yet",
     "Reset": "Reset",
     "Russian": "Russian",
     "Search": "Search",
@@ -362,7 +362,7 @@
     "This is the correct answer": "This is the correct answer",
     "Try score": "Try score",
     "Correct score": "Points for each correct answer",
-    "Correct answers":"Correct answers:",
+    "Correct answers": "Correct answers:",
     "Choose at least one option": "Choose at least one option",
     "Text": "Text",
     "Type": "Type",
@@ -580,5 +580,6 @@
     "SEO": "SEO",
     "SEO title": "Title",
     "SEO description": "Description",
-    "SEO robots": "Robots"
+    "SEO robots": "Robots",
+    "If this field is left blank, it will be filled in automatically": "If this field is left blank, it will be filled in automatically"
 }
