@@ -593,5 +593,9 @@
     "Finish time": "Время окончания",
     "Event owner": "Владелец события",
     "Choose a country": "Выберите страну",
-    "Create announcement": "Добавить объявление"
+    "Create announcement": "Добавить объявление",
+    "SEO": "SEO",
+    "SEO title": "Title",
+    "SEO description": "Description",
+    "SEO robots": "Robots"
 }

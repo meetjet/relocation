@@ -576,5 +576,9 @@
     "Finish time": "Finish time",
     "Event owner": "Event owner",
     "Choose a country": "Choose a country",
-    "Create announcement": "Create announcement"
+    "Create announcement": "Create announcement",
+    "SEO": "SEO",
+    "SEO title": "Title",
+    "SEO description": "Description",
+    "SEO robots": "Robots"
 }
