@@ -241,7 +241,8 @@ class EditListingItem extends EditRecord
      */
     protected function handleRecordUpdate(Model $record, array $data): Model
     {
-        $record->seo->update($data['seo']);
+        $seo = $record->seo;
+        $seo->updateOrCreate($seo->toArray(), $data['seo']);
 
         return parent::handleRecordUpdate($record, $data);
     }
