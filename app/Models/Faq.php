@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use RalphJSmit\Laravel\SEO\Support\HasSEO;
+use RalphJSmit\Laravel\SEO\Support\SEOData;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Tags\HasTags;
@@ -23,6 +25,7 @@ class Faq extends Model
     use HasUUID;
     use HasTags;
     use HasSlug;
+    use HasSEO;
 
     protected $fillable = ['slug', 'user_id', 'original', 'country', 'title', 'question', 'answer', 'status', 'visibility'];
 
@@ -84,6 +87,16 @@ class Faq extends Model
     public function getRouteKeyName(): string
     {
         return 'slug';
+    }
+
+    /**
+     * @return SEOData
+     */
+    public function getDynamicSEOData(): SEOData
+    {
+        return new SEOData(
+            title: $this->seo->title ?: $this->title
+        );
     }
 
     /**
