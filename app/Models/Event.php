@@ -16,6 +16,8 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
+use RalphJSmit\Laravel\SEO\Support\HasSEO;
+use RalphJSmit\Laravel\SEO\Support\SEOData;
 use Spatie\Tags\HasTags;
 use Stancl\VirtualColumn\VirtualColumn;
 
@@ -26,6 +28,7 @@ class Event extends Model
     use VirtualColumn;
     use HasUUID;
     use HasTags;
+    use HasSEO;
 
     protected $fillable = [
         'user_id',
@@ -111,6 +114,19 @@ class Event extends Model
             'finish_date',
             'finish_time',
         ];
+    }
+
+    /**
+     * @return SEOData
+     */
+    public function getDynamicSEOData(): SEOData
+    {
+        $picture = $this->firstPicture()->first();
+
+        return new SEOData(
+            title: $this->seo->title ?: $this->title,
+            image: $picture->thumbnail_square ?? null
+        );
     }
 
     /**
