@@ -88,8 +88,12 @@ class TelegramSendAnnouncementToChannelJob implements ShouldQueue
             $this->listingItem->country
         );
 
-        // TODO: remove unsupported tags from description
-        $description = strip_tags($this->listingItem->description, '<b><strong><i><em><u><ins><s><strike><del><a>');
+        // Replace tags and entities.
+        $description = str($this->listingItem->description)->replace(["<br>", "</p><p>", "&nbsp;"], ["\n", "\n\n", " "]);
+        // Remove unsupported tags.
+        $description = strip_tags($description, '<b><strong><i><em><u><ins><s><strike><del><a>');
+        // Strip whitespace from the beginning and end of a string.
+        $description = str($description)->trim()->value();
 
         $text = "<b>{$this->listingItem->title}</b>";
 
