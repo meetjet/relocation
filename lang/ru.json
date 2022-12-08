@@ -128,7 +128,7 @@
     "Players": "Плееры",
     "Player": "Плеер",
     "No players found": "Плееры не найдены",
-    "No products yet":"Товаров пока нет",
+    "No products yet": "Товаров пока нет",
     "Page": "Страница",
     "Pages": "Страницы",
     "Payment": "Оплата",
@@ -323,7 +323,7 @@
     "You may delete any of your existing tokens if they are no longer needed.": "Вы можете удалить любой из имеющихся у Вас токенов, если они больше не нужны.",
     "You may not delete your personal team.": "Вы не можете удалить свою команду.",
     "You may not leave a team that you created.": "Вы не можете покидать созданную Вами команду.",
-    "Your cart is empty.":"Ваша корзина пуста",
+    "Your cart is empty.": "Ваша корзина пуста",
     "Your email address is not verified.": "Ваш email адрес не подтвержден.",
     "Please, select on of the options": "Пожалуйста, выберите один из вариантов!",
     "End": "Конец",
@@ -379,7 +379,7 @@
     "This is the correct answer": "Это правильный ответ",
     "Try score": "Баллов за викторину",
     "Correct score": "Баллов за каждый правильный ответ",
-    "Correct answers":"Правильных ответов:",
+    "Correct answers": "Правильных ответов:",
     "Choose at least one option": "Выберите хотя бы один вариант",
     "Text": "Текст",
     "Type": "Тип",
@@ -593,5 +593,10 @@
     "Finish time": "Время окончания",
     "Event owner": "Владелец события",
     "Choose a country": "Выберите страну",
-    "Create announcement": "Добавить объявление"
+    "Create announcement": "Добавить объявление",
+    "SEO": "SEO",
+    "SEO title": "Title",
+    "SEO description": "Description",
+    "SEO robots": "Robots",
+    "If this field is left blank, it will be filled in automatically": "Если оставить это поле пустым, то оно будет заполнено автоматически"
 }

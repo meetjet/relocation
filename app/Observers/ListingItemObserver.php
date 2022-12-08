@@ -23,6 +23,13 @@ class ListingItemObserver
         if ($listingItem->telegram_bot_type && $listingItem->telegram_attached_images) {
             TelegramAttachImagesJob::dispatch($listingItem);
         }
+
+        if ($listingItem->telegram_bot_type) {
+            $listingItem->seo->update([
+                'title' => $listingItem->title,
+                'description' => $listingItem->original,
+            ]);
+        }
     }
 
     /**
