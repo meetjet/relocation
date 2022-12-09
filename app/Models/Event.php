@@ -60,6 +60,7 @@ class Event extends Model
         'contact',
         'frontend_start_datetime',
         'frontend_address',
+        'frontend_url',
     ];
 
     protected $casts = [
@@ -256,6 +257,24 @@ class Event extends Model
 
         if ($this->point->address) {
             return $this->point->address;
+        }
+
+        return null;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFrontendUrlAttribute(): ?string
+    {
+        if (
+            !$this->deleted_at
+            && $this->status === EventStatus::PUBLISHED
+            && $this->visibility
+            && $this->uuid
+            && $this->country
+        ) {
+            return addSubdomainToUrl(route('events.show', $this->uuid), $this->country);
         }
 
         return null;
