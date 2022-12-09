@@ -581,5 +581,7 @@
     "SEO title": "Title",
     "SEO description": "Description",
     "SEO robots": "Robots",
-    "If this field is left blank, it will be filled in automatically": "If this field is left blank, it will be filled in automatically"
+    "If this field is left blank, it will be filled in automatically": "If this field is left blank, it will be filled in automatically",
+    "Admin panel": "Admin panel",
+    "View on frontend": "View on frontend"
 }
