@@ -18,7 +18,10 @@ class FaqObserver
      */
     public function created(Faq $faq): void
     {
-        //
+        // Default slug for new questions from the bot. Required for the correct functioning of the admin panel.
+        if ($faq->telegram_bot_type && is_null($faq->title)) {
+            $faq->update(['slug' => "new-faq-{$faq->id}"]);
+        }
     }
 
     /**

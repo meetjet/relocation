@@ -11,6 +11,7 @@ use Closure;
 use Filament\Forms\Components;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Request;
 
 class CreateListingItem extends CreateRecord
@@ -112,6 +113,20 @@ class CreateListingItem extends CreateRecord
                                 ->helperText(__('Requested from the user if he does not have a nickname'))
                                 ->requiredWithoutAll(['contact.nickname', 'custom_nickname', 'email']),
                         ])->columns()->collapsible(),
+
+                    Components\Section::make(__('SEO'))
+                        ->schema([
+                            Components\TextInput::make('seo.title')
+                                ->label(__('SEO title'))
+                                ->hint(__('If this field is left blank, it will be filled in automatically'))
+                                ->nullable(),
+
+                            Components\Textarea::make('seo.description')
+                                ->label(__('SEO description'))
+                                ->hint(__('If this field is left blank, it will be filled in automatically'))
+                                ->rows(2)
+                                ->nullable(),
+                        ])->collapsible(),
                 ])
                 ->columnSpan(['lg' => 2]),
 
@@ -178,5 +193,26 @@ class CreateListingItem extends CreateRecord
                 ])
                 ->columnSpan(['lg' => 1]),
         ];
+    }
+
+    /**
+     * @param array $data
+     * @return Model
+     */
+    protected function handleRecordCreation(array $data): Model
+    {
+        $record = $this->getModel()::create($data);
+        $seo = $data['seo'];
+
+        // Replace and strip tags and entities.
+        $defaultDescription = str($data['description'])->replace(["<br>", "</p><p>", "&nbsp;"], [" ", " ", " "]);
+        $defaultDescription = strip_tags($defaultDescription);
+
+        $record->seo->update([
+            'title' => $seo['title'] ?: $data['title'],
+            'description' => $seo['description'] ?: str($defaultDescription)->trim()->value(),
+        ]);
+
+        return $record;
     }
 }

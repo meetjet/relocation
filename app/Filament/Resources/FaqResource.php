@@ -2,32 +2,19 @@
 
 namespace App\Filament\Resources;
 
-use App\Enums\FaqStatus;
-use App\Facades\Countries;
 use App\Filament\Resources\FaqResource\Pages;
 use App\Models\Faq;
-use App\Traits\PageListHelpers;
-use Exception;
-use Filament\Forms\Components;
-use Filament\Resources\Form;
 use Filament\Resources\Resource;
-use Filament\Resources\Table;
-use App\Filament\Actions;
-use Filament\Tables\Columns;
-use Filament\Tables\Filters;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Str;
 
 class FaqResource extends Resource
 {
-    use PageListHelpers;
-
     protected static ?string $model = Faq::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
+
+    protected static ?string $slug = 'faqs';
 
     protected static ?int $navigationSort = 0;
 
@@ -64,103 +51,14 @@ class FaqResource extends Resource
     }
 
     /**
-     * @param Form $form
-     * @return Form
-     */
-    public static function form(Form $form): Form
-    {
-        return $form
-            ->schema(static::getMainSchema())
-            ->columns(1);
-    }
-
-    /**
-     * @param Table $table
-     * @return Table
-     * @throws Exception
-     */
-    public static function table(Table $table): Table
-    {
-        return $table
-            ->columns([
-                Columns\TextColumn::make('original')
-                    ->getStateUsing(fn($record): ?string => $record->title ?: $record->original)
-                    ->label(__('Question'))
-                    ->description(fn($record) => (!$record->deleted_at && $record->status === FaqStatus::PUBLISHED && $record->visibility && $record->slug)
-                        ? static::externalLink(addSubdomainToUrl(route('faqs.show', $record->slug), $record->country), Str::lower(__('Link')))
-                        : null)
-                    ->limit(200)
-                    ->wrap()
-                    ->searchable(query: function (Builder $query, string $search): Builder {
-                        return $query
-                            ->where('original', 'ilike', "%{$search}%")
-                            ->orWhere('title', 'ilike', "%{$search}%")
-                            ->orWhere('question', 'ilike', "%{$search}%");
-                    })
-                    ->color(fn($record): ?string => is_null($record->deleted_at) ? null : "danger")
-                    ->sortable(),
-
-                Columns\TextColumn::make('country')
-                    ->label(__('Country'))
-                    ->enum(Countries::asSelectArray())
-                    ->sortable()
-                    ->toggleable(),
-
-                Columns\SpatieTagsColumn::make('tags')
-                    ->label(__('Tags'))
-                    ->type("faqs")
-                    ->toggleable(),
-
-                Columns\TextColumn::make('created_at')
-                    ->label(__('Created at'))
-                    ->date("j M Y")
-                    ->sortable()
-                    ->toggleable(),
-
-                Columns\BadgeColumn::make('status')
-                    ->label(__('Status'))
-                    ->enum(FaqStatus::asSelectArray())
-                    ->sortable()
-                    ->colors([
-                        'secondary' => FaqStatus::CREATED,
-                        'success' => FaqStatus::PUBLISHED,
-                        'danger' => FaqStatus::REJECTED,
-                    ])
-                    ->toggleable(),
-
-                Columns\IconColumn::make('visibility')
-                    ->label(__('Visibility'))
-                    ->boolean()
-                    ->sortable()
-                    ->toggleable(),
-            ])
-            ->filters(static::getFilters())
-            ->actions([
-                Actions\Tables\EditAction::make()
-                    ->label("")
-                    ->tooltip(__('Edit')),
-                Actions\Tables\DeleteAction::make()
-                    ->label("")
-                    ->tooltip(__('Delete')),
-                Actions\Tables\RestoreAction::make()
-                    ->label("")
-                    ->tooltip(__('Restore')),
-            ])
-            ->bulkActions([
-                Actions\Tables\DeleteBulkAction::make(),
-                Actions\Tables\RestoreBulkAction::make(),
-                Actions\Tables\ForceDeleteBulkAction::make(),
-            ])
-            ->defaultSort('created_at', 'desc');
-    }
-
-    /**
      * @return array
      */
     public static function getPages(): array
     {
         return [
             'index' => Pages\ListFaqs::route('/'),
+            'create' => Pages\CreateFaq::route('/create'),
+            'edit' => Pages\EditFaq::route('/{record}/edit'),
         ];
     }
 
@@ -173,201 +71,6 @@ class FaqResource extends Resource
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
-    }
-
-    /**
-     * @return array
-     */
-    public static function getMainSchema(): array
-    {
-        return [
-            Components\Group::make()
-                ->schema([
-                    Components\Placeholder::make('original')
-                        ->label(__('Original text'))
-                        ->hidden(fn($record): bool => is_null($record) || is_null($record->original))
-                        ->content(fn($record): ?string => $record->original),
-
-                    Components\Textarea::make('title')
-                        ->label(__('Title'))
-                        ->rows(2)
-//                        ->rules(['nullable', 'required_if:status,' . FaqStatus::PUBLISHED]), // TODO: does not work
-                        ->required(fn($record): bool => is_null($record)),
-
-                    Components\TextInput::make('slug')
-                        ->label(__('Slug'))
-                        ->hint(__('If this field is left blank, the link will be generated automatically'))
-                        ->unique(ignoreRecord: true),
-
-                    Components\RichEditor::make('question')
-                        ->label(__('Question'))
-                        ->disableToolbarButtons([
-                            'attachFiles',
-                            'codeBlock',
-                        ])
-                        ->required(fn($record): bool => is_null($record))
-                        ->requiredWith(fn($record): ?string => is_null($record) ? null : "title"),
-
-                    Components\RichEditor::make('answer')
-                        ->label(__('Answer'))
-                        ->disableToolbarButtons([
-                            'attachFiles',
-                            'codeBlock',
-                        ])
-                        ->required(fn($record): bool => is_null($record))
-                        ->requiredWith(fn($record): ?string => is_null($record) ? null : "question"),
-
-                    Components\SpatieTagsInput::make('tags')
-                        ->label(__('Tags'))
-                        ->type("faqs"),
-
-                    Components\Group::make()
-                        ->schema([
-                            Components\Select::make('country')
-                                ->label(__('Country'))
-                                ->options(Countries::asSelectArray())
-                                ->placeholder("-")
-                                ->nullable(),
-
-                            Components\Select::make('status')
-                                ->label(__('Status'))
-                                ->options(FaqStatus::asSelectArray())
-                                ->placeholder("-")
-                                ->default(FaqStatus::CREATED)
-                                ->required(),
-
-                            Components\Toggle::make('visibility')
-                                ->label(__('Visibility'))
-                                ->default(false),
-                        ])
-                        ->columns(3),
-
-                    Components\Hidden::make('user_id')
-                        ->default(fn(): int => Request::user()->id),
-                ]),
-        ];
-    }
-
-    public static function getFilters(): array
-    {
-        return [
-            Filters\TrashedFilter::make(),
-
-            Filters\Filter::make('country')
-                ->form([
-                    Components\Select::make('country')
-                        ->label(__('Country'))
-                        ->placeholder("-")
-                        ->options(array_merge(Countries::asSelectArray(), ["no_country" => __("No")])),
-                ])
-                ->query(function (Builder $query, array $data): Builder {
-                    return $query->when(
-                        $data['country'],
-                        fn(Builder $query, $country): Builder => $country === "no_country"
-                            ? $query->whereNull('country')
-                            : $query->where('country', $country),
-                    );
-                })
-                ->indicateUsing(function (array $data): ?string {
-                    if ($data['country']) {
-                        $country = $data['country'] === "no_country"
-                            ? __("No")
-                            : Countries::getDescription($data['country']);
-                        return __('Country') . ' "' . $country . '"';
-                    }
-
-                    return null;
-                }),
-
-            Filters\Filter::make('status')
-                ->form([
-                    Components\Select::make('status')
-                        ->label(__('Status'))
-                        ->placeholder("-")
-                        ->options(FaqStatus::asSelectArray()),
-                ])
-                ->query(function (Builder $query, array $data): Builder {
-                    return $query->when(
-                        $data['status'],
-                        fn(Builder $query, $status): Builder => $query->where('status', $status),
-                    );
-                })
-                ->indicateUsing(function (array $data): ?string {
-                    if ($data['status']) {
-                        return __('Status') . ' "' . FaqStatus::getDescription($data['status']) . '"';
-                    }
-
-                    return null;
-                }),
-
-            Filters\Filter::make('visibility')
-                ->form([
-                    Components\Select::make('visibility')
-                        ->label(__('Visibility'))
-                        ->placeholder("-")
-                        ->options([
-                            'true' => __("Yes"),
-                            'false' => __("No"),
-                        ]),
-                ])
-                ->query(function (Builder $query, array $data): Builder {
-                    return $query->when(
-                        $data['visibility'],
-                        fn(Builder $query, $visibility): Builder => $query->where('visibility', json_decode($visibility)),
-                    );
-                })
-                ->indicateUsing(function (array $data): ?string {
-                    if ($data['visibility']) {
-                        return __('Visibility') . ' "' . (json_decode($data['visibility']) ? __("Yes") : __("No")) . '"';
-                    }
-
-                    return null;
-                }),
-
-            Filters\Filter::make('created_at')
-                ->form([
-                    Components\DatePicker::make('published_from')
-                        ->label(__('Created from'))
-                        ->displayFormat("j M Y")
-                        ->maxDate(Carbon::today())
-                        ->placeholder(fn($state): string => Carbon::parse(now())
-                            ->setTimezone(config('app.timezone'))
-                            ->translatedFormat("j M Y")),
-                    Components\DatePicker::make('published_until')
-                        ->label(__('Created until'))
-                        ->displayFormat("j M Y")
-                        ->maxDate(Carbon::today())
-                        ->placeholder(fn($state): string => Carbon::parse(now())
-                            ->setTimezone(config('app.timezone'))
-                            ->translatedFormat("j M Y")),
-                ])
-                ->query(function (Builder $query, array $data): Builder {
-                    return $query
-                        ->when(
-                            $data['published_from'],
-                            fn(Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
-                        )
-                        ->when(
-                            $data['published_until'],
-                            fn(Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
-                        );
-                })
-                ->indicateUsing(function (array $data): array {
-                    $indicators = [];
-                    if ($data['published_from'] ?? null) {
-                        $indicators['published_from'] = __('Created from') . ' ' . Carbon::parse($data['published_from'])
-                                ->setTimezone(config('app.timezone'))
-                                ->translatedFormat("j M Y");
-                    }
-                    if ($data['published_until'] ?? null) {
-                        $indicators['published_until'] = __('Created until') . ' ' . Carbon::parse($data['published_until'])
-                                ->setTimezone(config('app.timezone'))
-                                ->translatedFormat("j M Y");
-                    }
-
-                    return $indicators;
-                }),
-        ];
     }
 
     /**

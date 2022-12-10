@@ -7,6 +7,7 @@ use App\Models\ListingCategory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Request;
 use Illuminate\View\Component;
@@ -15,6 +16,12 @@ class AppLayout extends Component
 {
     public ?array $countries;
     public ?string $activeCountry;
+    public ?Model $model;
+
+    public function __construct(Model $model = null)
+    {
+        $this->model = $model;
+    }
 
     /**
      * Get the view / contents that represents the component.

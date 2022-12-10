@@ -16,6 +16,7 @@ use Exception;
 use Filament\Forms\Components;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class EditEvent extends EditRecord
 {
@@ -148,7 +149,23 @@ class EditEvent extends EditRecord
                             Components\Placeholder::make('user')
                                 ->label(__('User'))
                                 ->content(fn($record) => static::link(route('filament.resources.users.edit', $record->user), $record->user->name)),
-                        ])->columns(),
+                        ])->columns()->collapsible(),
+
+                    Components\Section::make(__('SEO'))
+                        ->schema([
+                            Components\TextInput::make('seo.title')
+                                ->label(__('SEO title'))
+                                ->nullable(),
+
+                            Components\Textarea::make('seo.description')
+                                ->label(__('SEO description'))
+                                ->rows(2)
+                                ->nullable(),
+
+                            Components\TextInput::make('seo.robots')
+                                ->label(__('SEO robots'))
+                                ->nullable(),
+                        ])->collapsible(),
                 ])
                 ->columnSpan(['lg' => 2]),
 
@@ -237,6 +254,30 @@ class EditEvent extends EditRecord
                 ])
                 ->columnSpan(['lg' => 1]),
         ];
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    protected function mutateFormDataBeforeFill(array $data): array
+    {
+        $data['seo'] = $this->record->seo->toArray();
+
+        return $data;
+    }
+
+    /**
+     * @param Model $record
+     * @param array $data
+     * @return Model
+     */
+    protected function handleRecordUpdate(Model $record, array $data): Model
+    {
+        $seo = $record->seo;
+        $seo->updateOrCreate($seo->toArray(), $data['seo']);
+
+        return parent::handleRecordUpdate($record, $data);
     }
 
     /**
