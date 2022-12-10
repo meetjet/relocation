@@ -38,7 +38,7 @@
                            href="{{ route('events.show', $item->uuid) }}" tabindex="-1">
                             {{ $item->title }}
                         </a>
-                        <div>{{ $item->frontend_start_datetime }}</div>
+                        <div class="inline-flex items-center font-bold"><x-ri-calendar-event-line class="w-6 h-6 mr-2" />{{ $item->frontend_start_datetime }}</div>
                     </div>
                     <div class="space-y-2">
                         <div class="leading-none">{{ $item->frontend_price }}</div>
