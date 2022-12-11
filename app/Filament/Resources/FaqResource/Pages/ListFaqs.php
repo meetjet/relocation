@@ -53,8 +53,8 @@ class ListFaqs extends ListRecords
             Columns\TextColumn::make('original')
                 ->getStateUsing(fn($record): ?string => $record->title ?: $record->original)
                 ->label(__('Question'))
-                ->description(fn($record) => (!$record->deleted_at && $record->status === FaqStatus::PUBLISHED && $record->visibility && $record->slug)
-                    ? static::externalLink(addSubdomainToUrl(route('faqs.show', $record->slug), $record->country), Str::lower(__('Link')))
+                ->description(fn($record) => $record->frontend_url
+                    ? static::externalLink($record->frontend_url, Str::lower(__('Link')))
                     : null)
                 ->limit(200)
                 ->wrap()
