@@ -41,6 +41,15 @@ return [
     'listing_turkey_channel_id' => env('TELEGRAM_LISTING_TURKEY_CHANNEL_ID'),
     'event_turkey_channel_id' => env('TELEGRAM_EVENT_TURKEY_CHANNEL_ID'),
 
+    // The Telegram BOT api token (Lithuania)
+    'token_lithuania' => env('TELEGRAM_BOT_TOKEN_LITHUANIA'),
+    'username_lithuania' => env('TELEGRAM_BOT_USERNAME_LITHUANIA'),
+    'log_channel_lithuania' => env('TELEGRAM_BOT_LOG_CHANNEL_LITHUANIA', 'null'),
+    'channel_token_lithuania' => env('TELEGRAM_BOT_CHANNEL_TOKEN_LITHUANIA'),
+    'channel_log_channel_lithuania' => env('TELEGRAM_BOT_CHANNEL_LOG_CHANNEL_LITHUANIA', 'null'),
+    'listing_lithuania_channel_id' => env('TELEGRAM_LISTING_LITHUANIA_CHANNEL_ID'),
+    'event_lithuania_channel_id' => env('TELEGRAM_EVENT_LITHUANIA_CHANNEL_ID'),
+
     // The Telegram BOT api secret
     'secret' => env('TELEGRAM_BOT_SECRET'),
 
