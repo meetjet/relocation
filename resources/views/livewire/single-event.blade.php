@@ -23,8 +23,11 @@
             </ul>
         @endif
 
+        {{-- Date/Time --}}
+        <div class="inline-flex items-center text-xl font-bold my-4"><x-ri-calendar-event-line class="w-8 h-8 mr-2" />{{ $entity->frontend_start_datetime }}</div>
+
         {{-- Price --}}
-        <div class="text-2xl font-bold my-4">{{ $entity->frontend_price }}</div>
+        <div class="text-xl font-bold my-4">{{ $entity->frontend_price }}</div>
 
         {{-- Location --}}
         @if($entity->country)

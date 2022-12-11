@@ -223,8 +223,8 @@ class EditEvent extends EditRecord
                                     'title',
                                     fn(Builder $query): Builder => $query->orderBy('id')
                                 )
-                                ->placeholder("-")
-                                ->nullable(),
+                                ->disablePlaceholderSelection()
+                                ->required(),
 
                             Components\Select::make('country')
                                 ->label(__('Country'))

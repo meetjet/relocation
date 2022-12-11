@@ -15,7 +15,7 @@
                     class="h-full flex flex-col justify-between border rounded p-3 space-y-2 hover:shadow-[3px_3px_8px_rgb(161,161,161,0.3)] focus-within:shadow-[3px_3px_8px_rgb(161,161,161,0.3)] transition-all duration-300 outline-none"
                 >
                     <div class="space-y-2">
-                        <a href="{{ route('events.show', $item->uuid) }}" class="flex outline-none">
+                        <a href="{{ route('events.show', [$item->category->slug, $item->uuid]) }}" class="flex outline-none">
                             @if($item->cover_picture)
                                 <img
                                     src="{{ $item->cover_picture->thumbnail_square }}"
@@ -35,10 +35,10 @@
                             @endif
                         </a>
                         <a class="flex text-blue-600 font-bold"
-                           href="{{ route('events.show', $item->uuid) }}" tabindex="-1">
+                           href="{{ route('events.show', [$item->category->slug, $item->uuid]) }}" tabindex="-1">
                             {{ $item->title }}
                         </a>
-                        <div>{{ $item->frontend_start_datetime }}</div>
+                        <div class="inline-flex items-center font-bold"><x-ri-calendar-event-line class="w-6 h-6 mr-2" />{{ $item->frontend_start_datetime }}</div>
                     </div>
                     <div class="space-y-2">
                         <div class="leading-none">{{ $item->frontend_price }}</div>

@@ -50,6 +50,7 @@ class EventObserver
             $event->status === EventStatus::PUBLISHED
             && $event->visibility === true
             && $event->country
+            && $event->category
             && $event->uuid
             && is_null($event->telegram_to_channel_sent)
         ) {
