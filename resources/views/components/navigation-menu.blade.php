@@ -158,6 +158,15 @@
                                         </x-slot>
 
                                         <x-slot name="content">
+                                            <!-- Admin panel -->
+                                            @if (Auth::user() && Auth::user()->is_admin)
+                                                <x-jet-dropdown-link href="{{ route('filament.pages.dashboard') }}">
+                                                    {{ __('Admin panel') }}
+                                                </x-jet-dropdown-link>
+
+                                                <div class="border-t border-gray-100"></div>
+                                            @endif
+
                                             <!-- Account Management -->
                                             <div class="block px-4 py-2 text-xs text-gray-400">
                                                 {{ __('Manage Account') }}

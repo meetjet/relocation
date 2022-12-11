@@ -243,3 +243,23 @@ if (!function_exists('getCurrentCountry')) {
         return null;
     }
 }
+
+if (!function_exists('isUrlWithCountry')) {
+    /**
+     * @param string|null $url
+     * @return bool
+     */
+    function isUrlWithCountry(?string $url): bool
+    {
+        if ($url) {
+            $subdomain = str(parse_url($url, PHP_URL_HOST))
+                ->replace(('.' . config('app.domain')), "")
+                ->lower()
+                ->value();
+
+            return in_array($subdomain, countries()->getValues(), true);
+        }
+
+        return false;
+    }
+}

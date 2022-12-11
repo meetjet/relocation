@@ -8,6 +8,8 @@ use App\Filament\Resources\FaqResource;
 use Exception;
 use Filament\Pages\Actions;
 use Filament\Forms\Components;
+use Filament\Pages\Actions\Action;
+use Filament\Pages\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -23,7 +25,7 @@ class EditFaq extends EditRecord
     protected function getActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            DeleteAction::make(),
             Actions\ForceDeleteAction::make(),
             Actions\RestoreAction::make(),
         ];
@@ -114,6 +116,11 @@ class EditFaq extends EditRecord
                 ->schema([
                     Components\Card::make()
                         ->schema([
+                            Components\ViewField::make('frontend_url')
+                                ->view('forms.components.view-on-frontend-button')
+                                ->disableLabel()
+                                ->hidden(fn($record): bool => is_null($record->frontend_url)),
+
                             Components\Placeholder::make('created_at')
                                 ->label(__('Created at'))
                                 ->content(fn($record): string => $record->created_at->diffForHumans()),
@@ -177,6 +184,57 @@ class EditFaq extends EditRecord
      */
     protected function getRedirectUrl(): string
     {
-        return $this->previousUrl ?? self::getResource()::getUrl('index');
+        $previousUrl = $this->getPreviousUrl();
+
+        return $previousUrl ?? self::getResource()::getUrl('index');
+    }
+
+    /**
+     * @param DeleteAction $action
+     */
+    protected function configureDeleteAction(DeleteAction $action): void
+    {
+        $resource = static::getResource();
+        $previousUrl = $this->getPreviousUrl(true);
+
+        $action
+            ->authorize($resource::canDelete($this->getRecord()))
+            ->record($this->getRecord())
+            ->recordTitle($this->getRecordTitle())
+            ->successRedirectUrl($previousUrl ?? $resource::getUrl('index'));
+    }
+
+    /**
+     * @return Action
+     * @throws Exception
+     */
+    protected function getCancelFormAction(): Action
+    {
+        $previousUrl = $this->getPreviousUrl();
+
+        return Action::make('cancel')
+            ->label(__('filament::resources/pages/edit-record.form.actions.cancel.label'))
+            ->url($previousUrl ?? static::getResource()::getUrl())
+            ->color('secondary');
+    }
+
+    /**
+     * @param bool $sectionOnly
+     * @return string|null
+     */
+    private function getPreviousUrl(bool $sectionOnly = false): ?string
+    {
+        if ($this->previousUrl) {
+
+            if (isUrlWithCountry($this->previousUrl)) {
+                return $sectionOnly
+                    ? addSubdomainToUrl(route('faqs.index'), $this->record->country)
+                    : addSubdomainToUrl(route('faqs.show', $this->record->slug), $this->record->country);
+            }
+
+            return $this->previousUrl;
+        }
+
+        return null;
     }
 }

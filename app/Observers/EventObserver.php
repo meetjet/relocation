@@ -4,8 +4,6 @@ namespace App\Observers;
 
 use App\Enums\EventStatus;
 use App\Jobs\TelegramAttachImagesJob;
-use App\Jobs\TelegramNotifyAnnouncementPublishedJob;
-use App\Jobs\TelegramSendAnnouncementToChannelJob;
 use App\Jobs\TelegramSendEventToChannelJob;
 use App\Models\Event;
 

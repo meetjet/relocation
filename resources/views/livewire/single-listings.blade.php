@@ -83,4 +83,7 @@
             </div>
         @endif
     </div>
+    @if (Auth::user() && Auth::user()->is_admin)
+        <x-shared.edit-entity-button :url="route('filament.resources.listings.edit', $entity->uuid)"/>
+    @endif
 </article>

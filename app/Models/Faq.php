@@ -29,6 +29,8 @@ class Faq extends Model
 
     protected $fillable = ['slug', 'user_id', 'original', 'country', 'title', 'question', 'answer', 'status', 'visibility'];
 
+    protected $appends = ['frontend_url'];
+
     public static function boot(): void
     {
         parent::boot();
@@ -106,5 +108,22 @@ class Faq extends Model
     {
         $query->where('status', FaqStatus::PUBLISHED)
             ->where('visibility', true);
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFrontendUrlAttribute(): ?string
+    {
+        if (
+            !$this->deleted_at
+            && $this->status === FaqStatus::PUBLISHED
+            && $this->visibility
+            && $this->slug
+        ) {
+            return addSubdomainToUrl(route('faqs.show', $this->slug), $this->country);
+        }
+
+        return null;
     }
 }

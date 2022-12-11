@@ -47,7 +47,10 @@ class ListingItem extends Model
         'original',
     ];
 
-    protected $appends = ['contact'];
+    protected $appends = [
+        'contact',
+        'frontend_url',
+    ];
 
     protected $casts = [
         'published_at' => 'datetime',
@@ -173,6 +176,25 @@ class ListingItem extends Model
     {
         if ($this->user) {
             return $this->user->contact;
+        }
+
+        return null;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFrontendUrlAttribute(): ?string
+    {
+        if (
+            !$this->deleted_at
+            && $this->status === ListingItemStatus::PUBLISHED
+            && $this->visibility
+            && $this->category
+            && $this->uuid
+            && $this->country
+        ) {
+            return addSubdomainToUrl(route('listings.show', [$this->category->slug, $this->uuid]), $this->country);
         }
 
         return null;

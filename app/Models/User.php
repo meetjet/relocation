@@ -72,6 +72,7 @@ class User extends Authenticatable implements FilamentUser, Customer
     protected $appends = [
         'profile_photo_url',
         'contact',
+        'is_admin',
     ];
 
     /**
@@ -112,6 +113,14 @@ class User extends Authenticatable implements FilamentUser, Customer
     {
         // TODO: temporary way to identify administrator users.
         return str_ends_with(Str::lower($this->email), '@relocation.digital');
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsAdminAttribute(): bool
+    {
+        return $this->canAccessFilament();
     }
 
     /**
