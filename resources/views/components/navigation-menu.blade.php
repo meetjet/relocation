@@ -159,7 +159,7 @@
 
                                         <x-slot name="content">
                                             <!-- Admin panel -->
-                                            @if (Auth::user()->is_admin)
+                                            @if (Auth::user() && Auth::user()->is_admin)
                                                 <x-jet-dropdown-link href="{{ route('filament.pages.dashboard') }}">
                                                     {{ __('Admin panel') }}
                                                 </x-jet-dropdown-link>
