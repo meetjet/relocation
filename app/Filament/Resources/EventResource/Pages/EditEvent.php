@@ -176,7 +176,8 @@ class EditEvent extends EditRecord
                         ->schema([
                             Components\ViewField::make('frontend_url')
                                 ->view('forms.components.view-on-frontend-button')
-                                ->disableLabel(),
+                                ->disableLabel()
+                                ->hidden(fn($record): bool => is_null($record->frontend_url)),
 
                             Components\Placeholder::make('created_at')
                                 ->label(__('Created at'))
