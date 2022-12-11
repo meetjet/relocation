@@ -60,7 +60,7 @@ class ListEvents extends ListRecords
             Columns\TextColumn::make('title')
                 ->label(__('Title'))
                 ->description(fn($record) => (!$record->deleted_at && $record->status === EventStatus::PUBLISHED && $record->visibility && $record->country && $record->uuid)
-                    ? static::externalLink(addSubdomainToUrl(route('events.show', $record->uuid), $record->country), Str::lower(__('Link')))
+                    ? static::externalLink(addSubdomainToUrl(route('events.show',  [$record->category->slug, $record->uuid]), $record->country), Str::lower(__('Link')))
                     : null)
                 ->limit(200)
                 ->wrap()
