@@ -20,4 +20,9 @@
         <div class="text-xl font-bold mb-4">{{ __('Answer') }}</div>
         <div class="mb-4 text-xl p-4 rounded bg-gray-100">{!! $entity->answer !!}</div>
     </div>
+    @if (Auth::user() && Auth::user()->is_admin)
+        <div class="mt-8">
+            <x-shared.edit-entity-button :url="route('filament.resources.faqs.edit', $entity->slug)"/>
+        </div>
+    @endif
 </article>
