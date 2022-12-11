@@ -336,7 +336,7 @@ class EditEvent extends EditRecord
             if (isUrlWithCountry($this->previousUrl)) {
                 return $sectionOnly
                     ? addSubdomainToUrl(route('events.index'), $this->record->country)
-                    : addSubdomainToUrl(route('events.show', $this->record->uuid), $this->record->country);
+                    : addSubdomainToUrl(route('events.show', [$this->record->category->slug, $this->record->uuid]), $this->record->country);
             }
 
             return $this->previousUrl;

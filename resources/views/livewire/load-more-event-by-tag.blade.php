@@ -12,7 +12,7 @@
                     class="h-full flex flex-col justify-between border rounded p-3 space-y-2 hover:shadow-[3px_3px_8px_rgb(161,161,161,0.3)] focus-within:shadow-[3px_3px_8px_rgb(161,161,161,0.3)] transition-all duration-300 outline-none"
                 >
                     <div class="space-y-2">
-                        <a href="{{ route('events.show', $_item->uuid) }}"
+                        <a href="{{ route('events.show', [$_item->category->slug, $_item->uuid]) }}"
                            class="flex outline-none">
                             @if($_item->cover_picture)
                                 <img src="{{ $_item->cover_picture->thumbnail_square }}"
@@ -33,7 +33,7 @@
                             @endif
                         </a>
                         <a class="flex text-blue-600 font-bold"
-                           href="{{ route('events.show', $_item->uuid) }}" tabindex="-1">
+                           href="{{ route('events.show', [$_item->category->slug, $_item->uuid]) }}" tabindex="-1">
                             {{ $_item->title }}
                         </a>
                         <div>{{ $_item->frontend_start_datetime }}</div>

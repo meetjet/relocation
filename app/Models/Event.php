@@ -271,10 +271,11 @@ class Event extends Model
             !$this->deleted_at
             && $this->status === EventStatus::PUBLISHED
             && $this->visibility
+            && $this->category
             && $this->uuid
             && $this->country
         ) {
-            return addSubdomainToUrl(route('events.show', $this->uuid), $this->country);
+            return addSubdomainToUrl(route('events.show', [$this->category->slug, $this->uuid]), $this->country);
         }
 
         return null;
