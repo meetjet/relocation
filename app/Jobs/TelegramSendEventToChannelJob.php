@@ -81,7 +81,10 @@ class TelegramSendEventToChannelJob implements ShouldQueue
     private function getMessageText(): string
     {
         $link = addSubdomainToUrl(
-            route('events.show', $this->event->uuid),
+            route('events.show', [
+                $this->event->category->slug,
+                $this->event->uuid,
+            ]),
             $this->event->country
         );
 
