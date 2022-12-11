@@ -12,6 +12,7 @@ use App\Models\EventPoint;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Faq>
@@ -36,10 +37,11 @@ class EventFactory extends Factory
         $pointSlug = $this->faker->randomElement([null, $this->faker->randomElement(EventPoint::all()->pluck('slug')->toArray())]);
         $address = $pointSlug ? null : $this->faker->text(100);
 
-        $startDate = $this->faker->date();
-        $startTime = $this->faker->time();
-        $finishDate = $this->faker->randomElement([null, $this->faker->date()]);
-        $finishTime = $finishDate ? $this->faker->time() : null;
+        $startDate = Carbon::now()
+            ->addDays($this->faker->numberBetween(0, 30))
+            ->addHours($this->faker->numberBetween(0, 10));
+        $finishDate = $this->faker->randomElement([null, Carbon::parse($startDate)->addHours($this->faker->numberBetween(2, 10))]);
+        $finishTime = $finishDate ?: null;
 
         return [
             'user_id' => 1,
@@ -58,7 +60,7 @@ class EventFactory extends Factory
             'category_id' => $this->faker->randomElement(EventCategory::all()->pluck('id')->toArray()),
             'published_at' => $status === EventStatus::PUBLISHED ? now() : null,
             'start_date' => $startDate,
-            'start_time' => $startTime,
+            'start_time' => $startDate,
             'finish_date' => $finishDate,
             'finish_time' => $finishTime,
         ];
