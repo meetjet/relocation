@@ -16,7 +16,7 @@ class ListingItemResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-lightning-bolt';
 
-    protected static ?string $slug = 'listings/items';
+    protected static ?string $slug = 'listings';
 
     protected static ?int $navigationSort = 0;
 
