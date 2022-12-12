@@ -65,7 +65,9 @@ class Picture extends Model
     public function getRawAttribute(): ?string
     {
         if ($this->content->has('raw')) {
-            return $this->content->get('raw');
+            return isset($this->local_file_path)
+                ? asset($this->content->get('raw'))
+                : $this->content->get('raw');
         }
 
         return null;
@@ -77,7 +79,9 @@ class Picture extends Model
     public function getLargeAttribute(): ?string
     {
         if ($this->content->has('large')) {
-            return $this->content->get('large');
+            return isset($this->local_file_path)
+                ? asset($this->content->get('large'))
+                : $this->content->get('large');
         }
 
         return null;
@@ -89,7 +93,9 @@ class Picture extends Model
     public function getMediumAttribute(): ?string
     {
         if ($this->content->has('medium')) {
-            return $this->content->get('medium');
+            return isset($this->local_file_path)
+                ? asset($this->content->get('medium'))
+                : $this->content->get('medium');
         }
 
         return null;
@@ -101,7 +107,9 @@ class Picture extends Model
     public function getThumbnailAttribute(): ?string
     {
         if ($this->content->has('thumbnail')) {
-            return $this->content->get('thumbnail');
+            return isset($this->local_file_path)
+                ? asset($this->content->get('thumbnail'))
+                : $this->content->get('thumbnail');
         }
 
         return null;
@@ -113,7 +121,9 @@ class Picture extends Model
     public function getThumbnailSquareAttribute(): ?string
     {
         if ($this->content->has('thumbnail-square')) {
-            return $this->content->get('thumbnail-square');
+            return isset($this->local_file_path)
+                ? asset($this->content->get('thumbnail-square'))
+                : $this->content->get('thumbnail-square');
         }
 
         return null;

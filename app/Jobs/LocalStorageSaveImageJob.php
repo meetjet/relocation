@@ -2,20 +2,18 @@
 
 namespace App\Jobs;
 
-use App\UploadIO\UploadIO;
+use Exception;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Http\Client\RequestException;
+use Illuminate\Http\File;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
-use RuntimeException;
+use Illuminate\Support\Facades\Storage;
 
-class UploadIOUploadImageJob implements ShouldQueue
+class LocalStorageSaveImageJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -34,21 +32,28 @@ class UploadIOUploadImageJob implements ShouldQueue
     /**
      * Execute the job.
      *
-     * @param UploadIO $uploadIO
      * @return void
      */
-    public function handle(UploadIO $uploadIO): void
+    public function handle(): void
     {
         try {
             $tmpFilepath = storage_path("app/{$this->model->tmp_image}");
-            $uploadedFileData = $uploadIO->upload($tmpFilepath);
-            File::delete($tmpFilepath);
+            $path = Storage::disk('public')->putFile('photos', new File($tmpFilepath));
+            Storage::delete($this->model->tmp_image);
+
+            $transformations = config('uploadio.transformations');
+            $transformCollection = collect();
+
+            foreach ($transformations as $_transformation) {
+                $transformCollection->put($_transformation, Storage::url($path));
+            }
+
             $this->model->forceFill([
-                'content' => $uploadIO->getTransformationsCollection($uploadedFileData['fileUrl']),
-                'uploadio_file_path' => $uploadedFileData['filePath'],
+                'content' => $transformCollection,
+                'local_file_path' => $path,
                 'tmp_image' => null,
             ])->save();
-        } catch (RuntimeException | FileNotFoundException | RequestException $e) {
+        } catch (Exception $e) {
             Log::error($e->getMessage());
         }
     }

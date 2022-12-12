@@ -8,6 +8,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use RuntimeException;
 
 class UploadIO
 {
@@ -21,6 +22,10 @@ class UploadIO
      */
     public function upload(string $filepath): array
     {
+        if (!config('uploadio.public_key') || !config('uploadio.account_id')) {
+            throw new RuntimeException("UploadIO configuration error. Check the UPLOAD_IO_PUBLIC_KEY and UPLOAD_IO_ACCOUNT_ID settings.");
+        }
+
         if (!File::exists($filepath)) {
             throw new FileNotFoundException(sprintf('The file "%s" does not exist.', $filepath));
         }
@@ -41,6 +46,10 @@ class UploadIO
      */
     public function delete(string $filepath): void
     {
+        if (!config('uploadio.secret_key') || !config('uploadio.account_id')) {
+            throw new RuntimeException("UploadIO configuration error. Check the UPLOAD_IO_SECRET_KEY and UPLOAD_IO_ACCOUNT_ID settings.");
+        }
+
         Http::withBasicAuth('apikey', config('uploadio.secret_key'))
             ->delete(sprintf("https://api.upload.io/v2/accounts/%s/files?filePath=%s", config('uploadio.account_id'), $filepath))
             ->throw();

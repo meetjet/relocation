@@ -2,18 +2,16 @@
 
 namespace App\Jobs;
 
-use App\UploadIO\UploadIO;
 use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Http\Client\RequestException;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
-use RuntimeException;
+use Illuminate\Support\Facades\Storage;
 
-class UploadIODeleteImageJob implements ShouldQueue
+class LocalStorageDeleteImageJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -32,15 +30,12 @@ class UploadIODeleteImageJob implements ShouldQueue
     /**
      * Execute the job.
      *
-     * @param UploadIO $uploadIO
      * @return void
      */
-    public function handle(UploadIO $uploadIO): void
+    public function handle(): void
     {
         try {
-            $uploadIO->delete($this->filepath);
-        } catch (RuntimeException | RequestException $e) {
-            Log::error($e->getMessage());
+            Storage::disk('public')->delete($this->filepath);
         } catch (Exception $e) {
             Log::error($e);
         }

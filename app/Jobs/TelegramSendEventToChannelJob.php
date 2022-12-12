@@ -51,7 +51,7 @@ class TelegramSendEventToChannelJob implements ShouldQueue
 
             $picture = $this->event->firstPicture()->first();
 
-            if ($picture) {
+            if ($picture && $picture->uploadio_file_path) {
                 $bot->sendPhoto($picture->medium, [
                     // @see https://core.telegram.org/bots/api#sendphoto
                     'chat_id' => $chatId,
