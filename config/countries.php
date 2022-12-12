@@ -59,6 +59,35 @@ return [
         ]
     ],
 
+    'lithuania' => [
+        'locale' => [
+            'ru' => "Литва",
+            'en' => "Lithuania",
+        ],
+        'locations' => [
+            'vilnius' => [
+                'ru' => "Вильнюс",
+                'en' => "Vilnius",
+            ],
+            'kaunas' => [
+                'ru' => "Каунас",
+                'en' => "Kaunas",
+            ],
+            'klaipeda' => [
+                'ru' => "Клайпеда",
+                'en' => "Klaipeda",
+            ],
+        ],
+        'currency' => [
+            'code' => "EUR",
+            'locale' => [
+                'ru' => "Евро",
+                'en' => "Euro",
+            ],
+            'sign' => "€",
+        ]
+    ],
+
     'thailand' => [
         'locale' => [
             'ru' => "Таиланд",

@@ -28,6 +28,7 @@ class Telegram
             TelegramBotType::GEORGIA => $this->getGeorgiaBot(),
             TelegramBotType::THAILAND => $this->getThailandBot(),
             TelegramBotType::TURKEY => $this->getTurkeyBot(),
+            TelegramBotType::LITHUANIA => $this->getLithuaniaBot(),
             default => $this->getDefaultBot(),
         };
     }
@@ -104,6 +105,18 @@ class Telegram
     public function getTurkeyBot(): Nutgram
     {
         return $this->getBotInstance(config('nutgram.token_turkey'), config('nutgram.log_channel_turkey'));
+    }
+
+    /**
+     * Get the Lithuania Telegram bot instance.
+     *
+     * @return Nutgram
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
+    public function getLithuaniaBot(): Nutgram
+    {
+        return $this->getBotInstance(config('nutgram.token_lithuania'), config('nutgram.log_channel_lithuania'));
     }
 
     /**
