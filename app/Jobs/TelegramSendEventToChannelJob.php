@@ -91,9 +91,19 @@ class TelegramSendEventToChannelJob implements ShouldQueue
         // Replace tags and entities.
         $description = str($this->event->description)->replace(["<br>", "</p><p>", "&nbsp;"], ["\n", "\n\n", " "]);
         // Remove unsupported tags.
-        $description = strip_tags($description, '<b><strong><i><em><u><ins><s><strike><del><a>');
-        // Strip whitespace from the beginning and end of a string.
-        $description = str($description)->trim()->value();
+        $description = strip_tags($description->value(), '<b><strong><i><em><u><ins><s><strike><del><a>');
+
+        $descriptionString = str($description);
+        // Get a template for the "Learn more" button.
+        $moreTemplate = config('filament.rich_editor_more_template');
+
+        if ($descriptionString->contains($moreTemplate)) {
+            // Add "Learn more" link to description.
+            $description = $descriptionString->before($moreTemplate)->trim()->value();
+            $description .= "\n\n" . '<a href="' . $link . '">' . __('Learn more on the site') . '</a>';
+        } else {
+            $description = $descriptionString->trim()->value();
+        }
 
         $text = "<b>{$this->event->title}</b>";
 
