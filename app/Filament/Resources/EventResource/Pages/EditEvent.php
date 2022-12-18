@@ -9,6 +9,7 @@ use App\Facades\Locations;
 use App\Facades\Countries;
 use App\Filament\Actions\Pages\DeleteAction;
 use App\Filament\Resources\EventResource;
+use App\Forms\Components\RichEditor;
 use App\Models\Event;
 use App\Traits\PageListHelpers;
 use Closure;
@@ -67,7 +68,7 @@ class EditEvent extends EditRecord
                                 ->rows(2)
                                 ->required(),
 
-                            Components\RichEditor::make('description')
+                            RichEditor::make('description')
                                 ->label(__('Description'))
                                 ->disableToolbarButtons([
                                     'attachFiles',
