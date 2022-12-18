@@ -600,5 +600,6 @@
     "SEO robots": "Robots",
     "If this field is left blank, it will be filled in automatically": "Если оставить это поле пустым, то оно будет заполнено автоматически",
     "Admin panel": "Админка",
-    "View on frontend": "Посмотреть на фронте"
+    "View on frontend": "Посмотреть на фронте",
+    "Source": "Источник"
 }
