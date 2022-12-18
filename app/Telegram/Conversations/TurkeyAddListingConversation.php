@@ -2,6 +2,7 @@
 
 namespace App\Telegram\Conversations;
 
+use App\Enums\ListingItemSource;
 use App\Enums\TelegramBotImageMimeType;
 use App\Enums\TelegramBotType;
 use App\Facades\Locations;
@@ -459,6 +460,7 @@ class TurkeyAddListingConversation extends InlineMenu
                 'price' => $this->price,
                 'currency' => config('countries.turkey.currency.code'),
                 'custom_contact' => $this->customContactValue,
+                'source' => ListingItemSource::BOT,
                 'telegram_bot_type' => TelegramBotType::TURKEY,
                 'telegram_user_id' => $bot->userId(),
                 'telegram_user_language_code' => $bot->user()->language_code,

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\ListingItemResource\Pages;
 
+use App\Enums\ListingItemSource;
 use App\Enums\ListingItemStatus;
 use App\Facades\Locations;
 use App\Facades\Countries;
@@ -202,6 +203,11 @@ class CreateListingItem extends CreateRecord
     protected function handleRecordCreation(array $data): Model
     {
         $record = $this->getModel()::create($data);
+
+        $record->forceFill([
+            'source' => ListingItemSource::ADMIN,
+        ])->save();
+
         $seo = $data['seo'];
 
         // Replace and strip tags and entities.
