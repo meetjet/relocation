@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\ListingItemResource\Pages;
 
+use App\Enums\ListingItemSource;
 use App\Enums\ListingItemStatus;
 use App\Facades\Locations;
 use App\Facades\Countries;
@@ -159,6 +160,11 @@ class EditListingItem extends EditRecord
                                 ->view('forms.components.view-on-frontend-button')
                                 ->disableLabel()
                                 ->hidden(fn($record): bool => is_null($record->frontend_url)),
+
+                            Components\Placeholder::make('source')
+                                ->label(__('Source'))
+                                ->content(fn($record): string => ListingItemSource::getDescription($record->source))
+                                ->hidden(fn($record): bool => is_null($record->source)),
 
                             Components\Placeholder::make('created_at')
                                 ->label(__('Created at'))

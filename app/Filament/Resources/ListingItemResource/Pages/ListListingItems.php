@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\ListingItemResource\Pages;
 
+use App\Enums\ListingItemSource;
 use App\Enums\ListingItemStatus;
 use App\Facades\Locations;
 use App\Facades\Countries;
@@ -64,6 +65,13 @@ class ListListingItems extends ListRecords
                 ->searchable()
                 ->sortable()
                 ->color(fn($record): ?string => is_null($record->deleted_at) ?: "danger"),
+
+            Columns\TextColumn::make('source')
+                ->label(__('Source'))
+                ->enum(ListingItemSource::asSelectArray())
+                ->color(fn($record): ?string => $record->source === ListingItemSource::BOT ? "success" : null)
+                ->weight(fn($record): ?string => $record->source === ListingItemSource::BOT ? "bold" : null)
+                ->toggleable(),
 
             Columns\SpatieTagsColumn::make('tags')
                 ->label(__('Tags'))
@@ -162,6 +170,27 @@ class ListListingItems extends ListRecords
     {
         return [
             Filters\TrashedFilter::make(),
+
+            Filters\Filter::make('source')
+                ->form([
+                    Components\Select::make('source')
+                        ->label(__('Source'))
+                        ->placeholder("-")
+                        ->options(ListingItemSource::asSelectArray()),
+                ])
+                ->query(function (Builder $query, array $data): Builder {
+                    return $query->when(
+                        $data['source'],
+                        fn(Builder $query, $source): Builder => $query->where('data->source', $source),
+                    );
+                })
+                ->indicateUsing(function (array $data): ?string {
+                    if ($data['source']) {
+                        return __('Source') . ' "' . ListingItemSource::getDescription($data['source']) . '"';
+                    }
+
+                    return null;
+                }),
 
             Filters\Filter::make('country_and_location')
                 ->form([
@@ -290,15 +319,11 @@ class ListListingItems extends ListRecords
                         ->schema([
                             Components\DatePicker::make('created_from')
                                 ->label(__('Created from'))
-                                ->displayFormat("j M Y")
-//                                ->maxDate(Carbon::today())
-                                ->placeholder(fn(): string => now()->translatedFormat("j M Y")),
+                                ->displayFormat("j M Y"),
 
                             Components\DatePicker::make('created_until')
                                 ->label(__('Created until'))
-                                ->displayFormat("j M Y")
-//                                ->maxDate(Carbon::today())
-                                ->placeholder(fn(): string => now()->translatedFormat("j M Y")),
+                                ->displayFormat("j M Y"),
                         ])
                 ])
                 ->query(function (Builder $query, array $data): Builder {
@@ -332,13 +357,11 @@ class ListListingItems extends ListRecords
                         ->schema([
                             Components\DatePicker::make('published_from')
                                 ->label(__('Published from'))
-                                ->displayFormat("j M Y")
-                                ->placeholder(fn(): string => now()->translatedFormat("j M Y")),
+                                ->displayFormat("j M Y"),
 
                             Components\DatePicker::make('published_until')
                                 ->label(__('Published until'))
-                                ->displayFormat("j M Y")
-                                ->placeholder(fn(): string => now()->translatedFormat("j M Y")),
+                                ->displayFormat("j M Y"),
                         ])
                 ])
                 ->query(function (Builder $query, array $data): Builder {
