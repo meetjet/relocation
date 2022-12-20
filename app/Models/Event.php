@@ -182,9 +182,9 @@ class Event extends Model
     /**
      * @param Builder $query
      */
-    public function scopeStartOfCurrentMonth(Builder $query): void
+    public function scopeStartOfCurrentWeek(Builder $query): void
     {
-        $query->where('start_date', '>=', Carbon::now()->startOfMonth());
+        $query->where('start_date', '>=', Carbon::now()->startOfWeek());
     }
 
     /**
