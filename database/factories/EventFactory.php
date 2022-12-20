@@ -28,7 +28,7 @@ class EventFactory extends Factory
     {
         $country = $this->faker->randomElement(Countries::getValues());
         $location = $this->faker->randomElement(Locations::getValues($country));
-        $status = $this->faker->randomElement([EventStatus::CREATED, EventStatus::CREATED, EventStatus::CREATED, EventStatus::REJECTED, EventStatus::PUBLISHED, EventStatus::PUBLISHED, EventStatus::PUBLISHED, EventStatus::PUBLISHED, EventStatus::PUBLISHED, EventStatus::PUBLISHED]);
+        $status = EventStatus::PUBLISHED;
         $visibility = $status === EventStatus::PUBLISHED;
         $paymentType = $this->faker->randomElement(EventPaymentType::getValues());
         $price = ($paymentType !== EventPaymentType::FREE) ? $this->faker->randomNumber(3) : 0;
@@ -77,9 +77,16 @@ class EventFactory extends Factory
 
         $events->each(function (Event $_event) {
             if ($_event->status === EventStatus::PUBLISHED) {
+                // Tags
                 $tags = collect($this->faker->words($this->faker->randomDigit()));
                 $tags->push("common");
                 $_event->attachTags($tags->toArray(), "events");
+                // Image
+                $_event->pictures()->create([
+                    'content' => getFakeTransformCollection(),
+                    'local_file_path' => null,
+                    'tmp_image' => null,
+                ]);
             }
         });
 
