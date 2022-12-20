@@ -567,6 +567,8 @@
     "Cover": "Обложка",
     "Additional information": "Дополнительная информация",
     "More": "Подробнее",
+    "Trix more": "Добавить разделитель \"Подробнее на сайте\"",
+    "Learn more on the site": "Подробнее на сайте",
     "Login via Telegram": "Логин",
     "Announcement owner": "Владелец объявления",
     "Real owner nickname": "Никнейм настоящего владельца",
@@ -600,5 +602,6 @@
     "SEO robots": "Robots",
     "If this field is left blank, it will be filled in automatically": "Если оставить это поле пустым, то оно будет заполнено автоматически",
     "Admin panel": "Админка",
-    "View on frontend": "Посмотреть на фронте"
+    "View on frontend": "Посмотреть на фронте",
+    "Source": "Источник"
 }

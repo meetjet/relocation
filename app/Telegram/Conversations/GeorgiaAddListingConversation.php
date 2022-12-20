@@ -2,6 +2,7 @@
 
 namespace App\Telegram\Conversations;
 
+use App\Enums\ListingItemSource;
 use App\Enums\TelegramBotImageMimeType;
 use App\Enums\TelegramBotType;
 use App\Facades\Locations;
@@ -460,6 +461,7 @@ class GeorgiaAddListingConversation extends InlineMenu
                 'currency' => config('countries.georgia.currency.code'),
                 'email' => $this->customContactType === "email" ? $this->customContactValue : null,
                 'phone' => $this->customContactType === "phone" ? $this->customContactValue : null,
+                'source' => ListingItemSource::BOT,
                 'telegram_bot_type' => TelegramBotType::GEORGIA,
                 'telegram_user_id' => $bot->userId(),
                 'telegram_user_language_code' => $bot->user()->language_code,

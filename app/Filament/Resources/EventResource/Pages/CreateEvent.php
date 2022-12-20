@@ -8,6 +8,7 @@ use App\Facades\Currencies;
 use App\Facades\Locations;
 use App\Facades\Countries;
 use App\Filament\Resources\EventResource;
+use App\Forms\Components\RichEditor;
 use Closure;
 use Filament\Forms\Components;
 use Filament\Resources\Pages\CreateRecord;
@@ -54,7 +55,7 @@ class CreateEvent extends CreateRecord
                                 ->required()
                                 ->autofocus(),
 
-                            Components\RichEditor::make('description')
+                            RichEditor::make('description')
                                 ->label(__('Description'))
                                 ->disableToolbarButtons([
                                     'attachFiles',
@@ -247,8 +248,13 @@ class CreateEvent extends CreateRecord
         $record = $this->getModel()::create($data);
         $seo = $data['seo'];
 
+        // Get a template for the "Learn more on the site" button.
+        $moreTemplate = config('filament.rich_editor_more_template');
         // Replace and strip tags and entities.
-        $defaultDescription = str($data['description'])->replace(["<br>", "</p><p>", "&nbsp;"], [" ", " ", " "]);
+        $defaultDescription = str($data['description'])->replace(
+            ["<p>{$moreTemplate}</p>", $moreTemplate, "<br>", "</p><p>", "&nbsp;"],
+            ["", "", " ", " ", " "]
+        );
         $defaultDescription = strip_tags($defaultDescription);
 
         $record->seo->update([

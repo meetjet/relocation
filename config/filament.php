@@ -330,4 +330,6 @@ return [
         ],
     ],
 
+    // A template for a tag that is added by clicking the "Add separator Learn more on the site" button in the rich-editor.
+    'rich_editor_more_template' => env('FILAMENT_RICH_EDITOR_MORE_TEMPLATE', "--more--"),
 ];

@@ -48,6 +48,14 @@ class EventByCategoryController extends Controller
 
         abort_unless(!is_null($entity), 404);
 
+        // Get a template for the "Learn more" button.
+        $moreTemplate = config('filament.rich_editor_more_template');
+
+        $entity->description = str($entity->description)
+            ->replace(["<p>{$moreTemplate}</p>", $moreTemplate], ["", ""])
+            ->trim()
+            ->value();
+
         return view('events.show', [
             'entity' => $entity,
         ]);

@@ -6,6 +6,7 @@ use App\Enums\EventPointStatus;
 use App\Enums\EventStatus;
 use App\Enums\FaqStatus;
 use App\Enums\ListingCategoryStatus;
+use App\Enums\ListingItemSource;
 use App\Enums\ListingItemStatus;
 use App\Enums\TelegramBotImageMimeType;
 use App\Enums\TelegramBotType;
@@ -54,5 +55,9 @@ return [
         EventPaymentType::FREE => 'Free',
         EventPaymentType::PAID => 'Paid',
         EventPaymentType::DONATION => 'Donation',
+    ],
+    ListingItemSource::class => [
+        ListingItemSource::BOT => 'Bot',
+        ListingItemSource::ADMIN => 'Admin',
     ],
 ];
