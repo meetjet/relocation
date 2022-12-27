@@ -32,7 +32,7 @@ class LoadMoreEventByCategory extends Component
     {
         if ($this->total === -1) {
             $this->total = Event::active()
-                ->startOfCurrentMonth()
+                ->startOfCurrentWeek()
                 ->whereHas('category', function (Builder $query) {
                     $query->where('slug', $this->category->slug);
                 })
@@ -40,7 +40,7 @@ class LoadMoreEventByCategory extends Component
         }
 
         $items = Event::active()
-            ->startOfCurrentMonth()
+            ->startOfCurrentWeek()
             ->whereHas('category', function (Builder $query) {
                 $query->where('slug', $this->category->slug);
             })

@@ -29,12 +29,12 @@ class LoadMoreEvent extends Component
     {
         if ($this->total === -1) {
             $this->total = Event::active()
-                ->startOfCurrentMonth()
+                ->startOfCurrentWeek()
                 ->count();
         }
 
         $items = Event::active()
-            ->startOfCurrentMonth()
+            ->startOfCurrentWeek()
             ->orderByStartDate()
             ->paginate($this->perPage);
 
