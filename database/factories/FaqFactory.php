@@ -23,8 +23,8 @@ class FaqFactory extends Factory
     {
         $content = $this->faker->text(400);
         $country = $this->faker->randomElement(Countries::getValues());
-        $status = $this->faker->randomElement(FaqStatus::getValues());
-        $visibility = $this->faker->boolean();
+        $status = FaqStatus::PUBLISHED;
+        $visibility = $status === FaqStatus::PUBLISHED;
 
         if ($status === FaqStatus::PUBLISHED) {
             return [
@@ -66,8 +66,9 @@ class FaqFactory extends Factory
 
         $faqs->each(function (Faq $_faq) {
             if ($_faq->status === FaqStatus::PUBLISHED) {
-                $tags = $this->faker->words($this->faker->randomDigit());
-                $_faq->attachTags($tags, "faqs");
+                $tags = collect($this->faker->words($this->faker->randomDigit()));
+                $tags->push("common");
+                $_faq->attachTags($tags->toArray(), "faqs");
             }
         });
 

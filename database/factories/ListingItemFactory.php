@@ -25,7 +25,7 @@ class ListingItemFactory extends Factory
     {
         $country = $this->faker->randomElement(Countries::getValues());
         $location = $this->faker->randomElement(Locations::getValues($country));
-        $status = $this->faker->randomElement(ListingItemStatus::getValues());
+        $status = ListingItemStatus::PUBLISHED;
         $visibility = $status === ListingItemStatus::PUBLISHED;
         $price = $this->faker->randomNumber() + 10;
         $currency = $price ? config("countries.{$country}.currency.code") : null;
@@ -57,8 +57,16 @@ class ListingItemFactory extends Factory
 
         $listingItems->each(function (ListingItem $_listingItem) {
             if ($_listingItem->status === ListingItemStatus::PUBLISHED) {
-                $tags = $this->faker->words($this->faker->randomDigit());
-                $_listingItem->attachTags($tags, "listing-items");
+                // Tags
+                $tags = collect($this->faker->words($this->faker->randomDigit()));
+                $tags->push("common");
+                $_listingItem->attachTags($tags->toArray(), "listing-items");
+                // Image
+                $_listingItem->pictures()->create([
+                    'content' => getFakeTransformCollection(),
+                    'local_file_path' => null,
+                    'tmp_image' => null,
+                ]);
             }
         });
 

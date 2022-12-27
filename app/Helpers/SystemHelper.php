@@ -3,6 +3,7 @@
 use App\Services\CountriesService;
 use App\Services\CurrenciesService;
 use App\Services\LocationsService;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use JetBrains\PhpStorm\Pure;
 
@@ -261,5 +262,21 @@ if (!function_exists('isUrlWithCountry')) {
         }
 
         return false;
+    }
+}
+
+if (!function_exists('getFakeTransformCollection')) {
+    /**
+     * @return Collection
+     */
+    function getFakeTransformCollection(): Collection
+    {
+        return collect([
+            'raw' => "https://picsum.photos/1280/960",
+            'large' => "https://picsum.photos/1280/960",
+            'medium' => "https://picsum.photos/640/480",
+            'thumbnail' => "https://picsum.photos/400/300",
+            'thumbnail-square' => "https://picsum.photos/400/400",
+        ]);
     }
 }
