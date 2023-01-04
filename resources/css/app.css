@@ -62,3 +62,7 @@
     display: inline-block;
     vertical-align: top;
 }
+
+article a {
+    @apply font-medium leading-5 text-blue-500 break-words cursor-pointer box-border hover:text-blue-400 focus:text-blue-400
+}
