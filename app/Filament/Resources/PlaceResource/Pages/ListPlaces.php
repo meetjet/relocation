@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Filament\Resources\EventPointResource\Pages;
+namespace App\Filament\Resources\PlaceResource\Pages;
 
-use App\Enums\EventPointStatus;
-use App\Filament\Resources\EventPointResource;
-use App\Models\EventPoint;
+use App\Enums\PlaceStatus;
+use App\Enums\PlaceType;
+use App\Facades\Countries;
+use App\Facades\Locations;
+use App\Filament\Resources\PlaceResource;
+use App\Models\Place;
 use App\Traits\PageListHelpers;
 use Exception;
 use Filament\Forms\Components;
@@ -19,11 +22,11 @@ use Illuminate\Database\Eloquent\Builder;
 /**
  * @package App\Filament\Resources\EventPointResource\Pages
  */
-class ListEventPoints extends ListRecords
+class ListPlaces extends ListRecords
 {
     use PageListHelpers;
 
-    protected static string $resource = EventPointResource::class;
+    protected static string $resource = PlaceResource::class;
 
     /**
      * @return array
@@ -57,22 +60,34 @@ class ListEventPoints extends ListRecords
                 ->sortable()
                 ->color(fn($record): ?string => is_null($record->deleted_at) ? null : "danger"),
 
-            Columns\TextColumn::make('address')
-                ->label(__('Address'))
-                ->searchable(),
+            Columns\TextColumn::make('type')
+                ->label(__('Type'))
+                ->enum(PlaceType::asSelectArray())
+                ->sortable()
+                ->toggleable(),
+
+            Columns\TextColumn::make('country')
+                ->label(__('Country'))
+                ->enum(Countries::asSelectArray())
+                ->toggleable(),
+
+            Columns\TextColumn::make('location')
+                ->label(__('Location'))
+                ->getStateUsing(fn($record): string => Locations::getDescription($record->country, $record->location))
+                ->toggleable(),
 
             Columns\TextColumn::make('events')
                 ->label(__('Events'))
-                ->getStateUsing(fn(EventPoint $record): ?string => $record->events()->count())
+                ->getStateUsing(fn(Place $record): ?string => $record->events()->count())
                 ->toggleable(),
 
             Columns\BadgeColumn::make('status')
                 ->label(__('Status'))
-                ->enum(EventPointStatus::asSelectArray())
+                ->enum(PlaceStatus::asSelectArray())
                 ->sortable()
                 ->colors([
-                    'secondary' => EventPointStatus::INACTIVE,
-                    'success' => EventPointStatus::ACTIVE,
+                    'secondary' => PlaceStatus::INACTIVE,
+                    'success' => PlaceStatus::ACTIVE,
                 ])
                 ->toggleable(),
 
@@ -97,7 +112,7 @@ class ListEventPoints extends ListRecords
             Actions\Tables\DeleteAction::make()
                 ->label("")
                 ->tooltip(__('Delete'))
-                ->visible(fn(EventPoint $record): bool => !$record->events()->exists()),
+                ->visible(fn(Place $record): bool => !$record->events()->exists()),
             Actions\Tables\RestoreAction::make()
                 ->label("")
                 ->tooltip(__('Restore')),
@@ -130,7 +145,7 @@ class ListEventPoints extends ListRecords
                     Components\Select::make('status')
                         ->label(__('Status'))
                         ->placeholder("-")
-                        ->options(EventPointStatus::asSelectArray()),
+                        ->options(PlaceStatus::asSelectArray()),
                 ])
                 ->query(function (Builder $query, array $data): Builder {
                     return $query->when(
@@ -140,7 +155,7 @@ class ListEventPoints extends ListRecords
                 })
                 ->indicateUsing(function (array $data): ?string {
                     if ($data['status']) {
-                        return __('Status') . ' "' . EventPointStatus::getDescription($data['status']) . '"';
+                        return __('Status') . ' "' . PlaceStatus::getDescription($data['status']) . '"';
                     }
 
                     return null;

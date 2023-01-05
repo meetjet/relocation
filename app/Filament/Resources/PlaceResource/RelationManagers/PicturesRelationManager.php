@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\EventPointResource\RelationManagers;
+namespace App\Filament\Resources\PlaceResource\RelationManagers;
 
 use App\Filament\Actions;
 use App\Forms\Components\PicturePreview;

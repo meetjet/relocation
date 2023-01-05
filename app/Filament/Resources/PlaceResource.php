@@ -2,33 +2,33 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\EventPointResource\Pages;
-use App\Filament\Resources\EventPointResource\RelationManagers;
-use App\Models\EventPoint;
+use App\Filament\Resources\PlaceResource\Pages;
+use App\Filament\Resources\PlaceResource\RelationManagers;
+use App\Models\Place;
 use App\Traits\PageListHelpers;
 use Filament\Resources\Resource;
 use App\Filament\Actions;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class EventPointResource extends Resource
+class PlaceResource extends Resource
 {
-    use PageListHelpers;
+    use PageListHelpers; // TODO
 
-    protected static ?string $model = EventPoint::class;
+    protected static ?string $model = Place::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-map';
 
-    protected static ?string $slug = 'events/points';
+    protected static ?string $slug = 'places';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 0;
 
     /**
      * @return string
      */
     public static function getNavigationGroup(): string
     {
-        return __('Events');
+        return __('Places');
     }
 
     /**
@@ -36,7 +36,7 @@ class EventPointResource extends Resource
      */
     public static function getNavigationLabel(): string
     {
-        return __('Points');
+        return __('Places');
     }
 
     /**
@@ -44,7 +44,7 @@ class EventPointResource extends Resource
      */
     public static function getModelLabel(): string
     {
-        return __('Point');
+        return __('Place');
     }
 
     /**
@@ -52,7 +52,7 @@ class EventPointResource extends Resource
      */
     public static function getPluralModelLabel(): string
     {
-        return __('Point');
+        return __('Place');
     }
 
     /**
@@ -61,9 +61,9 @@ class EventPointResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListEventPoints::route('/'),
-            'create' => Pages\CreateEventPoint::route('/create'),
-            'edit' => Pages\EditEventPoint::route('/{record}/edit'),
+            'index' => Pages\ListPlaces::route('/'),
+            'create' => Pages\CreatePlace::route('/create'),
+            'edit' => Pages\EditPlace::route('/{record}/edit'),
         ];
     }
 
@@ -76,6 +76,14 @@ class EventPointResource extends Resource
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
+    }
+
+    /**
+     * @return string|null
+     */
+    protected static function getNavigationBadge(): ?string
+    {
+        return self::$model::active()->count();
     }
 
     /**
