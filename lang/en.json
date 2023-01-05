@@ -16,6 +16,8 @@
     "Added.": "Added.",
     "Address": "Address",
     "Address specified": "Address specified",
+    "Address RU": "Address RU",
+    "Address EN": "Address EN",
     "Administrator users can perform any action.": "Administrator users can perform any action.",
     "Administrator": "Administrator",
     "All of the people that are part of this team.": "All of the people that are part of this team.",
@@ -569,8 +571,8 @@
     "Requested from the user if he does not have a nickname": "Requested from the user if he does not have a nickname",
     "Not found": "Not found",
     "Payment type": "Payment type",
-    "Point": "Point",
-    "Points": "Points",
+    "Place": "Place",
+    "Places": "Places",
     "Start/finish date": "Start/finish date",
     "Start date": "Start date",
     "Start time": "Start time",
@@ -586,5 +588,7 @@
     "If this field is left blank, it will be filled in automatically": "If this field is left blank, it will be filled in automatically",
     "Admin panel": "Admin panel",
     "View on frontend": "View on frontend",
-    "Source": "Source"
+    "Source": "Source",
+    "Latitude": "Latitude",
+    "Longitude": "Longitude"
 }
