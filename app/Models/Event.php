@@ -255,11 +255,11 @@ class Event extends Model
             return $this->address;
         }
 
-        if ($this->place->address_ru) {
+        if ($this->place && $this->place->address_ru) {
             return $this->place->address_ru;
         }
 
-        if ($this->place->address_en) {
+        if ($this->place && $this->place->address_en) {
             return $this->place->address_en;
         }
 
