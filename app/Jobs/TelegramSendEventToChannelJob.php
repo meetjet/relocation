@@ -114,7 +114,7 @@ class TelegramSendEventToChannelJob implements ShouldQueue
         return __("telegram.{$this->event->country}.event-add.send-to-channel", [
             'datetime' => $this->event->frontend_start_datetime,
             'text' => $text,
-            'address' => $this->event->frontend_address,
+            'address' => $this->event->frontend_address ?? str(__("No"))->lower()->value(),
             'price' => str($this->event->frontend_price)->lower(),
             'organizer' => $this->getContact(),
             'link' => '<a href="' . $link . '">' . __('Link') . '</a>',
