@@ -27,6 +27,21 @@
         <!-- Styles -->
         @livewireStyles
 
+        <!-- Chatra {literal} -->
+        <script>
+            (function(d, w, c) {
+                w.ChatraID = 'H2u7Xkvu3jaYHgJzT';
+                var s = d.createElement('script');
+                w[c] = w[c] || function() {
+                    (w[c].q = w[c].q || []).push(arguments);
+                };
+                s.async = true;
+                s.src = 'https://call.chatra.io/chatra.js';
+                if (d.head) d.head.appendChild(s);
+            })(document, window, 'Chatra');
+        </script>
+        <!-- /Chatra {/literal} -->
+
         <!-- Analytics -->
         <script defer data-domain="{{ request()->getHost() }}" src="//plausible.io/js/script.js"></script>
     </head>
