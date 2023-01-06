@@ -198,6 +198,18 @@ class CreateListingItem extends CreateRecord
 
     /**
      * @param array $data
+     * @return array
+     */
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        // Remove redundant line breaks.
+        $data['description'] = strReplace("<br><br><br>", "<br><br>", $data['description']);
+
+        return $data;
+    }
+
+    /**
+     * @param array $data
      * @return Model
      */
     protected function handleRecordCreation(array $data): Model
