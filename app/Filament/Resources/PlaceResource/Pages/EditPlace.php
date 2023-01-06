@@ -177,6 +177,9 @@ class EditPlace extends EditRecord
             $data['longitude'] = (double)$data['longitude'];
         }
 
+        // Remove redundant line breaks.
+        $data['description'] = strReplace("<br><br><br>", "<br><br>", $data['description']);
+
         return $data;
     }
 
