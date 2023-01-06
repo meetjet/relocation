@@ -47,13 +47,17 @@
                         </a>
                     </div>
                     <div class="space-y-2">
-                        <div
-                            class="text-[20px] leading-none font-bold">{{ $_item->price }} {{ currencies()->getSign($_item->currency) }}</div>
-                        <a
-                            href="{{ route('listings.show', [$_item->category->slug, $_item->uuid]) }}"
-                            class="flex justify-center bg-blue-500 hover:bg-blue-600 transition-colors duration-300 text-white text-sm font-bold leading-none rounded p-3"
-                            tabindex="-1"
-                        >{{ __('More') }}</a>
+                        <div class="text-[20px] leading-none font-bold">{{ $_item->price }} {{ currencies()->getSign($_item->currency) }}</div>
+                        @if($item->tags->count())
+                            <div>
+                                <div class="flex space-x-1.5 mt-4">
+                                    @foreach($item->tags->take(3) as $_tag)
+                                        <a class="text-xs font-medium px-2.5 py-1.5 bg-[#f5f8fa] text-[#7E8299] rounded"
+                                           href="{{ route('listings-by-tag.index', $_tag->slug) }}">{{ $_tag->name }}</a>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </li>
