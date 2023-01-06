@@ -9,7 +9,7 @@ use App\Facades\Countries;
 use App\Filament\Resources\EventResource;
 use App\Models\Event;
 use App\Models\EventCategory;
-use App\Models\EventPoint;
+use App\Models\Place;
 use App\Traits\PageListHelpers;
 use Closure;
 use Exception;
@@ -104,20 +104,20 @@ class ListEvents extends ListRecords
                 ->getStateUsing(fn($record): string => Locations::getDescription($record->country, $record->location))
                 ->toggleable(),
 
-            Columns\TextColumn::make('point_title')
-                ->label(__('Point'))
+            Columns\TextColumn::make('place_title')
+                ->label(__('Place'))
                 ->getStateUsing(function ($record) {
-                    if ($record->point) {
-                        return $record->point->title;
-                    }
-
                     if ($record->address) {
                         return $record->address;
                     }
 
+                    if ($record->place) {
+                        return $record->place->title;
+                    }
+
                     return null;
                 })
-                ->description(fn($record): ?string => ($record->point_slug && $record->address) ? __('Address specified') : null)
+                ->description(fn($record): ?string => ($record->place_slug && $record->address) ? __('Address specified') : null)
                 ->wrap()
                 ->sortable()
                 ->toggleable(),
@@ -315,17 +315,17 @@ class ListEvents extends ListRecords
                     return $indicators;
                 }),
 
-            Filters\Filter::make('category_and_point')
+            Filters\Filter::make('category_and_place')
                 ->form([
                     Components\Select::make('category_id')
                         ->label(__('Category'))
                         ->placeholder("-")
                         ->options(EventCategory::orderBy('title')->get()->pluck('title', 'id')->put('no_category', __("No"))),
 
-                    Components\Select::make('point_slug')
-                        ->label(__('Point'))
+                    Components\Select::make('place_slug')
+                        ->label(__('Place'))
                         ->placeholder("-")
-                        ->options(EventPoint::orderBy('title')->get()->pluck('title', 'slug')->put('no_point', __("No"))),
+                        ->options(Place::orderBy('title')->get()->pluck('title', 'slug')->put('no_place', __("No"))),
                 ])
                 ->columns()
                 ->query(function (Builder $query, array $data): Builder {
@@ -337,10 +337,10 @@ class ListEvents extends ListRecords
                                 : $query->where('category_id', $categoryId),
                         )
                         ->when(
-                            $data['point_slug'],
-                            fn(Builder $query, $pointSlug): Builder => $pointSlug === "no_point"
-                                ? $query->whereNull('point_slug')
-                                : $query->where('point_slug', $pointSlug),
+                            $data['place_slug'],
+                            fn(Builder $query, $placeSlug): Builder => $placeSlug === "no_place"
+                                ? $query->whereNull('place_slug')
+                                : $query->where('place_slug', $placeSlug),
                         );
                 })
                 ->indicateUsing(function (array $data): array {
@@ -353,11 +353,11 @@ class ListEvents extends ListRecords
                         $indicators['category'] = __('Category') . ' "' . $category . '"';
                     }
 
-                    if ($data['point_slug'] ?? null) {
-                        $point = $data['point_slug'] === "no_point"
+                    if ($data['place_slug'] ?? null) {
+                        $place = $data['place_slug'] === "no_place"
                             ? __("No")
-                            : EventPoint::bySlug($data['point_slug'])->first()->title;
-                        $indicators['point'] = __('Point') . ' "' . $point . '"';
+                            : Place::bySlug($data['place_slug'])->first()->title;
+                        $indicators['place'] = __('Place') . ' "' . $place . '"';
                     }
 
                     return $indicators;

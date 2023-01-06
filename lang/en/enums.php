@@ -2,12 +2,13 @@
 
 use App\Enums\EventCategoryStatus;
 use App\Enums\EventPaymentType;
-use App\Enums\EventPointStatus;
+use App\Enums\PlaceStatus;
 use App\Enums\EventStatus;
 use App\Enums\FaqStatus;
 use App\Enums\ListingCategoryStatus;
 use App\Enums\ListingItemSource;
 use App\Enums\ListingItemStatus;
+use App\Enums\PlaceType;
 use App\Enums\TelegramBotImageMimeType;
 use App\Enums\TelegramBotType;
 
@@ -47,9 +48,14 @@ return [
         EventCategoryStatus::ACTIVE => 'Active',
         EventCategoryStatus::INACTIVE => 'Inactive',
     ],
-    EventPointStatus::class => [
-        EventPointStatus::ACTIVE => 'Active',
-        EventPointStatus::INACTIVE => 'Inactive',
+    PlaceStatus::class => [
+        PlaceStatus::ACTIVE => 'Active',
+        PlaceStatus::INACTIVE => 'Inactive',
+    ],
+    PlaceType::class => [
+        PlaceType::BAR => 'Bar',
+        PlaceType::RESTAURANT => 'Restaurant',
+        PlaceType::CAFE => 'Cafe',
     ],
     EventPaymentType::class => [
         EventPaymentType::FREE => 'Free',

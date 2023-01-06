@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\EventPointStatus;
+use App\Enums\PlaceStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->text('title')->nullable();
             $table->text('description')->nullable();
             $table->text('address')->nullable();
-            $table->string('status')->default(EventPointStatus::ACTIVE);
+            $table->string('status')->default(PlaceStatus::ACTIVE);
             $table->boolean('visibility')->default(false);
             $table->jsonb('data')->nullable();
 

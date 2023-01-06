@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\EventPointStatus;
+use App\Enums\PlaceStatus;
 use App\Traits\HasUUID;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,7 +16,7 @@ use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Stancl\VirtualColumn\VirtualColumn;
 
-class EventPoint extends Model
+class Place extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -24,7 +24,20 @@ class EventPoint extends Model
     use HasUUID;
     use HasSlug;
 
-    protected $fillable = ['slug', 'title', 'description', 'address', 'status', 'visibility'];
+    protected $fillable = [
+        'slug',
+        'country',
+        'location',
+        'type',
+        'title',
+        'description',
+        'address_ru',
+        'address_en',
+        'latitude',
+        'longitude',
+        'status',
+        'visibility',
+    ];
 
     /**
      * @return string[]
@@ -35,9 +48,15 @@ class EventPoint extends Model
             'id',
             'uuid',
             'slug',
+            'country',
+            'location',
+            'type',
             'title',
             'description',
-            'address',
+            'address_ru',
+            'address_en',
+            'latitude',
+            'longitude',
             'status',
             'visibility',
             'created_at',
@@ -76,7 +95,7 @@ class EventPoint extends Model
      */
     public function events(): HasMany
     {
-        return $this->hasMany(Event::class, 'point_slug', 'slug');
+        return $this->hasMany(Event::class, 'place_slug', 'slug');
     }
 
     /**
@@ -100,7 +119,7 @@ class EventPoint extends Model
      */
     public function scopeActive(Builder $query): void
     {
-        $query->where('status', EventPointStatus::ACTIVE)
+        $query->where('status', PlaceStatus::ACTIVE)
             ->where('visibility', true);
     }
 
@@ -122,7 +141,7 @@ class EventPoint extends Model
     {
         $currentRoute = Route::current();
 
-        return $currentRoute
+        return $currentRoute // TODO: ?
             ? $currentRoute->parameter('point') === $this->slug
             : false;
     }

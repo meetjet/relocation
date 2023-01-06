@@ -44,7 +44,7 @@ class Event extends Model
         'price',
         'currency',
         'payment_type',
-        'point_slug',
+        'place_slug',
         'address',
         'category_id',
         'published_at',
@@ -107,7 +107,7 @@ class Event extends Model
             'price',
             'currency',
             'payment_type',
-            'point_slug',
+            'place_slug',
             'address',
             'category_id',
             'start_date',
@@ -149,9 +149,9 @@ class Event extends Model
     /**
      * @return BelongsTo
      */
-    public function point(): BelongsTo
+    public function place(): BelongsTo
     {
-        return $this->belongsTo(EventPoint::class, 'point_slug', 'slug');
+        return $this->belongsTo(Place::class, 'place_slug', 'slug');
     }
 
     /**
@@ -255,8 +255,12 @@ class Event extends Model
             return $this->address;
         }
 
-        if ($this->point->address) {
-            return $this->point->address;
+        if ($this->place && $this->place->address_ru) {
+            return $this->place->address_ru;
+        }
+
+        if ($this->place && $this->place->address_en) {
+            return $this->place->address_en;
         }
 
         return null;

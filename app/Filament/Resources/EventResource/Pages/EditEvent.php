@@ -234,29 +234,47 @@ class EditEvent extends EditRecord
                                 ->reactive()
                                 ->afterStateUpdated(function (Closure $set, Closure $get) {
                                     $set('location', "");
+                                    $set('place_slug', "");
                                     $set('currency', Currencies::getCodeByCountry($get('country')));
                                 })
                                 ->nullable(),
 
                             Components\Select::make('location')
                                 ->label(__('Location'))
-                                ->placeholder("-")
                                 ->options(fn(Closure $get): array => Locations::asSelectArray($get('country')))
+                                ->placeholder("-")
+                                ->reactive()
+                                ->afterStateUpdated(function (Closure $set) {
+                                    $set('place_slug', "");
+                                })
                                 ->nullable(),
 
-                            Components\Select::make('point_slug')
-                                ->label(__('Point'))
+                            Components\Select::make('place_slug')
+                                ->label(__('Place'))
                                 ->relationship(
-                                    'point',
+                                    'place',
                                     'title',
-                                    fn(Builder $query): Builder => $query->orderBy('id')
+                                    function (Builder $query, Closure $get) {
+                                        $country = $get('country');
+                                        $location = $get('location');
+
+                                        if ($country && $location) {
+                                            return $query->where('country', $country)
+                                                ->where('location', $location)
+                                                ->orderBy('id');
+                                        }
+
+                                        return $query->where('country', $country)
+                                            ->orderBy('id');
+                                    }
                                 )
                                 ->placeholder("-")
+//                                ->searchable()
                                 ->requiredWithout('address'),
 
                             Components\TextInput::make('address')
                                 ->label(__('Address'))
-                                ->requiredWithout('point_slug'),
+                                ->requiredWithout('place_slug'),
                         ]),
                 ])
                 ->columnSpan(['lg' => 1]),

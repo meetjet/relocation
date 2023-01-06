@@ -1,13 +1,18 @@
 <?php
 
-namespace App\Filament\Resources\EventPointResource\Pages;
+namespace App\Filament\Resources\PlaceResource\Pages;
 
-use App\Enums\EventPointStatus;
+use App\Enums\PlaceStatus;
+use App\Enums\PlaceType;
+use App\Facades\Countries;
+use App\Facades\Currencies;
+use App\Facades\Locations;
 use App\Filament\Actions\Pages\DeleteAction;
 use App\Filament\Actions\Pages\ForceDeleteAction;
 use App\Filament\Actions\Pages\RestoreAction;
-use App\Filament\Resources\EventPointResource;
+use App\Filament\Resources\PlaceResource;
 use App\Traits\PageListHelpers;
+use Closure;
 use Exception;
 use Filament\Forms\Components;
 use Filament\Resources\Pages\EditRecord;
@@ -15,11 +20,11 @@ use Filament\Resources\Pages\EditRecord;
 /**
  * @package App\Filament\Resources\EventPointResource\Pages
  */
-class EditEventPoint extends EditRecord
+class EditPlace extends EditRecord
 {
     use PageListHelpers;
 
-    protected static string $resource = EventPointResource::class;
+    protected static string $resource = PlaceResource::class;
 
     /**
      * @return array
@@ -69,10 +74,6 @@ class EditEventPoint extends EditRecord
                                 ->hint(__('If this field is left blank, the link will be generated automatically'))
                                 ->unique(ignoreRecord: true),
 
-                            Components\TextInput::make('address')
-                                ->label(__('Address'))
-                                ->required(),
-
                             Components\RichEditor::make('description')
                                 ->label(__('Description'))
                                 ->disableToolbarButtons([
@@ -80,6 +81,56 @@ class EditEventPoint extends EditRecord
                                     'codeBlock',
                                 ])
                                 ->nullable(),
+
+                            Components\Grid::make(3)
+                                ->schema([
+                                    Components\Select::make('type')
+                                        ->label(__('Type'))
+                                        ->options(PlaceType::asSelectArray())
+                                        ->placeholder("-")
+                                        ->nullable(),
+
+                                    Components\Select::make('country')
+                                        ->label(__('Country'))
+                                        ->options(Countries::asSelectArray())
+                                        ->placeholder("-")
+                                        ->reactive()
+                                        ->afterStateUpdated(function (Closure $set, Closure $get) {
+                                            $set('location', "");
+                                            $set('currency', Currencies::getCodeByCountry($get('country')));
+                                        })
+                                        ->nullable(),
+
+                                    Components\Select::make('location')
+                                        ->label(__('Location'))
+                                        ->placeholder("-")
+                                        ->options(fn(Closure $get): array => Locations::asSelectArray($get('country')))
+                                        ->nullable(),
+                                ]),
+
+                            Components\Grid::make()
+                                ->schema([
+                                    Components\TextInput::make('address_ru')
+                                        ->label(__('Address RU'))
+                                        ->nullable(),
+
+                                    Components\TextInput::make('address_en')
+                                        ->label(__('Address EN'))
+                                        ->nullable(),
+                                ]),
+
+                            Components\Grid::make()
+                                ->schema([
+                                    Components\TextInput::make('latitude')
+                                        ->label(__('Latitude'))
+                                        ->numeric()
+                                        ->requiredWith('longitude'),
+
+                                    Components\TextInput::make('longitude')
+                                        ->label(__('Longitude'))
+                                        ->numeric()
+                                        ->requiredWith('latitude'),
+                                ]),
                         ]),
                 ])
                 ->columnSpan(['lg' => 2]),
@@ -101,7 +152,7 @@ class EditEventPoint extends EditRecord
                         ->schema([
                             Components\Select::make('status')
                                 ->label(__('Status'))
-                                ->options(EventPointStatus::asSelectArray())
+                                ->options(PlaceStatus::asSelectArray())
                                 ->disablePlaceholderSelection(),
 
                             Components\Toggle::make('visibility')
@@ -110,6 +161,23 @@ class EditEventPoint extends EditRecord
                 ])
                 ->columnSpan(['lg' => 1]),
         ];
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        if ($data['latitude']) {
+            $data['latitude'] = (double)$data['latitude'];
+        }
+
+        if ($data['longitude']) {
+            $data['longitude'] = (double)$data['longitude'];
+        }
+
+        return $data;
     }
 
     /**
