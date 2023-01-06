@@ -280,3 +280,23 @@ if (!function_exists('getFakeTransformCollection')) {
         ]);
     }
 }
+
+if (!function_exists('strReplace')) {
+    /**
+     * Recursive replacement in a string.
+     *
+     * @param string $search
+     * @param string $replace
+     * @param string $subject
+     * @return Collection
+     */
+    function strReplace(string $search, string $replace, string $subject): string
+    {
+        if (Str::contains($subject, $search)) {
+            $subject = Str::replace($search, $replace, $subject);
+            return strReplace($search, $replace, $subject);
+        }
+
+        return $subject;
+    }
+}
