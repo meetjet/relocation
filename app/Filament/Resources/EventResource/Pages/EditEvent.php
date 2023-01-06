@@ -293,6 +293,18 @@ class EditEvent extends EditRecord
     }
 
     /**
+     * @param array $data
+     * @return array
+     */
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        // Remove redundant line breaks.
+        $data['description'] = strReplace("<br><br><br>", "<br><br>", $data['description']);
+
+        return $data;
+    }
+
+    /**
      * @param Model $record
      * @param array $data
      * @return Model
