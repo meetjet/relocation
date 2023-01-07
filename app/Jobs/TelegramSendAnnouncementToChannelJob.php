@@ -92,6 +92,8 @@ class TelegramSendAnnouncementToChannelJob implements ShouldQueue
         $description = str($this->listingItem->description)->replace(["<br>", "</p><p>", "&nbsp;"], ["\n", "\n\n", " "]);
         // Remove unsupported tags.
         $description = strip_tags($description, '<b><strong><i><em><u><ins><s><strike><del><a>');
+        // Remove redundant line breaks.
+        $description = strReplace("\n\n\n", "\n\n", $description);
         // Strip whitespace from the beginning and end of a string.
         $description = str($description)->trim()->value();
 

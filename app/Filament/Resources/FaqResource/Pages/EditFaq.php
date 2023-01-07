@@ -167,6 +167,19 @@ class EditFaq extends EditRecord
     }
 
     /**
+     * @param array $data
+     * @return array
+     */
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        // Remove redundant line breaks.
+        $data['question'] = strReplace("<br><br><br>", "<br><br>", $data['question']);
+        $data['answer'] = strReplace("<br><br><br>", "<br><br>", $data['answer']);
+
+        return $data;
+    }
+
+    /**
      * @param Model $record
      * @param array $data
      * @return Model

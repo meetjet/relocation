@@ -126,6 +126,19 @@ class CreateFaq extends CreateRecord
 
     /**
      * @param array $data
+     * @return array
+     */
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        // Remove redundant line breaks.
+        $data['question'] = strReplace("<br><br><br>", "<br><br>", $data['question']);
+        $data['answer'] = strReplace("<br><br><br>", "<br><br>", $data['answer']);
+
+        return $data;
+    }
+
+    /**
+     * @param array $data
      * @return Model
      */
     protected function handleRecordCreation(array $data): Model

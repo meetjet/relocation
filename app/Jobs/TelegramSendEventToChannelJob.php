@@ -92,6 +92,8 @@ class TelegramSendEventToChannelJob implements ShouldQueue
         $description = str($this->event->description)->replace(["<br>", "</p><p>", "&nbsp;"], ["\n", "\n\n", " "]);
         // Remove unsupported tags.
         $description = strip_tags($description->value(), '<b><strong><i><em><u><ins><s><strike><del><a>');
+        // Remove redundant line breaks.
+        $description = strReplace("\n\n\n", "\n\n", $description);
 
         $descriptionString = str($description);
         // Get a template for the "Learn more" button.
