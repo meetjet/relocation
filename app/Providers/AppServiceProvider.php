@@ -47,6 +47,10 @@ class AppServiceProvider extends ServiceProvider
                     ->label(__('Places'))
                     ->icon('heroicon-o-map')
                     ->collapsed(),
+                NavigationGroup::make()
+                    ->label(__('Properties'))
+                    ->icon('heroicon-o-office-building')
+                    ->collapsed(),
             ]);
         });
     }
