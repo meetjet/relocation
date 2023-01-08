@@ -211,9 +211,9 @@ class Event extends Model
      */
     public function getFrontendPriceAttribute(): ?string
     {
-        return $this->payment_type === EventPaymentType::FREE
-            ? EventPaymentType::getDescription($this->payment_type)
-            : $this->formatted_price;
+        return $this->payment_type === EventPaymentType::PAID
+            ? $this->formatted_price
+            : EventPaymentType::getDescription($this->payment_type);
     }
 
     /**

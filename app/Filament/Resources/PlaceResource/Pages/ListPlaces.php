@@ -9,6 +9,7 @@ use App\Facades\Locations;
 use App\Filament\Resources\PlaceResource;
 use App\Models\Place;
 use App\Traits\PageListHelpers;
+use Closure;
 use Exception;
 use Filament\Forms\Components;
 use Filament\Pages;
@@ -18,6 +19,7 @@ use App\Filament\Actions;
 use Filament\Tables\Columns;
 use Filament\Tables\Filters;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 
 /**
  * @package App\Filament\Resources\EventPointResource\Pages
@@ -45,7 +47,7 @@ class ListPlaces extends ListRecords
      */
     public function table(Table $table): Table
     {
-        return $table->defaultSort('title');
+        return $table->defaultSort('created_at', 'desc');
     }
 
     /**
@@ -59,6 +61,11 @@ class ListPlaces extends ListRecords
                 ->searchable()
                 ->sortable()
                 ->color(fn($record): ?string => is_null($record->deleted_at) ? null : "danger"),
+
+            Columns\SpatieTagsColumn::make('tags')
+                ->label(__('Tags'))
+                ->type("places")
+                ->toggleable(),
 
             Columns\TextColumn::make('type')
                 ->label(__('Type'))
@@ -140,29 +147,84 @@ class ListPlaces extends ListRecords
         return [
             Filters\TrashedFilter::make(),
 
-            Filters\Filter::make('status')
+            Filters\Filter::make('type')
                 ->form([
-                    Components\Select::make('status')
-                        ->label(__('Status'))
+                    Components\Select::make('type')
+                        ->label(__('Type'))
                         ->placeholder("-")
-                        ->options(PlaceStatus::asSelectArray()),
+                        ->options(PlaceType::asSelectArray()),
                 ])
                 ->query(function (Builder $query, array $data): Builder {
                     return $query->when(
-                        $data['status'],
-                        fn(Builder $query, $status): Builder => $query->where('status', $status),
+                        $data['type'],
+                        fn(Builder $query, $status): Builder => $query->where('type', $status),
                     );
                 })
                 ->indicateUsing(function (array $data): ?string {
-                    if ($data['status']) {
-                        return __('Status') . ' "' . PlaceStatus::getDescription($data['status']) . '"';
+                    if ($data['type']) {
+                        return __('Type') . ' "' . PlaceType::getDescription($data['type']) . '"';
                     }
 
                     return null;
                 }),
 
-            Filters\Filter::make('visibility')
+            Filters\Filter::make('country_and_location')
                 ->form([
+                    Components\Select::make('country')
+                        ->label(__('Country'))
+                        ->placeholder("-")
+                        ->options(collect(Countries::asSelectArray())->put('no_country', __("No")))
+                        ->reactive()
+                        ->afterStateUpdated(fn(Closure $set) => $set('location', "")),
+
+                    Components\Select::make('location')
+                        ->label(__('Location'))
+                        ->placeholder("-")
+                        ->options(fn(Closure $get): Collection => collect(Locations::asSelectArray($get('country')))->put('no_location', __("No"))),
+                ])
+                ->columns()
+                ->query(function (Builder $query, array $data): Builder {
+                    return $query
+                        ->when(
+                            $data['country'],
+                            fn(Builder $query, $country): Builder => $country === "no_country"
+                                ? $query->whereNull('country')
+                                : $query->where('country', $country),
+                        )
+                        ->when(
+                            $data['location'],
+                            fn(Builder $query, $location): Builder => $location === "no_location"
+                                ? $query->whereNull('location')
+                                : $query->where('location', $location),
+                        );
+                })
+                ->indicateUsing(function (array $data): array {
+                    $indicators = [];
+
+                    if ($data['country'] ?? null) {
+                        $country = $data['country'] === "no_country"
+                            ? __("No")
+                            : Countries::getDescription($data['country']);
+                        $indicators['country'] = __('Country') . ' "' . $country . '"';
+                    }
+
+                    if ($data['location'] ?? null) {
+                        $location = $data['location'] === "no_location"
+                            ? __("No")
+                            : Locations::getDescription($data['country'], $data['location']);
+                        $indicators['location'] = __('Location') . ' "' . $location . '"';
+                    }
+
+                    return $indicators;
+                }),
+
+            Filters\Filter::make('status_and_visibility')
+                ->form([
+                    Components\Select::make('status')
+                        ->label(__('Status'))
+                        ->placeholder("-")
+                        ->options(PlaceStatus::asSelectArray()),
+
                     Components\Select::make('visibility')
                         ->label(__('Visibility'))
                         ->placeholder("-")
@@ -171,18 +233,33 @@ class ListPlaces extends ListRecords
                             'false' => __("No"),
                         ]),
                 ])
+                ->columns()
                 ->query(function (Builder $query, array $data): Builder {
-                    return $query->when(
-                        $data['visibility'],
-                        fn(Builder $query, $visibility): Builder => $query->where('visibility', json_decode($visibility)),
-                    );
+                    return $query
+                        ->when(
+                            $data['status'],
+                            fn(Builder $query, $status): Builder => $query->where('status', $status),
+                        )
+                        ->when(
+                            $data['visibility'],
+                            fn(Builder $query, $visibility): Builder => $query->where('visibility', json_decode($visibility)),
+                        );
                 })
-                ->indicateUsing(function (array $data): ?string {
-                    if ($data['visibility']) {
-                        return __('Visibility') . ' "' . (json_decode($data['visibility']) ? __("Yes") : __("No")) . '"';
+                ->indicateUsing(function (array $data): array {
+                    $indicators = [];
+
+                    if ($data['status'] ?? null) {
+                        $indicators['country'] = __('Status') . ' "' . PlaceStatus::getDescription($data['status']) . '"';
                     }
 
-                    return null;
+                    if ($data['visibility'] ?? null) {
+                        $visibility = json_decode($data['visibility'])
+                            ? __("Yes")
+                            : __("No");
+                        $indicators['visibility'] = __('Visibility') . ' "' . $visibility . '"';
+                    }
+
+                    return $indicators;
                 }),
         ];
     }
@@ -190,8 +267,8 @@ class ListPlaces extends ListRecords
     /**
      * @return string
      */
-//    protected function getTableFiltersFormWidth(): string
-//    {
-//        return 'md';
-//    }
+    protected function getTableFiltersFormWidth(): string
+    {
+        return 'md';
+    }
 }

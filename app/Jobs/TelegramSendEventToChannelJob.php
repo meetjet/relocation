@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Facades\Locations;
 use App\Models\Event;
 use App\Telegram\Telegram;
 use Exception;
@@ -116,13 +117,25 @@ class TelegramSendEventToChannelJob implements ShouldQueue
         return __("telegram.{$this->event->country}.event-add.send-to-channel", [
             'datetime' => $this->event->frontend_start_datetime,
             'text' => $text,
-            'address' => $this->event->frontend_address ?? str(__("No"))->lower()->value(),
-            'price' => str($this->event->frontend_price)->lower(),
+            'address' => $this->getAddress(),
+            'price' => str($this->event->frontend_price)->lower()->value(),
             'organizer' => $this->getContact(),
             'link' => '<a href="' . $link . '">' . __('Link') . '</a>',
         ]);
     }
 
+    public function getAddress(): string
+    {
+        $address = $this->event->frontend_address;
+
+        if ($this->event->location) {
+            $address = $address
+                ? Locations::getDescription($this->event->country, $this->event->location) . ', ' . $address
+                : Locations::getDescription($this->event->country, $this->event->location);
+        }
+
+        return $address ?? str(__("No"))->lower()->value();
+    }
 
     /**
      * @return string
@@ -145,6 +158,6 @@ class TelegramSendEventToChannelJob implements ShouldQueue
             return $this->event->phone;
         }
 
-        return str(__('Not found'))->lower();
+        return str(__('Not found'))->lower()->value();
     }
 }
