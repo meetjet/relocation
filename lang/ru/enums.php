@@ -9,6 +9,9 @@ use App\Enums\ListingCategoryStatus;
 use App\Enums\ListingItemSource;
 use App\Enums\ListingItemStatus;
 use App\Enums\PlaceType;
+use App\Enums\PropertyRoomsNumber;
+use App\Enums\PropertyStatus;
+use App\Enums\PropertyType;
 use App\Enums\TelegramBotImageMimeType;
 use App\Enums\TelegramBotType;
 
@@ -65,5 +68,21 @@ return [
     ListingItemSource::class => [
         ListingItemSource::BOT => 'Бот',
         ListingItemSource::ADMIN => 'Админка',
+    ],
+    PropertyStatus::class => [
+        PropertyStatus::CREATED => 'Создано',
+        PropertyStatus::PUBLISHED => 'Опубликовано',
+        PropertyStatus::REJECTED => 'Отклонено',
+    ],
+    PropertyType::class => [
+        PropertyType::APARTMENT => 'Квартира',
+        PropertyType::HOME => 'Дом',
+    ],
+    PropertyRoomsNumber::class => [
+        PropertyRoomsNumber::ONE_ROOM => 'Одна комната',
+        PropertyRoomsNumber::TWO_ROOMS => 'Две комнаты',
+        PropertyRoomsNumber::THREE_ROOMS => 'Три комнаты',
+        PropertyRoomsNumber::FOUR_ROOMS => 'Четыре комнаты',
+        PropertyRoomsNumber::FIVE_ROOMS => 'Пять комнат',
     ],
 ];
