@@ -268,13 +268,12 @@ class EditEvent extends EditRecord
                                             ->orderBy('id');
                                     }
                                 )
-                                ->placeholder("-")
-//                                ->searchable()
-                                ->requiredWithout('address'),
+                                ->placeholder("-"),
+//                                ->requiredWithout('address'),
 
                             Components\TextInput::make('address')
-                                ->label(__('Address'))
-                                ->requiredWithout('place_slug'),
+                                ->label(__('Address')),
+//                                ->requiredWithout('place_slug'),
                         ]),
                 ])
                 ->columnSpan(['lg' => 1]),
@@ -299,7 +298,9 @@ class EditEvent extends EditRecord
     protected function mutateFormDataBeforeSave(array $data): array
     {
         // Remove redundant line breaks.
-        $data['description'] = strReplace("<br><br><br>", "<br><br>", $data['description']);
+        if ($data['description']) {
+            $data['description'] = strReplace("<br><br><br>", "<br><br>", $data['description']);
+        }
 
         return $data;
     }
