@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Route;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
+use Spatie\Tags\HasTags;
 use Stancl\VirtualColumn\VirtualColumn;
 
 class Place extends Model
@@ -23,6 +24,7 @@ class Place extends Model
     use VirtualColumn;
     use HasUUID;
     use HasSlug;
+    use HasTags;
 
     protected $fillable = [
         'slug',
