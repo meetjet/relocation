@@ -178,7 +178,9 @@ class EditPlace extends EditRecord
         }
 
         // Remove redundant line breaks.
-        $data['description'] = strReplace("<br><br><br>", "<br><br>", $data['description']);
+        if ($data['description']) {
+            $data['description'] = strReplace("<br><br><br>", "<br><br>", $data['description']);
+        }
 
         return $data;
     }

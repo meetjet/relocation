@@ -264,7 +264,9 @@ class CreateEvent extends CreateRecord
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         // Remove redundant line breaks.
-        $data['description'] = strReplace("<br><br><br>", "<br><br>", $data['description']);
+        if ($data['description']) {
+            $data['description'] = strReplace("<br><br><br>", "<br><br>", $data['description']);
+        }
 
         return $data;
     }
