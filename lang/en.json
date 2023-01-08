@@ -590,5 +590,9 @@
     "View on frontend": "View on frontend",
     "Source": "Source",
     "Latitude": "Latitude",
-    "Longitude": "Longitude"
+    "Longitude": "Longitude",
+    "Property": "Property",
+    "Properties": "Properties",
+    "Property owner": "Property owner",
+    "Rooms number": "Rooms number"
 }
