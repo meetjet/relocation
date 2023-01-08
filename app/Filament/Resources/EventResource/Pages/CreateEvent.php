@@ -244,13 +244,12 @@ class CreateEvent extends CreateRecord
                                             ->orderBy('id');
                                     }
                                 )
-                                ->placeholder("-")
-//                                ->searchable()
-                                ->requiredWithout('address'),
+                                ->placeholder("-"),
+//                                ->requiredWithout('address'),
 
                             Components\TextInput::make('address')
-                                ->label(__('Address'))
-                                ->requiredWithout('place_slug'),
+                                ->label(__('Address')),
+//                                ->requiredWithout('place_slug'),
                         ]),
                 ])
                 ->columnSpan(['lg' => 1]),
