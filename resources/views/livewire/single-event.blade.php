@@ -37,6 +37,9 @@
                 @if($entity->location)
                     <div>, {{ locations()->getDescription($entity->country, $entity->location) }}</div>
                 @endif
+                @if($entity->address)
+                    <div>, {{ $entity->address }}</div>
+                @endif
             </div>
         @endif
 
