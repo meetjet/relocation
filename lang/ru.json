@@ -607,5 +607,9 @@
     "View on frontend": "Посмотреть на фронте",
     "Source": "Источник",
     "Latitude": "Широта",
-    "Longitude": "Долгота"
+    "Longitude": "Долгота",
+    "Property": "Недвижимость",
+    "Properties": "Недвижимость",
+    "Property owner": "Владелец недвижимости",
+    "Rooms number": "Количество комнат"
 }
