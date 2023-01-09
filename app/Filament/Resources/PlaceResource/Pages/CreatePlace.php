@@ -64,6 +64,10 @@ class CreatePlace extends CreateRecord
                                 ])
                                 ->nullable(),
 
+                            Components\SpatieTagsInput::make('tags')
+                                ->label(__('Tags'))
+                                ->type("places"),
+
                             Components\Grid::make(3)
                                 ->schema([
                                     Components\Select::make('type')
@@ -152,7 +156,9 @@ class CreatePlace extends CreateRecord
         }
 
         // Remove redundant line breaks.
-        $data['description'] = strReplace("<br><br><br>", "<br><br>", $data['description']);
+        if ($data['description']) {
+            $data['description'] = strReplace("<br><br><br>", "<br><br>", $data['description']);
+        }
 
         return $data;
     }
