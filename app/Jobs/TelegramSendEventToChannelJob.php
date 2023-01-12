@@ -142,20 +142,20 @@ class TelegramSendEventToChannelJob implements ShouldQueue
      */
     public function getContact(): string
     {
-        if ($this->event->custom_nickname) {
-            return "@" . $this->event->custom_nickname;
-        }
-
-        if ($this->event->contact && $this->event->contact->nickname) {
-            return "@" . $this->event->contact->nickname;
-        }
-
         if ($this->event->email) {
             return $this->event->email;
         }
 
         if ($this->event->phone) {
             return $this->event->phone;
+        }
+
+        if ($this->event->custom_nickname) {
+            return "@" . $this->event->custom_nickname;
+        }
+
+        if ($this->event->contact && $this->event->contact->nickname) {
+            return "@" . $this->event->contact->nickname;
         }
 
         return str(__('Not found'))->lower()->value();

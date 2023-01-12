@@ -47,7 +47,13 @@
         <div class="flex flex-wrap mt-4">
             <div class="mr-2">{{ __("Contact") }}:</div>
             @if(Auth::user())
-                @if($entity->custom_nickname)
+                @if($entity->email)
+                    {{-- Owner email --}}
+                    {{ $entity->email }}
+                @elseif($entity->phone)
+                    {{-- Owner phone --}}
+                    {{ $entity->phone }}
+                @elseif($entity->custom_nickname)
                     {{-- Custom nickname --}}
                     <a href="https://t.me/{{ $entity->custom_nickname }}"
                        target="_blank"
@@ -57,15 +63,9 @@
                     <a href="https://t.me/{{ $entity->contact->nickname }}"
                        target="_blank"
                        class="text-blue-600">{{ "@" . $entity->contact->nickname }}</a>
-                @elseif($entity->email)
-                    {{-- Owner email --}}
-                    {{ $entity->email }}
-                @elseif($entity->phone)
-                    {{-- Owner phone --}}
-                    {{ $entity->phone }}
                 @else
                     {{-- Something went wrong! --}}
-                    {{ str(__('Not found'))->lower() }}
+                    {{ str(__('Not found'))->lower()->value() }}
                 @endif
             @else
                 <div>
