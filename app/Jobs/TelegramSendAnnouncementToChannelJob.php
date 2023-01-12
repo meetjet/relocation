@@ -118,14 +118,6 @@ class TelegramSendAnnouncementToChannelJob implements ShouldQueue
      */
     public function getContact(): string
     {
-        if ($this->listingItem->custom_nickname) {
-            return "@" . $this->listingItem->custom_nickname;
-        }
-
-        if ($this->listingItem->contact && $this->listingItem->contact->nickname) {
-            return "@" . $this->listingItem->contact->nickname;
-        }
-
         if ($this->listingItem->email) {
             return $this->listingItem->email;
         }
@@ -134,6 +126,14 @@ class TelegramSendAnnouncementToChannelJob implements ShouldQueue
             return $this->listingItem->phone;
         }
 
-        return str(__('Not found'))->lower();
+        if ($this->listingItem->custom_nickname) {
+            return "@" . $this->listingItem->custom_nickname;
+        }
+
+        if ($this->listingItem->contact && $this->listingItem->contact->nickname) {
+            return "@" . $this->listingItem->contact->nickname;
+        }
+
+        return str(__('Not found'))->lower()->value();
     }
 }
