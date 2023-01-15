@@ -53,10 +53,6 @@ class EventObserver
             && is_null($event->telegram_to_channel_sent)
         ) {
             TelegramSendEventToChannelJob::dispatch($event);
-
-            $event->forceFill([
-                'telegram_to_channel_sent' => true,
-            ])->save();
         }
     }
 }
