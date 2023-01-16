@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\PlaceStatus;
+use App\Scopes\CountryScope;
 use App\Traits\HasUUID;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -23,6 +24,7 @@ class Place extends Model
     use SoftDeletes;
     use VirtualColumn;
     use HasUUID;
+    use HasTags;
     use HasSlug;
     use HasTags;
 
@@ -65,6 +67,11 @@ class Place extends Model
             'updated_at',
             'deleted_at',
         ];
+    }
+
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new CountryScope());
     }
 
     /**

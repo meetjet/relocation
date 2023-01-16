@@ -1,5 +1,8 @@
 <?php
 
+use App\Filament\Widgets\AccountWidget;
+use App\Filament\Widgets\ArmeniaInfoWidget;
+use App\Filament\Widgets\GeorgiaInfoWidget;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Http\Middleware\MirrorConfigToSubpackages;
@@ -139,8 +142,8 @@ return [
         'namespace' => 'App\\Filament\\Widgets',
         'path' => app_path('Filament/Widgets'),
         'register' => [
-            Widgets\AccountWidget::class,
-            Widgets\FilamentInfoWidget::class,
+            ArmeniaInfoWidget::class,
+            GeorgiaInfoWidget::class,
         ],
     ],
 

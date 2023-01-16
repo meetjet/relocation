@@ -9,6 +9,7 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ListingItemByCategoryController;
 use App\Http\Controllers\ListingItemByTagController;
 use App\Http\Controllers\ListingItemController;
+use App\Http\Controllers\PlaceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,6 +41,12 @@ Route::get('/listings', [ListingItemController::class, 'index'])->name('listings
 Route::get('/listings/{category}', [ListingItemByCategoryController::class, 'index'])->name('listings.category');
 Route::get('/listings/{category}/{uuid}', [ListingItemByCategoryController::class, 'show'])->name('listings.show');
 Route::get('/listings/tags/{tag}', [ListingItemByTagController::class, 'index'])->name('listings-by-tag.index');
+
+// Places
+Route::get('/places', [PlaceController::class, 'index'])->name('places.index');
+Route::get('/places/{category}', [PlaceByTypeController::class, 'index'])->name('places.type');
+Route::get('/places/{category}/{slug}', [PlaceByTypeController::class, 'show'])->name('places.show');
+Route::get('/places/tags/{tag}', [PlaceByTagController::class, 'index'])->name('places-by-tag.index');
 
 // Events
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
