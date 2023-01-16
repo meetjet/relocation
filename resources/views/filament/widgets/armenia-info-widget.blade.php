@@ -6,6 +6,7 @@
             <ul class="list-disc list-inside">
                 <li><a href="https://tkt.am/" target="_blank">Сайт продажи билетов TKT AM</a></li>
                 <li><a href="https://t.me/review_armenia" target="_blank">Куда пойдем в Ереване? (8661)</a></li>
+                <li><a href="https://t.me/musthaveyerevan" target="_blank">Must have Ереван (3650)</a></li>
                 <li><a href="https://t.me/eventsofyerevan" target="_blank">Ивенты мероприятия в Ереване (569)</a></li>
                 <li><a href="https://t.me/easygoing_yerevan" target="_blank">Беспечный Ереван Анонсы (868)</a></li>
             </ul>
