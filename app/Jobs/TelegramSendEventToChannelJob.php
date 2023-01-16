@@ -48,12 +48,12 @@ class TelegramSendEventToChannelJob implements ShouldQueue
             $bot = $telegram->getChannelBotByCountry($this->event->country);
             $chatId = config("nutgram.event_{$this->event->country}_channel_id");
 
-            Log::error("Try send event to channel with chatId = " . $chatId);
+            logger("Trying to send event to channel with chat ID = {$chatId}");
 
             $picture = $this->event->firstPicture()->first();
 
             if ($picture && $picture->uploadio_file_path) {
-                $bot->sendPhoto($picture->medium, [
+                $message = $bot->sendPhoto($picture->medium, [
                     // @see https://core.telegram.org/bots/api#sendphoto
                     'chat_id' => $chatId,
                     'caption' => $this->getMessageText(),
@@ -61,7 +61,7 @@ class TelegramSendEventToChannelJob implements ShouldQueue
                     'allow_sending_without_reply' => true,
                 ]);
             } else {
-                $bot->sendMessage($this->getMessageText(), [
+                $message = $bot->sendMessage($this->getMessageText(), [
                     // @see https://core.telegram.org/bots/api#sendmessage
                     'chat_id' => $chatId,
                     'parse_mode' => ParseMode::HTML,
@@ -69,6 +69,12 @@ class TelegramSendEventToChannelJob implements ShouldQueue
                     'allow_sending_without_reply' => true,
                 ]);
             }
+
+            $this->event->forceFill([
+                'telegram_to_channel_sent' => true,
+                'telegram_chat_id' => $chatId,
+                'telegram_message_id' => $message->message_id,
+            ])->saveQuietly();
         } catch (Exception $e) {
             Log::error("Telegram send event to channel: " . $e->getMessage());
         } catch (Throwable $e) {

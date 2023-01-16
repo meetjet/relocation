@@ -611,5 +611,8 @@
     "Property": "Недвижимость",
     "Properties": "Недвижимость",
     "Property owner": "Владелец недвижимости",
-    "Rooms number": "Количество комнат"
+    "Rooms number": "Количество комнат",
+    "Reposting to a channel": "Повторная публикация в канал",
+    "Repost event": "Опубликовать событие еще раз",
+    "Delete event and post again": "Удалить событие и опубликовать снова"
 }

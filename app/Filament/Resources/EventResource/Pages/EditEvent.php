@@ -9,6 +9,7 @@ use App\Facades\Locations;
 use App\Facades\Countries;
 use App\Filament\Actions\Pages\DeleteAction;
 use App\Filament\Resources\EventResource;
+use App\Forms\Components\ResendEventToTelegramChannel;
 use App\Forms\Components\RichEditor;
 use App\Models\Event;
 use App\Traits\PageListHelpers;
@@ -212,7 +213,8 @@ class EditEvent extends EditRecord
                                 ->withoutSeconds(),
 
                             Components\Toggle::make('visibility')
-                                ->label(__('Visibility')),
+                                ->label(__('Visibility'))
+                                ->reactive(),
                         ]),
 
                     Components\Card::make()
@@ -274,6 +276,15 @@ class EditEvent extends EditRecord
                             Components\TextInput::make('address')
                                 ->label(__('Address')),
 //                                ->requiredWithout('place_slug'),
+                        ]),
+
+                    Components\Section::make(__('Reposting to a channel'))
+                        ->hidden(fn($record, Closure $get) => !(!is_null($record->telegram_message_id)
+                            && $get('status') === EventStatus::PUBLISHED
+                            && $get('visibility') === true))
+                        ->schema([
+                            ResendEventToTelegramChannel::make('resend_event_manager')
+                                ->disableLabel(),
                         ]),
                 ])
                 ->columnSpan(['lg' => 1]),

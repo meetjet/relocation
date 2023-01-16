@@ -185,10 +185,6 @@ class CreateEvent extends CreateRecord
                                 ->displayFormat("j M Y, H:i")
                                 ->withoutSeconds()
                                 ->default(fn(): string => now()),
-
-                            Components\Toggle::make('visibility')
-                                ->label(__('Visibility'))
-                                ->default(false),
                         ]),
 
                     Components\Card::make()
