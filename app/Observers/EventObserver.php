@@ -2,9 +2,7 @@
 
 namespace App\Observers;
 
-use App\Enums\EventStatus;
 use App\Jobs\TelegramAttachImagesJob;
-use App\Jobs\TelegramSendEventToChannelJob;
 use App\Models\Event;
 
 class EventObserver
@@ -34,25 +32,5 @@ class EventObserver
         $event->pictures->each(function ($_picture) {
             $_picture->delete();
         });
-    }
-
-    /**
-     * Handle the Event "updated" event.
-     *
-     * @param Event $event
-     * @return void
-     */
-    public function updated(Event $event): void
-    {
-        if (
-            $event->status === EventStatus::PUBLISHED
-            && $event->visibility === true
-            && $event->country
-            && $event->category
-            && $event->uuid
-            && is_null($event->telegram_to_channel_sent)
-        ) {
-            TelegramSendEventToChannelJob::dispatch($event);
-        }
     }
 }

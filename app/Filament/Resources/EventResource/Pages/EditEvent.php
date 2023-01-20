@@ -11,6 +11,7 @@ use App\Filament\Actions\Pages\DeleteAction;
 use App\Filament\Resources\EventResource;
 use App\Forms\Components\ResendEventToTelegramChannel;
 use App\Forms\Components\RichEditor;
+use App\Jobs\TelegramSendEventToChannelJob;
 use App\Models\Event;
 use App\Traits\PageListHelpers;
 use Closure;
@@ -386,5 +387,21 @@ class EditEvent extends EditRecord
         }
 
         return null;
+    }
+
+    protected function afterSave(): void
+    {
+        logger("Event update on event with id = {$this->record->id}");
+
+        if (
+            $this->record->status === EventStatus::PUBLISHED
+            && $this->record->visibility === true
+            && $this->record->country
+            && $this->record->category
+            && $this->record->uuid
+            && is_null($this->record->telegram_to_channel_sent)
+        ) {
+            TelegramSendEventToChannelJob::dispatch($this->record);
+        }
     }
 }
