@@ -48,7 +48,7 @@ class TelegramSendEventToChannelJob implements ShouldQueue
             $bot = $telegram->getChannelBotByCountry($this->event->country);
             $chatId = config("nutgram.event_{$this->event->country}_channel_id");
 
-            logger("Trying to send event to channel with chat ID = {$chatId}");
+            logger("Trying to send event {$this->event->id} to channel with chat ID = {$chatId}");
 
             $picture = $this->event->firstPicture()->first();
 
