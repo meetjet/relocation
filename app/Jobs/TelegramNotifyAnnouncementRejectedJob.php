@@ -59,6 +59,10 @@ class TelegramNotifyAnnouncementRejectedJob implements ShouldQueue
         } catch (Throwable $e) {
             Log::error($e);
         }
+
+        $this->listingItem->forceFill([
+            'telegram_rejected_notify_sent' => true,
+        ])->saveQuietly();
     }
 
     /**

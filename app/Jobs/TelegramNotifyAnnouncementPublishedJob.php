@@ -59,6 +59,10 @@ class TelegramNotifyAnnouncementPublishedJob implements ShouldQueue
         } catch (Throwable $e) {
             Log::error($e);
         }
+
+        $this->listingItem->forceFill([
+            'telegram_published_notify_sent' => true,
+        ])->saveQuietly();
     }
 
     /**

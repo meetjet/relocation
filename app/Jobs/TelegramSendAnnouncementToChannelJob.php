@@ -73,6 +73,10 @@ class TelegramSendAnnouncementToChannelJob implements ShouldQueue
         } catch (Throwable $e) {
             Log::error($e);
         }
+
+        $this->listingItem->forceFill([
+            'telegram_to_channel_sent' => true,
+        ])->saveQuietly();
     }
 
     /**
