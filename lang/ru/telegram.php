@@ -61,7 +61,7 @@ return [
             'send-to-channel' => ":text\n\n&#128176; Цена: :price\n\n&#128681; Локация: :location\n\n&#128172; Контакт: :contact\n\n:link",
         ],
         'event-add' => [
-            'send-to-channel' => "&#128197; Дата и время: :datetime\n\n:text\n\n&#128681; Адрес: :address\n\n&#128176; Цена: :price\n\n&#128172; Организатор: :organizer\n\n:link",
+            'send-to-channel' => "&#128197; Дата и время: :datetime\n\n:text\n\n&#128681; Адрес: :address:price\n\n&#128172; Организатор: :organizer\n\n:link",
         ],
     ],
     'georgia' => [
@@ -108,7 +108,7 @@ return [
             'send-to-channel' => ":text\n\n&#128176; Цена: :price\n\n&#128681; Локация: :location\n\n&#128172; Контакт: :contact\n\n:link",
         ],
         'event-add' => [
-            'send-to-channel' => "&#128197; Дата и время: :datetime\n\n:text\n\n&#128681; Адрес: :address\n\n&#128176; Цена: :price\n\n&#128172; Организатор: :organizer\n\n:link",
+            'send-to-channel' => "&#128197; Дата и время: :datetime\n\n:text\n\n&#128681; Адрес: :address:price\n\n&#128172; Организатор: :organizer\n\n:link",
         ],
     ],
     'lithuania' => [
@@ -155,7 +155,7 @@ return [
             'send-to-channel' => ":text\n\n&#128176; Цена: :price\n\n&#128681; Локация: :location\n\n&#128172; Контакт: :contact\n\n:link",
         ],
         'event-add' => [
-            'send-to-channel' => "&#128197; Дата и время: :datetime\n\n:text\n\n&#128681; Адрес: :address\n\n&#128176; Цена: :price\n\n&#128172; Организатор: :organizer\n\n:link",
+            'send-to-channel' => "&#128197; Дата и время: :datetime\n\n:text\n\n&#128681; Адрес: :address:price\n\n&#128172; Организатор: :organizer\n\n:link",
         ],
     ],
     'thailand' => [
@@ -202,7 +202,7 @@ return [
             'send-to-channel' => ":text\n\n&#128176; Цена: :price\n\n&#128681; Локация: :location\n\n&#128172; Контакт: :contact\n\n:link",
         ],
         'event-add' => [
-            'send-to-channel' => "&#128197; Дата и время: :datetime\n\n:text\n\n&#128681; Адрес: :address\n\n&#128176; Цена: :price\n\n&#128172; Организатор: :organizer\n\n:link",
+            'send-to-channel' => "&#128197; Дата и время: :datetime\n\n:text\n\n&#128681; Адрес: :address:price\n\n&#128172; Организатор: :organizer\n\n:link",
         ],
     ],
     'turkey' => [
@@ -249,7 +249,7 @@ return [
             'send-to-channel' => ":text\n\n&#128176; Цена: :price\n\n&#128681; Локация: :location\n\n&#128172; Контакт: :contact\n\n:link",
         ],
         'event-add' => [
-            'send-to-channel' => "&#128197; Дата и время: :datetime\n\n:text\n\n&#128681; Адрес: :address\n\n&#128176; Цена: :price\n\n&#128172; Организатор: :organizer\n\n:link",
+            'send-to-channel' => "&#128197; Дата и время: :datetime\n\n:text\n\n&#128681; Адрес: :address:price\n\n&#128172; Организатор: :organizer\n\n:link",
         ],
     ],
 ];

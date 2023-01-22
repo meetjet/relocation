@@ -59,6 +59,7 @@ class Event extends Model
         'frontend_price',
         'contact',
         'frontend_start_datetime',
+        'frontend_finish_datetime',
         'frontend_address',
         'frontend_url',
     ];
@@ -211,9 +212,13 @@ class Event extends Model
      */
     public function getFrontendPriceAttribute(): ?string
     {
-        return $this->payment_type === EventPaymentType::PAID
-            ? $this->formatted_price
-            : EventPaymentType::getDescription($this->payment_type);
+        if ($this->payment_type) {
+            return $this->payment_type === EventPaymentType::PAID
+                ? $this->formatted_price
+                : EventPaymentType::getDescription($this->payment_type);
+        }
+
+        return null;
     }
 
     /**
@@ -238,6 +243,24 @@ class Event extends Model
 
             if ($this->start_time) {
                 $result .= ', ' . $this->start_time->translatedFormat("H:i");
+            }
+
+            return $result;
+        }
+
+        return null;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getFrontendFinishDatetimeAttribute(): ?string
+    {
+        if ($this->finish_date) {
+            $result = $this->finish_date->translatedFormat("j F Y");
+
+            if ($this->finish_time) {
+                $result .= ', ' . $this->finish_time->translatedFormat("H:i");
             }
 
             return $result;

@@ -84,10 +84,19 @@ class EditEvent extends EditRecord
 
                             Components\Grid::make(3)
                                 ->schema([
+                                    Components\Select::make('payment_type')
+                                        ->label(__('Payment type'))
+                                        ->placeholder("-")
+                                        ->options(EventPaymentType::asSelectArray())
+                                        ->reactive()
+                                        ->afterStateUpdated(fn(Closure $set, Closure $get) => $set('currency', Currencies::getCodeByCountry($get('country'))))
+                                        ->nullable(),
+
                                     Components\TextInput::make('price')
                                         ->label(__('Price'))
                                         ->numeric()
-                                        ->minValue(0)
+                                        ->minValue(1)
+                                        ->visible(fn(Closure $get) => $get('payment_type') === EventPaymentType::PAID)
                                         ->required(),
 
                                     Components\Select::make('currency')
@@ -95,13 +104,9 @@ class EditEvent extends EditRecord
                                         ->hint(__('Automatic selection'))
                                         ->placeholder("-")
                                         ->options(Currencies::asSelectArray())
-                                        ->default(Currencies::getCodeByCountry("armenia"))
+                                        ->visible(fn(Closure $get) => $get('payment_type') === EventPaymentType::PAID)
+                                        ->requiredWith('price')
                                         ->disabled(),
-
-                                    Components\Select::make('payment_type')
-                                        ->label(__('Payment type'))
-                                        ->disablePlaceholderSelection()
-                                        ->options(EventPaymentType::asSelectArray()),
                                 ]),
 
                             Components\Grid::make()
@@ -141,19 +146,19 @@ class EditEvent extends EditRecord
 
                             Components\TextInput::make('email')
                                 ->label(__('Owner email'))
-                                ->helperText(__('Requested from the user if he does not have a nickname'))
+//                                ->helperText(__('Requested from the user if he does not have a nickname'))
                                 ->email()
                                 ->requiredWithoutAll(['contact.nickname', 'custom_nickname', 'phone']),
 
                             Components\TextInput::make('phone')
                                 ->label(__('Owner phone'))
-                                ->helperText(__('Requested from the user if he does not have a nickname'))
+//                                ->helperText(__('Requested from the user if he does not have a nickname'))
                                 ->requiredWithoutAll(['contact.nickname', 'custom_nickname', 'email']),
 
                             Components\Placeholder::make('user')
                                 ->label(__('User'))
                                 ->content(fn($record) => static::link(route('filament.resources.users.edit', $record->user), $record->user->name)),
-                        ])->columns()->collapsible(),
+                        ])->columns(),
 
                     Components\Section::make(__('SEO'))
                         ->schema([
@@ -169,7 +174,7 @@ class EditEvent extends EditRecord
                             Components\TextInput::make('seo.robots')
                                 ->label(__('SEO robots'))
                                 ->nullable(),
-                        ])->collapsible(),
+                        ])->collapsed(),
                 ])
                 ->columnSpan(['lg' => 2]),
 
@@ -314,7 +319,13 @@ class EditEvent extends EditRecord
             $data['description'] = strReplace("<br><br><br>", "<br><br>", $data['description']);
         }
 
-        return $data;
+        // Default data to store the actual data in the database (as a point of reference).
+        $defaultData = [
+            'price' => null,
+            'currency' => null,
+        ];
+
+        return array_merge($defaultData, $data);
     }
 
     /**
