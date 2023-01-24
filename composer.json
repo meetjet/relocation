@@ -31,10 +31,12 @@
         "opcodesio/log-viewer": "^1.6",
         "ralphjsmit/laravel-seo": "^1.2",
         "socialiteproviders/telegram": "dev-main",
+        "spatie/laravel-activitylog": "^4.7",
         "spatie/laravel-backup": "^8.1",
         "spatie/laravel-sluggable": "^3.4",
         "stancl/virtualcolumn": "^1.2",
-        "vladimir-yuldashev/laravel-queue-rabbitmq": "^13.0"
+        "vladimir-yuldashev/laravel-queue-rabbitmq": "^13.0",
+        "z3d0x/filament-logger": "^0.4.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",
