@@ -5,6 +5,7 @@ namespace App\Filament\Resources\FaqResource\Pages;
 use App\Enums\FaqStatus;
 use App\Facades\Countries;
 use App\Filament\Resources\FaqResource;
+use App\Jobs\TelegramNotifyQuestionAnsweredJob;
 use Exception;
 use Filament\Pages\Actions;
 use Filament\Forms\Components;
@@ -254,5 +255,17 @@ class EditFaq extends EditRecord
         }
 
         return null;
+    }
+
+    protected function afterSave(): void
+    {
+        if (
+            $this->record->status === FaqStatus::PUBLISHED
+            && $this->record->slug
+            && $this->record->telegram_chat_id
+            && is_null($this->record->telegram_published_notify_sent)
+        ) {
+            TelegramNotifyQuestionAnsweredJob::dispatch($this->record);
+        }
     }
 }
