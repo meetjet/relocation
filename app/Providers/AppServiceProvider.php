@@ -51,6 +51,10 @@ class AppServiceProvider extends ServiceProvider
                     ->label(__('Properties'))
                     ->icon('heroicon-o-office-building')
                     ->collapsed(),
+                NavigationGroup::make()
+                    ->label(__('Settings'))
+                    ->icon('heroicon-o-office-building')
+                    ->collapsed(),
             ]);
         });
     }
