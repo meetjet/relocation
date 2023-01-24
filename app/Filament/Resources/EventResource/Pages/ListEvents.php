@@ -231,7 +231,7 @@ class ListEvents extends ListRecords
                     Components\Select::make('payment_type')
                         ->label(__('Payment type'))
                         ->placeholder("-")
-                        ->options(EventPaymentType::asSelectArray()),
+                        ->options(collect(EventPaymentType::asSelectArray())->put('no_payment_type', __("No"))),
 
                     Components\DatePicker::make('start_date')
                         ->label(__('Start date'))
@@ -243,7 +243,9 @@ class ListEvents extends ListRecords
                     return $query
                         ->when(
                             $data['payment_type'],
-                            fn(Builder $query, $paymentType): Builder => $query->where('payment_type', $paymentType),
+                            fn(Builder $query, $paymentType): Builder => $paymentType === "no_payment_type"
+                                ? $query->whereNull('payment_type')
+                                : $query->where('payment_type', $paymentType),
                         )
                         ->when(
                             $data['start_date'],
@@ -254,7 +256,10 @@ class ListEvents extends ListRecords
                     $indicators = [];
 
                     if ($data['payment_type'] ?? null) {
-                        $indicators['payment_type'] = __('Payment type') . ' "' . EventPaymentType::getDescription($data['payment_type']) . '"';
+                        $paymentType = $data['payment_type'] === "no_payment_type"
+                            ? __("No")
+                            : EventPaymentType::getDescription($data['payment_type']);
+                        $indicators['payment_type'] = __('Payment type') . ' "' . $paymentType . '"';
                     }
 
                     if ($data['start_date'] ?? null) {

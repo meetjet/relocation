@@ -24,10 +24,17 @@
         @endif
 
         {{-- Date/Time --}}
-        <div class="inline-flex items-center text-xl font-bold my-4"><x-ri-calendar-event-line class="w-8 h-8 mr-2" />{{ $entity->frontend_start_datetime }}</div>
+        <div class="inline-flex items-center text-xl font-bold my-4">
+            <x-ri-calendar-event-line class="w-8 h-8 mr-2"/>{{ $entity->frontend_start_datetime }}
+            @if($entity->frontend_finish_datetime)
+            - {{ $entity->frontend_finish_datetime }}
+            @endif
+        </div>
 
         {{-- Price --}}
-        <div class="text-xl font-bold my-4">{{ $entity->frontend_price }}</div>
+        @if($entity->frontend_price)
+            <div class="text-xl font-bold my-4">{{ $entity->frontend_price }}</div>
+        @endif
 
         {{-- Location --}}
         @if($entity->country)

@@ -76,7 +76,7 @@ class TelegramSendEventToChannelJob implements ShouldQueue
                 'telegram_message_id' => $message->message_id,
             ])->saveQuietly();
         } catch (Exception $e) {
-            Log::error("Telegram send event to channel: " . $e->getMessage());
+            Log::error("Telegram send event {$this->event->id} to channel: " . $e->getMessage());
         } catch (Throwable $e) {
             Log::error($e);
         }
@@ -124,12 +124,15 @@ class TelegramSendEventToChannelJob implements ShouldQueue
             'datetime' => $this->event->frontend_start_datetime,
             'text' => $text,
             'address' => $this->getAddress(),
-            'price' => str($this->event->frontend_price)->lower()->value(),
+            'price' => $this->getPrice(),
             'organizer' => $this->getContact(),
             'link' => '<a href="' . $link . '">' . __('Link') . '</a>',
         ]);
     }
 
+    /**
+     * @return string
+     */
     public function getAddress(): string
     {
         $address = $this->event->frontend_address;
@@ -141,6 +144,18 @@ class TelegramSendEventToChannelJob implements ShouldQueue
         }
 
         return $address ?? str(__("No"))->lower()->value();
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getPrice(): ?string
+    {
+        if ($this->event->frontend_price) {
+            return "\n\n&#128176;" . __('Price') . ": " . str($this->event->frontend_price)->lower()->value();
+        }
+
+        return null;
     }
 
     /**

@@ -69,10 +69,18 @@ class CreateEvent extends CreateRecord
 
                             Components\Grid::make(3)
                                 ->schema([
+                                    Components\Select::make('payment_type')
+                                        ->label(__('Payment type'))
+                                        ->placeholder("-")
+                                        ->options(EventPaymentType::asSelectArray())
+                                        ->reactive()
+                                        ->nullable(),
+
                                     Components\TextInput::make('price')
                                         ->label(__('Price'))
                                         ->numeric()
-                                        ->minValue(0)
+                                        ->minValue(1)
+                                        ->visible(fn(Closure $get) => $get('payment_type') === EventPaymentType::PAID)
                                         ->required(),
 
                                     Components\Select::make('currency')
@@ -80,13 +88,9 @@ class CreateEvent extends CreateRecord
                                         ->hint(__('Automatic selection'))
                                         ->placeholder("-")
                                         ->options(Currencies::asSelectArray())
+                                        ->visible(fn(Closure $get) => $get('payment_type') === EventPaymentType::PAID)
+                                        ->requiredWith('price')
                                         ->disabled(),
-
-                                    Components\Select::make('payment_type')
-                                        ->label(__('Payment type'))
-                                        ->placeholder("-")
-                                        ->options(EventPaymentType::asSelectArray())
-                                        ->required(),
                                 ]),
 
                             Components\Grid::make()
@@ -136,15 +140,15 @@ class CreateEvent extends CreateRecord
 
                             Components\TextInput::make('email')
                                 ->label(__('Owner email'))
-                                ->helperText(__('Requested from the user if he does not have a nickname'))
+//                                ->helperText(__('Requested from the user if he does not have a nickname'))
                                 ->email()
                                 ->requiredWithoutAll(['contact.nickname', 'custom_nickname', 'phone']),
 
                             Components\TextInput::make('phone')
                                 ->label(__('Owner phone'))
-                                ->helperText(__('Requested from the user if he does not have a nickname'))
+//                                ->helperText(__('Requested from the user if he does not have a nickname'))
                                 ->requiredWithoutAll(['contact.nickname', 'custom_nickname', 'email']),
-                        ])->columns()->collapsible(),
+                        ])->columns(),
 
                     Components\Section::make(__('SEO'))
                         ->schema([
@@ -158,7 +162,7 @@ class CreateEvent extends CreateRecord
                                 ->hint(__('If this field is left blank, it will be filled in automatically'))
                                 ->rows(2)
                                 ->nullable(),
-                        ])->collapsible(),
+                        ]),
                 ])
                 ->columnSpan(['lg' => 2]),
 

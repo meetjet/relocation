@@ -60,7 +60,7 @@ return [
             'send-to-channel' => ":text\n\n&#128176; Price: :price\n\n&#128681; Location: :location\n\n&#128172; Contact: :contact\n\n:link",
         ],
         'event-add' => [
-            'send-to-channel' => "&#128197; Date and time: :datetime\n\n:text\n\n&#128681; Address: :address\n\n&#128176; Price: :price\n\n&#128172; Organizer: :organizer\n\n:link",
+            'send-to-channel' => "&#128197; Date and time: :datetime\n\n:text\n\n&#128681; Address: :address:price\n\n&#128172; Organizer: :organizer\n\n:link",
         ],
     ],
     'georgia' => [
@@ -106,7 +106,7 @@ return [
             'send-to-channel' => ":text\n\n&#128176; Price: :price\n\n&#128681; Location: :location\n\n&#128172; Contact: :contact\n\n:link",
         ],
         'event-add' => [
-            'send-to-channel' => "&#128197; Date and time: :datetime\n\n:text\n\n&#128681; Address: :address\n\n&#128176; Price: :price\n\n&#128172; Organizer: :organizer\n\n:link",
+            'send-to-channel' => "&#128197; Date and time: :datetime\n\n:text\n\n&#128681; Address: :address:price\n\n&#128172; Organizer: :organizer\n\n:link",
         ],
     ],
     'lithuania' => [
@@ -152,7 +152,7 @@ return [
             'send-to-channel' => ":text\n\n&#128176; Price: :price\n\n&#128681; Location: :location\n\n&#128172; Contact: :contact\n\n:link",
         ],
         'event-add' => [
-            'send-to-channel' => "&#128197; Date and time: :datetime\n\n:text\n\n&#128681; Address: :address\n\n&#128176; Price: :price\n\n&#128172; Organizer: :organizer\n\n:link",
+            'send-to-channel' => "&#128197; Date and time: :datetime\n\n:text\n\n&#128681; Address: :address:price\n\n&#128172; Organizer: :organizer\n\n:link",
         ],
     ],
     'thailand' => [
@@ -198,7 +198,7 @@ return [
             'send-to-channel' => ":text\n\n&#128176; Price: :price\n\n&#128681; Location: :location\n\n&#128172; Contact: :contact\n\n:link",
         ],
         'event-add' => [
-            'send-to-channel' => "&#128197; Date and time: :datetime\n\n:text\n\n&#128681; Address: :address\n\n&#128176; Price: :price\n\n&#128172; Organizer: :organizer\n\n:link",
+            'send-to-channel' => "&#128197; Date and time: :datetime\n\n:text\n\n&#128681; Address: :address:price\n\n&#128172; Organizer: :organizer\n\n:link",
         ],
     ],
     'turkey' => [
@@ -244,7 +244,7 @@ return [
             'send-to-channel' => ":text\n\n&#128176; Price: :price\n\n&#128681; Location: :location\n\n&#128172; Contact: :contact\n\n:link",
         ],
         'event-add' => [
-            'send-to-channel' => "&#128197; Date and time: :datetime\n\n:text\n\n&#128681; Address: :address\n\n&#128176; Price: :price\n\n&#128172; Organizer: :organizer\n\n:link",
+            'send-to-channel' => "&#128197; Date and time: :datetime\n\n:text\n\n&#128681; Address: :address:price\n\n&#128172; Organizer: :organizer\n\n:link",
         ],
     ],
 ];
