@@ -9,6 +9,9 @@ use App\Facades\Countries;
 use App\Facades\Currencies;
 use App\Filament\Actions\Pages\DeleteAction;
 use App\Filament\Resources\ListingItemResource;
+use App\Jobs\TelegramNotifyAnnouncementPublishedJob;
+use App\Jobs\TelegramNotifyAnnouncementRejectedJob;
+use App\Jobs\TelegramSendAnnouncementToChannelJob;
 use App\Models\ListingItem;
 use App\Traits\PageListHelpers;
 use Closure;
@@ -331,5 +334,40 @@ class EditListingItem extends EditRecord
         }
 
         return null;
+    }
+
+    protected function afterSave(): void
+    {
+        if (
+            $this->record->status === ListingItemStatus::PUBLISHED
+            && $this->record->visibility === true
+            && $this->record->country
+            && $this->record->category
+            && $this->record->uuid
+            && $this->record->telegram_chat_id
+            && is_null($this->record->telegram_published_notify_sent)
+        ) {
+            TelegramNotifyAnnouncementPublishedJob::dispatch($this->record);
+        }
+
+        if (
+            $this->record->status === ListingItemStatus::PUBLISHED
+            && $this->record->visibility === true
+            && $this->record->country
+            && $this->record->category
+            && $this->record->uuid
+            && is_null($this->record->telegram_to_channel_sent)
+        ) {
+            TelegramSendAnnouncementToChannelJob::dispatch($this->record);
+        }
+
+        if (
+            $this->record->status === ListingItemStatus::REJECTED
+            && $this->record->country
+            && $this->record->telegram_chat_id
+            && is_null($this->record->telegram_rejected_notify_sent)
+        ) {
+            TelegramNotifyAnnouncementRejectedJob::dispatch($this->record);
+        }
     }
 }
