@@ -50,6 +50,7 @@ Route::get('/places/tags/{tag}', [PlaceByTagController::class, 'index'])->name('
 
 // Events
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
+Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
 Route::get('/events/{category}', [EventByCategoryController::class, 'index'])->name('events.category');
 Route::get('/events/{category}/{uuid}', [EventByCategoryController::class, 'show'])->name('events.show');
 Route::get('/events/tags/{tag}', [EventByTagController::class, 'index'])->name('events-by-tag.index');

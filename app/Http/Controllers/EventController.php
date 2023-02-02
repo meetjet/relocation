@@ -17,4 +17,9 @@ class EventController extends Controller
     {
         return view('events.index');
     }
+
+    public function create(): Application|Factory|View
+    {
+        return view('events.create');
+    }
 }

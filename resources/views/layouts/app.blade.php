@@ -91,5 +91,7 @@
         @livewireScripts
 
         @stack('page-scripts')
+
+        @livewire('notifications')
     </body>
 </html>
