@@ -232,7 +232,7 @@ class EditEvent extends EditRecord
                                     'title',
                                     fn(Builder $query): Builder => $query->orderBy('id')
                                 )
-                                ->disablePlaceholderSelection()
+                                ->placeholder("-")
                                 ->required(),
 
                             Components\Select::make('country')
