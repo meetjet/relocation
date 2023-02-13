@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\AuthTelegramLoginController;
+use App\Http\Controllers\SocialLoginController;
 use App\Http\Controllers\EventByTagController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\EventByCategoryController;
@@ -27,7 +27,7 @@ Route::get('/', function () {
     return redirect('/listings');
 })->name('welcome');
 
-Route::get('auth/login', [AuthTelegramLoginController::class, 'show'])
+Route::get('auth/login', [SocialLoginController::class, 'show'])
     ->middleware(['guest:' . config('fortify.guard')])
     ->name('auth.login');
 

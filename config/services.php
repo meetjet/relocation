@@ -39,4 +39,12 @@ return [
         'redirect' => env('TELEGRAM_REDIRECT'),
     ],
 
+    'facebook' => [
+        'active' => env('FACEBOOK_ACTIVE', false),
+        'client_id' => env('FACEBOOK_CLIENT_ID'),
+        'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
+        'redirect' => env('FACEBOOK_REDIRECT'),
+    ],
+
+
 ];
