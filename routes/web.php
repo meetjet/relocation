@@ -43,10 +43,10 @@ Route::get('/listings/{category}/{uuid}', [ListingItemByCategoryController::clas
 Route::get('/listings/tags/{tag}', [ListingItemByTagController::class, 'index'])->name('listings-by-tag.index');
 
 // Places
-Route::get('/places', [PlaceController::class, 'index'])->name('places.index');
-Route::get('/places/{category}', [PlaceByTypeController::class, 'index'])->name('places.type');
-Route::get('/places/{category}/{slug}', [PlaceByTypeController::class, 'show'])->name('places.show');
-Route::get('/places/tags/{tag}', [PlaceByTagController::class, 'index'])->name('places-by-tag.index');
+//Route::get('/places', [PlaceController::class, 'index'])->name('places.index');
+//Route::get('/places/{category}', [PlaceByTypeController::class, 'index'])->name('places.type');
+//Route::get('/places/{category}/{slug}', [PlaceByTypeController::class, 'show'])->name('places.show');
+//Route::get('/places/tags/{tag}', [PlaceByTagController::class, 'index'])->name('places-by-tag.index');
 
 // Events
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
