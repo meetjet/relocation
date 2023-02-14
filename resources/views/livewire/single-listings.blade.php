@@ -66,7 +66,7 @@
                         $route = str(route('auth.login'))->replace("{$country}.", "");
                         $url = "{$route}?return_url=" . url()->current();
                     @endphp
-                    <a href="{{ $url }}" class="text-blue-600 underline">Войдите через Telegram</a>, чтобы связаться с
+                    <a href="{{ $url }}" class="text-blue-600 underline">Войдите на сайт</a>, чтобы связаться с
                     продавцом
                 </div>
             @endif
