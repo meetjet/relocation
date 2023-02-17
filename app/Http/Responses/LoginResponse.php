@@ -21,8 +21,11 @@ class LoginResponse implements LoginResponseContract
             return response()->json(['two_factor' => false]);
         }
 
-        return $request->session()->has('return_url')
-            ? redirect($request->session()->get('return_url'))
+//        return $request->session()->has('return_url')
+//            ? redirect($request->session()->get('return_url'))
+//            : redirect()->intended(Fortify::redirects('login'));
+        return session()->has('socialstream.previous_url')
+            ? redirect(session()->get('socialstream.previous_url'))
             : redirect()->intended(Fortify::redirects('login'));
     }
 }
