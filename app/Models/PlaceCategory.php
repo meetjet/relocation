@@ -2,46 +2,29 @@
 
 namespace App\Models;
 
-use App\Enums\PlaceStatus;
-use App\Scopes\CountryScope;
+use App\Enums\CategoryStatus;
 use App\Traits\HasUUID;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Route;
+use Kalnoy\Nestedset\NodeTrait;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
-use Spatie\Tags\HasTags;
 use Stancl\VirtualColumn\VirtualColumn;
 
-class Place extends Model
+class PlaceCategory extends Model
 {
     use HasFactory;
     use SoftDeletes;
     use VirtualColumn;
     use HasUUID;
-    use HasTags;
     use HasSlug;
-    use HasTags;
+    use NodeTrait;
 
-    protected $fillable = [
-        'slug',
-        'country',
-        'location',
-        'type',
-        'title',
-        'description',
-        'address_ru',
-        'address_en',
-        'latitude',
-        'longitude',
-        'status',
-        'visibility',
-    ];
+    protected $fillable = ['slug', 'title', 'description', 'status', 'visibility'];
 
     /**
      * @return string[]
@@ -52,26 +35,17 @@ class Place extends Model
             'id',
             'uuid',
             'slug',
-            'country',
-            'location',
-            'type',
             'title',
             'description',
-            'address_ru',
-            'address_en',
-            'latitude',
-            'longitude',
             'status',
             'visibility',
+            '_lft',
+            '_rgt',
+            'parent_id',
             'created_at',
             'updated_at',
             'deleted_at',
         ];
-    }
-
-    protected static function booted(): void
-    {
-        static::addGlobalScope(new CountryScope());
     }
 
     /**
@@ -102,25 +76,9 @@ class Place extends Model
     /**
      * @return HasMany
      */
-    public function events(): HasMany
+    public function places(): HasMany
     {
-        return $this->hasMany(Event::class, 'place_slug', 'slug');
-    }
-
-    /**
-     * @return MorphMany
-     */
-    public function pictures(): MorphMany
-    {
-        return $this->morphMany(Picture::class, 'model');
-    }
-
-    /**
-     * @return MorphOne
-     */
-    public function firstPicture(): MorphOne
-    {
-        return $this->morphOne(Picture::class, 'model')->oldestOfMany();
+        return $this->hasMany(Place::class, 'category_id');
     }
 
     /**
@@ -128,7 +86,7 @@ class Place extends Model
      */
     public function scopeActive(Builder $query): void
     {
-        $query->where('status', PlaceStatus::ACTIVE)
+        $query->where('status', CategoryStatus::ACTIVE)
             ->where('visibility', true);
     }
 
@@ -150,6 +108,6 @@ class Place extends Model
     {
         $currentRoute = Route::current();
 
-        return $currentRoute && $currentRoute->parameter('point') === $this->slug;
+        return $currentRoute && $currentRoute->parameter('category') === $this->slug;
     }
 }

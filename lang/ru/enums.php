@@ -1,6 +1,7 @@
 <?php
 
-use App\Enums\EventCategoryStatus;
+use App\Enums\CategoryStatus;
+use App\Enums\PlaceCategoryStatus;
 use App\Enums\EventPaymentType;
 use App\Enums\PlaceStatus;
 use App\Enums\EventStatus;
@@ -20,6 +21,10 @@ return [
         FaqStatus::CREATED => 'Создан',
         FaqStatus::PUBLISHED => 'Опубликован',
         FaqStatus::REJECTED => 'Отклонён',
+    ],
+    CategoryStatus::class => [
+        CategoryStatus::ACTIVE => 'Active',
+        CategoryStatus::INACTIVE => 'Inactive',
     ],
     ListingCategoryStatus::class => [
         ListingCategoryStatus::ACTIVE => 'Активна',
@@ -46,10 +51,6 @@ return [
     TelegramBotImageMimeType::class => [
         TelegramBotImageMimeType::JPEG => 'JPEG',
         TelegramBotImageMimeType::PNG => 'PNG',
-    ],
-    EventCategoryStatus::class => [
-        EventCategoryStatus::ACTIVE => 'Активна',
-        EventCategoryStatus::INACTIVE => 'Неактивна',
     ],
     PlaceStatus::class => [
         PlaceStatus::ACTIVE => 'Активно',
