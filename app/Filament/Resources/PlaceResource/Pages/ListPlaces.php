@@ -67,9 +67,9 @@ class ListPlaces extends ListRecords
                 ->type("places")
                 ->toggleable(),
 
-            Columns\TextColumn::make('type')
-                ->label(__('Type'))
-                ->enum(PlaceType::asSelectArray())
+            Columns\TextColumn::make('category.title')
+                ->label(__('Category'))
+                ->wrap()
                 ->sortable()
                 ->toggleable(),
 

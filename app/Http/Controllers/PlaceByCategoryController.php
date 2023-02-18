@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Event;
+use App\Models\Place;
 use App\Models\PlaceCategory;
-use App\Models\ListingItem;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -38,7 +37,7 @@ class PlaceByCategoryController extends Controller
      */
     public function show(string $category, string $slug): Application|Factory|View
     {
-        $entity = Event::active()
+        $entity = Place::active()
             ->BySlug($slug)
             ->whereHas('category', function (Builder $query) use ($category) {
                 $query->where('slug', $category);

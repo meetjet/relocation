@@ -16,6 +16,7 @@ use Closure;
 use Exception;
 use Filament\Forms\Components;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * @package App\Filament\Resources\EventPointResource\Pages
@@ -88,11 +89,15 @@ class EditPlace extends EditRecord
 
                             Components\Grid::make(3)
                                 ->schema([
-                                    Components\Select::make('type')
-                                        ->label(__('Type'))
-                                        ->options(PlaceType::asSelectArray())
+                                    Components\Select::make('category_id')
+                                        ->label(__('Category'))
+                                        ->relationship(
+                                            'category',
+                                            'title',
+                                            fn(Builder $query): Builder => $query->orderBy('id')
+                                        )
                                         ->placeholder("-")
-                                        ->nullable(),
+                                        ->required(),
 
                                     Components\Select::make('country')
                                         ->label(__('Country'))

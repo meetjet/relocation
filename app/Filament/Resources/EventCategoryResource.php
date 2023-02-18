@@ -166,7 +166,7 @@ class EventCategoryResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManagePlaceCategories::route('/'),
+            'index' => Pages\ManageEventCategories::route('/'),
         ];
     }
 
