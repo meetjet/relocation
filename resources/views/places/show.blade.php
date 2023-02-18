@@ -1,3 +1,5 @@
 <x-app-layout>
-    Place
+    <div>
+        @livewire('single-place', ['entity' => $entity])
+    </div>
 </x-app-layout>
