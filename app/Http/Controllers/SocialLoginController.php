@@ -16,7 +16,8 @@ class SocialLoginController extends Controller
     public function show(Request $request): Application|Factory|View
     {
         if ($request->has('return_url')) {
-            $request->session()->flash('return_url', $request->get('return_url'));
+            redirect()->setIntendedUrl($request->get('return_url'));
+            //$request->session()->flash('return_url', $request->get('return_url'));
         }
 
         return view('auth.social-login');
