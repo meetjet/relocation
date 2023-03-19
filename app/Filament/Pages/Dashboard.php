@@ -34,7 +34,7 @@ class Dashboard extends BasePage
 
     protected function getColumns(): int | array
     {
-        return 2;
+        return 3;
     }
 
     protected function getTitle(): string
