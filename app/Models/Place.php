@@ -31,6 +31,7 @@ class Place extends Model
 
     protected $fillable = [
         'slug',
+        'category_id',
         'country',
         'location',
         'type',
@@ -53,6 +54,7 @@ class Place extends Model
             'id',
             'uuid',
             'slug',
+            'category_id',
             'country',
             'location',
             'type',
