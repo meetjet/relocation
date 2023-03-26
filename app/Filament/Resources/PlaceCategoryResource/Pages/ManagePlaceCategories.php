@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\EventCategoryResource\Pages;
+namespace App\Filament\Resources\PlaceCategoryResource\Pages;
 
 use App\Filament\Resources\PlaceCategoryResource;
 use Filament\Pages\Actions;
