@@ -30,6 +30,7 @@
         "nutgram/nutgram": "^3.7",
         "opcodesio/log-viewer": "^1.6",
         "ralphjsmit/laravel-seo": "^1.2",
+        "roach-php/laravel": "^1.0",
         "socialiteproviders/telegram": "dev-main",
         "spatie/laravel-activitylog": "^4.7",
         "spatie/laravel-backup": "^8.1",
