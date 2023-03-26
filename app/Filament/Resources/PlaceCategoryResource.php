@@ -3,7 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Enums\CategoryStatus;
-use App\Filament\Resources\EventCategoryResource\Pages;
+use App\Filament\Resources\PlaceCategoryResource\Pages\ManagePlaceCategories;
 use App\Models\PlaceCategory;
 use App\Traits\PageListHelpers;
 use Exception;
@@ -166,7 +166,7 @@ class PlaceCategoryResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManagePlaceCategories::route('/'),
+            'index' => ManagePlaceCategories::route('/'),
         ];
     }
 
