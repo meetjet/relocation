@@ -37,6 +37,14 @@
             </div>
         @endif
 
+        {{-- Category --}}
+        @if($entity->category)
+            <div class="flex flex-wrap mt-4">
+                <div class="mr-2">{{ __('Category') }}:</div>
+                <div>{{ $entity->category->title }}</div>
+            </div>
+        @endif
+
         {{-- Owner --}}
         <div class="flex flex-wrap mt-4">
             <div class="mr-2">{{ __("Contact") }}:</div>
