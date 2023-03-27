@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Route;
+use Spatie\Comments\Models\Concerns\HasComments;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Tags\HasTags;
@@ -28,6 +29,7 @@ class Place extends Model
     use HasTags;
     use HasSlug;
     use HasTags;
+    use HasComments;
 
     protected $fillable = [
         'slug',
@@ -53,6 +55,7 @@ class Place extends Model
             'id',
             'uuid',
             'slug',
+            'category_id',
             'country',
             'location',
             'type',
@@ -161,5 +164,25 @@ class Place extends Model
         $currentRoute = Route::current();
 
         return $currentRoute && $currentRoute->parameter('point') === $this->slug;
+    }
+
+    /**
+     * This string will be used in notifications on what a new comment was made.
+     *
+     * @return string
+     */
+    public function commentableName(): string
+    {
+        return "";
+    }
+
+    /**
+     * This URL will be used in notifications to let the user know where the comment itself can be read.
+     *
+     * @return string
+     */
+    public function commentUrl(): string
+    {
+        return "";
     }
 }
