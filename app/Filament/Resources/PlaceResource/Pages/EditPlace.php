@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\PlaceResource\Pages;
 
+use App\Enums\PlaceSocialNetwork;
 use App\Enums\PlaceStatus;
-use App\Enums\PlaceType;
 use App\Facades\Countries;
 use App\Facades\Currencies;
 use App\Facades\Locations;
@@ -140,6 +140,51 @@ class EditPlace extends EditRecord
                                         ->numeric()
                                         ->requiredWith('latitude'),
                                 ]),
+
+                            Components\Repeater::make('phones')
+                                ->label(__('Phone numbers'))
+                                ->schema([
+                                    Components\TextInput::make('number')
+                                        ->disableLabel()
+                                        ->tel()
+                                        ->validationAttribute('')
+                                        ->required(),
+                                ])
+                                ->createItemButtonLabel(__('Add phone number'))
+                                ->grid(3)
+                                ->disableItemMovement(),
+
+                            Components\Repeater::make('sites')
+                                ->label(__('Websites'))
+                                ->schema([
+                                    Components\TextInput::make('url')
+                                        ->disableLabel()
+                                        ->url()
+                                        ->validationAttribute('')
+                                        ->required(),
+                                ])
+                                ->createItemButtonLabel(__('Add website'))
+                                ->grid()
+                                ->disableItemMovement(),
+
+                            Components\Repeater::make('social_media')
+                                ->label(__('Social media'))
+                                ->schema([
+                                    Components\Select::make('network')
+                                        ->disableLabel()
+                                        ->placeholder("-")
+                                        ->options(PlaceSocialNetwork::asSelectArray())
+                                        ->required(),
+
+                                    Components\TextInput::make('url')
+                                        ->disableLabel()
+                                        ->url()
+                                        ->validationAttribute('')
+                                        ->required(),
+                                ])
+                                ->createItemButtonLabel(__('Add social network'))
+                                ->grid()
+                                ->disableItemMovement(),
                         ]),
                 ])
                 ->columnSpan(['lg' => 2]),

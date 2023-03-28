@@ -40,6 +40,9 @@ class Place extends Model
         'address_en',
         'latitude',
         'longitude',
+        'phones',
+        'sites',
+        'social_media',
         'status',
         'visibility',
     ];
@@ -53,6 +56,7 @@ class Place extends Model
             'id',
             'uuid',
             'slug',
+            'category_id',
             'country',
             'location',
             'type',
