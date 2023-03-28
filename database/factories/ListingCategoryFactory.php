@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Enums\ListingCategoryStatus;
+use App\Enums\CategoryStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,7 +20,7 @@ class ListingCategoryFactory extends Factory
         return [
             'title' => $this->faker->text(50),
             'description' => $this->faker->text(100),
-            'status' => $this->faker->randomElement(ListingCategoryStatus::getValues()),
+            'status' => $this->faker->randomElement(CategoryStatus::getValues()),
             'visibility' => $this->faker->boolean(),
         ];
     }

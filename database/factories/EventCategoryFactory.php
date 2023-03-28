@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Enums\EventCategoryStatus;
+use App\Enums\CategoryStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,7 +20,7 @@ class EventCategoryFactory extends Factory
         return [
             'title' => $this->faker->words(asText: true),
             'description' => $this->faker->text(100),
-            'status' => EventCategoryStatus::ACTIVE,
+            'status' => CategoryStatus::ACTIVE,
             'visibility' => true,
         ];
     }
