@@ -332,7 +332,6 @@
     "English": "Английский",
     "Enter address": "Введите адрес",
     "No items found": "Ничего не найдено",
-    "Phone number": "Номер телефона",
     "Total": "Всего",
     "Time": "Время",
     "Timetables": "Расписания",
@@ -617,9 +616,12 @@
     "Repost event": "Опубликовать событие еще раз",
     "Delete event and post again": "Удалить событие и опубликовать снова",
     "Phone numbers": "Телефоны",
+    "Phone number": "Телефон",
     "Add phone number": "Добавить телефон",
     "Websites": "Сайты",
+    "Website": "Сайт",
     "Add website": "Добавить сайт",
     "Social media": "Соцсети",
+    "Social network": "Соцсеть",
     "Add social network": "Добавить соцсеть"
 }

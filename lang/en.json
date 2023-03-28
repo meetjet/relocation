@@ -323,7 +323,6 @@
     "Your email address is not verified.": "Your email address is not verified.",
     "Spend": "Spend",
     "No items found": "No items found",
-    "Phone number": "Phone number",
     "Total": "Total",
     "Time": "Time",
     "Timetables": "Timetables",
@@ -600,9 +599,12 @@
     "Repost event": "Repost event",
     "Delete event and post again": "Delete event and post again",
     "Phone numbers": "Phone numbers",
+    "Phone number": "Phone number",
     "Add phone number": "Add phone number",
     "Websites": "Websites",
+    "Website": "Website",
     "Add website": "Add website",
     "Social media": "Social media",
+    "Social network": "Social network",
     "Add social network": "Add social network"
 }
