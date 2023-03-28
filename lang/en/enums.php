@@ -2,10 +2,10 @@
 
 use App\Enums\CategoryStatus;
 use App\Enums\EventPaymentType;
+use App\Enums\PlaceSocialNetwork;
 use App\Enums\PlaceStatus;
 use App\Enums\EventStatus;
 use App\Enums\FaqStatus;
-use App\Enums\ListingCategoryStatus;
 use App\Enums\ListingItemSource;
 use App\Enums\ListingItemStatus;
 use App\Enums\PlaceType;
@@ -24,10 +24,6 @@ return [
     CategoryStatus::class => [
         CategoryStatus::ACTIVE => 'Active',
         CategoryStatus::INACTIVE => 'Inactive',
-    ],
-    ListingCategoryStatus::class => [
-        ListingCategoryStatus::ACTIVE => 'Active',
-        ListingCategoryStatus::INACTIVE => 'Inactive',
     ],
     ListingItemStatus::class => [
         ListingItemStatus::CREATED => 'Created',
@@ -59,6 +55,11 @@ return [
         PlaceType::BAR => 'Bar',
         PlaceType::RESTAURANT => 'Restaurant',
         PlaceType::CAFE => 'Cafe',
+    ],
+    PlaceSocialNetwork::class => [
+        PlaceSocialNetwork::INSTAGRAM => 'Instagram',
+        PlaceSocialNetwork::TELEGRAM => 'Telegram',
+        PlaceSocialNetwork::FACEBOOK => 'Facebook',
     ],
     EventPaymentType::class => [
         EventPaymentType::FREE => 'Free',
