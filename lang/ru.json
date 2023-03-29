@@ -615,5 +615,9 @@
     "Rooms number": "Количество комнат",
     "Reposting to a channel": "Повторная публикация в канал",
     "Repost event": "Опубликовать событие еще раз",
-    "Delete event and post again": "Удалить событие и опубликовать снова"
+    "Delete event and post again": "Удалить событие и опубликовать снова",
+    "Copy event": "Скопировать событие",
+    "copy": "копия",
+    "Event copied successfully": "Событие успешно скопировано",
+    "Failed to copy event": "Не удалось скопировать событие"
 }
