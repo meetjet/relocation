@@ -41,7 +41,7 @@ class DatabaseSeeder extends Seeder
             ->create();
 
         Artisan::call('initialize:event-categories');
-        Artisan::call('initialize:places');
+//        Artisan::call('initialize:places'); // TODO: refactoring required
 
         Event::factory()
             ->count(100)
