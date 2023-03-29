@@ -13,7 +13,9 @@ use App\Forms\Components\ResendEventToTelegramChannel;
 use App\Forms\Components\RichEditor;
 use App\Jobs\TelegramSendEventToChannelJob;
 use App\Models\Event;
+use App\Models\Picture;
 use App\Traits\PageListHelpers;
+use App\UploadIO\UploadIO;
 use Closure;
 use Exception;
 use Filament\Forms\Components;
@@ -21,6 +23,13 @@ use Filament\Pages\Actions\Action;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Client\RequestException;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use RuntimeException;
 
 class EditEvent extends EditRecord
 {
@@ -35,8 +44,60 @@ class EditEvent extends EditRecord
     protected function getActions(): array
     {
         return [
+            Action::make('cloneEvent')
+                ->label(__('Copy event'))
+                ->icon('heroicon-s-duplicate')
+                ->requiresConfirmation()
+                ->action('cloneEvent'),
             DeleteAction::make(),
         ];
+    }
+
+    public function cloneEvent(): void
+    {
+        $action = $this->getMountedAction();
+
+        if (is_null($action)) {
+            Log::error("Copying event: failed to get action.");
+            return;
+        }
+
+        try {
+            DB::transaction(function () use ($action) {
+                $sourceEvent = $this->record;
+
+                $newEvent = $sourceEvent->replicate([
+                    'uuid',
+                    'status',
+                    'visibility',
+                    'deleted_at',
+                    'published_at',
+                    'telegram_chat_id',
+                    'telegram_message_id',
+                    'telegram_to_channel_sent',
+                ]);
+                $newEvent->title .= ' (' . __('copy') . ')';
+                $newEvent->save();
+
+                $newEvent->attachTags($sourceEvent->tagsWithType("events"));
+
+                $sourceEvent->pictures->each(function ($_picture) use ($newEvent) {
+                    $newEvent->pictures()->create([
+                        'caption' => $_picture->caption,
+                        'tmp_image' => $this->makeTmpImage($_picture),
+                    ]);
+                });
+
+                $action->successRedirectUrl(route("filament.resources.events.edit", $newEvent));
+                $action->successNotificationTitle(__('Event copied successfully'));
+                $action->success();
+                Log::info("Copying event: successful.");
+            });
+        } catch (Exception $e) {
+            $action->failureNotificationTitle(__('Failed to copy event'));
+            $action->failure();
+            Log::error('Copying event: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -380,6 +441,22 @@ class EditEvent extends EditRecord
             ->color('secondary');
     }
 
+    protected function afterSave(): void
+    {
+        logger("Event update on event with id = {$this->record->id}");
+
+        if (
+            $this->record->status === EventStatus::PUBLISHED
+            && $this->record->visibility === true
+            && $this->record->country
+            && $this->record->category
+            && $this->record->uuid
+            && is_null($this->record->telegram_to_channel_sent)
+        ) {
+            TelegramSendEventToChannelJob::dispatch($this->record);
+        }
+    }
+
     /**
      * @param bool $sectionOnly
      * @return string|null
@@ -400,19 +477,31 @@ class EditEvent extends EditRecord
         return null;
     }
 
-    protected function afterSave(): void
+    /**
+     * @param Picture $picture
+     * @return string
+     * @throws RequestException
+     */
+    private function makeTmpImage(Picture $picture): string
     {
-        logger("Event update on event with id = {$this->record->id}");
+        if ($picture->uploadio_file_path) {
+            $tmpImagePath = 'form-attachments-tmp/' . Str::random(40);
 
-        if (
-            $this->record->status === EventStatus::PUBLISHED
-            && $this->record->visibility === true
-            && $this->record->country
-            && $this->record->category
-            && $this->record->uuid
-            && is_null($this->record->telegram_to_channel_sent)
-        ) {
-            TelegramSendEventToChannelJob::dispatch($this->record);
+            Storage::put(
+                $tmpImagePath,
+                app(UploadIO::class)->download($picture->uploadio_file_path)
+            );
+
+            return $tmpImagePath;
         }
+
+        if ($picture->local_file_path) {
+            return Storage::putFile(
+                'form-attachments-tmp',
+                new File(storage_path("app/public/{$picture->local_file_path}"))
+            );
+        }
+
+        throw new RuntimeException('Failed to create temporary image file to copy');
     }
 }
