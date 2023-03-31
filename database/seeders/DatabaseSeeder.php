@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Advertisement;
 use App\Models\Event;
 use App\Models\Faq;
 use App\Models\ListingItem;
@@ -45,6 +46,10 @@ class DatabaseSeeder extends Seeder
 
         Event::factory()
             ->count(100)
+            ->create();
+
+        Advertisement::factory()
+            ->count(10)
             ->create();
     }
 }

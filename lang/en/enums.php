@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\AdvertisementStatus;
 use App\Enums\CategoryStatus;
 use App\Enums\EventPaymentType;
 use App\Enums\PlaceStatus;
@@ -84,5 +85,10 @@ return [
         PropertyRoomsNumber::THREE_ROOMS => 'Three rooms',
         PropertyRoomsNumber::FOUR_ROOMS => 'Four rooms',
         PropertyRoomsNumber::FIVE_ROOMS => 'Five rooms',
+    ],
+    AdvertisementStatus::class => [
+        AdvertisementStatus::CREATED => 'Created',
+        AdvertisementStatus::PUBLISHED => 'Published',
+        AdvertisementStatus::REJECTED => 'Rejected',
     ],
 ];

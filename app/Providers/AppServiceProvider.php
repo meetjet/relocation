@@ -52,6 +52,10 @@ class AppServiceProvider extends ServiceProvider
                     ->icon('heroicon-o-office-building')
                     ->collapsed(),
                 NavigationGroup::make()
+                    ->label(__('Advertisements'))
+                    ->icon('heroicon-o-speakerphone')
+                    ->collapsed(),
+                NavigationGroup::make()
                     ->label(__('Settings'))
                     ->icon('heroicon-o-office-building')
                     ->collapsed(),
