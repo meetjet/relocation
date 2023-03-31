@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Advertisement;
 use App\Models\Event;
 use App\Models\Faq;
 use App\Models\ListingItem;
@@ -41,10 +42,14 @@ class DatabaseSeeder extends Seeder
             ->create();
 
         Artisan::call('initialize:event-categories');
-        Artisan::call('initialize:places');
+//        Artisan::call('initialize:places'); // TODO: refactoring required
 
         Event::factory()
             ->count(100)
+            ->create();
+
+        Advertisement::factory()
+            ->count(10)
             ->create();
     }
 }
