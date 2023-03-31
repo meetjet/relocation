@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\AdvertisementStatus;
 use App\Enums\CategoryStatus;
 use App\Enums\EventPaymentType;
 use App\Enums\PlaceSocialNetwork;
@@ -85,5 +86,10 @@ return [
         PropertyRoomsNumber::THREE_ROOMS => 'Три комнаты',
         PropertyRoomsNumber::FOUR_ROOMS => 'Четыре комнаты',
         PropertyRoomsNumber::FIVE_ROOMS => 'Пять комнат',
+    ],
+    AdvertisementStatus::class => [
+        AdvertisementStatus::CREATED => 'Создано',
+        AdvertisementStatus::PUBLISHED => 'Опубликовано',
+        AdvertisementStatus::REJECTED => 'Отклонено',
     ],
 ];
