@@ -18,8 +18,10 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Comments\Models\Concerns\InteractsWithComments;
+use Spatie\Comments\Models\Concerns\Interfaces\CanComment;
 
-class User extends Authenticatable implements FilamentUser, Customer
+class User extends Authenticatable implements FilamentUser, Customer, CanComment
 {
     use HasApiTokens;
     use HasFactory;
@@ -33,6 +35,7 @@ class User extends Authenticatable implements FilamentUser, Customer
     use SetsProfilePhotoFromUrl;
     use TwoFactorAuthenticatable;
     use CanPay;
+    use InteractsWithComments;
 
     /**
      * The attributes that are mass assignable.

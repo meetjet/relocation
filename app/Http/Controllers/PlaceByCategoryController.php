@@ -32,7 +32,7 @@ class PlaceByCategoryController extends Controller
      * Display the specified resource.
      *
      * @param string $category
-     * @param string $uuid
+     * @param string $slug
      * @return Application|Factory|View
      */
     public function show(string $category, string $slug): Application|Factory|View

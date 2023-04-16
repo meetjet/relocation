@@ -91,5 +91,6 @@
         @livewireScripts
 
         @stack('page-scripts')
+        <x-comments::scripts />
     </body>
 </html>

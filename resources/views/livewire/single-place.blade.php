@@ -37,6 +37,14 @@
             </div>
         @endif
 
+        {{-- Category --}}
+        @if($entity->category)
+            <div class="flex flex-wrap mt-4">
+                <div class="mr-2">{{ __('Category') }}:</div>
+                <div>{{ $entity->category->title }}</div>
+            </div>
+        @endif
+
         {{-- Owner --}}
         <div class="flex flex-wrap mt-4">
             <div class="mr-2">{{ __("Contact") }}:</div>
@@ -134,6 +142,22 @@
         @endif
     </div>
     @if (Auth::user() && Auth::user()->is_admin)
-        <x-shared.edit-entity-button :url="route('filament.resources.places.edit', $entity->slug)"/>
+        <div class="mb-8 pb-8 border-b border-dashed border-[#a1a5b7]">
+            <x-shared.edit-entity-button :url="route('filament.resources.places.edit', $entity->slug)"/>
+        </div>
     @endif
+    {{-- Comments --}}
+    <div class="pb-8">
+        @auth
+            <livewire:comments :model="$entity" hide-notification-options />
+        @else
+            <livewire:comments :model="$entity" read-only />
+            @php
+                $country = str(request()->getHost())->replace(('.' . config('app.domain')), "");
+                $route = str(route('auth.login'))->replace("{$country}.", "");
+                $url = "{$route}?return_url=" . url()->current();
+            @endphp
+            <a href="{{ $url }}" class="text-blue-600 underline">Войдите на сайт</a>, чтобы оставить новый комментарий
+        @endif
+    </div>
 </article>
