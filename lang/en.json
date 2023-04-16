@@ -601,5 +601,9 @@
     "Repost event": "Repost event",
     "Delete event and post again": "Delete event and post again",
     "Advertisements": "Advertisements",
-    "Advertisement": "Advertisement"
+    "Advertisement": "Advertisement",
+    "Copy event": "Copy event",
+    "copy": "copy",
+    "Event copied successfully": "Event copied successfully",
+    "Failed to copy event": "Failed to copy event"
 }

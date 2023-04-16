@@ -618,5 +618,9 @@
     "Repost event": "Опубликовать событие еще раз",
     "Delete event and post again": "Удалить событие и опубликовать снова",
     "Advertisements": "Реклама",
-    "Advertisement": "Рекламный блок"
+    "Advertisement": "Рекламный блок",
+    "Copy event": "Скопировать событие",
+    "copy": "копия",
+    "Event copied successfully": "Событие успешно скопировано",
+    "Failed to copy event": "Не удалось скопировать событие"
 }
