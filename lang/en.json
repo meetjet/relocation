@@ -609,5 +609,9 @@
     "Add website": "Add website",
     "Social media": "Social media",
     "Social network": "Social network",
-    "Add social network": "Add social network"
+    "Add social network": "Add social network",
+    "Copy event": "Copy event",
+    "copy": "copy",
+    "Event copied successfully": "Event copied successfully",
+    "Failed to copy event": "Failed to copy event"
 }

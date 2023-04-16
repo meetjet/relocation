@@ -39,6 +39,24 @@ class UploadIO
     }
 
     /**
+     * @param string $filepath
+     * @return string
+     * @throws RequestException
+     */
+    public function download(string $filepath): string
+    {
+        if (!config('uploadio.public_key') || !config('uploadio.account_id')) {
+            throw new RuntimeException("UploadIO configuration error. Check the UPLOAD_IO_PUBLIC_KEY and UPLOAD_IO_ACCOUNT_ID settings.");
+        }
+
+        $response = Http::withBasicAuth('apikey', config('uploadio.secret_key'))
+            ->get(sprintf("https://upcdn.io/%s/raw%s", config('uploadio.account_id'), $filepath))
+            ->throw();
+
+        return $response->body();
+    }
+
+    /**
      * Delete file from UploadIO.
      *
      * @param string $filepath UploadIO file path (see "uploadio_file_path" field in "Picture" model).

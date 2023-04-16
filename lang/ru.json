@@ -626,5 +626,9 @@
     "Add website": "Добавить сайт",
     "Social media": "Соцсети",
     "Social network": "Соцсеть",
-    "Add social network": "Добавить соцсеть"
+    "Add social network": "Добавить соцсеть",
+    "Copy event": "Скопировать событие",
+    "copy": "копия",
+    "Event copied successfully": "Событие успешно скопировано",
+    "Failed to copy event": "Не удалось скопировать событие"
 }
