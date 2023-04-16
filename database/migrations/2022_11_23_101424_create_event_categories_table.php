@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\EventCategoryStatus;
+use App\Enums\CategoryStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,7 +20,7 @@ return new class extends Migration {
 
             $table->string('title')->nullable();
             $table->text('description')->nullable();
-            $table->string('status')->default(EventCategoryStatus::ACTIVE);
+            $table->string('status')->default(CategoryStatus::ACTIVE);
             $table->boolean('visibility')->default(false);
             $table->nestedSet();
             $table->jsonb('data')->nullable();

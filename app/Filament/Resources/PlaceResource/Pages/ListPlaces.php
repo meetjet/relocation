@@ -3,11 +3,11 @@
 namespace App\Filament\Resources\PlaceResource\Pages;
 
 use App\Enums\PlaceStatus;
-use App\Enums\PlaceType;
 use App\Facades\Countries;
 use App\Facades\Locations;
 use App\Filament\Resources\PlaceResource;
 use App\Models\Place;
+use App\Models\PlaceCategory;
 use App\Traits\PageListHelpers;
 use Closure;
 use Exception;
@@ -147,22 +147,22 @@ class ListPlaces extends ListRecords
         return [
             Filters\TrashedFilter::make(),
 
-            Filters\Filter::make('type')
+            Filters\Filter::make('category')
                 ->form([
-                    Components\Select::make('type')
-                        ->label(__('Type'))
+                    Components\Select::make('category_id')
+                        ->label(__('Category'))
                         ->placeholder("-")
-                        ->options(PlaceType::asSelectArray()),
+                        ->options(PlaceCategory::orderBy('title')->get()->pluck('title', 'id')),
                 ])
                 ->query(function (Builder $query, array $data): Builder {
                     return $query->when(
-                        $data['type'],
-                        fn(Builder $query, $status): Builder => $query->where('type', $status),
+                        $data['category_id'],
+                        fn(Builder $query, $category_id): Builder => $query->where('category_id', $category_id),
                     );
                 })
                 ->indicateUsing(function (array $data): ?string {
-                    if ($data['type']) {
-                        return __('Type') . ' "' . PlaceType::getDescription($data['type']) . '"';
+                    if ($data['category_id']) {
+                        return __('Category') . ' "' . PlaceCategory::find($data['category_id'])->title . '"';
                     }
 
                     return null;

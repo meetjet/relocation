@@ -3,10 +3,10 @@
 use App\Enums\AdvertisementStatus;
 use App\Enums\CategoryStatus;
 use App\Enums\EventPaymentType;
+use App\Enums\PlaceSocialNetwork;
 use App\Enums\PlaceStatus;
 use App\Enums\EventStatus;
 use App\Enums\FaqStatus;
-use App\Enums\ListingCategoryStatus;
 use App\Enums\ListingItemSource;
 use App\Enums\ListingItemStatus;
 use App\Enums\PlaceType;
@@ -23,12 +23,8 @@ return [
         FaqStatus::REJECTED => 'Отклонён',
     ],
     CategoryStatus::class => [
-        CategoryStatus::ACTIVE => 'Active',
-        CategoryStatus::INACTIVE => 'Inactive',
-    ],
-    ListingCategoryStatus::class => [
-        ListingCategoryStatus::ACTIVE => 'Активна',
-        ListingCategoryStatus::INACTIVE => 'Неактивна',
+        CategoryStatus::ACTIVE => 'Активна',
+        CategoryStatus::INACTIVE => 'Неактивна',
     ],
     ListingItemStatus::class => [
         ListingItemStatus::CREATED => 'Создано',
@@ -60,6 +56,11 @@ return [
         PlaceType::BAR => 'Бар',
         PlaceType::RESTAURANT => 'Ресторан',
         PlaceType::CAFE => 'Кафе',
+    ],
+    PlaceSocialNetwork::class => [
+        PlaceSocialNetwork::INSTAGRAM => 'Instagram',
+        PlaceSocialNetwork::TELEGRAM => 'Telegram',
+        PlaceSocialNetwork::FACEBOOK => 'Facebook',
     ],
     EventPaymentType::class => [
         EventPaymentType::FREE => 'Бесплатно',

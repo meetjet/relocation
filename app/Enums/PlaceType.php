@@ -5,6 +5,9 @@ namespace App\Enums;
 use BenSampo\Enum\Contracts\LocalizedEnum;
 use BenSampo\Enum\Enum;
 
+/**
+ * @deprecated
+ */
 class PlaceType extends Enum implements LocalizedEnum
 {
     public const BAR = "bar";

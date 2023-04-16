@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources;
 
-use App\Enums\ListingCategoryStatus;
+use App\Enums\CategoryStatus;
 use App\Filament\Resources\ListingCategoryResource\Pages;
 use App\Models\ListingCategory;
 use App\Traits\PageListHelpers;
@@ -93,9 +93,9 @@ class ListingCategoryResource extends Resource
                             ->schema([
                                 Forms\Components\Select::make('status')
                                     ->label(__('Status'))
-                                    ->options(ListingCategoryStatus::asSelectArray())
+                                    ->options(CategoryStatus::asSelectArray())
                                     ->placeholder("-")
-                                    ->default(ListingCategoryStatus::ACTIVE)
+                                    ->default(CategoryStatus::ACTIVE)
                                     ->required(),
                                 Forms\Components\Toggle::make('visibility')
                                     ->label(__('Visibility'))
@@ -131,11 +131,11 @@ class ListingCategoryResource extends Resource
 
                 Tables\Columns\BadgeColumn::make('status')
                     ->label(__('Status'))
-                    ->enum(ListingCategoryStatus::asSelectArray())
+                    ->enum(CategoryStatus::asSelectArray())
                     ->sortable()
                     ->colors([
-                        'secondary' => ListingCategoryStatus::INACTIVE,
-                        'success' => ListingCategoryStatus::ACTIVE,
+                        'secondary' => CategoryStatus::INACTIVE,
+                        'success' => CategoryStatus::ACTIVE,
                     ])
                     ->toggleable(),
 
@@ -197,7 +197,7 @@ class ListingCategoryResource extends Resource
                     Forms\Components\Select::make('status')
                         ->label(__('Status'))
                         ->placeholder("-")
-                        ->options(ListingCategoryStatus::asSelectArray()),
+                        ->options(CategoryStatus::asSelectArray()),
                 ])
                 ->query(function (Builder $query, array $data): Builder {
                     return $query->when(
@@ -207,7 +207,7 @@ class ListingCategoryResource extends Resource
                 })
                 ->indicateUsing(function (array $data): ?string {
                     if ($data['status']) {
-                        return __('Status') . ' "' . ListingCategoryStatus::getDescription($data['status']) . '"';
+                        return __('Status') . ' "' . CategoryStatus::getDescription($data['status']) . '"';
                     }
 
                     return null;

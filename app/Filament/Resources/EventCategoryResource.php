@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources;
 
-use App\Enums\EventCategoryStatus;
+use App\Enums\CategoryStatus;
 use App\Filament\Resources\EventCategoryResource\Pages;
 use App\Models\EventCategory;
 use App\Traits\PageListHelpers;
@@ -93,9 +93,9 @@ class EventCategoryResource extends Resource
                             ->schema([
                                 Forms\Components\Select::make('status')
                                     ->label(__('Status'))
-                                    ->options(EventCategoryStatus::asSelectArray())
+                                    ->options(CategoryStatus::asSelectArray())
                                     ->placeholder("-")
-                                    ->default(EventCategoryStatus::ACTIVE)
+                                    ->default(CategoryStatus::ACTIVE)
                                     ->required(),
 
                                 Forms\Components\Toggle::make('visibility')
@@ -129,11 +129,11 @@ class EventCategoryResource extends Resource
 
                 Tables\Columns\BadgeColumn::make('status')
                     ->label(__('Status'))
-                    ->enum(EventCategoryStatus::asSelectArray())
+                    ->enum(CategoryStatus::asSelectArray())
                     ->sortable()
                     ->colors([
-                        'secondary' => EventCategoryStatus::INACTIVE,
-                        'success' => EventCategoryStatus::ACTIVE,
+                        'secondary' => CategoryStatus::INACTIVE,
+                        'success' => CategoryStatus::ACTIVE,
                     ])
                     ->toggleable(),
 
@@ -195,7 +195,7 @@ class EventCategoryResource extends Resource
                     Forms\Components\Select::make('status')
                         ->label(__('Status'))
                         ->placeholder("-")
-                        ->options(EventCategoryStatus::asSelectArray()),
+                        ->options(CategoryStatus::asSelectArray()),
                 ])
                 ->query(function (Builder $query, array $data): Builder {
                     return $query->when(
@@ -205,7 +205,7 @@ class EventCategoryResource extends Resource
                 })
                 ->indicateUsing(function (array $data): ?string {
                     if ($data['status']) {
-                        return __('Status') . ' "' . EventCategoryStatus::getDescription($data['status']) . '"';
+                        return __('Status') . ' "' . CategoryStatus::getDescription($data['status']) . '"';
                     }
 
                     return null;

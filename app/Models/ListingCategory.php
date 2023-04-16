@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\ListingCategoryStatus;
+use App\Enums\CategoryStatus;
 use App\Traits\HasUUID;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -86,7 +86,7 @@ class ListingCategory extends Model
      */
     public function scopeActive(Builder $query): void
     {
-        $query->where('status', ListingCategoryStatus::ACTIVE);
+        $query->where('status', CategoryStatus::ACTIVE);
     }
 
     /**

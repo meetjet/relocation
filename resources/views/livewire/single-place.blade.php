@@ -74,6 +74,54 @@
             @endif
         </div>
 
+        {{-- Phones --}}
+        @if($entity->phones)
+            <div class="flex flex-wrap mt-4">
+                <div class="mr-2">
+                    {{ count($entity->phones) === 1 ? __('Phone number') : __('Phone numbers') }}:
+                </div>
+                <div>
+                    @foreach($entity->phones as $_phone)
+                        <div>{{ $_phone['number'] }}</div>
+                    @endforeach
+                </div>
+            </div>
+        @endif
+
+        {{-- Sites --}}
+        @if($entity->sites)
+            <div class="flex flex-wrap mt-4">
+                <div class="mr-2">
+                    {{ count($entity->sites) === 1 ? __('Website') : __('Websites') }}:
+                </div>
+                <div>
+                    @foreach($entity->sites as $_site)
+                        <a class="block py-0.5"
+                           href="{{ $_site['url'] }}"
+                           target="_blank"
+                           rel="nofollow noopener noreferrer">{{ $_site['url'] }}</a>
+                    @endforeach
+                </div>
+            </div>
+        @endif
+
+        {{-- Social media --}}
+        @if($entity->social_media)
+            <div class="flex flex-wrap mt-4">
+                <div class="mr-2">
+                    {{ count($entity->social_media) === 1 ? __('Social network') : __('Social media') }}:
+                </div>
+                <div>
+                    @foreach($entity->social_media as $_media)
+                        <a class="block py-0.5"
+                           href="{{ $_media['url'] }}"
+                           target="_blank"
+                           rel="nofollow noopener noreferrer">{{ \App\Enums\PlaceSocialNetwork::getDescription($_media['network']) }}</a>
+                    @endforeach
+                </div>
+            </div>
+        @endif
+
         @if($entity->tags->count())
             <div class="flex flex-wrap items-center justify-between -m-1 mt-4">
                 <div class="flex space-x-1.5 p-1">
