@@ -5,6 +5,11 @@ namespace Deployer;
 require 'recipe/laravel.php';
 require 'contrib/npm.php';
 
+set('shared_files', [
+    '.env',
+    'auth.json'
+]);
+
 set('application', 'relocation');
 set('repository', 'git@github.com:meetjet/relocation.git');
 set('branch', 'main');
