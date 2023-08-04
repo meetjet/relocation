@@ -11,9 +11,9 @@ set('shared_files', [
 ]);
 
 set('application', 'relocation');
-set('repository', 'git@github.com:meetjet/relocation.git');
+set('repository', 'git@relocation:meetjet/relocation.git');
 set('branch', 'main');
-set('php_fpm_version', '8.1');
+set('php_fpm_version', '8.2');
 set('ssh_multiplexing', false);
 
 host('prod')
