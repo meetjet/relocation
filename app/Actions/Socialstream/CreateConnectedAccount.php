@@ -11,12 +11,12 @@ class CreateConnectedAccount implements CreatesConnectedAccounts
     /**
      * Create a connected account for a given user.
      *
-     * @param  mixed  $user
-     * @param  string  $provider
-     * @param  \Laravel\Socialite\Contracts\User  $providerUser
-     * @return \JoelButcher\Socialstream\ConnectedAccount
+     * @param mixed $user
+     * @param string $provider
+     * @param \Laravel\Socialite\Contracts\User $providerUser
+     * @return mixed
      */
-    public function create($user, string $provider, ProviderUser $providerUser)
+    public function create($user, string $provider, ProviderUser $providerUser): mixed
     {
         return Socialstream::connectedAccountModel()::forceCreate([
             'user_id' => $user->id,
