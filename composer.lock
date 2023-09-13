@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1f3c3404c46bcc7a068dafaacb2b2438",
+    "content-hash": "fa02b537e6314db1b4ff129bb7529a7a",
     "packages": [
         {
             "name": "akaunting/laravel-money",
@@ -1576,6 +1576,56 @@
                 }
             ],
             "time": "2023-06-01T07:04:22+00:00"
+        },
+        {
+            "name": "erusev/parsedown",
+            "version": "1.7.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/erusev/parsedown.git",
+                "reference": "cb17b6477dfff935958ba01325f2e8a2bfa6dab3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/erusev/parsedown/zipball/cb17b6477dfff935958ba01325f2e8a2bfa6dab3",
+                "reference": "cb17b6477dfff935958ba01325f2e8a2bfa6dab3",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8.35"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Parsedown": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Emanuil Rusev",
+                    "email": "hello@erusev.com",
+                    "homepage": "http://erusev.com"
+                }
+            ],
+            "description": "Parser for Markdown.",
+            "homepage": "http://parsedown.org",
+            "keywords": [
+                "markdown",
+                "parser"
+            ],
+            "support": {
+                "issues": "https://github.com/erusev/parsedown/issues",
+                "source": "https://github.com/erusev/parsedown/tree/1.7.x"
+            },
+            "time": "2019-12-30T22:54:17+00:00"
         },
         {
             "name": "filament/filament",
@@ -6492,6 +6542,185 @@
             "time": "2023-04-15T23:01:58+00:00"
         },
         {
+            "name": "roelofjan-elsinga/aloia-cms",
+            "version": "4.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/roelofjan-elsinga/aloia-cms.git",
+                "reference": "3d6bbe1f482a79b737037e356d1dd516ebe681ff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/roelofjan-elsinga/aloia-cms/zipball/3d6bbe1f482a79b737037e356d1dd516ebe681ff",
+                "reference": "3d6bbe1f482a79b737037e356d1dd516ebe681ff",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "illuminate/console": "^8.0|^9.0|^10.0",
+                "illuminate/support": "^8.0|^9.0|^10.0",
+                "php": ">=8.1",
+                "roelofjan-elsinga/content-to-html-parser": "^0.5",
+                "roelofjan-elsinga/sitemap-generator": "^0.5.1",
+                "spatie/yaml-front-matter": "^2.0",
+                "symfony/yaml": "^6.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.8",
+                "mikey179/vfsstream": "^1.6",
+                "orchestra/testbench": "^7.4",
+                "pestphp/pest": "^1.22"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "AloiaCms\\AloiaCmsServiceProvider"
+                    ],
+                    "aliases": {
+                        "Block": "AloiaCms\\Facades\\BlockFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "AloiaCms\\": "src/",
+                    "AloiaCms\\Tests\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roelof Jan Elsinga",
+                    "email": "roelofjanelsinga@gmail.com"
+                }
+            ],
+            "description": "A drop-in flat file CMS for Laravel.",
+            "keywords": [
+                "cms",
+                "file",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/roelofjan-elsinga/aloia-cms/issues",
+                "source": "https://github.com/roelofjan-elsinga/aloia-cms/tree/4.3.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/roelofjan-elsinga",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/roelofjanelsinga",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2023-08-10T14:22:03+00:00"
+        },
+        {
+            "name": "roelofjan-elsinga/content-to-html-parser",
+            "version": "0.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/roelofjan-elsinga/content-to-html-parser.git",
+                "reference": "575b479c265f45c7a401c7eb57ca418d12a04923"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/roelofjan-elsinga/content-to-html-parser/zipball/575b479c265f45c7a401c7eb57ca418d12a04923",
+                "reference": "575b479c265f45c7a401c7eb57ca418d12a04923",
+                "shasum": ""
+            },
+            "require": {
+                "erusev/parsedown": "^1.7",
+                "php": ">=7.2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.0.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ContentParser\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roelof Jan Elsinga",
+                    "email": "roelofjanelsinga@gmail.com"
+                }
+            ],
+            "description": "This package converts content from strings or files to HTML strings to be rendered on a page",
+            "support": {
+                "issues": "https://github.com/roelofjan-elsinga/content-to-html-parser/issues",
+                "source": "https://github.com/roelofjan-elsinga/content-to-html-parser/tree/master"
+            },
+            "time": "2020-02-05T14:47:46+00:00"
+        },
+        {
+            "name": "roelofjan-elsinga/sitemap-generator",
+            "version": "0.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/roelofjan-elsinga/sitemap-generator.git",
+                "reference": "211a6c8c5d4a974654f56c2e6292ec080784b5b8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/roelofjan-elsinga/sitemap-generator/zipball/211a6c8c5d4a974654f56c2e6292ec080784b5b8",
+                "reference": "211a6c8c5d4a974654f56c2e6292ec080784b5b8",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "ext-dom": "*",
+                "ext-libxml": "*",
+                "friendsofphp/php-cs-fixer": "^3.8",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SitemapGenerator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Roelof Jan Elsinga",
+                    "email": "roelofjanelsinga@gmail.com"
+                }
+            ],
+            "description": "This package helps you to very easily generate a sitemap for your website",
+            "support": {
+                "issues": "https://github.com/roelofjan-elsinga/sitemap-generator/issues",
+                "source": "https://github.com/roelofjan-elsinga/sitemap-generator/tree/0.5.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/roelofjan-elsinga",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/roelofjanelsinga",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2022-05-06T06:59:01+00:00"
+        },
+        {
             "name": "ryangjchandler/blade-capture-directive",
             "version": "v0.3.0",
             "source": {
@@ -7933,6 +8162,68 @@
                 }
             ],
             "time": "2023-04-28T07:47:42+00:00"
+        },
+        {
+            "name": "spatie/yaml-front-matter",
+            "version": "2.0.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/yaml-front-matter.git",
+                "reference": "f49f228994de70827ca857efffdd3bd7703aea34"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/yaml-front-matter/zipball/f49f228994de70827ca857efffdd3bd7703aea34",
+                "reference": "f49f228994de70827ca857efffdd3bd7703aea34",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0|^8.0",
+                "symfony/yaml": "^3.0|^4.0|^5.0|^6.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\YamlFrontMatter\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian De Deyne",
+                    "email": "sebastian@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A to the point yaml front matter parser",
+            "homepage": "https://github.com/sebastiandedeyne/yaml-front-matter",
+            "keywords": [
+                "front matter",
+                "jekyll",
+                "spatie",
+                "yaml"
+            ],
+            "support": {
+                "source": "https://github.com/spatie/yaml-front-matter/tree/2.0.7"
+            },
+            "funding": [
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-04-06T12:03:55+00:00"
         },
         {
             "name": "stancl/virtualcolumn",
@@ -10297,6 +10588,78 @@
                 }
             ],
             "time": "2023-08-24T14:51:05+00:00"
+        },
+        {
+            "name": "symfony/yaml",
+            "version": "v6.3.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/yaml.git",
+                "reference": "e23292e8c07c85b971b44c1c4b87af52133e2add"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/e23292e8c07c85b971b44c1c4b87af52133e2add",
+                "reference": "e23292e8c07c85b971b44c1c4b87af52133e2add",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1",
+                "symfony/deprecation-contracts": "^2.5|^3",
+                "symfony/polyfill-ctype": "^1.8"
+            },
+            "conflict": {
+                "symfony/console": "<5.4"
+            },
+            "require-dev": {
+                "symfony/console": "^5.4|^6.0"
+            },
+            "bin": [
+                "Resources/bin/yaml-lint"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Yaml\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Loads and dumps YAML files",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/yaml/tree/v6.3.3"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2023-07-31T07:08:24+00:00"
         },
         {
             "name": "tgalopin/html-sanitizer",
@@ -14078,78 +14441,6 @@
                 }
             ],
             "time": "2023-01-26T09:26:14+00:00"
-        },
-        {
-            "name": "symfony/yaml",
-            "version": "v6.3.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/yaml.git",
-                "reference": "e23292e8c07c85b971b44c1c4b87af52133e2add"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/e23292e8c07c85b971b44c1c4b87af52133e2add",
-                "reference": "e23292e8c07c85b971b44c1c4b87af52133e2add",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.1",
-                "symfony/deprecation-contracts": "^2.5|^3",
-                "symfony/polyfill-ctype": "^1.8"
-            },
-            "conflict": {
-                "symfony/console": "<5.4"
-            },
-            "require-dev": {
-                "symfony/console": "^5.4|^6.0"
-            },
-            "bin": [
-                "Resources/bin/yaml-lint"
-            ],
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Yaml\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Loads and dumps YAML files",
-            "homepage": "https://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/yaml/tree/v6.3.3"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2023-07-31T07:08:24+00:00"
         },
         {
             "name": "theseer/tokenizer",
