@@ -46,5 +46,7 @@ return [
         'redirect' => env('FACEBOOK_REDIRECT'),
     ],
 
-
+    'github' => [
+        'token' => env('GITHUB_TOKEN'),
+    ]
 ];
