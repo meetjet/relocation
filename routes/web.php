@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\PlaceByCategoryController;
 use App\Http\Controllers\SocialLoginController;
 use App\Http\Controllers\EventByTagController;
@@ -24,9 +25,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return redirect('/listings');
-})->name('welcome');
+//Route::get('/', function () {
+//    return redirect('/listings');
+//})->name('welcome');
+
+Route::get('/', [PageController::class, 'index'])->name('welcome');
 
 Route::get('auth/login', [SocialLoginController::class, 'show'])
     ->middleware(['guest:' . config('fortify.guard')])

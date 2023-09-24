@@ -62,12 +62,11 @@
             />
 
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex">
-                {{--<div class="hidden md:block w-60">test</div>--}}
                 <!-- Content -->
                 <div class="flex-1">
                     <div class="pt-4"></div>
-                    <!-- Page Heading -->
                     @if (isset($header))
+                        <!-- Page Heading -->
                         <header>
                             {{ $header }}
                         </header>
