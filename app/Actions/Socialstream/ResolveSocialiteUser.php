@@ -15,7 +15,8 @@ class ResolveSocialiteUser implements ResolvesSocialiteUsers
      * @param  string  $provider
      * @return \Laravel\Socialite\Contracts\User
      */
-    public function resolve($provider)
+
+    public function resolve(string $provider): \Laravel\Socialite\Contracts\User
     {
         try {
             $user = Socialite::driver($provider)->stateless()->user();
