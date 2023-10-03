@@ -8,7 +8,7 @@
                     <!-- Logo -->
                     <div class="shrink-0 flex items-center">
                         <a href="{{ route('welcome') }}">
-                            <x-jet-application-mark class="block h-9 w-auto" />
+                            <x-application-mark class="block h-9 w-auto" />
                         </a>
                     </div>
 
@@ -16,9 +16,9 @@
                     <ul class="hidden lg:flex space-x-4 lg:-my-px lg:ml-10 ">
                         @foreach($menu as $item)
                             <li>
-                                <x-jet-nav-link href="{{ route($item->route_name) }}" :active="request()->routeIs($item->route_name_regex)">
+                                <x-nav-link href="{{ route($item->route_name) }}" :active="request()->routeIs($item->route_name_regex)">
                                     {{ __($item->title) }}
-                                </x-jet-nav-link>
+                                </x-nav-link>
                             </li>
                         @endforeach
                     </ul>
@@ -29,7 +29,7 @@
 
                     <div class="relative">
                         <!-- Country switch -->
-                        <x-jet-dropdown align="right" width="48">
+                        <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
                             <span class="inline-flex rounded-md">
                                 <button
@@ -66,13 +66,13 @@
                             </x-slot>
                             <x-slot name="content">
                                 @foreach($countries as $_country)
-                                    <x-jet-dropdown-link href="{{ $_country['url'] }}"
+                                    <x-dropdown-link href="{{ $_country['url'] }}"
                                                          class="{{ $_country['is_active'] ? 'font-bold' : '' }}">
                                         {{ $_country['name'] }}
-                                    </x-jet-dropdown-link>
+                                    </x-dropdown-link>
                                 @endforeach
                             </x-slot>
-                        </x-jet-dropdown>
+                        </x-dropdown>
                     </div>
 
                     @if (Route::has('login'))
@@ -81,7 +81,7 @@
                                 <!-- Teams Dropdown -->
                                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures() && Auth::user()->currentTeam)
                                     <div class="ml-3 relative">
-                                        <x-jet-dropdown align="right" width="60">
+                                        <x-dropdown align="right" width="60">
                                             <x-slot name="trigger">
                                             <span class="inline-flex rounded-md">
                                                 <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition">
@@ -102,14 +102,14 @@
                                                     </div>
 
                                                     <!-- Team Settings -->
-                                                    <x-jet-dropdown-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}">
+                                                    <x-dropdown-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}">
                                                         {{ __('Team Settings') }}
-                                                    </x-jet-dropdown-link>
+                                                    </x-dropdown-link>
 
                                                     @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
-                                                        <x-jet-dropdown-link href="{{ route('teams.create') }}">
+                                                        <x-dropdown-link href="{{ route('teams.create') }}">
                                                             {{ __('Create New Team') }}
-                                                        </x-jet-dropdown-link>
+                                                        </x-dropdown-link>
                                                     @endcan
 
                                                     <div class="border-t border-gray-100"></div>
@@ -120,17 +120,17 @@
                                                     </div>
 
                                                     @foreach (Auth::user()->allTeams() as $team)
-                                                        <x-jet-switchable-team :team="$team" />
+                                                        <x-switchable-team :team="$team" />
                                                     @endforeach
                                                 </div>
                                             </x-slot>
-                                        </x-jet-dropdown>
+                                        </x-dropdown>
                                     </div>
                                 @endif
 
                                 <!-- Settings Dropdown -->
                                 <div class="ml-3 relative">
-                                    <x-jet-dropdown align="right" width="48">
+                                    <x-dropdown align="right" width="48">
                                         <x-slot name="trigger">
                                             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                                                 <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
@@ -160,9 +160,9 @@
                                         <x-slot name="content">
                                             <!-- Admin panel -->
                                             @if (Auth::user() && Auth::user()->is_admin)
-                                                <x-jet-dropdown-link href="{{ route('filament.pages.dashboard') }}">
+                                                <x-dropdown-link href="{{ route('filament.pages.dashboard') }}">
                                                     {{ __('Admin panel') }}
-                                                </x-jet-dropdown-link>
+                                                </x-dropdown-link>
 
                                                 <div class="border-t border-gray-100"></div>
                                             @endif
@@ -172,14 +172,14 @@
                                                 {{ __('Manage Account') }}
                                             </div>
 
-                                            <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                                            <x-dropdown-link href="{{ route('profile.show') }}">
                                                 {{ __('Profile') }}
-                                            </x-jet-dropdown-link>
+                                            </x-dropdown-link>
 
                                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                                                <x-jet-dropdown-link href="{{ route('api-tokens.index') }}">
+                                                <x-dropdown-link href="{{ route('api-tokens.index') }}">
                                                     {{ __('API Tokens') }}
-                                                </x-jet-dropdown-link>
+                                                </x-dropdown-link>
                                             @endif
 
                                             <div class="border-t border-gray-100"></div>
@@ -188,13 +188,13 @@
                                             <form method="POST" action="{{ route('logout') }}" x-data>
                                                 @csrf
 
-                                                <x-jet-dropdown-link href="{{ route('logout') }}"
+                                                <x-dropdown-link href="{{ route('logout') }}"
                                                                      @click.prevent="$root.submit();">
                                                     {{ __('Log Out') }}
-                                                </x-jet-dropdown-link>
+                                                </x-dropdown-link>
                                             </form>
                                         </x-slot>
-                                    </x-jet-dropdown>
+                                    </x-dropdown>
                                 </div>
                             </div>
                         @else

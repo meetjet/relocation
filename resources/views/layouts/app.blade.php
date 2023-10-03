@@ -51,7 +51,7 @@
         x-data="{ open: false }"
         @resize.window="open = false"
     >
-        <x-jet-banner />
+        <x-banner />
 
         <div class="min-h-screen transition-all duration-300">
             <x-navigation-menu

@@ -26,7 +26,7 @@ class User extends Authenticatable implements FilamentUser, Customer, CanComment
     use HasApiTokens;
     use HasFactory;
     use HasProfilePhoto {
-        getProfilePhotoUrlAttribute as getPhotoUrl;
+        profilePhotoUrl as getPhotoUrl;
     }
     use SoftDeletes;
     use HasTeams;

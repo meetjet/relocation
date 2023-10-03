@@ -27,7 +27,7 @@
         "joelbutcher/socialstream": "^3.8",
         "kalnoy/nestedset": "^6.0",
         "laravel/framework": "9.41.0",
-        "laravel/jetstream": "^2.12",
+        "laravel/jetstream": "^3.0",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "mad-web/laravel-initializer": "^3.4",

@@ -2,6 +2,7 @@
 
 namespace App\Actions\Socialstream;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Log;
 use JoelButcher\Socialstream\Contracts\ResolvesSocialiteUsers;
 use JoelButcher\Socialstream\Socialstream;
@@ -22,7 +23,7 @@ class ResolveSocialiteUser implements ResolvesSocialiteUsers
             $user = Socialite::driver($provider)->stateless()->user();
         } catch (\Throwable $throwable) {
             Log::debug('Socialite provider error: user not resolved: ' . $throwable->getMessage());
-            return null;
+            return new User;
         }
 
         if (Socialstream::generatesMissingEmails()) {
