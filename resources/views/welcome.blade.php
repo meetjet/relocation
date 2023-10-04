@@ -6,4 +6,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>z
+</x-app-layout>
